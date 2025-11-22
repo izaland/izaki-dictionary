@@ -12,27 +12,12 @@ async function loadJSON() {
   }
 }
 
-function squashDiacritics(str) {
-  return str
-    .normalize('NFD')
-    .replace(/[\u0304]/g, '')
-    .normalize('NFC');
+function getOnnufuByCharacter(input) {
+  const char = input.trim();
+  if (!char) return '';
+  if (!byakuzhi[char]) return '';
+  return byakuzhi[char].onnufu;
 }
-
-function getCharactersByOnnufu(input) {
-  input = squashDiacritics(input.trim().toLowerCase());
-  if (!input) return '';
-
-  const matches = [];
-  for (const [char, info] of Object.entries(byakuzhi)) {
-    const reading = squashDiacritics(info.onnufu.toLowerCase());
-    if (reading === input) {
-      matches.push(`${char}(${info.onnufu})`);
-    }
-  }
-  return matches.join(', ');
-}
-
 
 document.addEventListener('DOMContentLoaded', () => {
   loadJSON();
@@ -45,6 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
       output.textContent = 'Loading dictionary...';
       return;
     }
-    output.textContent = getCharactersByOnnufu(input.value) || 'No matches found';
+    output.textContent = getOnnufuByCharacter(input.value) || 'No matches found';
   });
 });
