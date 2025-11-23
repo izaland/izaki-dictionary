@@ -201,12 +201,29 @@ function renderResults() {
   const filtered = data.filter(e => {
     if (lang === "EN") return e.english?.some(w => w.toLowerCase().includes(query));
     if (lang === "IT") return e.italian?.some(w => w.toLowerCase().includes(query));
-    if (lang === "IZ") return e.ipa?.toLowerCase().includes(query) || e.lemma?.toLowerCase().includes(query);
+    if (lang === "IZ") {
+      return (
+        e.lemma?.toLowerCase().includes(query) ||
+        e.ipa?.toLowerCase().includes(query) ||
+        e.ROMAJI?.toLowerCase().includes(query)
+      );
+    }
   });
 
   resultsDiv.innerHTML = filtered.map(e => `
-    <div>
-      <strong>${e.lemma} (${e.ipa})</strong> - EN: ${e.english?.join(", ") || ''}, IT: ${e.italian?.join(", ") || ''} - POS: ${e.pos || ''}
+    <div class="entry">
+      <div class="headword">
+        <span class="lemma">${e.lemma}</span>
+        <span class="ipa">【${e.ipa}】</span>
+        <span class="pos">&lt;${e.pos || "—"}&gt;</span>
+      </div>
+
+      <div class="translations">
+        ${e.english ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
+        ${e.italian ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
+      </div>
+
+      ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
     </div>
   `).join('');
 }
