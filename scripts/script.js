@@ -5,7 +5,7 @@ document.getElementById("navbar").innerHTML = `
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" src="/izaki-dictionary.html">
+            <a class="navbar-item" href="/izaki-dictionary/">
                 <img src = "/izaki-dictionary/assets/Izaland.png"/> Izaki Dictionary
             </a>
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarexpand">
