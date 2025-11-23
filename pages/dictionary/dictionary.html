@@ -1,9 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Izaki Dictionary 華邦語辞典</title>
+<link rel="stylesheet" href="../../assets/bulma.min.css">
+<style>
+  body { padding: 2rem; }
+  #results div { margin-bottom: 0.5rem; padding: 0.3rem; border-bottom: 1px solid #ccc; }
+</style>
+</head>
+<body>
+
+<h1 class="title">Izaki Dictionary 華邦語辞典</h1>
+
+<div class="field">
+  <label class="label">Search 檢索</label>
+  <div class="control">
+    <input class="input" type="text" id="search" placeholder="Type to search...">
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Language 言語</label>
+  <div class="control">
+    <div class="select">
+      <select id="lang">
+        <option value="EN">Ingerish 印語</option>
+        <option value="IT">Plevian 伊語`</option>
+        <option value="IZ">Izaki 華邦語</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div id="results"></div>
+
 <script>
+// === IPA → ROMAJI function ===
+function ipaToRomaji(ipa) {
+  if (!ipa) return '';
+  let romaji = ipa;
+
+  const map = [
+    [/aː/g, 'ā'], [/eː/g, 'ē'], [/iː/g, 'ī'], [/oː/g, 'ō'], [/uː/g, 'ū'],
+    [/a/g, 'a'], [/e/g, 'e'], [/i/g, 'i'], [/o/g, 'o'], [/u/g, 'u'],
+    [/y/g, 'y'], [/w/g, 'w'],
+    [/dz/g, 'Ð'], [/ts/g, 'TS'], [/ʒ/g, 'ZH'], [/dʒ/g, 'J'], [/f/g, 'F'], [/v/g, 'V'],
+    [/k/g, 'K'], [/ɡ/g, 'G'], [/h/g, 'H'], [/l/g, 'L'], [/m/g, 'M'], [/n/g, 'N'],
+    [/p/g, 'P'], [/b/g, 'B'], [/s/g, 'S'], [/t/g, 'T'], [/z/g, 'Z'], [/tɕ/g, 'CH'],
+    [/ʃ/g, 'SH'], [/ɾ/g, 'R'], [/r/g, 'R']
+  ];
+
+  map.forEach(([regex, rep]) => {
+    romaji = romaji.replace(regex, rep);
+  });
+
+  return romaji;
+}
+
+// === Load JSON ===
 fetch('../../data/dictionary.json')
   .then(response => response.json())
   .then(data => {
-    console.log(data); // stampa tutto il dizionario nella console
-    alert(`JSON loaded with ${data.length} entries!`);
+
+    // Add ROMAJI to each entry
+    data.forEach(entry => {
+      entry.ROMAJI = ipaToRomaji(entry.IZ);
+    });
+
+    const searchInput = document.getElementById('search');
+    const langSelect = document.getElementById('lang');
+    const resultsDiv = document.getElementById('results');
+
+    function renderResults() {
+      const query = searchInput.value.toLowerCase();
+      const lang = langSelect.value;
+
+      const filtered = data.filter(e => e[lang]?.toLowerCase().includes(query) || e.IZ?.toLowerCase().includes(query));
+
+      resultsDiv.innerHTML = filtered.map(e => `
+        <div>
+          <strong>${e.IZ} (${e.ROMAJI})</strong> - EN: ${e.EN || ''}, IT: ${e.IT || ''} - POS: ${e.POS || ''}
+        </div>
+      `).join('');
+    }
+
+    searchInput.addEventListener('input', renderResults);
+    langSelect.addEventListener('change', renderResults);
+
+    renderResults(); // inizializza con tutti i risultati
   })
-  .catch(error => console.error("Error loading JSON:", error));
+  .catch(error => console.error("Error loading JSON / JSON 讀૮૾ટ્ટપ્ ૮ૅદ૾દ્발發生!:", error));
 </script>
+
+</body>
+</html>
