@@ -15,7 +15,6 @@ document.getElementById("navbar").innerHTML = `
                 <span aria-hidden="true"></span>
             </a>
         </div>
-
         <div id="navbarexpand" class="navbar-menu">
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Byakuzhi</a>
@@ -27,10 +26,9 @@ document.getElementById("navbar").innerHTML = `
                         Readings
                     </a>
                 </div>
-              <a class="navbar-item" href="/izaki-dictionary/pages/dictionary/index.html">
+              <a class="navbar-item" href="/izaki-dictionary/pages/dictionary/dictionary.html">
     Dictionary
 </a>
-                </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Grammar</a>
