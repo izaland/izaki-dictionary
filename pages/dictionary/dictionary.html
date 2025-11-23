@@ -10,7 +10,7 @@
 
 <style>
   body {
-    background-color: #f7ecd8; /* pergamena */
+    background-color: #f7ecd8;
     font-family: "Merriweather", Georgia, serif;
     margin: 0;
     padding: 0;
@@ -21,13 +21,13 @@
     max-width: 1000px;
     margin: 2rem auto;
     padding: 2rem 3rem;
-    background-color: rgba(255, 250, 230, 0.95); /* leggermente più chiaro del body */
+    background-color: rgba(255, 250, 230, 0.95);
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
   }
 
   h1.title {
-    color: #4b3b2a; /* marrone scuro */
+    color: #4b3b2a;
     font-size: 2.2rem;
     margin-bottom: 2rem;
     text-align: center;
@@ -40,8 +40,9 @@
     font-size: 1rem;
   }
 
-  .input, .select select {
-    background-color: #fff8e0; /* chiaro pergamena */
+  .input,
+  .select select {
+    background-color: #fff8e0;
     border: 1px solid #d4b87c;
     color: #4b3b2a;
     padding: 0.5rem 0.7rem;
@@ -55,6 +56,7 @@
     margin-bottom: 1.5rem;
   }
 
+  /* stile risultati "vecchio", ancora utile */
   #results div {
     margin-bottom: 0.7rem;
     padding: 0.7rem 1rem;
@@ -66,13 +68,13 @@
   }
 
   .lemma {
-    color: #4b2f1e; /* marrone scuro */
+    color: #4b2f1e;
     font-weight: bold;
     font-size: 1.1rem;
   }
 
   .romaji {
-    color: #a55d2d; /* arancione-marrone */
+    color: #a55d2d;
     margin-left: 0.5rem;
     font-style: italic;
   }
@@ -84,12 +86,12 @@
   }
 
   .english {
-    color: #1a3f6b; /* blu scuro */
+    color: #1a3f6b;
     margin-left: 0.5rem;
   }
 
   .italian {
-    color: #3e5a2a; /* verde caldo */
+    color: #3e5a2a;
     margin-left: 0.5rem;
   }
 
@@ -97,6 +99,61 @@
     display: block;
     color: #5e4732;
     margin-top: 0.3rem;
+    font-style: italic;
+  }
+
+  /* ─────────────────────────────────────────────── */
+  /* Nuovo stile ENTRY, HEADWORD, IPA, ecc.          */
+  /* ─────────────────────────────────────────────── */
+
+  .entry {
+    margin-bottom: 1.2rem;
+    padding: 0.9rem 1rem;
+    background-color: rgba(255, 250, 230, 0.85);
+    border-left: 4px solid #d4b87c;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #3e2f1c;
+  }
+
+  .headword {
+    margin-bottom: 0.3rem;
+  }
+
+  .lemma {
+    color: #4b2f1e;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .ipa {
+    margin-left: 0.6rem;
+    color: #7a5e3a;
+    font-style: italic;
+  }
+
+  .pos {
+    margin-left: 0.6rem;
+    color: #5a4529;
+    font-style: italic;
+  }
+
+  .translations div {
+    margin-left: 1rem;
+  }
+
+  .english strong {
+    color: #1a3f6b;
+  }
+
+  .italian strong {
+    color: #3e5a2a;
+  }
+
+  .example {
+    margin-left: 1rem;
+    margin-top: 0.3rem;
+    color: #5e4732;
     font-style: italic;
   }
 </style>
@@ -141,21 +198,6 @@
     <input class="input" type="text" id="search" placeholder="Type to search... 入力ઠૅડા 檢索">
   </div>
 </div>
-
-<div class="field">
-  <label class="label">Language 言語</label>
-  <div class="control">
-    <div class="select">
-      <select id="lang">
-        <option value="EN">Ingerish 印語</option>
-        <option value="IT">Plevian 伊語</option>
-        <option value="IZ">Izaki 華邦語</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-<div id="results"></div>
 
 <script>
 // === IPA → ROMAJI function ===
