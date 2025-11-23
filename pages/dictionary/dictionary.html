@@ -1,0 +1,9 @@
+<script>
+fetch('../data/dictionary.json')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // stampa tutto il dizionario nella console
+    alert(`JSON loaded with ${data.length} entries!`);
+  })
+  .catch(error => console.error("Error loading JSON:", error));
+</script>
