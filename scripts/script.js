@@ -5,7 +5,7 @@ document.getElementById("navbar").innerHTML = `
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="/izaki-dictionary.html">
+            <a class="navbar-item" src="/izaki-dictionary.html">
                 <img src = "/izaki-dictionary/assets/Izaland.png"/> Izaki Dictionary
             </a>
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarexpand">
@@ -20,7 +20,7 @@ document.getElementById("navbar").innerHTML = `
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Byakuzhi</a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" href = "/izaki-dictionary/pages/byakuzhi/lookup.html">
+                    <a class="navbar-item" src = "/izaki-dictionary/pages/byakuzhi/lookup.html">
                         Lookup
                     </a>
                     <a class="navbar-item">
