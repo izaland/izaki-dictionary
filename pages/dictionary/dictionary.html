@@ -65,22 +65,39 @@
     border-radius: 5px;
   }
 
-  #results strong {
-    color: #2e1f10;
+  .lemma {
+    color: #4b2f1e; /* marrone scuro */
+    font-weight: bold;
+    font-size: 1.1rem;
   }
 
-  .result-pos {
+  .romaji {
+    color: #a55d2d; /* arancione-marrone */
+    margin-left: 0.5rem;
+    font-style: italic;
+  }
+
+  .pos {
     font-style: italic;
     color: #7a5e3a;
     margin-left: 0.5rem;
   }
 
-  #results em {
-    color: #5e4732;
+  .english {
+    color: #1a3f6b; /* blu scuro */
+    margin-left: 0.5rem;
   }
 
-  .input::placeholder {
-    color: #7a6b55;
+  .italian {
+    color: #3e5a2a; /* verde caldo */
+    margin-left: 0.5rem;
+  }
+
+  .example {
+    display: block;
+    color: #5e4732;
+    margin-top: 0.3rem;
+    font-style: italic;
   }
 </style>
 </head>
@@ -106,7 +123,7 @@
       <div class="select">
         <select id="lang">
           <option value="EN">English 印語</option>
-          <option value="IT">Italian 伊語</option>
+          <option value="IT">Plevian 伏語</option>
           <option value="IZ">Izaki 華邦語</option>
         </select>
       </div>
@@ -121,7 +138,7 @@
 <div class="field">
   <label class="label">Search 檢索</label>
   <div class="control">
-    <input class="input" type="text" id="search" placeholder="Type to search...">
+    <input class="input" type="text" id="search" placeholder="Type to search... 入力ઠૅડા 檢索">
   </div>
 </div>
 
