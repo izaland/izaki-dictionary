@@ -12,11 +12,21 @@ async function loadJSON() {
   }
 }
 
-function getOnnufuByCharacter(input) {
-  const char = input.trim();
-  if (!char) return '';
-  if (!byakuzhi[char]) return '';
-  return byakuzhi[char].onnufu;
+function getOnnufuByCharacters(input) {
+  const text = input.trim();
+  if (!text) return '';
+
+  let out = [];
+
+  for (const char of text) {
+    if (byakuzhi[char] && byakuzhi[char].onnufu) {
+      out.push(byakuzhi[char].onnufu);
+    } else {
+      out.push('?');
+    }
+  }
+
+  return out.join(' ');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
       output.textContent = 'Loading dictionary...';
       return;
     }
-    output.textContent = getOnnufuByCharacter(input.value) || 'No matches found';
+
+    const result = getOnnufuByCharacters(input.value);
+    output.textContent = result || 'No matches found';
   });
 });
