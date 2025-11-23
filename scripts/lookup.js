@@ -1,7 +1,7 @@
 let byakuzhi = {};
 
 async function loadJSON() {
-  const url = '/data/byakuzhi.json';
+  const url = '/izaki-dictionary/data/byakuzhi.json';
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
