@@ -80,18 +80,22 @@ fetch('../../data/dictionary.json')
     const langSelect = document.getElementById('lang');
     const resultsDiv = document.getElementById('results');
 
-    function renderResults() {
-      const query = searchInput.value.toLowerCase();
-      const lang = langSelect.value;
+function renderResults() {
+  const query = searchInput.value.toLowerCase();
+  const lang = langSelect.value;
 
-      const filtered = data.filter(e => e[lang]?.toLowerCase().includes(query) || e.IZ?.toLowerCase().includes(query));
+  const filtered = data.filter(e => {
+    if (lang === "EN") return e.english?.some(w => w.toLowerCase().includes(query));
+    if (lang === "IT") return e.italian?.some(w => w.toLowerCase().includes(query));
+    if (lang === "IZ") return e.ipa?.toLowerCase().includes(query) || e.lemma?.toLowerCase().includes(query);
+  });
 
-      resultsDiv.innerHTML = filtered.map(e => `
-        <div>
-          <strong>${e.IZ} (${e.ROMAJI})</strong> - EN: ${e.EN || ''}, IT: ${e.IT || ''} - POS: ${e.POS || ''}
-        </div>
-      `).join('');
-    }
+  resultsDiv.innerHTML = filtered.map(e => `
+    <div>
+      <strong>${e.lemma} (${e.ipa})</strong> - EN: ${e.english?.join(", ") || ''}, IT: ${e.italian?.join(", ") || ''} - POS: ${e.pos || ''}
+    </div>
+  `).join('');
+}
 
     searchInput.addEventListener('input', renderResults);
     langSelect.addEventListener('change', renderResults);
