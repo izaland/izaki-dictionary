@@ -27,6 +27,10 @@ document.getElementById("navbar").innerHTML = `
                         Readings
                     </a>
                 </div>
+              <a class="navbar-item" href="/izaki-dictionary/pages/dictionary/index.html">
+    Dictionary
+</a>
+                </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Grammar</a>
