@@ -20,7 +20,7 @@ document.getElementById("navbar").innerHTML = `
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Byakuzhi</a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" src = "/izaki-dictionary/pages/byakuzhi/lookup.html">
+                    <a class="navbar-item" href = "/izaki-dictionary/pages/byakuzhi/lookup.html">
                         Lookup
                     </a>
                     <a class="navbar-item">
