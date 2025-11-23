@@ -9,15 +9,71 @@
 <link rel="stylesheet" href="../../assets/bulma.min.css">
 
 <style>
-  body { padding: 2rem; }
-  #results div { margin-bottom: 0.5rem; padding: 0.3rem; border-bottom: 1px solid #ccc; }
+  body { 
+    background-color: #fdf6e3; /* giallino pergamena */
+    font-family: sans-serif;
+    margin: 0;
+    padding: 2rem 0;
+  }
+
+  #container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fffef2; /* leggermente più chiaro all’interno */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  #results div { 
+    margin-bottom: 0.5rem; 
+    padding: 0.5rem; 
+    border-bottom: 1px solid #ccc; 
+  }
+
+  h1.title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .field {
+    margin-bottom: 1rem;
+  }
 </style>
+
 </head>
 <body>
 
 <!-- Navbar -->
 <div id="navbar"></div>
 <script src="/izaki-dictionary/scripts/script.js"></script>
+
+  <div id="container">
+  <h1 class="title">Izaki Dictionary 華邦語辞典</h1>
+
+  <div class="field">
+    <label class="label">Search 檢索</label>
+    <div class="control">
+      <input class="input" type="text" id="search" placeholder="Type to search...">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Language 言語</label>
+    <div class="control">
+      <div class="select">
+        <select id="lang">
+          <option value="EN">English 印語</option>
+          <option value="IT">Italian 伊語</option>
+          <option value="IZ">Izaki 華邦語</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="results"></div>
+</div>
 
 <h1 class="title">Izaki Dictionary 華邦語辞典</h1>
 
