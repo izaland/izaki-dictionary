@@ -13,20 +13,21 @@ async function loadJSON() {
 }
 
 function getOnnufuByCharacters(input) {
-  const text = input.trim();
-  if (!text) return '';
+  if (!input) return '';
 
-  let out = [];
+  let out = '';
 
-  for (const char of text) {
-    if (byakuzhi[char] && byakuzhi[char].onnufu) {
-      out.push(byakuzhi[char].onnufu);
+  for (const char of input) {
+    if (char === ' ') {
+      out += ' ';
+    } else if (byakuzhi[char] && byakuzhi[char].onnufu) {
+      out += byakuzhi[char].onnufu;
     } else {
-      out.push('?');
+      out += '?';
     }
   }
 
-  return out.join(' ');
+  return out;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const result = getOnnufuByCharacters(input.value);
-    output.textContent = result || 'No matches found';
+    output.textContent = getOnnufuByCharacters(input.value);
   });
 });
