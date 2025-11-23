@@ -9,39 +9,80 @@
 <link rel="stylesheet" href="../../assets/bulma.min.css">
 
 <style>
-  body { 
-    background-color: #fdf6e3; /* giallino pergamena */
-    font-family: sans-serif;
+  body {
+    background-color: #f7ecd8; /* pergamena */
+    font-family: "Merriweather", Georgia, serif;
     margin: 0;
-    padding: 2rem 0;
+    padding: 0;
   }
 
   #container {
     width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #fffef2; /* leggermente più chiaro all’interno */
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-
-  #results div { 
-    margin-bottom: 0.5rem; 
-    padding: 0.5rem; 
-    border-bottom: 1px solid #ccc; 
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem 3rem;
+    background-color: rgba(255, 250, 230, 0.95); /* leggermente più chiaro del body */
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
   }
 
   h1.title {
-    text-align: center;
+    color: #4b3b2a; /* marrone scuro */
+    font-size: 2.2rem;
     margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff8e0;
+  }
+
+  label.label {
+    color: #4b3b2a;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .input, .select select {
+    background-color: #fff8e0; /* chiaro pergamena */
+    border: 1px solid #d4b87c;
+    color: #4b3b2a;
+    padding: 0.5rem 0.7rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .field {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  #results div {
+    margin-bottom: 0.7rem;
+    padding: 0.7rem 1rem;
+    border-left: 4px solid #d4b87c;
+    background-color: rgba(255, 250, 230, 0.85);
+    color: #3e2f1c;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+
+  #results strong {
+    color: #2e1f10;
+  }
+
+  .result-pos {
+    font-style: italic;
+    color: #7a5e3a;
+    margin-left: 0.5rem;
+  }
+
+  #results em {
+    color: #5e4732;
+  }
+
+  .input::placeholder {
+    color: #7a6b55;
   }
 </style>
-
 </head>
 <body>
 
