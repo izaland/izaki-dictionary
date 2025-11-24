@@ -54,15 +54,21 @@ function applySRules(prev, next) {
   }
 }
 
-// Fusione -ku + K/H
+// Fusione -ku/-ki + K/H per letture lunghe (>=3 sillabe)
 function applyKuRules(prev, next) {
   if (!prev || !next) return next;
 
-  if (prev.endsWith('ku') && /^[kh]/i.test(next)) {
-    let base = prev.slice(0,-1); // tolgo u finale
+  // Controllo lunghezza: almeno 3 sillabe prima di applicare
+  if (prev.length < 3) return next;
+
+  // Regola solo per prev che termina in 'ku' o 'ki'
+  if (/k[ui]$/i.test(prev) && /^[kh]/i.test(next)) {
+    let base = prev.slice(0, -1); // tolgo u o i finale
+    // Se next inizia con h → diventa k
     if (/^h/i.test(next)) {
       next = 'k' + next.slice(1);
     }
+    // Combino senza duplicare prev
     return base + next;
   }
 
