@@ -1,5 +1,8 @@
 let byakuzhi = {};
 
+// ---------------------------
+// Caricamento JSON
+// ---------------------------
 async function loadJSON() {
   const url = '/izaki-dictionary/data/byakuzhi.json';
   try {
@@ -12,69 +15,78 @@ async function loadJSON() {
   }
 }
 
-// Regole fonetiche base (N davanti a vocale/semi-vocale, N+R)
-function applyPhoneticRules(prev, next) {
-  if (!prev || !next) return next;
+// ---------------------------
+// Regole fonetiche base
+// ---------------------------
+function applyPhoneticRules(prevChar, nextChar) {
+  if (!prevChar || !nextChar) return nextChar;
+  let modified = nextChar;
 
-  let modified = next;
-
-  if (prev.endsWith('n') && /^[aeiouwy]/i.test(next)) {
-    modified = 'n' + next;
+  // N finale raddoppia se la prossima lettura inizia con vocale o semivocale (w, y)
+  if (prevChar.endsWith('n') && /^[aeiouwy]/i.test(nextChar)) {
+    modified = 'n' + nextChar;
   }
 
-  if (prev.endsWith('n') && next.startsWith('r')) {
-    modified = 'l' + next.slice(1);
+  // N finale davanti a R → L
+  if (prevChar.endsWith('n') && nextChar.startsWith('r')) {
+    modified = 'l' + nextChar.slice(1);
   }
 
   return modified;
 }
 
-// Regole per -s finale
+// ---------------------------
+// Regole S finale
+// ---------------------------
 function applySRules(prev, next) {
   if (!prev || !next) return next;
-
   if (!prev.endsWith('s')) return next;
 
-  const first = next.slice(0,2).toLowerCase(); // per ch, ts, dz, zh
-  let rest = next.slice(first.length);
+  const firstNext = next.slice(0, 2); // controllo affricate di 2 lettere
+  const firstNext1 = next.charAt(0);
 
-  switch(first) {
-    case 'b': return 'sp' + rest;
-    case 'd': return 'st' + rest;
-    case 'g': return 'sk' + rest;
-    case 'j': return 'cch' + rest;
-    case 'ch': return 'cch' + rest;
-    case 'r': return 'l' + rest;
-    case 'ts': return 'tts' + rest;
-    case 'v': return 'sf' + rest;
-    case 'z': return 'tts' + rest;
-    case 'dz': return 'tts' + rest;
-    case 'zh': return 'ssh' + rest;
-    default: return next;
+  switch (firstNext) {
+    case 'ch': return 'cch' + next.slice(2);
+    case 'ts': return 'tts' + next.slice(2);
+    case 'dz': return 'tts' + next.slice(2);
+    case 'zh': return 'ssh' + next.slice(2);
   }
+
+  switch (firstNext1) {
+    case 'b': return 'sp' + next.slice(1);
+    case 'd': return 'st' + next.slice(1);
+    case 'g': return 'sk' + next.slice(1);
+    case 'j': return 'cch' + next.slice(1);
+    case 'r': return 'sl' + next.slice(1);
+    case 'v': return 'sf' + next.slice(1);
+    case 'z': return 'tts' + next.slice(1);
+  }
+
+  return next;
 }
 
-// Fusione -ku/-ki + K/H per letture lunghe (>=3 sillabe)
+// ---------------------------
+// Fusione -ku/-ki + K/H
+// ---------------------------
 function applyKuRules(prev, next) {
   if (!prev || !next) return next;
-
-  // Controllo lunghezza: almeno 3 sillabe prima di applicare
+  // solo se prev >= 3 sillabe
   if (prev.length < 3) return next;
 
-  // Regola solo per prev che termina in 'ku' o 'ki'
-  if (/k[ui]$/i.test(prev) && /^[kh]/i.test(next)) {
+  if ((prev.endsWith('ku') || prev.endsWith('ki')) && /^[kh]/i.test(next)) {
     let base = prev.slice(0, -1); // tolgo u o i finale
-    // Se next inizia con h → diventa k
     if (/^h/i.test(next)) {
       next = 'k' + next.slice(1);
     }
-    // Combino senza duplicare prev
     return base + next;
   }
 
   return next;
 }
 
+// ---------------------------
+// Funzione principale
+// ---------------------------
 function getOnnufuByCharacters(input) {
   if (!input) return '';
 
@@ -93,18 +105,32 @@ function getOnnufuByCharacters(input) {
       current = byakuzhi[char].onnufu;
     }
 
-    // Applica regole fonetiche
-    current = applyPhoneticRules(prev, current);
-    current = applySRules(prev, current);
-    current = applyKuRules(prev, current);
+    // Regole fonetiche base
+    if (prev) {
+      current = applyPhoneticRules(prev, current);
+      current = applySRules(prev, current);
+      const fused = applyKuRules(prev, current);
 
-    out += current;
+      if (fused !== current) {
+        // rimuovo la lettura precedente dal risultato parziale
+        out = out.slice(0, -prev.length) + fused;
+        current = fused;
+      } else {
+        out += current;
+      }
+    } else {
+      out += current;
+    }
+
     prev = current;
   }
 
   return out;
 }
 
+// ---------------------------
+// Event listener
+// ---------------------------
 document.addEventListener('DOMContentLoaded', () => {
   loadJSON();
 
@@ -116,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
       output.textContent = 'Loading dictionary...';
       return;
     }
-
     output.textContent = getOnnufuByCharacters(input.value);
   });
 });
