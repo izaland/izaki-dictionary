@@ -4,7 +4,7 @@ let byakuzhi = {};
 // Carica JSON con le letture
 // -----------------------------
 async function loadJSON() {
-  const url = '/izaki-dictionary/data/byakuzhi.json'; // assicurati che il percorso sia corretto
+  const url = '../../data/byakuzhi.json'; // assicurati che il percorso sia corretto
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
