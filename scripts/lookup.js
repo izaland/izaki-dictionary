@@ -12,23 +12,61 @@ async function loadJSON() {
   }
 }
 
-// Funzione che applica le due regole fonetiche iniziali
-function applyPhoneticRules(prevChar, nextChar) {
-  if (!prevChar || !nextChar) return nextChar;
+// Regole fonetiche base (N davanti a vocale/semi-vocale, N+R)
+function applyPhoneticRules(prev, next) {
+  if (!prev || !next) return next;
 
-  let modified = nextChar;
+  let modified = next;
 
-  // N finale raddoppia se la prossima lettura inizia con vocale o semivocale (w, y)
-  if (prevChar.endsWith('n') && /^[aeiouwy]/i.test(nextChar)) {
-    modified = 'n' + nextChar;
+  if (prev.endsWith('n') && /^[aeiouwy]/i.test(next)) {
+    modified = 'n' + next;
   }
 
-
-  // N finale davanti a R → L
-  if (prevChar.endsWith('n') && nextChar.startsWith('r')) {
-    modified = 'l' + nextChar.slice(1);
+  if (prev.endsWith('n') && next.startsWith('r')) {
+    modified = 'l' + next.slice(1);
   }
+
   return modified;
+}
+
+// Regole per -s finale
+function applySRules(prev, next) {
+  if (!prev || !next) return next;
+
+  if (!prev.endsWith('s')) return next;
+
+  const first = next.slice(0,2).toLowerCase(); // per ch, ts, dz, zh
+  let rest = next.slice(first.length);
+
+  switch(first) {
+    case 'b': return 'sp' + rest;
+    case 'd': return 'st' + rest;
+    case 'g': return 'sk' + rest;
+    case 'j': return 'cch' + rest;
+    case 'ch': return 'cch' + rest;
+    case 'r': return 'l' + rest;
+    case 'ts': return 'tts' + rest;
+    case 'v': return 'sf' + rest;
+    case 'z': return 'tts' + rest;
+    case 'dz': return 'tts' + rest;
+    case 'zh': return 'ssh' + rest;
+    default: return next;
+  }
+}
+
+// Fusione -ku + K/H
+function applyKuRules(prev, next) {
+  if (!prev || !next) return next;
+
+  if (prev.endsWith('ku') && /^[kh]/i.test(next)) {
+    let base = prev.slice(0,-1); // tolgo u finale
+    if (/^h/i.test(next)) {
+      next = 'k' + next.slice(1);
+    }
+    return base + next;
+  }
+
+  return next;
 }
 
 function getOnnufuByCharacters(input) {
@@ -49,44 +87,10 @@ function getOnnufuByCharacters(input) {
       current = byakuzhi[char].onnufu;
     }
 
-    // --- Regole per la S finale ---
-if (prevChar.endsWith('s')) {
-    // Prima consonante del prossimo segmento
-    const firstNext = nextChar.charAt(0);
-
-    // Regole di assimilazione
-    switch (firstNext) {
-        case 'b': nextChar = 'p' + nextChar.slice(1); break;  // s + b → sp
-        case 'd': nextChar = 't' + nextChar.slice(1); break;  // s + d → st
-        case 'g': nextChar = 'k' + nextChar.slice(1); break;  // s + g → sk
-        case 'j': nextChar = 'cch' + nextChar.slice(1); break; // s + j → cch
-        case 'ch': nextChar = 'cch' + nextChar.slice(2); break; // s + ch → cch
-        case 'r': nextChar = 'l' + nextChar.slice(1); break;  // s + r → sl
-        case 'ts': nextChar = 'tts' + nextChar.slice(2); break; // s + ts → tts
-        case 'v': nextChar = 'f' + nextChar.slice(1); break;  // s + v → sf
-        case 'z': nextChar = 'tts' + nextChar.slice(1); break; // s + z → tts
-        case 'dz': nextChar = 'tts' + nextChar.slice(2); break; // s + dz → tts
-        case 'zh': nextChar = 'ssh' + nextChar.slice(2); break; // s + zh → ssh
-    }
-}
-
-    // --- Fusione di -ku finale + K/H iniziale ---
-if (prevChar.endsWith('ku') && /^[k|h]/i.test(nextChar)) {
-    // Rimuovo la U finale di "ku"
-    prevChar = prevChar.slice(0, -1);
-    // Se la prossima lettura inizia con h → diventa K
-    if (/^h/i.test(nextChar)) {
-        nextChar = 'k' + nextChar.slice(1);
-    }
-    // Combino
-    nextChar = prevChar + nextChar;
-}
-
-
-    // Applica le regole fonetiche
-    if (prev) {
-      current = applyPhoneticRules(prev, current);
-    }
+    // Applica regole fonetiche
+    current = applyPhoneticRules(prev, current);
+    current = applySRules(prev, current);
+    current = applyKuRules(prev, current);
 
     out += current;
     prev = current;
