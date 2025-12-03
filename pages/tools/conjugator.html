@@ -174,11 +174,11 @@
             const affirmative = stem + person.ending;
             const negative = stem + 'na' + person.ending;
             tableRows += `
-                <tr>
-                    <td>${person.label}</td>
-                    <td class="affirmative">[translate:${affirmative}]</td>
-                    <td class="negative">[translate:${negative}]</td>
-                </tr>
+    <tr>
+        <td>${person.label}</td>
+        <td class="affirmative">${affirmative}</td>
+        <td class="negative">${negative}</td>
+    </tr>
             `;
         });
 
