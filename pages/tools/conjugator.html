@@ -69,7 +69,7 @@
     // STEP 2: Load dictionary JSON and filter only verbs
     async function loadDictionary() {
         try {
-            const response = await fetch('../../../data/dictionary.json');
+            const response = await fetch('../../data/dictionary.json');
             if (!response.ok) {
                 console.error('HTTP error while loading dictionary:', response.status, response.statusText);
                 return [];
