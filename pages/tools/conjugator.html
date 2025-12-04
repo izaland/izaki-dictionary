@@ -1,197 +1,42 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Izaki Verb Conjugator | Izaki Dictionary</title>
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            max-width: 900px; margin: 2rem auto; padding: 1rem; line-height: 1.6;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem;
+            line-height: 1.6;
         }
-        .autocomplete { 
-            position: relative; width: 100%; max-width: 400px; 
+        .autocomplete {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
         }
-        input { 
-            width: 100%; padding: 0.75rem; font-size: 1.1rem; 
-            border: 2px solid #ddd; border-radius: 8px; 
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
         }
-        .suggestions { 
-            position: absolute; top: 100%; left: 0; right: 0; 
-            background: white; border: 1px solid #ddd; border-top: none; 
-            max-height: 200px; overflow-y: auto; z-index: 1000;
-            border-radius: 0 0 8px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        .suggestion { 
-            padding: 0.75rem; cursor: pointer; border-bottom: 1px solid #f0f0f0;
-        }
-        .suggestion:hover, .suggestion.selected { background: #f8f9fa; }
-        .conjugation-table { 
-            margin-top: 2rem; background: #f8f9ff; padding: 1.5rem; 
-            border-radius: 12px; border-left: 5px solid #007bff;
-        }
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e9ecef; }
-        th { background: #e3f2fd; font-weight: 600; }
-        .affirmative { color: #28a745; font-weight: 500; }
-        .negative { color: #dc3545; font-style: italic; }
-        .back-link { margin-bottom: 2rem; }
-        h1 { color: #1a1a1a; }
-        .loading { color: #666; font-style: italic; }
-    </style>
-</head>
-<body>
-    <a href="../.." class="back-link">← Home Izaki Dictionary</a>
-    
-    <h1>🗣️ Izaki Verb Conjugator</h1>
-    <p>Group 1 • Present simple (affirmative + negative)</p>
-    
-    <div class="autocomplete">
-        <input type="text" id="verbInput" placeholder="Type an Izaki verb (e.g. kieresu, kadasu)..." autocomplete="off" />
-        <div id="suggestions" class="suggestions" style="display: none;"></div>
-    </div>
-    
-    <div id="result" class="conjugation-table" style="display: none;">
-        <h3 id="verbTitle"></h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Person</th>
-                    <th>Affirmative</th>
-                    <th>Negative</th>
-                </tr>
-            </thead>
-            <tbody id="conjugationTable"></tbody>
-        </table>
-    </div>
-
- <script>
-    // STEP 2: Load dictionary JSON and filter only verbs
-    async function loadDictionary() {
-        try {
-            const response = await fetch('../../data/dictionary.json');
-            if (!response.ok) {
-                console.error('HTTP error while loading dictionary:', response.status, response.statusText);
-                return [];
-            }
-
-            const data = await response.json();
-            console.log('Total entries in dictionary.json:', data.length);
-
-            // More tolerant verb filter:
-            // - pos must exist
-            // - and contain the letter 'v' (for ": v =")
-            const verbs = data.filter(item => 
-                item.pos && item.pos.toLowerCase().includes('v')
-            );
-
-            console.log('Filtered verb entries:', verbs.length);
-            if (verbs.length > 0) {
-                console.log('Sample verb entry:', verbs[0]);
-            }
-
-            return verbs;
-        } catch (error) {
-            console.error('Error loading dictionary:', error);
-            return [];
-        }
-    }
-
-    let dictionary = [];
-    let selectedVerb = '';
-
-    // STEP 3: Autocomplete suggestions as user types
-    document.getElementById('verbInput').addEventListener('input', function () {
-        const query = this.value.toLowerCase();
-        const suggestionsDiv = document.getElementById('suggestions');
-        
-        if (query.length < 2) {
-            suggestionsDiv.style.display = 'none';
-            return;
-        }
-
-        // Filter verbs whose lemma contains the query substring
-        const matches = dictionary.filter(verb => 
-            verb.lemma.toLowerCase().includes(query)
-        ).slice(0, 8); // max 8 suggestions
-
-        if (matches.length === 0) {
-            suggestionsDiv.style.display = 'none';
-            return;
-        }
-
-        suggestionsDiv.innerHTML = matches.map(verb => 
-            `<div class="suggestion" onclick="selectVerb('${verb.lemma}')">${verb.lemma}</div>`
-        ).join('');
-        suggestionsDiv.style.display = 'block';
-    });
-
-    // Select a verb from suggestions - triggers conjugation output
-    window.selectVerb = function (lemma) {
-        selectedVerb = lemma;
-        document.getElementById('verbInput').value = lemma;
-        document.getElementById('suggestions').style.display = 'none';
-        conjugateVerb(lemma);
-    };
-
-    // On Enter keypress: If exact verb, conjugate it
-    document.getElementById('verbInput').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            const query = this.value.trim().toLowerCase();
-            const matched = dictionary.find(v => v.lemma.toLowerCase() === query);
-            if (matched) {
-                selectVerb(matched.lemma);
-            }
-        }
-    });
-
-    // STEP 4: Conjugation logic for Group 1 verbs only (present simple affirmative + negative)
-    function conjugateVerb(lemma) {
-        const verb = dictionary.find(v => v.lemma === lemma);
-
-        // Basic check: verb must end with 'su' to be considered Group 1
-        if (!verb || !verb.lemma.endsWith('su')) {
-            document.getElementById('result').innerHTML = '<p>❌ Verb not found or does not end in -su</p>';
-            document.getElementById('result').style.display = 'block';
-            return;
-        }
-
-        // Remove 'su' ending for stem
-        const stem = verb.lemma.slice(0, -2);
-
-        // Personal suffixes and negative (insert 'na' before suffix)
-        const persons = [
-            { num: 1, label: 'Nai (I)', ending: 'n' },
-            { num: 2, label: 'Sai (you sg)', ending: 's' },
-            { num: 3, label: 'Han (he/she)', ending: '' },
-            { num: 4, label: 'Naiin (we)', ending: 'nne' },
-            { num: 5, label: 'Saiin (you pl)', ending: 'sse' },
-            { num: 6, label: 'Hannu (they)', ending: 'han' }
-        ];
-
-        let tableRows = '';
-        persons.forEach(person => {
-            const affirmative = stem + person.ending;
-            const negative = stem + 'na' + person.ending;
-            tableRows += `
-    <tr>
-        <td>${person.label}</td>
-        <td class="affirmative">${affirmative}</td>
-        <td class="negative">${negative}</td>
-    </tr>
-            `;
-        });
-
-        document.getElementById('verbTitle').textContent = `${lemma} (${verb.english?.[0] || 'to ?'})`;
-        document.getElementById('conjugationTable').innerHTML = tableRows;
-        document.getElementById('result').style.display = 'block';
-    }
-
-    // STEP 5: Initialize dictionary on page load and report count
-    window.onload = async function () {
-        dictionary = await loadDictionary();
-        console.log(`Dictionary loaded in page context. Verbs available: ${dictionary.length}`);
-    };
-</script>
-</body>
-</html>
+        .suggestion {
+            padding
