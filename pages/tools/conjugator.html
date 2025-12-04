@@ -88,8 +88,9 @@
 <body>
     <a href="../.." class="back-link">← Home Izaki Dictionary</a>
 
-    <h1>🗣️ Izaki Verb Conjugator</h1>
-    <p>Group 1 • Present simple (affirmative + negative)</p>
+    <h1>🗣️ Izaki Verb Conjugator / 華邦語動詞活用表</h1>
+    <p>Group 1 • Present simple (affirmative + negative)<br>
+       第一集団・現在形（肯定形＋否定形）</p>
 
     <div class="autocomplete">
         <input
@@ -106,238 +107,304 @@
         <table>
             <thead>
                 <tr>
-                    <th>Person</th>
-                    <th>Affirmative</th>
-                    <th>Negative</th>
+                    <th>Person 人称</th>
+                    <th>Affirmative 肯定形</th>
+                    <th>Negative 否定形</th>
                 </tr>
             </thead>
             <tbody id="conjugationTable"></tbody>
         </table>
     </div>
 
- <script>
-    // ==============================
-    // 1. Caricamento dizionario
-    // ==============================
-    async function loadDictionary() {
-        try {
-            const response = await fetch('../../data/dictionary.json');
-            if (!response.ok) {
-                console.error(
-                    'HTTP error while loading dictionary:',
-                    response.status,
-                    response.statusText
+    <script>
+        // ==============================
+        // 1. Caricamento dizionario
+        // ==============================
+        async function loadDictionary() {
+            try {
+                const response = await fetch('../../data/dictionary.json');
+                if (!response.ok) {
+                    console.error(
+                        'HTTP error while loading dictionary:',
+                        response.status,
+                        response.statusText
+                    );
+                    return [];
+                }
+
+                const data = await response.json();
+                console.log('Total entries in dictionary.json:', data.length);
+
+                const verbs = data.filter(
+                    (item) => item.pos && item.pos.toLowerCase().includes('v')
                 );
+
+                console.log('Filtered verb entries:', verbs.length);
+                return verbs;
+            } catch (error) {
+                console.error('Error loading dictionary:', error);
                 return [];
             }
-
-            const data = await response.json();
-            console.log('Total entries in dictionary.json:', data.length);
-
-            const verbs = data.filter(
-                (item) => item.pos && item.pos.toLowerCase().includes('v')
-            );
-
-            console.log('Filtered verb entries:', verbs.length);
-            return verbs;
-        } catch (error) {
-            console.error('Error loading dictionary:', error);
-            return [];
         }
-    }
 
-    let dictionary = [];
-    let selectedVerb = '';
+        let dictionary = [];
+        let selectedVerb = '';
 
-    // ==============================
-    // 2. Autocomplete
-    // ==============================
-    document
-        .getElementById('verbInput')
-        .addEventListener('input', function () {
-            const query = this.value.toLowerCase();
-            const suggestionsDiv = document.getElementById('suggestions');
+        // ==============================
+        // 2. Autocomplete
+        // ==============================
+        document
+            .getElementById('verbInput')
+            .addEventListener('input', function () {
+                const query = this.value.toLowerCase();
+                const suggestionsDiv = document.getElementById('suggestions');
 
-            if (query.length < 2) {
-                suggestionsDiv.style.display = 'none';
-                return;
+                if (query.length < 2) {
+                    suggestionsDiv.style.display = 'none';
+                    return;
+                }
+
+                const matches = dictionary
+                    .filter((verb) => verb.lemma.toLowerCase().includes(query))
+                    .slice(0, 8);
+
+                if (matches.length === 0) {
+                    suggestionsDiv.style.display = 'none';
+                    return;
+                }
+
+                suggestionsDiv.innerHTML = matches
+                    .map(
+                        (verb) =>
+                            `<div class="suggestion" onclick="selectVerb('${verb.lemma}')">${verb.lemma}</div>`
+                    )
+                    .join('');
+                suggestionsDiv.style.display = 'block';
+            });
+
+        window.selectVerb = function (lemma) {
+            selectedVerb = lemma;
+            document.getElementById('verbInput').value = lemma;
+            document.getElementById('suggestions').style.display = 'none';
+            conjugateVerb(lemma);
+        };
+
+        document
+            .getElementById('verbInput')
+            .addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    const query = this.value.trim().toLowerCase();
+                    const matched = dictionary.find(
+                        (v) => v.lemma.toLowerCase() === query
+                    );
+                    if (matched) {
+                        selectVerb(matched.lemma);
+                    }
+                }
+            });
+
+        // ==============================
+        // 3. Analisi del tipo di verbo (G1 / G2 / G3)
+        // ==============================
+
+        const VOWELS = ['a', 'e', 'i', 'o', 'u', 'y', 'w'];
+
+        // 1–3: analisi a ritroso su lemma in -su
+        function detectVerbGroup(lemma) {
+            if (!lemma.endsWith('su')) return null;
+
+            const chars = lemma.split('');
+            const len = chars.length;
+
+            // ... x y s u
+            const beforeSu = chars[len - 3]; // subito prima di "su"
+
+            // 2. se prima di su c'è una consonante → sicuramente NON 2°, è 3°
+            if (!VOWELS.includes(beforeSu)) {
+                return 'G3';
             }
 
-            const matches = dictionary
-                .filter((verb) => verb.lemma.toLowerCase().includes(query))
-                .slice(0, 8);
+            // se qui c'è una vocale → può essere 1° o 2°
+            const beforeV = chars[len - 4]; // carattere prima della vocale
 
-            if (matches.length === 0) {
-                suggestionsDiv.style.display = 'none';
-                return;
+            if (!beforeV) {
+                // verbo troppo corto, per sicurezza mettiamo G1
+                return 'G1';
             }
 
-            suggestionsDiv.innerHTML = matches
-                .map(
-                    (verb) =>
-                        `<div class="suggestion" onclick="selectVerb('${verb.lemma}')">${verb.lemma}</div>`
-                )
-                .join('');
-            suggestionsDiv.style.display = 'block';
-        });
+            // 3. se c'è una consonante → 1° gruppo; se vocale → 2° gruppo
+            if (VOWELS.includes(beforeV)) {
+                return 'G2';
+            } else {
+                return 'G1';
+            }
+        }
 
-    window.selectVerb = function (lemma) {
-        selectedVerb = lemma;
-        document.getElementById('verbInput').value = lemma;
-        document.getElementById('suggestions').style.display = 'none';
-        conjugateVerb(lemma);
-    };
+        // ==============================
+        // 4. Gradazione / weak stem per il gruppo 1
+        // ==============================
 
-    document
-        .getElementById('verbInput')
-        .addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                const query = this.value.trim().toLowerCase();
-                const matched = dictionary.find(
-                    (v) => v.lemma.toLowerCase() === query
-                );
-                if (matched) {
-                    selectVerb(matched.lemma);
+        // mappa sonora → sorda
+        const voicedToVoiceless = {
+            g: 'k',
+            d: 't',
+            b: 'p',
+            v: 'f',
+            j: 'ch',
+            z: 's',
+            zh: 'sh',
+            'ð': 'ts'
+        };
+
+        // 4 + 5: analisi a ritroso per costruire il weak stem del G1
+        // Schema target: ... U S V C  → weak stem: ... (C devoicizzata) come finale
+        function buildGroup1WeakStem(lemma) {
+            // togli "su" → base della radice
+            let base = lemma.slice(0, -2); // kadasu → kada ; rigusu → rigu
+            const len = base.length;
+            if (len < 2) return base;
+
+            const chars = base.split('');
+
+            const last = chars[len - 1];
+            const beforeLast = chars[len - 2];
+
+            // Caso principale per G1 secondo il tuo schema:
+            // prima di "su" abbiamo V C; ora siamo in base: ... V C
+            // vogliamo rimuovere la vocale (beforeLast) e rendere sorda la C (last)
+            if (!VOWELS.includes(last) && VOWELS.includes(beforeLast)) {
+                const c = last;
+                const devoiced = voicedToVoiceless[c] || c;
+                // base: ... X V C → weak: ... X C(devoiced)
+                const stemCore = base.slice(0, -2); // tutto tranne V C finali
+                const weak = stemCore + devoiced;
+                return weak;
+            }
+
+            // fallback: prova gradazione interna tipo ... V C V → V C(voiceless) V
+            if (len >= 3) {
+                const cIndex = len - 2;
+                const prev = chars[cIndex - 1];
+                const c = chars[cIndex];
+                const next = chars[cIndex + 1];
+
+                if (
+                    VOWELS.includes(prev) &&
+                    VOWELS.includes(next) &&
+                    voicedToVoiceless[c]
+                ) {
+                    chars[cIndex] = voicedToVoiceless[c];
+                    return chars.join('');
                 }
             }
-        });
 
-    // ==============================
-    // 3. Fonologia di base
-    // ==============================
-    const VOWELS = ['a', 'e', 'i', 'o', 'u', 'y', 'w'];
-
-    const voicedToVoiceless = {
-        g: 'k',
-        d: 't',
-        b: 'p',
-        v: 'f',
-        j: 'ch',
-        z: 's',
-        zh: 'sh',
-        'ð': 'ts'
-    };
-
-    // ==============================
-    // 4. Weak stem per verbi tipo VCsu (1° gruppo)
-    // ==============================
-    // Esempio: shigosu → shigo → shi + k → shik
-    function buildGroup1WeakStem(lemma) {
-        if (!lemma.endsWith('su')) return lemma;
-
-        // togli "su"
-        let base = lemma.slice(0, -2); // es. kadasu → kada ; shigosu → shigo
-        const len = base.length;
-        if (len < 2) return base;
-
-        const chars = base.split('');
-        const last = chars[len - 1];       // teoricamente C
-        const beforeLast = chars[len - 2]; // teoricamente V
-
-        // pattern mirato: ... V C (1° gruppo)
-        if (!VOWELS.includes(last) && VOWELS.includes(beforeLast)) {
-            const c = last;
-            const devoiced = voicedToVoiceless[c] || c;
-            const stemCore = base.slice(0, -2); // tutto tranne V C finali
-            const weak = stemCore + devoiced;
-            console.log('buildGroup1WeakStem:', lemma, '→ base:', base, '→', weak);
-            return weak;
+            return base;
         }
 
-        // fallback: nessuna trasformazione
-        console.log('buildGroup1WeakStem fallback, base =', base);
-        return base;
-    }
+        // ==============================
+        // 5. Raddoppiamento consonantico alla 3ª persona
+        // ==============================
 
-    // ==============================
-    // 5. Raddoppiamento 3ª persona
-    // ==============================
-    function doubleFinalConsonant(stem) {
-        if (stem.endsWith('ch')) {
-            return stem.slice(0, -2) + 'cch';
-        }
-        if (stem.endsWith('ts')) {
-            return stem.slice(0, -2) + 'tts';
-        }
-
-        const last = stem[stem.length - 1];
-
-        if (last === 'k' || last === 't' || last === 'p') {
-            return stem + last; // shik → shikk
-        }
-
-        return stem;
-    }
-
-    // ==============================
-    // 6. Coniugazione presente (solo G1 VCsu)
-    // ==============================
-    function conjugateVerb(lemma) {
-        const verb = dictionary.find((v) => v.lemma === lemma);
-
-        if (!verb || !verb.lemma.endsWith('su')) {
-            document.getElementById('result').innerHTML =
-                '<p>❌ Verb not found or does not end in -su</p>';
-            document.getElementById('result').style.display = 'block';
-            return;
-        }
-
-        // per ora assumiamo che i verbi usati qui siano del tipo 1° gruppo VCsu
-        const stem = buildGroup1WeakStem(lemma);
-        console.log('Lemma:', lemma, '→ weak stem:', stem);
-
-        const persons = [
-            { id: '1sg', label: 'Nai (I)', ending: 'n' },
-            { id: '2sg', label: 'Sai (you sg)', ending: 's' },
-            { id: '3sg', label: 'Han (he/she)', ending: '' },
-            { id: '1pl', label: 'Naiin (we)', ending: 'nne' },
-            { id: '2pl', label: 'Saiin (you pl)', ending: 'sse' },
-            { id: '3pl', label: 'Hannu (they)', ending: 'han' },
-        ];
-
-        let tableRows = '';
-        let thirdSingAffirmativeStem = '';
-
-        persons.forEach((person) => {
-            let personStem = stem;
-
-            if (person.id === '3sg') {
-                personStem = doubleFinalConsonant(stem);
-                thirdSingAffirmativeStem = personStem;
-                console.log('3sg stem:', stem, '→', personStem);
-            } else if (person.id === '3pl') {
-                personStem = thirdSingAffirmativeStem || stem;
-                console.log('3pl stem:', personStem);
+        // 5: alla 3ª persona, se la consonante resa sorda è k, t, p, ch, ts → raddoppia
+        function doubleFinalConsonant(stem) {
+            if (stem.endsWith('ch')) {
+                return stem.slice(0, -2) + 'cch';
+            }
+            if (stem.endsWith('ts')) {
+                return stem.slice(0, -2) + 'tts';
             }
 
-            const affirmative = personStem + person.ending;
-            const negative = personStem + 'na' + person.ending;
+            const last = stem[stem.length - 1];
 
-            tableRows += `
-                <tr>
-                    <td>${person.label}</td>
-                    <td class="affirmative">${affirmative}</td>
-                    <td class="negative">${negative}</td>
-                </tr>
-            `;
-        });
+            if (last === 'k' || last === 't' || last === 'p') {
+                return stem + last;
+            }
 
-        document.getElementById(
-            'verbTitle'
-        ).textContent = `${lemma} (${verb.english?.[0] || 'to ?'})`;
-        document.getElementById('conjugationTable').innerHTML = tableRows;
-        document.getElementById('result').style.display = 'block';
-    }
+            return stem;
+        }
 
-    // ==============================
-    // 7. Inizializzazione
-    // ==============================
-    window.onload = async function () {
-        dictionary = await loadDictionary();
-        console.log(
-            `Dictionary loaded. Verbs available: ${dictionary.length}`
-        );
-    };
-</script>
+        // ==============================
+        // 6. Coniugazione presente G1
+        // ==============================
+
+        function conjugateVerb(lemma) {
+            const verb = dictionary.find((v) => v.lemma === lemma);
+
+            if (!verb || !verb.lemma.endsWith('su')) {
+                document.getElementById('result').innerHTML =
+                    '<p>❌ Verb not found or does not end in -su</p>';
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            const group = detectVerbGroup(lemma);
+            console.log('Lemma:', lemma, '| Group:', group);
+
+            if (group !== 'G1') {
+                document.getElementById('result').innerHTML =
+                    `<p>⚠️ Only Group 1 verbs are supported for now. Detected group: ${group}</p>`;
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            // weak stem fonologico del G1
+            const stem = buildGroup1WeakStem(lemma);
+            console.log('Weak stem (G1):', stem);
+
+            const persons = [
+                { id: '1sg', label: 'Nai (I)', ending: 'n' },
+                { id: '2sg', label: 'Sai (you sg)', ending: 's' },
+                { id: '3sg', label: 'Han (he/she)', ending: '' },
+                { id: '1pl', label: 'Naiin (we)', ending: 'nne' },
+                { id: '2pl', label: 'Saiin (you pl)', ending: 'sse' },
+                { id: '3pl', label: 'Hannu (they)', ending: 'han' },
+            ];
+
+            let tableRows = '';
+            let thirdSingAffirmativeStem = '';
+
+            persons.forEach((person) => {
+                let personStem = stem;
+
+                if (person.id === '3sg') {
+                    // 3ª singolare: applica raddoppiamento alla consonante finale
+                    personStem = doubleFinalConsonant(stem);
+                    thirdSingAffirmativeStem = personStem;
+                    console.log('3sg stem:', stem, '→', personStem);
+                } else if (person.id === '3pl') {
+                    // 3ª plurale: usa lo stesso stem della 3ª singolare + han
+                    personStem = thirdSingAffirmativeStem || stem;
+                    console.log('3pl stem:', personStem);
+                }
+
+                const affirmative = personStem + person.ending;
+                const negative = personStem + 'na' + person.ending;
+
+                tableRows += `
+                    <tr>
+                        <td>${person.label}</td>
+                        <td class="affirmative">${affirmative}</td>
+                        <td class="negative">${negative}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById(
+                'verbTitle'
+            ).textContent = `${lemma} (${verb.english?.[0] || 'to ?'})`;
+            document.getElementById('conjugationTable').innerHTML = tableRows;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        // ==============================
+        // 7. Inizializzazione
+        // ==============================
+        window.onload = async function () {
+            dictionary = await loadDictionary();
+            console.log(
+                `Dictionary loaded. Verbs available: ${dictionary.length}`
+            );
+        };
+    </script>
 </body>
 </html>
