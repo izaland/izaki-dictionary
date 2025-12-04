@@ -257,29 +257,30 @@
 
         // 4 + 5: analisi a ritroso per costruire il weak stem del G1
         // Schema target: ... U S V C  → weak stem: ... (C devoicizzata) come finale
-        function buildGroup1WeakStem(lemma) {
-            // togli "su" → base della radice
-            let base = lemma.slice(0, -2); // kadasu → kada ; rigusu → rigu
-            const len = base.length;
-            if (len < 2) return base;
+function buildGroup1WeakStem(lemma) {
+    // togli "su" → base
+    let base = lemma.slice(0, -2); // shigosu → shigo
+    const len = base.length;
+    if (len < 2) return base;
 
-            const chars = base.split('');
+    const chars = base.split('');
+    const last = chars[len - 1];
+    const beforeLast = chars[len - 2];
 
-            const last = chars[len - 1];
-            const beforeLast = chars[len - 2];
+    // Caso G1: ... V C su in partenza → base ... V C
+    // Voglio: gradare C (se sonora) e togliere la V finale,
+    // così lo stem finisce in consonante.
+    if (!VOWELS.includes(last) && VOWELS.includes(beforeLast)) {
+        const c = last;
+        const devoiced = voicedToVoiceless[c] || c;
+        // shigo → V = o, C = g → stem = shi + k
+        const stemCore = base.slice(0, -2); // tutto tranne V C finali
+        return stemCore + devoiced;
+    }
 
-            // Caso principale per G1 secondo il tuo schema:
-            // prima di "su" abbiamo V C; ora siamo in base: ... V C
-            // vogliamo rimuovere la vocale (beforeLast) e rendere sorda la C (last)
-            if (!VOWELS.includes(last) && VOWELS.includes(beforeLast)) {
-                const c = last;
-                const devoiced = voicedToVoiceless[c] || c;
-                // base: ... X V C → weak: ... X C(devoiced)
-                const stemCore = base.slice(0, -2); // tutto tranne V C finali
-                const weak = stemCore + devoiced;
-                return weak;
-            }
-
+    // Fallback: se non riconosco il pattern, torno semplicemente base
+    return base;
+}
             // fallback: prova gradazione interna tipo ... V C V → V C(voiceless) V
             if (len >= 3) {
                 const cIndex = len - 2;
@@ -305,22 +306,22 @@
         // ==============================
 
         // 5: alla 3ª persona, se la consonante resa sorda è k, t, p, ch, ts → raddoppia
-        function doubleFinalConsonant(stem) {
-            if (stem.endsWith('ch')) {
-                return stem.slice(0, -2) + 'cch';
-            }
-            if (stem.endsWith('ts')) {
-                return stem.slice(0, -2) + 'tts';
-            }
+function doubleFinalConsonant(stem) {
+    if (stem.endsWith('ch')) {
+        return stem.slice(0, -2) + 'cch';
+    }
+    if (stem.endsWith('ts')) {
+        return stem.slice(0, -2) + 'tts';
+    }
 
-            const last = stem[stem.length - 1];
+    const last = stem[stem.length - 1];
 
-            if (last === 'k' || last === 't' || last === 'p') {
-                return stem + last;
-            }
+    if (last === 'k' || last === 't' || last === 'p') {
+        return stem + last; // shik → shikk
+    }
 
-            return stem;
-        }
+    return stem;
+}
 
         // ==============================
         // 6. Coniugazione presente G1
@@ -365,17 +366,10 @@
             persons.forEach((person) => {
                 let personStem = stem;
 
-                if (person.id === '3sg') {
-                    // 3ª singolare: applica raddoppiamento alla consonante finale
-                    personStem = doubleFinalConsonant(stem);
-                    thirdSingAffirmativeStem = personStem;
-                    console.log('3sg stem:', stem, '→', personStem);
-                } else if (person.id === '3pl') {
-                    // 3ª plurale: usa lo stesso stem della 3ª singolare + han
-                    personStem = thirdSingAffirmativeStem || stem;
-                    console.log('3pl stem:', personStem);
-                }
-
+        if (person.id === '3sg') {
+    personStem = doubleFinalConsonant(stem); // shik → shikk
+    thirdSingAffirmativeStem = personStem;
+}
                 const affirmative = personStem + person.ending;
                 const negative = personStem + 'na' + person.ending;
 
