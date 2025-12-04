@@ -133,7 +133,7 @@
                 const data = await response.json();
                 console.log('Total entries in dictionary.json:', data.length);
 
-                // More tolerant verb filter: keep entries whose POS contains 'v'
+                // Verb filter: keep entries whose POS contains 'v'
                 const verbs = data.filter(
                     (item) => item.pos && item.pos.toLowerCase().includes('v')
                 );
@@ -153,7 +153,7 @@
         let dictionary = [];
         let selectedVerb = '';
 
-        // STEP 3: Autocomplete suggestions as user types
+        // Autocomplete suggestions as user types
         document
             .getElementById('verbInput')
             .addEventListener('input', function () {
@@ -215,6 +215,7 @@
             dagasu: 'daka',
             nugisu: 'nuki',
             hindosu: 'hinto',
+            // add more as needed
         };
 
         // Map from voiced to voiceless consonants for weak stem
@@ -238,7 +239,7 @@
                 return group1WeakStems[lemma];
             }
 
-            // 2. Try automatic consonant gradation:
+            // 2. Automatic consonant gradation:
             // pattern: V + voicedC + V, or V + n + voicedC + V at the end of base
             const vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'w'];
 
@@ -286,6 +287,30 @@
             return base;
         }
 
+        // Double final voiceless consonant for 3rd person
+        // Allowed: k → kk, t → tt, p → pp, ch → cch, ts → tts
+        // NOT doubled: s, f, sh, others
+        function doubleFinalConsonant(stem) {
+            if (stem.endsWith('ch')) {
+                // "pach" -> "pacch"
+                return stem.slice(0, -2) + 'cch';
+            }
+            if (stem.endsWith('ts')) {
+                // "pats" -> "patts"
+                return stem.slice(0, -2) + 'tts';
+            }
+
+            const last = stem[stem.length - 1];
+
+            if (last === 'k' || last === 't' || last === 'p') {
+                // "rik" -> "rikk"
+                return stem + last;
+            }
+
+            // s, f, sh and others: no doubling
+            return stem;
+        }
+
         // STEP 4: Conjugation logic for Group 1 verbs only (present simple affirmative + negative)
         function conjugateVerb(lemma) {
             const verb = dictionary.find((v) => v.lemma === lemma);
@@ -301,7 +326,7 @@
             // Strong stem: remove 'su'
             let stem = verb.lemma.slice(0, -2);
 
-            // Apply weak stem rules only to typical group 1 endings
+            // Apply weak stem rules only to typical group 1 endings (CV + su)
             if (
                 verb.lemma.endsWith('asu') ||
                 verb.lemma.endsWith('esu') ||
@@ -324,8 +349,19 @@
 
             let tableRows = '';
             persons.forEach((person) => {
-                const affirmative = stem + person.ending;
-                const negative = stem + 'na' + person.ending;
+                // Base stem for this person
+                let personStem = stem;
+
+                // 3rd singular (Han) and 3rd plural (Hannu): apply consonant doubling
+                const isThirdSing = person.label.startsWith('Han ');
+                const isThirdPlur = person.label.startsWith('Hannu ');
+                if (isThirdSing || isThirdPlur) {
+                    personStem = doubleFinalConsonant(stem);
+                }
+
+                const affirmative = personStem + person.ending;
+                const negative = personStem + 'na' + person.ending;
+
                 tableRows += `
                     <tr>
                         <td>${person.label}</td>
