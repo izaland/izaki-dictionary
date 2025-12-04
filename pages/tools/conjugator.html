@@ -231,14 +231,24 @@
         };
 
         // Helper to get weak stem for group 1 verbs
-        function getWeakStem(lemma) {
-            // Base stem: remove "su"
-            let base = lemma.slice(0, -2); // e.g. "kada", "daga", "nugi"
+     function getWeakStem(lemma) {
+    let base = lemma.slice(0, -2); // "rigus" → "rigu"
+    
+    // LOGICA AUTOMATICA: VC#su → C# (rimuovi ultima vocale)
+    const vowels = ['a','e','i','o','u','y','w'];
+    if (base.length >= 2 && vowels.includes(base[base.length-2])) {
+        // "rigu" → controlla penultima è vocale → rimuovi ultima vocale
+        return base.slice(0, -1); // "rigu" → "rig"
+    }
+    
+    // Altrimenti: regole gradazione consonantica esistenti...
+    if (group1WeakStems[lemma]) return group1WeakStems[lemma];
+    
+    // ... resto della funzione originale per VCV → voiceless
+    // Fallback: base invariato
+    return base;
+}
 
-            // 1. Explicit override if present
-            if (group1WeakStems[lemma]) {
-                return group1WeakStems[lemma];
-            }
 
             // 2. Automatic consonant gradation:
             // pattern: V + voicedC + V, or V + n + voicedC + V at the end of base
