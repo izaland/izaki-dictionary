@@ -116,10 +116,9 @@
     </div>
 
     <script>
-        // STEP 2: Load dictionary JSON and filter only verbs
+        // STEP 1: Load dictionary JSON and filter only verbs
         async function loadDictionary() {
             try {
-                // Path is relative to /pages/tools/conjugator.html → /data/dictionary.json
                 const response = await fetch('../../data/dictionary.json');
                 if (!response.ok) {
                     console.error(
@@ -133,7 +132,6 @@
                 const data = await response.json();
                 console.log('Total entries in dictionary.json:', data.length);
 
-                // Verb filter: keep entries whose POS contains 'v'
                 const verbs = data.filter(
                     (item) => item.pos && item.pos.toLowerCase().includes('v')
                 );
@@ -165,10 +163,9 @@
                     return;
                 }
 
-                // Filter verbs whose lemma contains the query substring
                 const matches = dictionary
                     .filter((verb) => verb.lemma.toLowerCase().includes(query))
-                    .slice(0, 8); // max 8 suggestions
+                    .slice(0, 8);
 
                 if (matches.length === 0) {
                     suggestionsDiv.style.display = 'none';
@@ -207,55 +204,43 @@
                 }
             });
 
-        // --- STRONG/WEAK STEM LOGIC FOR GROUP 1 ---
+        // --- STEM E GRADAZIONE ---
 
         // Explicit weak stems for verbs where gradation is known
+        // Qui imponiamo le forme che vuoi (kata-, riku-, ecc.)
         const group1WeakStems = {
-            kadasu: 'kata',
-            dagasu: 'daka',
+            kadasu: 'kata', // kadasu → kata-
+            rigusu: 'riku', // rigusu → riku-
             nugisu: 'nuki',
-            hindosu: 'hinto',
-            rigusu: 'rik' // test: strong rigu-, weak rik-
-            // add more as needed
+            hindosu: 'hinto'
+            // aggiungi altri verbi specifici qui
         };
 
-        // Map from voiced to voiceless consonants for weak stem
+        // Map from voiced to voiceless consonants for weak stem (fallback generale)
         const voicedToVoiceless = {
             g: 'k',
             d: 't',
             z: 's',
-            j: 'ch', // approximation
+            j: 'ch',
             b: 'p',
-            v: 'f',
-            zh: 'sh',
+            v: 'f'
+            // 'zh': 'sh', // se mai servisse
         };
 
         // Helper to get weak stem for group 1 verbs
-     function getWeakStem(lemma) {
-    let base = lemma.slice(0, -2); // "rigus" → "rigu"
-    
-    // LOGICA AUTOMATICA: VC#su → C# (rimuovi ultima vocale)
-    const vowels = ['a','e','i','o','u','y','w'];
-    if (base.length >= 2 && vowels.includes(base[base.length-2])) {
-        // "rigu" → controlla penultima è vocale → rimuovi ultima vocale
-        return base.slice(0, -1); // "rigu" → "rig"
-    }
-    
-    // Altrimenti: regole gradazione consonantica esistenti...
-    if (group1WeakStems[lemma]) return group1WeakStems[lemma];
-    
-    // ... resto della funzione originale per VCV → voiceless
-    // Fallback: base invariato
-    return base;
-}
-
-
-            // 2. Automatic consonant gradation:
-            // pattern: V + voicedC + V, or V + n + voicedC + V at the end of base
+        function getWeakStem(lemma) {
+            // Strong stem base: remove "su"
+            let base = lemma.slice(0, -2); // e.g. "kada", "daga", "nugi", "rigu"
             const vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'w'];
 
+            // 1. Override espliciti (più sicuri)
+            if (group1WeakStems[lemma]) {
+                return group1WeakStems[lemma];
+            }
+
+            // 2. Gradazione automatica semplice V C V → V C(voiceless) V
+            //   Esempio teorico: *daga → *daka
             if (base.length >= 3) {
-                // Case 1: ... V C V at the end
                 const cIndex = base.length - 2;
                 const prev = base[cIndex - 1];
                 const c = base[cIndex];
@@ -266,37 +251,15 @@
                     vowels.includes(next) &&
                     voicedToVoiceless[c]
                 ) {
-                    return (
-                        base.slice(0, cIndex) + voicedToVoiceless[c] + next
-                    );
-                }
-
-                // Case 2: ... V n C V at the end
-                if (base.length >= 4) {
-                    const c2Index = base.length - 2;
-                    const c2 = base[c2Index];
-                    const beforeN = base[c2Index - 2];
-                    const nChar = base[c2Index - 1];
-                    const afterC2 = base[c2Index + 1];
-
-                    if (
-                        vowels.includes(beforeN) &&
-                        nChar === 'n' &&
-                        vowels.includes(afterC2) &&
-                        voicedToVoiceless[c2]
-                    ) {
-                        return (
-                            base.slice(0, c2Index) +
-                            voicedToVoiceless[c2] +
-                            afterC2
-                        );
-                    }
+                    return base.slice(0, cIndex) + voicedToVoiceless[c] + next;
                 }
             }
 
-            // 3. Fallback: return base unchanged
+            // 3. Nessuna regola speciale applicata → usa lo strong stem
             return base;
         }
+
+        // --- RADDOPPIAMENTO CONSONANTICO PER 3ª PERSONA ---
 
         // Double final voiceless consonant for 3rd person
         // Allowed: k → kk, t → tt, p → pp, ch → cch, ts → tts
@@ -318,11 +281,12 @@
                 return stem + last;
             }
 
-            // s, f, sh and others: no doubling
+            // s, f, sh e altre: no raddoppio
             return stem;
         }
 
-        // STEP 4: Conjugation logic for Group 1 verbs only (present simple affirmative + negative)
+        // --- CONIUGAZIONE GRUPPO 1, PRESENTE AFFERMATIVO/NEGATIVO ---
+
         function conjugateVerb(lemma) {
             const verb = dictionary.find((v) => v.lemma === lemma);
 
@@ -348,26 +312,29 @@
                 stem = getWeakStem(verb.lemma);
             }
 
-            // Personal suffixes and negative (insert 'na' before suffix)
+            // Definizione persone, con id per distinguere 3sg e 3pl
             const persons = [
-                { num: 1, label: 'Nai (I)', ending: 'n' },
-                { num: 2, label: 'Sai (you sg)', ending: 's' },
-                { num: 3, label: 'Han (he/she)', ending: '' },
-                { num: 4, label: 'Naiin (we)', ending: 'nne' },
-                { num: 5, label: 'Saiin (you pl)', ending: 'sse' },
-                { num: 6, label: 'Hannu (they)', ending: 'han' },
+                { id: '1sg', label: 'Nai (I)', ending: 'n' },
+                { id: '2sg', label: 'Sai (you sg)', ending: 's' },
+                { id: '3sg', label: 'Han (he/she)', ending: '' },
+                { id: '1pl', label: 'Naiin (we)', ending: 'nne' },
+                { id: '2pl', label: 'Saiin (you pl)', ending: 'sse' },
+                { id: '3pl', label: 'Hannu (they)', ending: 'han' },
             ];
 
             let tableRows = '';
+            let thirdSingAffirmativeStem = ''; // per riuso nella 3pl
+
             persons.forEach((person) => {
-                // Base stem for this person
                 let personStem = stem;
 
-                // 3rd singular (Han) and 3rd plural (Hannu): apply consonant doubling
-                const isThirdSing = person.label.startsWith('Han ');
-                const isThirdPlur = person.label.startsWith('Hannu ');
-                if (isThirdSing || isThirdPlur) {
+                if (person.id === '3sg') {
+                    // 3ª singolare: applica raddoppiamento
                     personStem = doubleFinalConsonant(stem);
+                    thirdSingAffirmativeStem = personStem;
+                } else if (person.id === '3pl') {
+                    // 3ª plurale: usa lo stesso stem della 3ª singolare
+                    personStem = thirdSingAffirmativeStem || stem;
                 }
 
                 const affirmative = personStem + person.ending;
@@ -389,7 +356,7 @@
             document.getElementById('result').style.display = 'block';
         }
 
-        // STEP 5: Initialize dictionary on page load and report count
+        // STEP 5: Initialize dictionary on page load
         window.onload = async function () {
             dictionary = await loadDictionary();
             console.log(
