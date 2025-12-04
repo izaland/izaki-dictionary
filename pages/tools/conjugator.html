@@ -329,87 +329,94 @@
         }
     }
 
-    // Costruisce lo stem G3 completo
-    function buildGroup3Stem(lemma) {
-        // lemma termina in Csu (già garantito da detectVerbGroup)
-        const base = lemma.slice(0, -2); // togli "su"
-        const len = base.length;
-        if (len < 2) return base;
+// Cambio di vocale dopo il raddoppio in G3 (V₂)
+function nextVowelForGroup3(v) {
+    switch (v) {
+        case 'a': return 'e';
+        case 'e': return 'i';
+        case 'i': return 'o';
+        case 'o': return 'u';
+        case 'u': return 'a';
+        default:  return v;
+    }
+}
 
-        const chars = base.split('');
-        const C = chars[len - 1];       // consonante finale
-        const V0 = chars[len - 2];      // vocale prima di C
+// Costruisce lo stem G3: VCsu → VCCV₂ + (eventuale pattern speciale)
+function buildGroup3Stem(lemma) {
+    // lemma termina in Csu (già garantito da detectVerbGroup)
+    const base = lemma.slice(0, -2); // togli "su" → es. "odensu" → "oden"
+    const len = base.length;
+    if (len < 2) return base;
 
-        // 1. cambia la vocale secondo il pattern a→ye, e→i, i→o, o→u, u→a
-        const newV = transformVowelForGroup3(V0);
+    const chars = base.split('');
+    const C = chars[len - 1];      // consonante finale (n, s, h, k, l, r...)
+    const V = chars[len - 2];      // vocale tematica prima di C
+    const stemCore = base.slice(0, -2); // tutto prima di V C
 
-        // parte iniziale della radice, senza V0C
-        const stemCore = base.slice(0, -2);
+    const V2 = nextVowelForGroup3(V);   // vocale di progressione
 
-        // 2. applica il sottotipo consonantico
-        // 2.1 casi in -ssu (V + s + su): gestiamo pattern assu/essu/ossu/ussu/issu
-        if (C === 's') {
-            const beforeV0 = chars[len - 3] || '';
-            const lastThree = (beforeV0 + V0 + C).toLowerCase(); // es. "ass", "ess", "iss", ...
+    // --- sottotipi consonantici ---
 
-            // -issu (caso speciale ogissu → ogissa-)
-            if (lastThree.endsWith('iss')) {
-                return stemCore + 'issa';
-            }
+    // 1) -ssu: pattern particolari
+    if (C === 's') {
+        const beforeV = chars[len - 3] || '';
+        const lastThree = (beforeV + V + C).toLowerCase(); // es. "ass", "ess", "iss", ...
 
-            // -assu/essu/ossu/ussu generali
-            if (lastThree.endsWith('ass')) {
-                // ...assu → ...asse-
-                return stemCore + 'asse';
-            }
-            if (lastThree.endsWith('ess')) {
-                // ...essu → ...esshi-
-                return stemCore + 'esshi';
-            }
-            if (lastThree.endsWith('oss')) {
-                // ...ossu → ...ossu-
-                return stemCore + 'ossu';
-            }
-            if (lastThree.endsWith('uss')) {
-                // ...ussu → ...ussa-
-                return stemCore + 'ussa';
-            }
+        // -issu → issa- (ogissu → ogissa-)
+        if (lastThree.endsWith('iss')) {
+            return stemCore + 'issa';
         }
-
-        // 2.2 pattern Vnsu → VnnV-
-        if (C === 'n') {
-            return stemCore + newV + 'nn' + newV;
+        // -assu → asse-
+        if (lastThree.endsWith('ass')) {
+            return stemCore + 'asse';
         }
-
-        // 2.3 pattern Vhsu → VppV-
-        if (C === 'h') {
-            return stemCore + newV + 'pp' + newV;
+        // -essu → esshi-
+        if (lastThree.endsWith('ess')) {
+            return stemCore + 'esshi';
         }
-
-        // 2.4 pattern Vlsu → VllV-
-        if (C === 'l') {
-            return stemCore + newV + 'll' + newV;
+        // -ossu → ossu-
+        if (lastThree.endsWith('oss')) {
+            return stemCore + 'ossu';
         }
-
-        // 2.5 pattern Vksu → VkkV-
-        if (C === 'k') {
-            return stemCore + newV + 'kk' + newV;
+        // -ussu → ussa-
+        if (lastThree.endsWith('uss')) {
+            return stemCore + 'ussa';
         }
+    }
 
-        // 2.6 pattern Vrsu → VryV-
-        if (C === 'r') {
-            return stemCore + newV + 'ry' + newV;
-        }
+    // 2) Vnsu → VnnV₂-
+    if (C === 'n') {
+        return stemCore + V + 'nn' + V2; // es. oden- → o + denn + i → odenni-
+    }
 
-        // 2.7 pattern -ersu → numerī- (nota 2)
-        if (V0 === 'e' && C === 'r') {
-            // numer su → numerī-
+    // 3) Vhsu → VppV₂-
+    if (C === 'h') {
+        return stemCore + V + 'pp' + V2;
+    }
+
+    // 4) Vlsu → VllV₂-
+    if (C === 'l') {
+        return stemCore + V + 'll' + V2;
+    }
+
+    // 5) Vksu → VkkV₂-
+    if (C === 'k') {
+        return stemCore + V + 'kk' + V2;
+    }
+
+    // 6) Vrsu → VryV₂-
+    if (C === 'r') {
+        // caso speciale -ersu → numerī- (nota 2)
+        if (V === 'e') {
             return stemCore + 'erī';
         }
-
-        // fallback: se nessun sottotipo riconosciuto, usa semplicemente stemCore + newV + C
-        return stemCore + newV + C;
+        return stemCore + V + 'ry' + V2;
     }
+
+    // fallback: VCCV₂-
+    return stemCore + V + C + C + V2;
+}
+
 
     // ==============================
     // 5. (facoltativo) Raddoppiamento consonantico 3ª persona G1
