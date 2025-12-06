@@ -19,10 +19,10 @@ document.getElementById("navbar").innerHTML = `
             <a class="navbar-link">Byakuzhi 百字</a>
             <div class="navbar-dropdown">
                 <a class="navbar-item" href="/izaki-dictionary/pages/byakuzhi/lookup.html">
-                    Lookup
+                    Lookup 百字検索
                 </a>
                 <a class="navbar-item" href="/izaki-dictionary/pages/byakuzhi/readings.html">
-                    Readings
+                    Readings 百字読方
                 </a>
             </div>
         </div>
@@ -41,13 +41,13 @@ document.getElementById("navbar").innerHTML = `
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Tools 道具</a>
+            <a class="navbar-link">Linguistic Tools 言語道具</a>
             <div class="navbar-dropdown">
                 <a class="navbar-item" href="/izaki-dictionary/pages/tools/conjugator.html">
                     Conjugator 活用
                 </a>
-                <a class="navbar-item" href="/izaki-dictionary/pages/tools/declension.html">
-                    Declension
+                <a class="navbar-item" href="/izaki-dictionary/pages/tools/declensor.html">
+                    Declension 曲用
                 </a>
             </div>
         </div>
