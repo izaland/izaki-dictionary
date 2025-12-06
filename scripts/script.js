@@ -49,6 +49,9 @@ document.getElementById("navbar").innerHTML = `
                 <a class="navbar-item" href="/izaki-dictionary/pages/tools/declensor.html">
                     Declension 曲用
                 </a>
+                <a class="navbar-item" href="/izaki-dictionary/pages/tools/askaoza.html">
+                    Askaoza converter
+                </a>
             </div>
         </div>
 
