@@ -83,7 +83,7 @@ const LONG_MARK = 'ઃ';
 // Funzioni di supporto
 // =========================
 
-const DIGRAPHS = ['ch', 'sh', 'ts', 'dz'];
+const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz'];
 
 function splitCV(syl) {
   syl = syl.toLowerCase();
@@ -112,24 +112,30 @@ function splitWordToSyllables(word) {
   const lower = word.toLowerCase();
 
   while (i < lower.length) {
-    // prova prima i digrammi consonantici
     let C = '';
     let V = '';
 
-    if (i + 1 < lower.length) {
+    // prova prima trigrammi / digrammi complessi (doppie + ch/sh/ts/dz)
+    if (i + 2 < lower.length) {
+      const three = lower.slice(i, i + 3);
+      if (DIGRAPHS.includes(three)) {
+        C = three;
+        i += 3;
+      }
+    }
+    if (!C && i + 1 < lower.length) {
       const two = lower.slice(i, i + 2);
-      if (DIGRAPHS.includes(two)) {
-        C = two;
+      if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
+        C = two; // es. kk, ss, ll, nn
         i += 2;
       }
     }
-
     if (!C && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
       C = lower[i];
       i += 1;
     }
 
-    // vocale o dittongo dopo la consonante (o solo vocale se C è vuota)
+    // vocale / dittongo (come già avevamo)
     if (i < lower.length) {
       const next2 = lower.slice(i, i + 2);
       const next1 = lower[i];
@@ -149,7 +155,6 @@ function splitWordToSyllables(word) {
     if (syl) {
       res.push(syl);
     } else {
-      // carattere isolato (punteggiatura, ecc.)
       res.push(lower[i]);
       i += 1;
     }
