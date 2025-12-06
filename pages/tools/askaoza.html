@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Askaoza Converter</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    .askaoza-sample {
+      font-size: 1.6rem;
+      line-height: 1.6;
+    }
+    textarea {
+      font-family: "Noto Sans", system-ui, sans-serif;
+    }
+  </style>
+</head>
+<body class="has-background-light">
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Askaoza Converter</h1>
+    <h2 class="subtitle">Latin &lt;→ 圧高佐 (askaoza)</h2>
+
+    <div class="columns">
+      <!-- LATIN INPUT -->
+      <div class="column">
+        <h3 class="title is-5">Latin → Askaoza</h3>
+        <textarea id="latinInput" class="textarea" rows="5"
+          placeholder="Scrivi testo in romanizzazione Izaki (es. miwa, tsaikis)..."></textarea>
+        <button id="toAskaozaBtn" class="button is-link is-light mt-2">
+          Converti in askaoza
+        </button>
+        <div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
+      </div>
+
+      <!-- ASKAOZA INPUT -->
+      <div class="column">
+        <h3 class="title is-5">Askaoza → Latin</h3>
+        <textarea id="askaozaInput" class="textarea askaoza-sample" rows="5"
+          placeholder="Incolla testo in askaoza..."></textarea>
+        <button id="toLatinBtn" class="button is-link is-light mt-2">
+          Latinize
+        </button>
+        <div id="latinOutput" class="notification is-white mt-3"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="askaoza.js"></script>
+</body>
+</html>
