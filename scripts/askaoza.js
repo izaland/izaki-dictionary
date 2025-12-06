@@ -25,8 +25,19 @@ const ASKAOZA_CONS = {
   m:  'ઇ',
   l:  'ધ',
   r:  'દ',
-  '*': '૮'   // placeholder per sillaba solo vocalica
+  // doppie consonanti
+  kk:  'ડ્ડ',
+  pp:  'ર્ર',
+  tt:  'ઠ્ઠ',
+  cch: 'મ્મ',
+  ss:  'ટ્ટ',
+  ssh: 'ય્ય',
+  tts: 'ઢ્ઢ',
+  ll:  'ધ્ધ',
+  nn:  'પ્પ',
+  '*': '૮'
 };
+
 
 // Diacritici vocalici semplici
 const ASKAOZA_V = {
