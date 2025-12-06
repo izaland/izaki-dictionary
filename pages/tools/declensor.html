@@ -186,18 +186,41 @@ document.addEventListener('DOMContentLoaded', function() {
             forms.gen = analysis.clean + 'un';
         }
 
-        // Accusativo sing. (allungamento vocale finale breve)
-        if (analysis.isVowelEnd && !analysis.isLongVowelEnd) {
-            const vowelMap = { a:'ā', e:'ē', i:'ī', o:'ō', u:'ū' };
-            forms.acc = analysis.clean.slice(0, -1) + vowelMap[analysis.lastVowel];
-        } else {
-            forms.acc = analysis.clean;
-        }
+// Accusativo sing.
+if (analysis.isVowelEnd && !analysis.isLongVowelEnd) {
+  // vocali brevi: allungamento
+  const vowelMap = { a:'ā', e:'ē', i:'ī', o:'ō', u:'ū' };
+  forms.acc = analysis.clean.slice(0, -1) + vowelMap[analysis.lastVowel];
+} else if (analysis.isConsonantEnd) {
+  // finali in -s: +ū (tsaikis → tsaikīs)
+  if (analysis.finalConsonant === 's') {
+    // trova l’ultima vocale e allungala
+    const m = analysis.clean.match(/([aeiou])s$/);
+    if (m) {
+      const v = m[1];
+      const longMap = { a:'ā', e:'ē', i:'ī', o:'ō', u:'ū' };
+      forms.acc = analysis.clean.slice(0,-2) + longMap[v];
+    } else {
+      forms.acc = analysis.clean;
+    }
+  } else {
+    forms.acc = analysis.clean;
+  }
+} else {
+  forms.acc = analysis.clean;
+}
 
-        // Dativo sing.
-        forms.dat = (analysis.isConsonantEnd && analysis.finalConsonant === 'n')
-            ? analysis.clean + 'ni'
-            : analysis.clean + 'i';
+
+// Dativo sing.
+if (analysis.isConsonantEnd && analysis.finalConsonant === 'n') {
+  forms.dat = analysis.clean + 'ni';
+} else if (analysis.isConsonantEnd && analysis.finalConsonant === 's') {
+  // s + i → sshi → scritto "sshi"
+  forms.dat = analysis.clean + 'shi'; // tsaikis → tsaikisshi (foneticamente)
+} else {
+  forms.dat = analysis.clean + 'i';
+}
+
 
         // Essivo sing.
         if (analysis.isVowelEnd) {
@@ -220,87 +243,116 @@ document.addEventListener('DOMContentLoaded', function() {
             forms.abl = analysis.clean + 'ul';
         }
 
-        // Strumentale sing. (progressione vocalica)
-        const vowelProgression = {
-            a:'e', e:'i', i:'o', o:'u', u:'a',
-            ā:'e', ē:'i', ī:'o', ō:'u', ū:'a'
-        };
+// ===============================
+// Strumentale singolare (corretto)
+// ===============================
 
-        if (analysis.isVowelEnd) {
-            forms.ins = analysis.clean.slice(0, -1) + vowelProgression[analysis.lastVowel];
-        } else {
-            forms.ins = analysis.clean + 'e';
-        }
+function buildInstrumentalSingular(lemma) {
+  const a = analyzeEnding(lemma);
+  const base = a.clean;
 
-        return { forms, analysis };
-    }
+  // parole già in dittongo e casi speciali
+  if (base.endsWith('ai')) return base + 'yo';        // sasatsai → sasatsayo
+  if (base.endsWith('au')) return base.slice(0,-1) + 'wa'; // akau → akawa
+  if (base.endsWith('ea')) return base + 'e';         // kea → keae
+  if (base.endsWith('ao')) return base.slice(0,-2) + 'ō';  // hingao → hingō
+  if (base.endsWith('eo')) return base.slice(0,-2) + 'eu'; // sāreo → sāreu
+  if (base.endsWith('uo')) return base.slice(0,-2) + 'ū';  // tassuo → tassū
+  if (/[ū]$/.test(base))  return base + 'a';          // haiyū → haiyūa
+
+  const last = a.lastVowel;
+  const cons = a.isConsonantEnd ? a.finalConsonant : '';
+
+  // parole in vocale semplice
+  if (a.isVowelEnd && !a.isConsonantEnd) {
+    if (last === 'a' || last === 'ā') return base + 'e';          // miwa → miwae
+    if (last === 'e' || last === 'ē') return base + 'i';          // oboe → oboei
+    if (last === 'i' || last === 'ī') return base.slice(0,-1) + 'yo'; // sāri → sāryo
+    if (last === 'o' || last === 'ō') return base + 'u';          // ahiro → ahirou
+    if (last === 'u')              return base.slice(0,-1) + 'wa';    // usumu → usumwa
+  }
+
+  // parole in consonante: stessa progressione, ma raddoppia la consonante
+  const prog = { a:'e', e:'i', i:'o', o:'u', u:'a' };
+  if (a.isConsonantEnd && a.lastVowel && prog[a.lastVowel]) {
+    const v2 = prog[a.lastVowel];
+    // geminazione della consonante finale
+    return base + cons + v2;
+  }
+
+  // fallback
+  return base + 'e';
+}
 
     // ===============================
     // Declinazioni PLURALE (wiki)
     // ===============================
 
-    function buildPluralNominative(analysis) {
-        const base = analysis.clean;
-        const last = base.slice(-1);
+   function buildPluralCases(lemma, singular) {
+  const a = analyzeEnding(lemma);
 
-        if (analysis.isConsonantEnd) {
-            // semplificazione: raddoppia consonante e ripeti vocale precedente
-            const m = base.match(/([aeiouāēīōū])[^aeiouāēīōū]*$/i);
-            if (!m) return base;
-            const v = m[1];
-            return base + last + v; // es. tsokke + en → tsokkeen (schema)
-        }
+  const plural = {};
 
-        if (analysis.isLongVowelEnd) {
-            return base + 'hin';    // tema -hin
-        }
-
-        // vocale breve → prolunga + n
-        const lastV = base.slice(-1);
-        return base + lastV + 'n';  // miwa → miwaan
+  // 1. nominativo plurale (regola speciale)
+  if (a.isConsonantEnd) {
+    // raddoppia consonante finale e ripeti l’ultima vocale
+    const m = a.clean.match(/([aeiouāēīōū])([^aeiouāēīōū]*)$/i);
+    if (m) {
+      const v = m[1];
+      const c = a.finalConsonant;
+      plural.nom = a.clean + c + v;        // tsaikis → tsaikisshi (poi normalizzabile come sshi)
+    } else {
+      plural.nom = a.clean;
     }
+  } else if (a.isLongVowelEnd) {
+    plural.nom = a.clean + 'hin';          // fupō → fupōhin
+  } else {
+    const lastV = a.clean.slice(-1);
+    plural.nom = a.clean + lastV + 'n';    // miwa → miwaan
+  }
 
-    function buildPluralCases(lemma, singular) {
-        const analysis = analyzeEnding(lemma);
-        const plural = {};
+  // 2. stem per gli altri casi: NOM singolare
+  const stem = singular.nom;              // es. miwa, tsaikis
 
-        // nominativo plurale
-        plural.nom = buildPluralNominative(analysis);
+  const endsWithConsonant = a.isConsonantEnd;
 
-        const isConsonant = analysis.isConsonantEnd;
-        const isLongV    = analysis.isLongVowelEnd;
+  // GEN: +in / +en
+  plural.gen = stem + (endsWithConsonant ? 'en' : 'in');
 
-        // GEN: -in/-en
-        plural.gen = plural.nom + (isConsonant ? 'en' : 'in');
+  // ACC: +ita / +ta
+  plural.acc = stem + (endsWithConsonant ? 'ta' : 'ita');
 
-        // ACC: -ita/-ta
-        plural.acc = plural.nom + (isConsonant ? 'ta' : 'ita');
+  // DAT: +hi, con fenomeni fonetici
+  if (endsWithConsonant && a.finalConsonant === 's') {
+    // tsaikis + hi → tsaikisshi
+    plural.dat = stem + 'shi';
+  } else {
+    plural.dat = stem + 'hi';
+  }
 
-        // DAT: sempre -hi
-        plural.dat = plural.nom + 'hi';
+  // ESS: +is / +es
+  plural.ess = stem + (endsWithConsonant ? 'es' : 'is');
 
-        // ESS: -is/-es
-        plural.ess = plural.nom + (isConsonant ? 'es' : 'is');
+  // ALL: +ir / +er
+  plural.all = stem + (endsWithConsonant ? 'er' : 'ir');
 
-        // ALL: -ir/-er
-        plural.all = plural.nom + (isConsonant ? 'er' : 'ir');
+  // ABL: +il / +el
+  plural.abl = stem + (endsWithConsonant ? 'el' : 'il');
 
-        // ABL: -il/-el
-        plural.abl = plural.nom + (isConsonant ? 'el' : 'il');
+  // INS: strumentale singolare + i
+  plural.ins = singular.ins + 'i';   // es. miwae → miwaei; tsaikiso → tsaikisoi
 
-        // INS: aggiungi -i allo strumentale singolare
-        plural.ins = singular.ins + 'i';
+  // correzione: lemmi con vocale lunga finale
+  if (!endsWithConsonant && a.isLongVowelEnd) {
+    // -hin → -hen nei casi forti
+    plural.gen = plural.gen.replace(/hin$/, 'hen');
+    plural.ess = plural.ess.replace(/hin$/, 'hen');
+    plural.all = plural.all.replace(/hin$/, 'hen');
+    plural.abl = plural.abl.replace(/hin$/, 'hen');
+  }
 
-        // correzione: finali con vocale lunga → tema -he- nei casi forti
-        if (!isConsonant && isLongV) {
-            plural.gen = plural.gen.replace(/hin$/, 'hen');
-            plural.ess = plural.ess.replace(/hin$/, 'hen');
-            plural.all = plural.all.replace(/hin$/, 'hen');
-            plural.abl = plural.abl.replace(/hin$/, 'hen');
-        }
-
-        return plural;
-    }
+  return plural;
+}
 
     // ===============================
     // Funzione principale di declinazione
