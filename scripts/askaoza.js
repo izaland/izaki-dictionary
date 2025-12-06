@@ -1,0 +1,233 @@
+// =========================
+// Tabelle di mappatura
+// =========================
+
+// Consonanti base (valore inerente = /a/)
+const ASKAOZA_CONS = {
+  k:  'ડ',
+  g:  'ડૃ',
+  p:  'ર',
+  b:  'રૃ',
+  s:  'ટ',
+  z:  'ટૃ',
+  t:  'ઠ',
+  d:  'ઠૃ',
+  f:  '૨',
+  v:  '૨ૃ',
+  ch: 'મ',
+  j:  'મૃ',
+  sh: 'ય',
+  zh: 'યૃ',
+  ts: 'ઢ',
+  dz: 'ઢૃ',
+  h:  'ત',
+  n:  'પ',
+  m:  'ઇ',
+  l:  'ધ',
+  r:  'દ',
+  '*': '૮'   // placeholder per sillaba solo vocalica
+};
+
+// Diacritici vocalici semplici
+const ASKAOZA_V = {
+  'a': '',    // inerente
+  'e': 'ૅ',
+  'i': 'ા',
+  'o': '૾',
+  'u': 'ે',
+  'ü': 'ૈ'
+};
+
+// Dittonghi (y- / w-)
+const ASKAOZA_DIPH = {
+  // yV
+  'ya': 'ો',
+  'ye': 'ૅો',
+  'yo': '૾ો',
+  'yu': 'ેો',
+  'yü': 'ૈો',
+  // wV
+  'wa': 'િ',
+  'we': 'િૅ',
+  'wi': 'િા',
+  'wo': '૮િ૾'
+};
+
+// Vocali composte (ai, ae, ecc.) — usano il placeholder ૮
+const ASKAOZA_COMPOUND = {
+  'ai': '૩',
+  'ae': '૩ૅ',
+  'ei': 'ૅ૩',
+  'eu': 'ૅ૩ે',
+  'oe': '૾૩ૅ',
+  'oi': '૾૩',
+  'ou': '૾૩ે',
+  'ui': 'ે૩'
+};
+
+// Diacritico di lunghezza
+const LONG_MARK = 'ઃ';
+
+// Per la conversione inversa servirà anche una mappa rovescia,
+// che costruiremo più sotto.
+
+// =========================
+// Funzioni di supporto
+// =========================
+
+const DIGRAPHS = ['ch', 'sh', 'ts', 'dz'];
+
+function splitCV(syl) {
+  syl = syl.toLowerCase();
+
+  for (const dg of DIGRAPHS) {
+    if (syl.startsWith(dg)) {
+      return { C: dg, V: syl.slice(dg.length) || 'a' };
+    }
+  }
+  if (/^[kgpbsztdfvhnmlr]/i.test(syl[0])) {
+    return { C: syl[0], V: syl.slice(1) || 'a' };
+  }
+  // solo vocale / dittongo
+  return { C: '*', V: syl };
+}
+
+// Segmentazione molto semplice: split su spazi, poi su trattini.
+// In futuro si può sostituire con un vero parser fonotattico.
+function latinToSyllables(text) {
+  const tokens = text.trim().split(/\s+/);
+  return tokens.map(tok => tok.split(/-/)); // es. "sai-n-daul" → [["sai","n","daul"],...]
+}
+
+// =========================
+// Latin → askaoza (sillaba)
+// =========================
+
+function toAskaozaSyllable(romanSyl) {
+  let { C, V } = splitCV(romanSyl);
+
+  const base = ASKAOZA_CONS[C] || ASKAOZA_CONS['*'];
+
+  // dittonghi yV / wV
+  if (ASKAOZA_DIPH[V]) {
+    return base + ASKAOZA_DIPH[V];
+  }
+
+  // vocali composte pure (ai, ae, ecc.)
+  if (C === '*' && ASKAOZA_COMPOUND[V]) {
+    return ASKAOZA_CONS['*'] + ASKAOZA_COMPOUND[V];
+  }
+
+  // vocali lunghe con macron (ā, ē, ī, ō, ū) o ü lunga (qui la semplifichiamo)
+  let isLong = false;
+  if (/[āēīōū]/.test(V)) {
+    isLong = true;
+    V = V
+      .replace('ā','a')
+      .replace('ē','e')
+      .replace('ī','i')
+      .replace('ō','o')
+      .replace('ū','u');
+  }
+
+  const mark = ASKAOZA_V[V] ?? '';
+
+  return base + mark + (isLong ? LONG_MARK : '');
+}
+
+function toAskaozaText(latinText) {
+  if (!latinText.trim()) return '';
+
+  const words = latinToSyllables(latinText); // array di array di sillabe
+  const converted = words.map(sylls => sylls.map(toAskaozaSyllable).join(''));
+  return converted.join(' ');
+}
+
+// =========================
+// Askaoza → Latin (grezza)
+// =========================
+
+// Costruiamo una mappa inversa molto semplificata: glifo base → consonante;
+// poi cerchiamo i diacritici subito dopo.
+const CONS_REV = {};
+for (const [lat, glyph] of Object.entries(ASKAOZA_CONS)) {
+  CONS_REV[glyph] = lat;
+}
+
+// reverse per vocali semplici
+const V_REV = {};
+for (const [v, mark] of Object.entries(ASKAOZA_V)) {
+  if (mark) V_REV[mark] = v;
+}
+
+// ATTENZIONE: qui NON si ricostruiscono ancora bene dittonghi e vocali composte;
+// è una prima approssimazione.
+function askaozaToLatinText(askText) {
+  const chars = Array.from(askText);
+  let result = '';
+  let i = 0;
+
+  while (i < chars.length) {
+    const ch = chars[i];
+
+    // spazio
+    if (/\s/.test(ch)) {
+      result += ' ';
+      i++;
+      continue;
+    }
+
+    // consonante base o placeholder
+    if (CONS_REV[ch]) {
+      let cons = CONS_REV[ch];
+      let vowel = 'a';
+      let j = i + 1;
+
+      // controlla diacritici semplici
+      if (j < chars.length && V_REV[chars[j]]) {
+        vowel = V_REV[chars[j]];
+        j++;
+      }
+
+      // segno di lunghezza
+      if (j < chars.length && chars[j] === LONG_MARK) {
+        // per ora non segniamo il macron nella romanizzazione
+        j++;
+      }
+
+      // ricostruzione base CV
+      if (cons === '*') cons = '';
+      result += cons + vowel;
+      i = j;
+      continue;
+    }
+
+    // se non riconosciuto, copialo così com'è
+    result += ch;
+    i++;
+  }
+
+  return result.trim().replace(/\s+/g, ' ');
+}
+
+// =========================
+// Hook con la UI
+// =========================
+
+document.addEventListener('DOMContentLoaded', () => {
+  const latinInput   = document.getElementById('latinInput');
+  const askOut       = document.getElementById('askaozaOutput');
+  const toAskBtn     = document.getElementById('toAskaozaBtn');
+
+  const askInput     = document.getElementById('askaozaInput');
+  const latOut       = document.getElementById('latinOutput');
+  const toLatBtn     = document.getElementById('toLatinBtn');
+
+  toAskBtn.addEventListener('click', () => {
+    askOut.textContent = toAskaozaText(latinInput.value);
+  });
+
+  toLatBtn.addEventListener('click', () => {
+    latOut.textContent = askaozaToLatinText(askInput.value);
+  });
+});
