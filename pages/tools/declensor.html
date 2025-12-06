@@ -72,37 +72,78 @@
             const lemmaInfo = document.getElementById('lemmaInfo');
             const formsTable = document.getElementById('formsTable');
             
-            let dictionary = {};
-            
-            async function loadDictionary() {
-                try {
-                    const response = await fetch('../../data/dictionary.json');
-                    dictionary = await response.json();
-                } catch (e) {
-                    console.warn('Dictionary load failed:', e);
-                }
-            }
-            
-            function lookupLemma(input) {
-                const normalized = input.toLowerCase().trim();
-                let result = null;
-                
-                for (let lemma in dictionary) {
-                    if (dictionary[lemma].pos === 'n' && 
-                        (lemma.toLowerCase() === normalized || 
-                         lemma.toLowerCase().includes(normalized) ||
-                         normalized.includes(lemma.toLowerCase()))) {
-                        result = {
-                            lemma: lemma,
-                            english: dictionary[lemma].english,
-                            italian: dictionary[lemma].italian || '',
-                            byakuzhi: dictionary[lemma].byakuzhi || ''
-                        };
-                        break;
-                    }
-                }
-                return result;
-            }
+let dictionary = null;
+
+async function loadDictionary() {
+  try {
+    const response = await fetch('../../data/dictionary.json');
+    if (!response.ok) {
+      throw new Error('HTTP ' + response.status);
+    }
+    dictionary = await response.json();
+    console.log('Dizionario caricato, voci:', Object.keys(dictionary).length);
+  } catch (e) {
+    console.error('Errore nel caricamento del dizionario:', e);
+  }
+}
+
+// chiama loadDictionary() quando la pagina è pronta
+document.addEventListener('DOMContentLoaded', loadDictionary);
+
+// ===============================
+// Utility: riconoscere i nomi
+// ===============================
+
+function isNoun(entry) {
+  if (!entry || entry.pos == null) return false;
+  const raw = String(entry.pos).toLowerCase();
+  // nel JSON i POS sono tipo ": adj =", ": n =", ecc.
+  // filtriamo i sostantivi
+  return raw.includes(': n =');
+}
+
+// ===============================
+// Lookup di un lemma
+// ===============================
+
+function lookupLemma(input) {
+  if (!dictionary) {
+    console.warn('Dizionario non ancora caricato');
+    return null;
+  }
+
+  const normalized = input.toLowerCase().trim();
+  let result = null;
+
+  for (let id in dictionary) {
+    const entry = dictionary[id];
+    if (!isNoun(entry)) continue;
+
+    const lemma = (entry.lemma || '').toLowerCase();
+    if (!lemma) continue;
+
+    if (
+      lemma === normalized ||
+      lemma.includes(normalized) ||
+      normalized.includes(lemma)
+    ) {
+      result = {
+        lemma: entry.lemma,
+        english: Array.isArray(entry.english)
+          ? entry.english.join(', ')
+          : (entry.english || ''),
+        italian: Array.isArray(entry.italian)
+          ? entry.italian.join(', ')
+          : (entry.italian || ''),
+        byakuzhi: entry.byakuzhi || '',
+        pos: entry.pos
+      };
+      break;
+    }
+  }
+
+  return result;
+}
             
             function analyzeEnding(lemma) {
                 const clean = lemma.replace(/[^a-zāēīōū]/g, '').toLowerCase();
