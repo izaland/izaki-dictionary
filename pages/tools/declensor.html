@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Izaki Noun Declensor</title>
+  <link rel="stylesheet" href="../../assets/css/styles.css"><!-- o il path che usi -->
+  <style>
+    /* eventualmente un po’ di stile locale */
+    .declensor-container { max-width: 900px; margin: 0 auto; padding: 1rem; }
+    .forms-table { border-collapse: collapse; width: 100%; }
+    .forms-table th, .forms-table td {
+      border: 1px solid #ccc;
+      padding: 0.3rem 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="declensor-container">
+    <h1>Izaki Noun Declensor</h1>
+
+    <label for="nounInput">Inserisci un sostantivo (romaji o Bai):</label>
+    <input id="nounInput" type="text" />
+    <button id="declineBtn" type="button">Declina</button>
+
+    <div id="lemmaInfo"></div>
+
+    <table id="formsTable" class="forms-table">
+      <thead>
+        <tr>
+          <th>Case</th>
+          <th>Form</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- riempito via JS -->
+      </tbody>
+    </table>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nounInput = document.getElementById('nounInput');
+    const declineBtn = document.getElementById('declineBtn');
+    const lemmaInfo = document.getElementById('lemmaInfo');
+    const formsTable = document.getElementById('formsTable');
+    
+    // Carica il dizionario (stesso path dei verbi)
+    let dictionary = {};
+    
+    async function loadDictionary() {
+        try {
+            const response = await fetch('../../data/dictionary.json'); // adatta il path
+            dictionary = await response.json();
+        } catch (e) {
+            console.warn('Dictionary non caricato:', e);
+        }
+    }
+    
+    // Lookup nel dizionario per sostantivi
+    function lookupLemma(input) {
+        const normalized = input.toLowerCase().trim();
+        let result = null;
+        
+        // Cerca lemma esatto o parziale tra i sostantivi
+        for (let lemma in dictionary) {
+            if (dictionary[lemma].pos === 'n' && 
+                (lemma.toLowerCase() === normalized || 
+                 lemma.toLowerCase().includes(normalized) ||
+                 normalized.includes(lemma.toLowerCase()))) {
+                result = {
+                    lemma: lemma,
+                    english: dictionary[lemma].english,
+                    italian: dictionary[lemma].italian || '',
+                    byakuzhi: dictionary[lemma].byakuzhi || ''
+                };
+                break; // primo match
+            }
+        }
+        return result;
+    }
+    
+    // Analizza finale del lemma per declinazione
+    function analyzeEnding(lemma) {
+        const clean = lemma.replace(/[^a-zāēīōū]/g, '').toLowerCase();
+        const lastChar = clean.slice(-1);
+        const lastTwo = clean.slice(-2);
+        const vowels = 'aeiouāēīōū';
+        
+        const isVowelEnd = vowels.includes(lastChar);
+        const isLongVowelEnd = 'āēīōū'.includes(lastChar);
+        const isConsonantEnd = !isVowelEnd;
+        const finalConsonant = isConsonantEnd ? lastChar : null;
+        const prevConsonant = lastTwo[0] && !vowels.includes(lastTwo[0]) ? lastTwo[0] : null;
+        
+        return {
+            clean,
+            isVowelEnd,
+            isLongVowelEnd,
+            isConsonantEnd,
+            finalConsonant,
+            prevConsonant,
+            lastVowel: isVowelEnd ? lastChar : null
+        };
+    }
+    
+    // Motore di declinazione principale
+    function declineNoun(lemma, dictInfo = null) {
+        const analysis = analyzeEnding(lemma);
+        const forms = {};
+        
+        // Nominativo (invariato)
+        forms.nominative = analysis.clean;
+        
+        // Genitivo: -n/-un + eventuale sonorizzazione
+        if (analysis.isVowelEnd) {
+            forms.genitive = analysis.clean + (analysis.isLongVowelEnd ? 'hun' : 'n');
+        } else {
+            forms.genitive = analysis.clean + 'un';
+        }
+        
+        // Accusativo: prolunga vocale se breve
+        if (analysis.isVowelEnd && !analysis.isLongVowelEnd) {
+            const vowelMap = { 'a': 'ā', 'e': 'ē', 'i': 'ī', 'o': 'ō', 'u': 'ū' };
+            forms.accusative = analysis.clean.slice(0, -1) + vowelMap[analysis.lastVowel];
+        } else {
+            forms.accusative = analysis.clean;
+        }
+        
+        // Dativo: +i (con aggiustamenti fonologici)
+        forms.dative = analysis.isConsonantEnd && analysis.finalConsonant === 'n' 
+            ? analysis.clean + 'ni' 
+            : analysis.clean + 'i';
+        
+        // Essivo: -s/-us
+        if (analysis.isVowelEnd) {
+            forms.essive = analysis.clean + (analysis.isLongVowelEnd ? 'hus' : 's');
+        } else {
+            forms.essive = analysis.clean + 'us';
+        }
+        
+        // Allativo: -r/-ur
+        if (analysis.isVowelEnd) {
+            forms.allative = analysis.clean + (analysis.isLongVowelEnd ? 'hur' : 'r');
+        } else {
+            forms.allative = analysis.clean + 'ur';
+        }
+        
+        // Ablativo: -l/-ul
+        if (analysis.isVowelEnd) {
+            forms.ablative = analysis.clean + (analysis.isLongVowelEnd ? 'hul' : 'l');
+        } else {
+            forms.ablative = analysis.clean + 'ul';
+        }
+        
+        // Strumentale: progressione vocalica semplificata
+        const vowelProgression = {
+            'a': 'e', 'e': 'i', 'i': 'o', 'o': 'u', 'u': 'a',
+            'ā': 'e', 'ē': 'i', 'ī': 'o', 'ō': 'u', 'ū': 'a' // semplificato
+        };
+        if (analysis.isVowelEnd) {
+            forms.instrumental = analysis.clean.slice(0, -1) + vowelProgression[analysis.lastVowel];
+        } else {
+            forms.instrumental = analysis.clean + 'e'; // raddoppio consonantale da raffinare
+        }
+        
+        return { forms, analysis, dictInfo };
+    }
+    
+    // Aggiorna interfaccia
+    function updateInterface(input, result) {
+        // Info lemma
+        if (result.dictInfo) {
+            lemmaInfo.innerHTML = `
+                <div class="lemma-found">
+                    <strong>${result.dictInfo.lemma}</strong>
+                    ${result.dictInfo.byakuzhi ? `(${result.dictInfo.byakuzhi})` : ''}
+                    <br>${result.dictInfo.english}${result.dictInfo.italian ? ` (${result.dictInfo.italian})` : ''}
+                </div>
+            `;
+        } else {
+            lemmaInfo.innerHTML = `<em>${input} (non trovato nel dizionario; declinato con regole generali)</em>`;
+        }
+        
+        // Tabella forme
+        const tbody = formsTable.querySelector('tbody');
+        tbody.innerHTML = '';
+        
+        const cases = [
+            { key: 'nominative', name: 'Nominativo 主格', note: '-' },
+            { key: 'genitive', name: 'Genitivo 属格', note: '-n/-un' },
+            { key: 'accusative', name: 'Accusativo 対格', note: 'prolungamento vocale' },
+            { key: 'dative', name: 'Dativo 与格', note: '+i' },
+            { key: 'essive', name: 'Essivo 処格', note: '-s/-us' },
+            { key: 'allative', name: 'Allativo 向格', note: '-r/-ur' },
+            { key: 'ablative', name: 'Ablativo 出格', note: '-l/-ul' },
+            { key: 'instrumental', name: 'Strumentale 具格', note: 'progressione vocalica' }
+        ];
+        
+        cases.forEach(c => {
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td>${c.name}</td>
+                <td>${result.forms[c.key]}</td>
+                <td>${c.note}</td>
+            `;
+        });
+    }
+    
+    // Event listener
+    declineBtn.addEventListener('click', async function() {
+        const input = nounInput.value;
+        if (!input.trim()) return;
+        
+        const dictMatch = lookupLemma(input);
+        const result = declineNoun(input, dictMatch);
+        updateInterface(input, result);
+    });
+    
+    // Enter per declinare
+    nounInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') declineBtn.click();
+    });
+    
+    // Carica dizionario all'avvio
+    loadDictionary();
+});
+</script>
+
+</body>
+</html>
