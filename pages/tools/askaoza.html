@@ -2,19 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Askaoza Converter</title>
+  
+  <!-- Bulma CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  
+  <!-- FONT Anek Gujarati per askaoza -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=swap">
+  
+  <!-- Navbar e stile Izaki-dictionary (se esiste) -->
+  <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
+  
   <style>
     .askaoza-sample {
+      font-family: "Anek Gujarati", system-ui, sans-serif;
       font-size: 1.6rem;
       line-height: 1.6;
     }
     textarea {
       font-family: "Noto Sans", system-ui, sans-serif;
     }
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
   </style>
 </head>
+
 <body class="has-background-light">
+  <!-- NAVBAR IZAKI-DICTIONARY -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/izaki-dictionary/pages/dictionary/dictionary.html">
+        <strong>Izaki Dictionary</strong>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/izaki-dictionary/pages/tools/declensor.html">Declensor</a>
+        <a class="navbar-item is-active">Askaoza Converter</a>
+        <a class="navbar-item" href="/izaki-dictionary/pages/byakuzhi/byakuzhi.html">Byakuzhi</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- resto della pagina... -->
 
 <section class="section">
   <div class="container">
