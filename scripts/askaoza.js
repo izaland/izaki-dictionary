@@ -212,15 +212,40 @@ function parseWordToSyllables(word) {
 // =========================
 
 function renderOnsetNucleus(onset, nucleus) {
+  // nessun suono ⇒ niente glifo
   if (!onset && !nucleus) return '';
 
-  // solo vocale: usa placeholder
+  // CASO SOLO VOCALE (V, VV, dittongo vocalico)
   if (!onset && nucleus) {
-    let syl = splitCV(nucleus);
-    onset = '*';
-    nucleus = syl.V;
+    // vocale composta pura (ai, ae, ei, eu, oe, oi, ou, ui)
+    if (ASKAOZA_COMPOUND[nucleus]) {
+      return ASKAOZA_CONS['*'] + ASKAOZA_COMPOUND[nucleus];
+    }
+
+    let V = nucleus;
+
+    // vocali lunghe
+    let isLong = false;
+    if (/[āēīōū]/.test(V)) {
+      isLong = true;
+      V = V
+        .replace('ā','a')
+        .replace('ē','e')
+        .replace('ī','i')
+        .replace('ō','o')
+        .replace('ū','u');
+    }
+
+    // dittonghi ya/ye/yo/yu/yü, wa/we/wi/wo scritti come solo vocali
+    if (ASKAOZA_DIPH[V]) {
+      return ASKAOZA_CONS['*'] + ASKAOZA_DIPH[V] + (isLong ? LONG_MARK : '');
+    }
+
+    const mark = ASKAOZA_V[V] ?? '';
+    return ASKAOZA_CONS['*'] + mark + (isLong ? LONG_MARK : '');
   }
 
+  // CASI CON ONSET CONSONANTICO (CV / CVC)
   let { C, V } = splitCV(onset + (nucleus || ''));
   const base = ASKAOZA_CONS[C] || ASKAOZA_CONS['*'];
 
@@ -229,12 +254,11 @@ function renderOnsetNucleus(onset, nucleus) {
     return base + ASKAOZA_DIPH[V];
   }
 
-  // vocali composte pure
-  if (C === '*' && ASKAOZA_COMPOUND[V]) {
-    return ASKAOZA_CONS['*'] + ASKAOZA_COMPOUND[V];
+  // vocali composte dopo consonante (se vuoi abilitarle anche qui)
+  if (C !== '*' && ASKAOZA_COMPOUND[V]) {
+    return base + ASKAOZA_COMPOUND[V];
   }
 
-  // vocali lunghe con macron
   let isLong = false;
   if (/[āēīōū]/.test(V)) {
     isLong = true;
@@ -263,9 +287,10 @@ function toAskaozaWordFromSyllables(sylls) {
 
 function toAskaozaText(latinText) {
   if (!latinText.trim()) return '';
-  const words = latinToSyllables(latinText); // usa il nuovo parser {onset,nucleus,coda}
+  const words = latinToSyllables(latinText);
   return words.map(toAskaozaWordFromSyllables).join(' ');
 }
+
 
 // =========================
 // Askaoza → Latin (grezza)
