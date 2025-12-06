@@ -38,6 +38,15 @@ const ASKAOZA_CONS = {
   '*': '૮'
 };
 
+// Consonanti finali ufficiali (con virama)
+const ASKAOZA_FINALS = {
+  n:  'પ્',
+  l:  'ધ્',
+  s:  'ટ્',
+  r:  'દ્',
+  h:  'ત્',
+  kk: 'ડ્ડ્'
+};
 
 // Diacritici vocalici semplici
 const ASKAOZA_V = {
@@ -100,64 +109,99 @@ function splitCV(syl) {
   return { C: '*', V: syl };
 }
 
-// NUOVA segmentazione: parola → lista di sillabe
+// ritorna array di parole, ogni parola = array di sillabe {onset, nucleus, coda}
 function latinToSyllables(text) {
   const words = text.trim().split(/\s+/);
-  return words.map(word => splitWordToSyllables(word));
+  return words.map(parseWordToSyllables);
 }
 
-function splitWordToSyllables(word) {
+function parseWordToSyllables(word) {
   const res = [];
-  let i = 0;
   const lower = word.toLowerCase();
+  let i = 0;
 
   while (i < lower.length) {
-    let C = '';
-    let V = '';
+    let onset = '';
+    let nucleus = '';
+    let coda = '';
 
-    // prova prima trigrammi / digrammi complessi (doppie + ch/sh/ts/dz)
-    if (i + 2 < lower.length) {
+    // 1) onset: prova trigrammi/digrammi (incluse doppie) poi singola
+    if (i + 2 <= lower.length) {
       const three = lower.slice(i, i + 3);
       if (DIGRAPHS.includes(three)) {
-        C = three;
+        onset = three;
         i += 3;
       }
     }
-    if (!C && i + 1 < lower.length) {
+    if (!onset && i + 1 < lower.length) {
       const two = lower.slice(i, i + 2);
       if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
-        C = two; // es. kk, ss, ll, nn
+        onset = two;
         i += 2;
       }
     }
-    if (!C && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
-      C = lower[i];
+    if (!onset && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
+      onset = lower[i];
       i += 1;
     }
 
-    // vocale / dittongo (come già avevamo)
+    // 2) nucleo vocalico o dittongo
     if (i < lower.length) {
       const next2 = lower.slice(i, i + 2);
       const next1 = lower[i];
 
       if (ASKAOZA_DIPH[next2] || ASKAOZA_COMPOUND[next2]) {
-        V = next2;
+        nucleus = next2;
         i += 2;
       } else if (/[aeiouāēīōūü]/.test(next1)) {
-        V = next1;
+        nucleus = next1;
         i += 1;
       } else {
-        V = '';
+        nucleus = ''; // possibile sillaba consonantica pura (solo finale)
       }
     }
 
-    const syl = (C || '') + (V || '');
-    if (syl) {
-      res.push(syl);
-    } else {
-      res.push(lower[i]);
-      i += 1;
+    // 3) possibile coda consonantica (solo n,l,s,r,h,kk) se:
+    // - c'è un nucleo
+    // - dopo c'è una consonante (inizio sillaba successiva) o fine parola
+    if (nucleus && i < lower.length) {
+      // guarda avanti: consonante/i che seguono
+      let look = '';
+      if (i + 2 <= lower.length) {
+        const three = lower.slice(i, i + 3);
+        if (DIGRAPHS.includes(three) || ASKAOZA_CONS[three]) {
+          look = three;
+        }
+      }
+      if (!look && i + 1 <= lower.length) {
+        const two = lower.slice(i, i + 2);
+        if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
+          look = two;
+        }
+      }
+      if (!look && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
+        look = lower[i];
+      }
+
+      // se la "look" inizia con finale ammessa, prendila come coda
+      const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+      const cand =
+        finalCandidates.find(fc => look && look.startsWith(fc));
+
+      if (cand) {
+        coda = cand;
+        i += cand.length;
+      }
+    } else if (!nucleus && onset) {
+      // sillaba puramente consonantica in fine parola → coda senza nucleo
+      const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+      if (finalCandidates.includes(onset)) {
+        coda = onset;
+        onset = '';
+      }
     }
+
+    res.push({ onset, nucleus, coda });
   }
 
   return res;
@@ -167,9 +211,17 @@ function splitWordToSyllables(word) {
 // Latin → askaoza (sillaba)
 // =========================
 
-function toAskaozaSyllable(romanSyl) {
-  let { C, V } = splitCV(romanSyl);
+function renderOnsetNucleus(onset, nucleus) {
+  if (!onset && !nucleus) return '';
 
+  // solo vocale: usa placeholder
+  if (!onset && nucleus) {
+    let syl = splitCV(nucleus);
+    onset = '*';
+    nucleus = syl.V;
+  }
+
+  let { C, V } = splitCV(onset + (nucleus || ''));
   const base = ASKAOZA_CONS[C] || ASKAOZA_CONS['*'];
 
   // dittonghi yV / wV
@@ -177,12 +229,12 @@ function toAskaozaSyllable(romanSyl) {
     return base + ASKAOZA_DIPH[V];
   }
 
-  // vocali composte pure (ai, ae, ecc.)
+  // vocali composte pure
   if (C === '*' && ASKAOZA_COMPOUND[V]) {
     return ASKAOZA_CONS['*'] + ASKAOZA_COMPOUND[V];
   }
 
-  // vocali lunghe con macron (ā, ē, ī, ō, ū)
+  // vocali lunghe con macron
   let isLong = false;
   if (/[āēīōū]/.test(V)) {
     isLong = true;
@@ -195,16 +247,24 @@ function toAskaozaSyllable(romanSyl) {
   }
 
   const mark = ASKAOZA_V[V] ?? '';
-
   return base + mark + (isLong ? LONG_MARK : '');
+}
+
+function renderCoda(coda) {
+  if (!coda) return '';
+  return ASKAOZA_FINALS[coda] || (ASKAOZA_CONS[coda] || '');
+}
+
+function toAskaozaWordFromSyllables(sylls) {
+  return sylls
+    .map(s => renderOnsetNucleus(s.onset, s.nucleus) + renderCoda(s.coda))
+    .join('');
 }
 
 function toAskaozaText(latinText) {
   if (!latinText.trim()) return '';
-
-  const words = latinToSyllables(latinText); // array di array di sillabe
-  const converted = words.map(sylls => sylls.map(toAskaozaSyllable).join(''));
-  return converted.join(' ');
+  const words = latinToSyllables(latinText); // usa il nuovo parser {onset,nucleus,coda}
+  return words.map(toAskaozaWordFromSyllables).join(' ');
 }
 
 // =========================
