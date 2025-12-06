@@ -140,7 +140,8 @@ function parseWordToSyllables(word) {
         i += 2;
       }
     }
-    if (!onset && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
+    // aggiungi anche j tra le consonanti singole possibili
+    if (!onset && /[kgpbsztdfvhnmlrj]/.test(lower[i])) {
       onset = lower[i];
       i += 1;
     }
@@ -161,9 +162,7 @@ function parseWordToSyllables(word) {
       }
     }
 
-    // 3) possibile coda consonantica (solo n,l,s,r,h,kk) se:
-    // - c'è un nucleo
-    // - dopo c'è una consonante (inizio sillaba successiva) o fine parola
+    // 3) possibile coda consonantica (solo n,l,s,r,h,kk)
     if (nucleus && i < lower.length) {
       // guarda avanti: consonante/i che seguono
       let look = '';
@@ -179,18 +178,23 @@ function parseWordToSyllables(word) {
           look = two;
         }
       }
-      if (!look && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
+      if (!look && /[kgpbsztdfvhnmlrj]/.test(lower[i])) {
         look = lower[i];
       }
 
-      // se la "look" inizia con finale ammessa, prendila come coda
       const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
-      const cand =
-        finalCandidates.find(fc => look && look.startsWith(fc));
+      const cand = finalCandidates.find(fc => look && look.startsWith(fc));
 
       if (cand) {
-        coda = cand;
-        i += cand.length;
+        const afterCodaIndex = i + cand.length;
+        const nextChar = lower[afterCodaIndex];
+
+        if (nextChar && /[aeiouāēīōūü]/.test(nextChar)) {
+          // es. o + r + a → o-ra, NON or-a: niente coda
+        } else {
+          coda = cand;
+          i = afterCodaIndex;
+        }
       }
     } else if (!nucleus && onset) {
       // sillaba puramente consonantica in fine parola → coda senza nucleo
@@ -201,11 +205,73 @@ function parseWordToSyllables(word) {
       }
     }
 
+    // GUARDIA ANTI-FREEZE:
+    if (!onset && !nucleus && !coda) {
+      // carattere inatteso (es. simboli, o casi strani con j)
+      res.push({ onset: '', nucleus: lower[i], coda: '' });
+      i += 1;
+      continue;
+    }
+
     res.push({ onset, nucleus, coda });
   }
 
   return res;
 }
+
+  // 3) possibile coda consonantica (solo n,l,s,r,h,kk) se:
+  // - c'è un nucleo
+  // - dopo c'è una consonante (inizio sillaba successiva) o fine parola
+  if (nucleus && i < lower.length) {
+    // guarda avanti: consonante/i che seguono
+    let look = '';
+    if (i + 2 <= lower.length) {
+      const three = lower.slice(i, i + 3);
+      if (DIGRAPHS.includes(three) || ASKAOZA_CONS[three]) {
+        look = three;
+      }
+    }
+    if (!look && i + 1 <= lower.length) {
+      const two = lower.slice(i, i + 2);
+      if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
+        look = two;
+      }
+    }
+    if (!look && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
+      look = lower[i];
+    }
+
+    // se la "look" inizia con finale ammessa, valutala come coda
+    const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+    const cand = finalCandidates.find(fc => look && look.startsWith(fc));
+
+    if (cand) {
+      const afterCodaIndex = i + cand.length;
+      const nextChar = lower[afterCodaIndex];
+
+      if (nextChar && /[aeiouāēīōūü]/.test(nextChar)) {
+        // es. o + r + a → o-ra, NON or-a: niente coda, la consonante
+        // diventerà onset della sillaba successiva
+      } else {
+        // vero CVC: finale davanti a consonante o fine parola
+        coda = cand;
+        i = afterCodaIndex;
+      }
+    }
+  } else if (!nucleus && onset) {
+    // sillaba puramente consonantica in fine parola → coda senza nucleo
+    const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+    if (finalCandidates.includes(onset)) {
+      coda = onset;
+      onset = '';
+    }
+  }
+
+  res.push({ onset, nucleus, coda });
+}
+
+return res;
+
 
 // =========================
 // Latin → askaoza (sillaba)
