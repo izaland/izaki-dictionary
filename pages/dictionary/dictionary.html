@@ -121,6 +121,60 @@
     color: #5e4732;
     font-style: italic;
   }
+
+  /* Bottone per declinare */
+  .decline-btn {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #d4b87c;
+    color: #4b3b2a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+  }
+
+  .decline-btn:hover {
+    background-color: #c4a86c;
+  }
+
+  /* Tabella declinazioni */
+  .declension-table {
+    margin-top: 1rem;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+  }
+
+  .declension-table.show {
+    display: block;
+  }
+
+  .declension-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .declension-table th,
+  .declension-table td {
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid #e0d4b8;
+  }
+
+  .declension-table th {
+    background-color: #f0e8d0;
+    font-weight: bold;
+    color: #4b3b2a;
+  }
+
+  .declension-table .askaoza {
+    font-size: 1.1rem;
+  }
 </style>
 </head>
 <body>
@@ -178,15 +232,30 @@ function ipaToRomaji(ipa) {
   return romaji;
 }
 
+// === Funzione per verificare se è un sostantivo ===
+function isNoun(pos) {
+  if (!pos) return false;
+  return pos.toLowerCase().includes(': n=') || pos.toLowerCase().includes(':n=');
+}
+
+// === Toggle declension table ===
+function toggleDeclension(entryId) {
+  const table = document.getElementById(`decl-${entryId}`);
+  if (table) {
+    table.classList.toggle('show');
+  }
+}
+
 // === Load JSON ===
 fetch('../../data/dictionary.json')
   .then(response => response.json())
   .then(data => {
 
     // Add ROMAJI and ASKAOZA to each entry
-    data.forEach(entry => {
+    data.forEach((entry, index) => {
       entry.ROMAJI = ipaToRomaji(entry.IZ);
       entry.ASKAOZA = toAskaozaText(entry.lemma || '');
+      entry.INDEX = index; // per ID univoco
     });
 
     const searchInput = document.getElementById('search');
@@ -205,37 +274,129 @@ fetch('../../data/dictionary.json')
             e.lemma?.toLowerCase().includes(query) ||
             e.ipa?.toLowerCase().includes(query) ||
             e.ROMAJI?.toLowerCase().includes(query) ||
-            e.ASKAOZA?.includes(query)  // ricerca anche in askaoza!
+            e.ASKAOZA?.includes(query)
           );
         }
       });
 
-      resultsDiv.innerHTML = filtered.map(e => `
-        <div class="entry">
-          <div class="headword">
-            <span class="lemma">${e.lemma}</span>
-            <span class="askaoza">${e.ASKAOZA}</span>
-            <span class="ipa">【${e.ipa}】</span>
-            <span class="pos">&lt;${e.pos || "—"}&gt;</span>
-          </div>
+      resultsDiv.innerHTML = filtered.map(e => {
+        const isNounEntry = isNoun(e.pos);
+        let declensionHTML = '';
 
-          <div class="translations">
-            ${e.english ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
-            ${e.italian ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
-          </div>
+        if (isNounEntry) {
+          // Genera le declinazioni usando le funzioni dal declensor
+          const declined = declineNounSimple(e.lemma);
+          
+          declensionHTML = `
+            <button class="decline-btn" onclick="toggleDeclension(${e.INDEX})">
+              📖 Show declensions / 曲用表示
+            </button>
+            <div id="decl-${e.INDEX}" class="declension-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Case</th>
+                    <th>Singular</th>
+                    <th>Askaoza</th>
+                    <th>Plural</th>
+                    <th>Askaoza</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Nom</td>
+                    <td>${declined.singular.nom}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.nom)}</td>
+                    <td>${declined.plural.nom}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.nom)}</td>
+                  </tr>
+                  <tr>
+                    <td>Gen</td>
+                    <td>${declined.singular.gen}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.gen)}</td>
+                    <td>${declined.plural.gen}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.gen)}</td>
+                  </tr>
+                  <tr>
+                    <td>Acc</td>
+                    <td>${declined.singular.acc}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.acc)}</td>
+                    <td>${declined.plural.acc}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.acc)}</td>
+                  </tr>
+                  <tr>
+                    <td>Dat</td>
+                    <td>${declined.singular.dat}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.dat)}</td>
+                    <td>${declined.plural.dat}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.dat)}</td>
+                  </tr>
+                  <tr>
+                    <td>Ess</td>
+                    <td>${declined.singular.ess}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.ess)}</td>
+                    <td>${declined.plural.ess}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.ess)}</td>
+                  </tr>
+                  <tr>
+                    <td>All</td>
+                    <td>${declined.singular.all}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.all)}</td>
+                    <td>${declined.plural.all}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.all)}</td>
+                  </tr>
+                  <tr>
+                    <td>Abl</td>
+                    <td>${declined.singular.abl}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.abl)}</td>
+                    <td>${declined.plural.abl}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.abl)}</td>
+                  </tr>
+                  <tr>
+                    <td>Ins</td>
+                    <td>${declined.singular.ins}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.ins)}</td>
+                    <td>${declined.plural.ins}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.ins)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          `;
+        }
 
-          ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
-        </div>
-      `).join('');
+        return `
+          <div class="entry">
+            <div class="headword">
+              <span class="lemma">${e.lemma}</span>
+              <span class="askaoza">${e.ASKAOZA}</span>
+              <span class="ipa">【${e.ipa}】</span>
+              <span class="pos">&lt;${e.pos || "—"}&gt;</span>
+            </div>
+
+            <div class="translations">
+              ${e.english ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
+              ${e.italian ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
+            </div>
+
+            ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
+            
+            ${declensionHTML}
+          </div>
+        `;
+      }).join('');
     }
 
     searchInput.addEventListener('input', renderResults);
     langSelect.addEventListener('change', renderResults);
 
-    renderResults(); // inizializza con tutti i risultati
+    renderResults();
   })
   .catch(error => console.error("Error loading JSON:", error));
 </script>
+
+<!-- Script declensor (funzioni semplificate) -->
+<script src="../tools/declensor-logic.js"></script>
 
 <!-- Script askaoza per conversione automatica -->
 <script src="/izaki-dictionary/scripts/askaoza.js"></script>
