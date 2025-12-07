@@ -404,90 +404,153 @@ for (const [lat, glyph] of Object.entries(ASKAOZA_FINALS)) {
   FINALS_REV[glyph] = lat;
 }
 
+// Funzione helper per parsare i diacritici vocalici
+function parseVowelMarks(text, startIdx) {
+  let vowel = 'a';
+  let isLong = false;
+  let j = startIdx;
+
+  // Controlla vocali composte (possono essere 2+ caratteri)
+  for (let len = 3; len >= 1; len--) {
+    if (j + len <= text.length) {
+      const mark = text.slice(j, j + len);
+      
+      if (COMPOUND_REV[mark]) {
+        vowel = COMPOUND_REV[mark];
+        j += len;
+        break;
+      }
+      if (DIPH_REV[mark]) {
+        vowel = DIPH_REV[mark];
+        j += len;
+        break;
+      }
+      if (len === 1 && V_REV[mark]) {
+        vowel = V_REV[mark];
+        j += len;
+        break;
+      }
+    }
+  }
+
+  // Controlla marker di lunghezza
+  if (j < text.length && text[j] === LONG_MARK) {
+    isLong = true;
+    j++;
+    
+    // Applica lunghezza
+    vowel = vowel
+      .replace('a', 'ā')
+      .replace('e', 'ē')
+      .replace('i', 'ī')
+      .replace('o', 'ō')
+      .replace('u', 'ū');
+  }
+
+  return [vowel, isLong, j];
+}
+
 function askaozaToLatinText(askText) {
-  const chars = Array.from(askText);
   let result = '';
   let i = 0;
 
-  while (i < chars.length) {
-    const ch = chars[i];
-
+  while (i < askText.length) {
     // Spazio: mantieni
-    if (/\s/.test(ch)) {
+    if (/\s/.test(askText[i])) {
       result += ' ';
       i++;
       continue;
     }
 
-    // Consonante base (onset)
-    if (CONS_REV[ch]) {
-      let cons = CONS_REV[ch];
-      let vowel = 'a'; // vocale inerente
-      let isLong = false;
+    let matched = false;
+
+    // 1) Cerca consonante finale con virama (2 caratteri: cons + ્)
+    if (i + 1 < askText.length) {
+      const twoChars = askText.slice(i, i + 2);
+      if (FINALS_REV[twoChars]) {
+        result += FINALS_REV[twoChars];
+        i += 2;
+        matched = true;
+        continue;
+      }
+    }
+
+    // 2) Cerca consonante base (può essere 1 o più caratteri)
+    // Controlla prima le consonanti doppie (3 caratteri: es. ડ્ડ)
+    if (!matched && i + 2 < askText.length) {
+      const threeChars = askText.slice(i, i + 3);
+      if (CONS_REV[threeChars]) {
+        let cons = CONS_REV[threeChars];
+        let vowel = 'a';
+        let isLong = false;
+        let j = i + 3;
+
+        // Cerca diacritici vocalici dopo la consonante
+        [vowel, isLong, j] = parseVowelMarks(askText, j);
+
+        // Cerca consonante finale dopo la vocale
+        if (j + 1 < askText.length) {
+          const finalCandidate = askText.slice(j, j + 2);
+          if (FINALS_REV[finalCandidate]) {
+            cons += FINALS_REV[finalCandidate];
+            j += 2;
+          }
+        }
+
+        if (cons === '*') cons = '';
+        result += cons + vowel;
+        i = j;
+        matched = true;
+        continue;
+      }
+    }
+
+    // 3) Cerca consonanti semplici (1 carattere base, può avere ૃ dopo)
+    if (!matched) {
+      let baseChar = askText[i];
+      let consCandidate = baseChar;
       let j = i + 1;
 
-      // Controlla dittonghi (yV, wV) - PRIMA delle vocali semplici
-      if (j < chars.length && DIPH_REV[chars[j]]) {
-        vowel = DIPH_REV[chars[j]];
-        j++;
-      }
-      // Controlla vocali composte (ai, ae, ei, etc.)
-      else if (j < chars.length && COMPOUND_REV[chars[j]]) {
-        vowel = COMPOUND_REV[chars[j]];
-        j++;
-      }
-      // Controlla vocali semplici
-      else if (j < chars.length && V_REV[chars[j]]) {
-        vowel = V_REV[chars[j]];
+      // Controlla se c'è il diacritico di sonorità (ૃ)
+      if (j < askText.length && askText[j] === 'ૃ') {
+        consCandidate = baseChar + 'ૃ';
         j++;
       }
 
-      // Controlla marker di lunghezza
-      if (j < chars.length && chars[j] === LONG_MARK) {
-        isLong = true;
-        j++;
-      }
+      if (CONS_REV[consCandidate]) {
+        let cons = CONS_REV[consCandidate];
+        let vowel = 'a';
+        let isLong = false;
 
-      // Controlla consonante finale (virama)
-      let coda = '';
-      if (j < chars.length && FINALS_REV[chars[j]]) {
-        coda = FINALS_REV[chars[j]];
-        j++;
-      }
+        // Cerca diacritici vocalici
+        [vowel, isLong, j] = parseVowelMarks(askText, j);
 
-      // Componi il risultato
-      if (cons === '*') cons = ''; // placeholder vocale iniziale
-      
-      // Applica lunghezza vocale se necessario
-      if (isLong) {
-        vowel = vowel
-          .replace('a', 'ā')
-          .replace('e', 'ē')
-          .replace('i', 'ī')
-          .replace('o', 'ō')
-          .replace('u', 'ū');
-      }
+        // Cerca consonante finale
+        if (j + 1 < askText.length) {
+          const finalCandidate = askText.slice(j, j + 2);
+          if (FINALS_REV[finalCandidate]) {
+            cons += FINALS_REV[finalCandidate];
+            j += 2;
+          }
+        }
 
-      result += cons + vowel + coda;
-      i = j;
-      continue;
+        if (cons === '*') cons = '';
+        result += cons + vowel;
+        i = j;
+        matched = true;
+        continue;
+      }
     }
 
-    // Consonante finale isolata (senza onset)
-    if (FINALS_REV[ch]) {
-      result += FINALS_REV[ch];
+    // Carattere non riconosciuto
+    if (!matched) {
+      result += askText[i];
       i++;
-      continue;
     }
-
-    // Carattere sconosciuto: mantieni
-    result += ch;
-    i++;
   }
 
   return result.trim().replace(/\s+/g, ' ');
 }
-
 
 // =========================
 // Hook con la UI
