@@ -141,21 +141,23 @@ function parseWordToSyllables(word) {
       let coda = '';
 
       // 1) onset: trigrammi/digrammi (incluse doppie) poi singola
-      if (i + 2 <= group.length) {
+      // IMPORTANTE: controlla PRIMA i digrammi più lunghi
+      if (i + 3 <= group.length) {
         const three = group.slice(i, i + 3);
         if (DIGRAPHS.includes(three)) {
           onset = three;
           i += 3;
         }
       }
-      if (!onset && i + 1 < group.length) {
+      if (!onset && i + 2 <= group.length) {
         const two = group.slice(i, i + 2);
         if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
           onset = two;
           i += 2;
         }
       }
-      if (!onset && /[kgpbsztdfvhnmlrj]/.test(group[i])) {
+      // MODIFICATO: controlla che NON sia una vocale prima di assegnare come onset
+      if (!onset && i < group.length && /[kgpbsztdfvhnmlrj]/.test(group[i])) {
         onset = group[i];
         i += 1;
       }
@@ -179,15 +181,23 @@ function parseWordToSyllables(word) {
       // 3) possibile coda consonantica (solo n,l,s,r,h,kk)
       if (nucleus && i < group.length) {
         let look = '';
-        if (i + 2 <= group.length) {
+        
+        // Controlla PRIMA i digrammi più lunghi
+        if (i + 3 <= group.length) {
           const three = group.slice(i, i + 3);
           if (DIGRAPHS.includes(three)) {
             look = three;
           }
         }
-        if (!look && i + 1 <= group.length) {
+        if (!look && i + 2 <= group.length) {
           const two = group.slice(i, i + 2);
           if (DIGRAPHS.includes(two)) {
+            look = two;
+          }
+        }
+        if (!look && i + 1 <= group.length) {
+          const two = group.slice(i, i + 2);
+          if (ASKAOZA_CONS[two]) {
             look = two;
           }
         }
@@ -200,19 +210,24 @@ function parseWordToSyllables(word) {
 
         if (cand) {
           const afterCodaIndex = i + cand.length;
-          const nextChar = group[afterCodaIndex];
-
-          if (nextChar) {
-            const potentialDigraph = group.slice(afterCodaIndex, afterCodaIndex + 2);
-            if (DIGRAPHS.includes(potentialDigraph)) {
-              // NON usare come coda: la consonante inizia un digramma
-            } else if (/[aeiouāēīōūü]/.test(nextChar)) {
+          
+          // Controlla se dopo c'è un digramma
+          if (afterCodaIndex < group.length) {
+            const remainingTwo = group.slice(afterCodaIndex, afterCodaIndex + 2);
+            
+            // Se la consonante candidata + la lettera successiva formano un digramma, NON usare come coda
+            const wouldFormDigraph = DIGRAPHS.some(dg => dg.startsWith(cand) && group.slice(i, i + dg.length) === dg);
+            
+            if (wouldFormDigraph) {
+              // Es: "ashi" → NON usare 's' come coda, 'sh' deve rimanere insieme
+            } else if (/[aeiouāēīōūü]/.test(group[afterCodaIndex])) {
               // V + cons + V → niente coda
             } else {
               coda = cand;
               i = afterCodaIndex;
             }
           } else {
+            // Fine gruppo: usa come coda
             coda = cand;
             i = afterCodaIndex;
           }
@@ -238,6 +253,7 @@ function parseWordToSyllables(word) {
 
   return res;
 }
+
 
 // =========================
 // Latin → askaoza (sillaba)
