@@ -97,14 +97,26 @@ const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz'];
 function splitCV(syl) {
   syl = syl.toLowerCase();
 
+  // PRIMA: controlla trigrammi (cch, ssh, tts)
   for (const dg of DIGRAPHS) {
     if (syl.startsWith(dg)) {
       return { C: dg, V: syl.slice(dg.length) || 'a' };
     }
   }
+  
+  // SECONDO: controlla consonanti doppie e digrammi di 2 lettere
+  if (syl.length >= 2) {
+    const two = syl.slice(0, 2);
+    if (ASKAOZA_CONS[two]) {
+      return { C: two, V: syl.slice(2) || 'a' };
+    }
+  }
+  
+  // TERZO: consonante singola
   if (/^[kgpbsztdfvhnmlrj]/i.test(syl[0])) {
     return { C: syl[0], V: syl.slice(1) || 'a' };
   }
+  
   // solo vocale / dittongo
   return { C: '*', V: syl };
 }
