@@ -8,20 +8,32 @@
   <!-- Bulma CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   
-  <!-- FONT Anek Gujarati per askaoza -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=swap">
+  <!-- Preconnect per Google Fonts (migliora velocità caricamento) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
+  <!-- Font gujarati con fallback multipli per compatibilità mobile -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
+
   <!-- Navbar e stile Izaki-dictionary -->
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
   
-  <style>
+    <style>
     .askaoza-sample {
-      font-family: "Anek Gujarati", system-ui, sans-serif;
-      font-size: 1.6rem;
-      line-height: 1.6;
+      font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
+      font-size: 1.8rem;
+      line-height: 1.8;
+      /* Migliora rendering caratteri complessi su mobile */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
     textarea {
       font-family: "Noto Sans", system-ui, sans-serif;
+    }
+    textarea.askaoza-sample {
+      font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
     }
     .subtitle-ja {
       font-size: 0.85em;
