@@ -8,6 +8,12 @@
 <!-- Bulma CSS -->
 <link rel="stylesheet" href="../../assets/bulma.min.css">
 
+<!-- Font gujarati per askaoza -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
+
 <style>
   body {
     background-color: #f7ecd8;
@@ -56,56 +62,6 @@
     margin-bottom: 1.5rem;
   }
 
-  /* stile risultati "vecchio", ancora utile */
-  #results div {
-    margin-bottom: 0.7rem;
-    padding: 0.7rem 1rem;
-    border-left: 4px solid #d4b87c;
-    background-color: rgba(255, 250, 230, 0.85);
-    color: #3e2f1c;
-    font-size: 1rem;
-    border-radius: 5px;
-  }
-
-  .lemma {
-    color: #4b2f1e;
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-
-  .romaji {
-    color: #a55d2d;
-    margin-left: 0.5rem;
-    font-style: italic;
-  }
-
-  .pos {
-    font-style: italic;
-    color: #7a5e3a;
-    margin-left: 0.5rem;
-  }
-
-  .english {
-    color: #1a3f6b;
-    margin-left: 0.5rem;
-  }
-
-  .italian {
-    color: #3e5a2a;
-    margin-left: 0.5rem;
-  }
-
-  .example {
-    display: block;
-    color: #5e4732;
-    margin-top: 0.3rem;
-    font-style: italic;
-  }
-
-  /* ─────────────────────────────────────────────── */
-  /* Nuovo stile ENTRY, HEADWORD, IPA, ecc.          */
-  /* ─────────────────────────────────────────────── */
-
   .entry {
     margin-bottom: 1.2rem;
     padding: 0.9rem 1rem;
@@ -124,6 +80,15 @@
     color: #4b2f1e;
     font-weight: bold;
     font-size: 1.2rem;
+  }
+
+  .askaoza {
+    margin-left: 0.6rem;
+    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
+    font-size: 1.3rem;
+    color: #8b6f47;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   .ipa {
@@ -164,13 +129,13 @@
 <div id="navbar"></div>
 <script src="/izaki-dictionary/scripts/script.js"></script>
 
-  <div id="container">
+<div id="container">
   <h1 class="title">Izaki Dictionary 華邦語辞典</h1>
 
   <div class="field">
     <label class="label">Search 檢索</label>
     <div class="control">
-      <input class="input" type="text" id="search" placeholder="Type to search...">
+      <input class="input" type="text" id="search" placeholder="Type to search... (Latin, Askaoza, English, Italian)">
     </div>
   </div>
 
@@ -188,15 +153,6 @@
   </div>
 
   <div id="results"></div>
-</div>
-
-<h1 class="title">Izaki Dictionary 華邦語辞典</h1>
-
-<div class="field">
-  <label class="label">Search 檢索</label>
-  <div class="control">
-    <input class="input" type="text" id="search" placeholder="Type to search... 入力ઠૅડા 檢索">
-  </div>
 </div>
 
 <script>
@@ -227,56 +183,62 @@ fetch('../../data/dictionary.json')
   .then(response => response.json())
   .then(data => {
 
-    // Add ROMAJI to each entry
+    // Add ROMAJI and ASKAOZA to each entry
     data.forEach(entry => {
       entry.ROMAJI = ipaToRomaji(entry.IZ);
+      entry.ASKAOZA = toAskaozaText(entry.lemma || '');
     });
 
     const searchInput = document.getElementById('search');
     const langSelect = document.getElementById('lang');
     const resultsDiv = document.getElementById('results');
 
-function renderResults() {
-  const query = searchInput.value.toLowerCase();
-  const lang = langSelect.value;
+    function renderResults() {
+      const query = searchInput.value.toLowerCase();
+      const lang = langSelect.value;
 
-  const filtered = data.filter(e => {
-    if (lang === "EN") return e.english?.some(w => w.toLowerCase().includes(query));
-    if (lang === "IT") return e.italian?.some(w => w.toLowerCase().includes(query));
-    if (lang === "IZ") {
-      return (
-        e.lemma?.toLowerCase().includes(query) ||
-        e.ipa?.toLowerCase().includes(query) ||
-        e.ROMAJI?.toLowerCase().includes(query)
-      );
+      const filtered = data.filter(e => {
+        if (lang === "EN") return e.english?.some(w => w.toLowerCase().includes(query));
+        if (lang === "IT") return e.italian?.some(w => w.toLowerCase().includes(query));
+        if (lang === "IZ") {
+          return (
+            e.lemma?.toLowerCase().includes(query) ||
+            e.ipa?.toLowerCase().includes(query) ||
+            e.ROMAJI?.toLowerCase().includes(query) ||
+            e.ASKAOZA?.includes(query)  // ricerca anche in askaoza!
+          );
+        }
+      });
+
+      resultsDiv.innerHTML = filtered.map(e => `
+        <div class="entry">
+          <div class="headword">
+            <span class="lemma">${e.lemma}</span>
+            <span class="askaoza">${e.ASKAOZA}</span>
+            <span class="ipa">【${e.ipa}】</span>
+            <span class="pos">&lt;${e.pos || "—"}&gt;</span>
+          </div>
+
+          <div class="translations">
+            ${e.english ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
+            ${e.italian ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
+          </div>
+
+          ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
+        </div>
+      `).join('');
     }
-  });
-
-  resultsDiv.innerHTML = filtered.map(e => `
-    <div class="entry">
-      <div class="headword">
-        <span class="lemma">${e.lemma}</span>
-        <span class="ipa">【${e.ipa}】</span>
-        <span class="pos">&lt;${e.pos || "—"}&gt;</span>
-      </div>
-
-      <div class="translations">
-        ${e.english ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
-        ${e.italian ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
-      </div>
-
-      ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
-    </div>
-  `).join('');
-}
 
     searchInput.addEventListener('input', renderResults);
     langSelect.addEventListener('change', renderResults);
 
     renderResults(); // inizializza con tutti i risultati
   })
-  .catch(error => console.error("Error loading JSON / JSON 讀૮૾ટ્ટપ્ ૮ૅદ૾દ્발發生!:", error));
+  .catch(error => console.error("Error loading JSON:", error));
 </script>
+
+<!-- Script askaoza per conversione automatica -->
+<script src="/izaki-dictionary/scripts/askaoza.js"></script>
 
 </body>
 </html>
