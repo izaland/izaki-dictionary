@@ -5,7 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Izaki Noun Declensor - Izaki Dictionary</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <!-- o il tuo CSS locale -->
+    
+    <!-- Font gujarati per askaoza -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
+    
+    <style>
+        .askaoza-text {
+            font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
+            font-size: 1.3rem;
+            color: #2c3e50;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        .subtitle-ja {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
     <!-- NAVBAR -->
@@ -26,7 +45,6 @@
   </div>
 </section>
 
-
     <!-- MAIN CONTENT -->
     <div class="box m-5">
         <div class="columns">
@@ -35,7 +53,7 @@
                 <div class="field">
                     <div class="control">
                         <input class="input is-large" id="nounInput" type="text" 
-                               placeholder="Type a noun (romaji or Byakuzhi)<br>名詞: 入力 (ローマ字または百字)">
+                               placeholder="Type a noun (romaji or Byakuzhi)">
                     </div>
                 </div>
                 <div class="field">
@@ -57,7 +75,10 @@
                         <thead>
                             <tr>
                                 <th>Case / 格</th>
-                                <th>Form / 形</th>
+                                <th>Singular / 単数</th>
+                                <th>Askaoza</th>
+                                <th>Plural / 複数</th>
+                                <th>Askaoza</th>
                                 <th>Rule / 規則</th>
                             </tr>
                         </thead>
@@ -185,24 +206,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const base = a.clean;
 
         // dittonghi e casi speciali
-        if (base.endsWith('ai')) return base + 'yo';              // sasatsai → sasatsayo
-        if (base.endsWith('au')) return base.slice(0,-1) + 'wa';  // akau → akawa
-        if (base.endsWith('ea')) return base + 'e';               // kea → keae
-        if (base.endsWith('ao')) return base.slice(0,-2) + 'ō';   // hingao → hingō
-        if (base.endsWith('eo')) return base.slice(0,-2) + 'eu';  // sāreo → sāreu
-        if (base.endsWith('uo')) return base.slice(0,-2) + 'ū';   // tassuo → tassū
-        if (/[ū]$/.test(base))  return base + 'a';                // haiyū → haiyūa
+        if (base.endsWith('ai')) return base + 'yo';
+        if (base.endsWith('au')) return base.slice(0,-1) + 'wa';
+        if (base.endsWith('ea')) return base + 'e';
+        if (base.endsWith('ao')) return base.slice(0,-2) + 'ō';
+        if (base.endsWith('eo')) return base.slice(0,-2) + 'eu';
+        if (base.endsWith('uo')) return base.slice(0,-2) + 'ū';
+        if (/[ū]$/.test(base))  return base + 'a';
 
         const last = a.lastVowel;
         const cons = a.isConsonantEnd ? a.finalConsonant : '';
 
         // finali in vocale semplice
         if (a.isVowelEnd && !a.isConsonantEnd) {
-            if (last === 'a' || last === 'ā') return base + 'e';          // miwa → miwae
-            if (last === 'e' || last === 'ē') return base + 'i';          // oboe → oboei
-            if (last === 'i' || last === 'ī') return base.slice(0,-1) + 'yo'; // sāri → sāryo
-            if (last === 'o' || last === 'ō') return base + 'u';          // ahiro → ahirou
-            if (last === 'u')                  return base.slice(0,-1) + 'wa'; // usumu → usumwa
+            if (last === 'a' || last === 'ā') return base + 'e';
+            if (last === 'e' || last === 'ē') return base + 'i';
+            if (last === 'i' || last === 'ī') return base.slice(0,-1) + 'yo';
+            if (last === 'o' || last === 'ō') return base + 'u';
+            if (last === 'u')                  return base.slice(0,-1) + 'wa';
         }
 
         // finali in consonante: progressione vocalica + raddoppio
@@ -212,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return base + cons + v2;
         }
 
-        return base + 'e'; // fallback
+        return base + 'e';
     }
 
     // ===============================
@@ -257,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (analysis.isConsonantEnd && analysis.finalConsonant === 'n') {
             forms.dat = analysis.clean + 'ni';
         } else if (analysis.isConsonantEnd && analysis.finalConsonant === 's') {
-            forms.dat = analysis.clean + 'shi'; // tsaikis → tsaikisshi
+            forms.dat = analysis.clean + 'shi';
         } else {
             forms.dat = analysis.clean + 'i';
         }
@@ -394,11 +415,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         rows.forEach(c => {
             const row = tbody.insertRow();
+            
+            // Converti in askaoza
+            const singularAskaoza = toAskaozaText(result.singular[c.key]);
+            const pluralAskaoza = toAskaozaText(result.plural[c.key]);
+            
             row.innerHTML = `
                 <td>${c.name}</td>
                 <td><strong>${result.singular[c.key]}</strong></td>
+                <td class="askaoza-text">${singularAskaoza}</td>
                 <td><strong>${result.plural[c.key]}</strong></td>
-                <td>${c.note}</td>
+                <td class="askaoza-text">${pluralAskaoza}</td>
+                <td><small>${c.note}</small></td>
             `;
         });
     }
@@ -423,11 +451,8 @@ document.addEventListener('DOMContentLoaded', function() {
     loadDictionary();
 });
 </script>
-  <!-- Script del declensor -->
-  <script src="/izaki-dictionary/scripts/declensor.js"></script>
   
   <!-- Script askaoza per conversione automatica -->
   <script src="/izaki-dictionary/scripts/askaoza.js"></script>
-</body>
 </body>
 </html>
