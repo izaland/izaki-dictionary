@@ -375,9 +375,10 @@ function toAskaozaText(latinText) {
 }
 
 // =========================
-// Askaoza → Latin (grezza)
+// Askaoza → Latin (completa)
 // =========================
 
+// Crea mappe inverse per tutti i componenti
 const CONS_REV = {};
 for (const [lat, glyph] of Object.entries(ASKAOZA_CONS)) {
   CONS_REV[glyph] = lat;
@@ -388,6 +389,21 @@ for (const [v, mark] of Object.entries(ASKAOZA_V)) {
   if (mark) V_REV[mark] = v;
 }
 
+const DIPH_REV = {};
+for (const [diph, mark] of Object.entries(ASKAOZA_DIPH)) {
+  DIPH_REV[mark] = diph;
+}
+
+const COMPOUND_REV = {};
+for (const [comp, mark] of Object.entries(ASKAOZA_COMPOUND)) {
+  COMPOUND_REV[mark] = comp;
+}
+
+const FINALS_REV = {};
+for (const [lat, glyph] of Object.entries(ASKAOZA_FINALS)) {
+  FINALS_REV[glyph] = lat;
+}
+
 function askaozaToLatinText(askText) {
   const chars = Array.from(askText);
   let result = '';
@@ -396,38 +412,82 @@ function askaozaToLatinText(askText) {
   while (i < chars.length) {
     const ch = chars[i];
 
+    // Spazio: mantieni
     if (/\s/.test(ch)) {
       result += ' ';
       i++;
       continue;
     }
 
+    // Consonante base (onset)
     if (CONS_REV[ch]) {
       let cons = CONS_REV[ch];
-      let vowel = 'a';
+      let vowel = 'a'; // vocale inerente
+      let isLong = false;
       let j = i + 1;
 
-      if (j < chars.length && V_REV[chars[j]]) {
+      // Controlla dittonghi (yV, wV) - PRIMA delle vocali semplici
+      if (j < chars.length && DIPH_REV[chars[j]]) {
+        vowel = DIPH_REV[chars[j]];
+        j++;
+      }
+      // Controlla vocali composte (ai, ae, ei, etc.)
+      else if (j < chars.length && COMPOUND_REV[chars[j]]) {
+        vowel = COMPOUND_REV[chars[j]];
+        j++;
+      }
+      // Controlla vocali semplici
+      else if (j < chars.length && V_REV[chars[j]]) {
         vowel = V_REV[chars[j]];
         j++;
       }
 
+      // Controlla marker di lunghezza
       if (j < chars.length && chars[j] === LONG_MARK) {
+        isLong = true;
         j++;
       }
 
-      if (cons === '*') cons = '';
-      result += cons + vowel;
+      // Controlla consonante finale (virama)
+      let coda = '';
+      if (j < chars.length && FINALS_REV[chars[j]]) {
+        coda = FINALS_REV[chars[j]];
+        j++;
+      }
+
+      // Componi il risultato
+      if (cons === '*') cons = ''; // placeholder vocale iniziale
+      
+      // Applica lunghezza vocale se necessario
+      if (isLong) {
+        vowel = vowel
+          .replace('a', 'ā')
+          .replace('e', 'ē')
+          .replace('i', 'ī')
+          .replace('o', 'ō')
+          .replace('u', 'ū');
+      }
+
+      result += cons + vowel + coda;
       i = j;
       continue;
     }
 
+    // Consonante finale isolata (senza onset)
+    if (FINALS_REV[ch]) {
+      result += FINALS_REV[ch];
+      i++;
+      continue;
+    }
+
+    // Carattere sconosciuto: mantieni
     result += ch;
     i++;
   }
 
   return result.trim().replace(/\s+/g, ' ');
 }
+
 
 // =========================
 // Hook con la UI
