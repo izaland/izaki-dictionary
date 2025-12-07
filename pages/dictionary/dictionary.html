@@ -232,10 +232,14 @@ function ipaToRomaji(ipa) {
   return romaji;
 }
 
-// === Funzione per verificare se è un sostantivo ===
+// ==========================================
+// Funzione per verificare se è un sostantivo
+// ==========================================
 function isNoun(pos) {
   if (!pos) return false;
-  return pos.toLowerCase().includes(': n=') || pos.toLowerCase().includes(':n=');
+  // Rimuovi tutti gli spazi e controlla
+  const posClean = pos.replace(/s+/g, '');
+  return posClean.includes(':n=');
 }
 
 // === Toggle declension table ===
