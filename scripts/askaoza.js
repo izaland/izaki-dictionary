@@ -125,7 +125,7 @@ function parseWordToSyllables(word) {
     let nucleus = '';
     let coda = '';
 
-    // 1) onset: prova trigrammi/digrammi (incluse doppie) poi singola
+    // 1) onset: trigrammi/digrammi (incluse doppie) poi singola
     if (i + 2 <= lower.length) {
       const three = lower.slice(i, i + 3);
       if (DIGRAPHS.includes(three)) {
@@ -140,7 +140,6 @@ function parseWordToSyllables(word) {
         i += 2;
       }
     }
-    // aggiungi anche j tra le consonanti singole possibili
     if (!onset && /[kgpbsztdfvhnmlrj]/.test(lower[i])) {
       onset = lower[i];
       i += 1;
@@ -190,7 +189,7 @@ function parseWordToSyllables(word) {
         const nextChar = lower[afterCodaIndex];
 
         if (nextChar && /[aeiouāēīōūü]/.test(nextChar)) {
-          // es. o + r + a → o-ra, NON or-a: niente coda
+          // V + cons + V → niente coda (es. o-ra-ki)
         } else {
           coda = cand;
           i = afterCodaIndex;
@@ -205,9 +204,8 @@ function parseWordToSyllables(word) {
       }
     }
 
-    // GUARDIA ANTI-FREEZE:
+    // GUARDIA ANTI-FREEZE
     if (!onset && !nucleus && !coda) {
-      // carattere inatteso (es. simboli, o casi strani con j)
       res.push({ onset: '', nucleus: lower[i], coda: '' });
       i += 1;
       continue;
