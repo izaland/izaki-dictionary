@@ -140,8 +140,11 @@ function parseWordToSyllables(word) {
       let nucleus = '';
       let coda = '';
 
-      // 1) onset: trigrammi/digrammi (incluse doppie) poi singola
-      // IMPORTANTE: controlla PRIMA i digrammi più lunghi
+      // ========================================
+      // 1) SOSTITUISCI TUTTO QUESTO BLOCCO ↓↓↓
+      // ========================================
+      
+      // Trigrammi (cch, ssh, tts)
       if (i + 3 <= group.length) {
         const three = group.slice(i, i + 3);
         if (DIGRAPHS.includes(three)) {
@@ -149,18 +152,34 @@ function parseWordToSyllables(word) {
           i += 3;
         }
       }
+      
+      // Consonanti doppie (kk, pp, tt, etc.)
       if (!onset && i + 2 <= group.length) {
         const two = group.slice(i, i + 2);
-        if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
+        if (ASKAOZA_CONS[two]) {
           onset = two;
           i += 2;
         }
       }
-      // MODIFICATO: controlla che NON sia una vocale prima di assegnare come onset
+      
+      // Digrammi semplici (ch, sh, ts, dz)
+      if (!onset && i + 2 <= group.length) {
+        const two = group.slice(i, i + 2);
+        if (DIGRAPHS.includes(two)) {
+          onset = two;
+          i += 2;
+        }
+      }
+      
+      // Consonanti singole
       if (!onset && i < group.length && /[kgpbsztdfvhnmlrj]/.test(group[i])) {
         onset = group[i];
         i += 1;
       }
+      
+      // ========================================
+      // FINE SOSTITUZIONE ↑↑↑
+      // ========================================
 
       // 2) nucleo vocalico o dittongo
       if (i < group.length) {
@@ -177,6 +196,10 @@ function parseWordToSyllables(word) {
           nucleus = '';
         }
       }
+
+      // 3) possibile coda consonantica...
+      // (resto del codice continua come prima)
+
 
       // 3) possibile coda consonantica (solo n,l,s,r,h,kk)
       if (nucleus && i < group.length) {
