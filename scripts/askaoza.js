@@ -410,6 +410,13 @@ function parseVowelMarks(text, startIdx) {
   let isLong = false;
   let j = startIdx;
 
+// Funzione helper per parsare i diacritici vocalici E consonante finale
+function parseVowelMarks(text, startIdx) {
+  let vowel = 'a';
+  let isLong = false;
+  let coda = '';
+  let j = startIdx;
+
   // Controlla vocali composte (possono essere 2+ caratteri)
   for (let len = 3; len >= 1; len--) {
     if (j + len <= text.length) {
@@ -447,7 +454,16 @@ function parseVowelMarks(text, startIdx) {
       .replace('u', 'ū');
   }
 
-  return [vowel, isLong, j];
+  // NUOVO: Controlla consonante finale DOPO la vocale
+  if (j + 1 < text.length) {
+    const finalCandidate = text.slice(j, j + 2);
+    if (FINALS_REV[finalCandidate]) {
+      coda = FINALS_REV[finalCandidate];
+      j += 2;
+    }
+  }
+
+  return [vowel, coda, j];
 }
 
 function askaozaToLatinText(askText) {
@@ -464,7 +480,7 @@ function askaozaToLatinText(askText) {
 
     let matched = false;
 
-    // 1) Cerca consonante finale con virama (2 caratteri: cons + ્)
+    // 1) Cerca consonante finale isolata con virama (2 caratteri: cons + ્)
     if (i + 1 < askText.length) {
       const twoChars = askText.slice(i, i + 2);
       if (FINALS_REV[twoChars]) {
@@ -482,23 +498,14 @@ function askaozaToLatinText(askText) {
       if (CONS_REV[threeChars]) {
         let cons = CONS_REV[threeChars];
         let vowel = 'a';
-        let isLong = false;
+        let coda = '';
         let j = i + 3;
 
-        // Cerca diacritici vocalici dopo la consonante
-        [vowel, isLong, j] = parseVowelMarks(askText, j);
-
-        // Cerca consonante finale dopo la vocale
-        if (j + 1 < askText.length) {
-          const finalCandidate = askText.slice(j, j + 2);
-          if (FINALS_REV[finalCandidate]) {
-            cons += FINALS_REV[finalCandidate];
-            j += 2;
-          }
-        }
+        // Cerca diacritici vocalici E consonante finale
+        [vowel, coda, j] = parseVowelMarks(askText, j);
 
         if (cons === '*') cons = '';
-        result += cons + vowel;
+        result += cons + vowel + coda;
         i = j;
         matched = true;
         continue;
@@ -520,22 +527,13 @@ function askaozaToLatinText(askText) {
       if (CONS_REV[consCandidate]) {
         let cons = CONS_REV[consCandidate];
         let vowel = 'a';
-        let isLong = false;
+        let coda = '';
 
-        // Cerca diacritici vocalici
-        [vowel, isLong, j] = parseVowelMarks(askText, j);
-
-        // Cerca consonante finale
-        if (j + 1 < askText.length) {
-          const finalCandidate = askText.slice(j, j + 2);
-          if (FINALS_REV[finalCandidate]) {
-            cons += FINALS_REV[finalCandidate];
-            j += 2;
-          }
-        }
+        // Cerca diacritici vocalici E consonante finale
+        [vowel, coda, j] = parseVowelMarks(askText, j);
 
         if (cons === '*') cons = '';
-        result += cons + vowel;
+        result += cons + vowel + coda;
         i = j;
         matched = true;
         continue;
