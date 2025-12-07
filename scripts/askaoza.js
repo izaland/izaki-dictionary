@@ -102,7 +102,7 @@ function splitCV(syl) {
       return { C: dg, V: syl.slice(dg.length) || 'a' };
     }
   }
-  if (/^[kgpbsztdfvhnmlr]/i.test(syl[0])) {
+  if (/^[kgpbsztdfvhnmlrj]/i.test(syl[0])) {
     return { C: syl[0], V: syl.slice(1) || 'a' };
   }
   // solo vocale / dittongo
@@ -217,60 +217,6 @@ function parseWordToSyllables(word) {
   return res;
 }
 
-  // 3) possibile coda consonantica (solo n,l,s,r,h,kk) se:
-  // - c'è un nucleo
-  // - dopo c'è una consonante (inizio sillaba successiva) o fine parola
-  if (nucleus && i < lower.length) {
-    // guarda avanti: consonante/i che seguono
-    let look = '';
-    if (i + 2 <= lower.length) {
-      const three = lower.slice(i, i + 3);
-      if (DIGRAPHS.includes(three) || ASKAOZA_CONS[three]) {
-        look = three;
-      }
-    }
-    if (!look && i + 1 <= lower.length) {
-      const two = lower.slice(i, i + 2);
-      if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
-        look = two;
-      }
-    }
-    if (!look && /[kgpbsztdfvhnmlr]/.test(lower[i])) {
-      look = lower[i];
-    }
-
-    // se la "look" inizia con finale ammessa, valutala come coda
-    const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
-    const cand = finalCandidates.find(fc => look && look.startsWith(fc));
-
-    if (cand) {
-      const afterCodaIndex = i + cand.length;
-      const nextChar = lower[afterCodaIndex];
-
-      if (nextChar && /[aeiouāēīōūü]/.test(nextChar)) {
-        // es. o + r + a → o-ra, NON or-a: niente coda, la consonante
-        // diventerà onset della sillaba successiva
-      } else {
-        // vero CVC: finale davanti a consonante o fine parola
-        coda = cand;
-        i = afterCodaIndex;
-      }
-    }
-  } else if (!nucleus && onset) {
-    // sillaba puramente consonantica in fine parola → coda senza nucleo
-    const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
-    if (finalCandidates.includes(onset)) {
-      coda = onset;
-      onset = '';
-    }
-  }
-
-  res.push({ onset, nucleus, coda });
-}
-
-return res;
-}
-
 // =========================
 // Latin → askaoza (sillaba)
 // =========================
@@ -318,7 +264,7 @@ function renderOnsetNucleus(onset, nucleus) {
     return base + ASKAOZA_DIPH[V];
   }
 
-  // vocali composte dopo consonante (se vuoi abilitarle anche qui)
+  // vocali composte dopo consonante
   if (C !== '*' && ASKAOZA_COMPOUND[V]) {
     return base + ASKAOZA_COMPOUND[V];
   }
@@ -354,7 +300,6 @@ function toAskaozaText(latinText) {
   const words = latinToSyllables(latinText);
   return words.map(toAskaozaWordFromSyllables).join(' ');
 }
-
 
 // =========================
 // Askaoza → Latin (grezza)
