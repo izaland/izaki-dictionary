@@ -269,7 +269,7 @@ function parseWordToSyllables(word) {
 }
 
 return res;
-
+}
 
 // =========================
 // Latin → askaoza (sillaba)
