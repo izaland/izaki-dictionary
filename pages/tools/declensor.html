@@ -1,458 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Izaki Noun Declensor - Izaki Dictionary</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    
-    <!-- Font gujarati per askaoza -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
-    
-    <style>
-        .askaoza-text {
-            font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
-            font-size: 1.3rem;
-            color: #2c3e50;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-        }
-        .subtitle-ja {
-            font-size: 0.85em;
-            opacity: 0.9;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Izaki Dictionary 華邦語辞典</title>
+
+<!-- Bulma CSS -->
+<link rel="stylesheet" href="../../assets/bulma.min.css">
+
+<!-- Font gujarati per askaoza -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
+
+<style>
+  body {
+    background-color: #f7ecd8;
+    font-family: "Merriweather", Georgia, serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  #container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem 3rem;
+    background-color: rgba(255, 250, 230, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+
+  h1.title {
+    color: #4b3b2a;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff8e0;
+  }
+
+  label.label {
+    color: #4b3b2a;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .input,
+  .select select {
+    background-color: #fff8e0;
+    border: 1px solid #d4b87c;
+    color: #4b3b2a;
+    padding: 0.5rem 0.7rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .field {
+    margin-bottom: 1.5rem;
+  }
+
+  .entry {
+    margin-bottom: 1.2rem;
+    padding: 0.9rem 1rem;
+    background-color: rgba(255, 250, 230, 0.85);
+    border-left: 4px solid #d4b87c;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #3e2f1c;
+  }
+
+  .headword {
+    margin-bottom: 0.3rem;
+  }
+
+  .lemma {
+    color: #4b2f1e;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .askaoza {
+    margin-left: 0.6rem;
+    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
+    font-size: 1.3rem;
+    color: #8b6f47;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .ipa {
+    margin-left: 0.6rem;
+    color: #7a5e3a;
+    font-style: italic;
+  }
+
+  .pos {
+    margin-left: 0.6rem;
+    color: #5a4529;
+    font-style: italic;
+  }
+
+  .translations div {
+    margin-left: 1rem;
+  }
+
+  .english strong {
+    color: #1a3f6b;
+  }
+
+  .italian strong {
+    color: #3e5a2a;
+  }
+
+  .example {
+    margin-left: 1rem;
+    margin-top: 0.3rem;
+    color: #5e4732;
+    font-style: italic;
+  }
+
+  /* Bottone per declinare */
+  .decline-btn {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #d4b87c;
+    color: #4b3b2a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+  }
+
+  .decline-btn:hover {
+    background-color: #c4a86c;
+  }
+
+  /* Tabella declinazioni */
+  .declension-table {
+    margin-top: 1rem;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    overflow-x: auto;
+  }
+
+  .declension-table.show {
+    display: block;
+  }
+
+  .declension-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .declension-table th,
+  .declension-table td {
+    padding: 0.4rem 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e0d4b8;
+  }
+
+  .declension-table th {
+    background-color: #f0e8d0;
+    font-weight: bold;
+    color: #4b3b2a;
+    font-size: 0.85rem;
+  }
+
+  .declension-table .askaoza {
+    font-size: 1rem;
+  }
+</style>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <div id="navbar"></div>
 
-<!-- HERO SECTION -->
-<section class="hero is-medium is-link">
-  <div class="hero-body has-text-centered">
-    <p class="title decl-title">
-      Noun Declension Tool
-      <span class="subtitle-ja">名詞曲用道具</span>
-    </p>
-    <p class="subtitle decl-subtitle">
-      Decline Izaki nouns automatically
-      <br>
-      <span class="subtitle-ja">華邦語名詞・自動曲用</span>
-    </p>
-  </div>
-</section>
-
-    <!-- MAIN CONTENT -->
-    <div class="box m-5">
-        <div class="columns">
-            <div class="column">
-                <h2 class="title is-4">Input<br>入力</h2>
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-large" id="nounInput" type="text" 
-                               placeholder="Type a noun (romaji or Byakuzhi)">
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <button id="declineBtn" class="button is-link is-large is-fullwidth">
-                            Decline Noun<br>名詞曲用
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="column">
-                <h2 class="title is-4">Lemma Info<br>語幹情報</h2>
-                <div class="notification" id="lemmaInfo"></div>
-                
-                <h2 class="title is-4 mt-5">Declined Forms<br>變化形</h2>
-                <div class="table-container">
-                    <table id="formsTable" class="table is-striped is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th>Case / 格</th>
-                                <th>Singular / 単数</th>
-                                <th>Askaoza</th>
-                                <th>Plural / 複数</th>
-                                <th>Askaoza</th>
-                                <th>Rule / 規則</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- riempito via JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPTS -->
+<!-- Navbar -->
+<div id="navbar"></div>
 <script src="/izaki-dictionary/scripts/script.js"></script>
+
+<div id="container">
+  <h1 class="title">Izaki Dictionary 華邦語辞典</h1>
+
+  <div class="field">
+    <label class="label">Search 檢索</label>
+    <div class="control">
+      <input class="input" type="text" id="search" placeholder="Type to search... (Latin, Askaoza, English, Italian)">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Language 言語</label>
+    <div class="control">
+      <div class="select">
+        <select id="lang">
+          <option value="EN">English 印語</option>
+          <option value="IT">Plevian 伏語</option>
+          <option value="IZ">Izaki 華邦語</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<!-- Script askaoza per conversione automatica -->
+<script src="/izaki-dictionary/scripts/askaoza.js"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const nounInput  = document.getElementById('nounInput');
-    const declineBtn = document.getElementById('declineBtn');
-    const lemmaInfo  = document.getElementById('lemmaInfo');
-    const formsTable = document.getElementById('formsTable');
+// ==========================================
+// FUNZIONI DI DECLINAZIONE
+// ==========================================
 
-    // ===============================
-    // Dizionario
-    // ===============================
-
-    let dictionary = null;
-
-    async function loadDictionary() {
-        try {
-            const response = await fetch('../../data/dictionary.json');
-            if (!response.ok) throw new Error('HTTP ' + response.status);
-            dictionary = await response.json();
-            console.log('Dizionario caricato, voci:', Object.keys(dictionary).length);
-        } catch (e) {
-            console.error('Errore nel caricamento del dizionario:', e);
-        }
-    }
-
-    // ===============================
-    // Utility: riconoscere i nomi
-    // ===============================
-
-    function isNoun(entry) {
-        if (!entry || entry.pos == null) return false;
-        const raw = String(entry.pos).toLowerCase();
-        return raw.includes(': n =');
-    }
-
-    // ===============================
-    // Lookup di un lemma
-    // ===============================
-
-    function lookupLemma(input) {
-        if (!dictionary) {
-            console.warn('Dizionario non ancora caricato');
-            return null;
-        }
-
-        const normalized = input.toLowerCase().trim();
-        let result = null;
-
-        for (let id in dictionary) {
-            const entry = dictionary[id];
-            if (!isNoun(entry)) continue;
-
-            const lemma = (entry.lemma || '').toLowerCase();
-            if (!lemma) continue;
-
-            if (
-                lemma === normalized ||
-                lemma.includes(normalized) ||
-                normalized.includes(lemma)
-            ) {
-                result = {
-                    lemma:   entry.lemma,
-                    english: Array.isArray(entry.english)
-                        ? entry.english.join(', ')
-                        : (entry.english || ''),
-                    italian: Array.isArray(entry.italian)
-                        ? entry.italian.join(', ')
-                        : (entry.italian || ''),
-                    byakuzhi: entry.byakuzhi || '',
-                    pos: entry.pos
-                };
-                break;
-            }
-        }
-
-        return result;
-    }
-
-    // ===============================
-    // Analisi finale lemma
-    // ===============================
-
-    function analyzeEnding(lemma) {
-        const clean = lemma.replace(/[^a-zāēīōū]/gi, '').toLowerCase();
-        const lastChar = clean.slice(-1);
-        const lastTwo  = clean.slice(-2);
-        const vowels   = 'aeiouāēīōū';
-
-        const isVowelEnd     = vowels.includes(lastChar);
-        const isLongVowelEnd = 'āēīōū'.includes(lastChar);
-        const isConsonantEnd = !isVowelEnd;
-        const finalConsonant = isConsonantEnd ? lastChar : null;
-        const prevConsonant  = lastTwo[0] && !vowels.includes(lastTwo[0]) ? lastTwo[0] : null;
-
-        return {
-            clean,
-            isVowelEnd,
-            isLongVowelEnd,
-            isConsonantEnd,
-            finalConsonant,
-            prevConsonant,
-            lastVowel: isVowelEnd ? lastChar : null
-        };
-    }
-
-    // ===============================
-    // Strumentale singolare
-    // ===============================
-
-    function buildInstrumentalSingular(lemma) {
-        const a = analyzeEnding(lemma);
-        const base = a.clean;
-
-        // dittonghi e casi speciali
-        if (base.endsWith('ai')) return base + 'yo';
-        if (base.endsWith('au')) return base.slice(0,-1) + 'wa';
-        if (base.endsWith('ea')) return base + 'e';
-        if (base.endsWith('ao')) return base.slice(0,-2) + 'ō';
-        if (base.endsWith('eo')) return base.slice(0,-2) + 'eu';
-        if (base.endsWith('uo')) return base.slice(0,-2) + 'ū';
-        if (/[ū]$/.test(base))  return base + 'a';
-
-        const last = a.lastVowel;
-        const cons = a.isConsonantEnd ? a.finalConsonant : '';
-
-        // finali in vocale semplice
-        if (a.isVowelEnd && !a.isConsonantEnd) {
-            if (last === 'a' || last === 'ā') return base + 'e';
-            if (last === 'e' || last === 'ē') return base + 'i';
-            if (last === 'i' || last === 'ī') return base.slice(0,-1) + 'yo';
-            if (last === 'o' || last === 'ō') return base + 'u';
-            if (last === 'u')                  return base.slice(0,-1) + 'wa';
-        }
-
-        // finali in consonante: progressione vocalica + raddoppio
-        const prog = { a:'e', e:'i', i:'o', o:'u', u:'a' };
-        if (a.isConsonantEnd && a.lastVowel && prog[a.lastVowel]) {
-            const v2 = prog[a.lastVowel];
-            return base + cons + v2;
-        }
-
-        return base + 'e';
-    }
-
-    // ===============================
-    // Declinazioni SINGOLARE
-    // ===============================
-
-    function buildSingularCases(lemma) {
-        const analysis = analyzeEnding(lemma);
-        const forms = {};
-
-        forms.nom = analysis.clean;
-
-        // Genitivo sing.
-        if (analysis.isVowelEnd) {
-            forms.gen = analysis.clean + (analysis.isLongVowelEnd ? 'hun' : 'n');
-        } else {
-            forms.gen = analysis.clean + 'un';
-        }
-
-        // Accusativo sing.
-        if (analysis.isVowelEnd && !analysis.isLongVowelEnd) {
-            const vowelMap = { a:'ā', e:'ē', i:'ī', o:'ō', u:'ū' };
-            forms.acc = analysis.clean.slice(0, -1) + vowelMap[analysis.lastVowel];
-        } else if (analysis.isConsonantEnd) {
-            if (analysis.finalConsonant === 's') {
-                const m = analysis.clean.match(/([aeiou])s$/);
-                if (m) {
-                    const v = m[1];
-                    const longMap = { a:'ā', e:'ē', i:'ī', o:'ō', u:'ū' };
-                    forms.acc = analysis.clean.slice(0,-2) + longMap[v];
-                } else {
-                    forms.acc = analysis.clean;
-                }
-            } else {
-                forms.acc = analysis.clean;
-            }
-        } else {
-            forms.acc = analysis.clean;
-        }
-
-        // Dativo sing.
-        if (analysis.isConsonantEnd && analysis.finalConsonant === 'n') {
-            forms.dat = analysis.clean + 'ni';
-        } else if (analysis.isConsonantEnd && analysis.finalConsonant === 's') {
-            forms.dat = analysis.clean + 'shi';
-        } else {
-            forms.dat = analysis.clean + 'i';
-        }
-
-        // Essivo sing.
-        if (analysis.isVowelEnd) {
-            forms.ess = analysis.clean + (analysis.isLongVowelEnd ? 'hus' : 's');
-        } else {
-            forms.ess = analysis.clean + 'us';
-        }
-
-        // Allativo sing.
-        if (analysis.isVowelEnd) {
-            forms.all = analysis.clean + (analysis.isLongVowelEnd ? 'hur' : 'r');
-        } else {
-            forms.all = analysis.clean + 'ur';
-        }
-
-        // Ablativo sing.
-        if (analysis.isVowelEnd) {
-            forms.abl = analysis.clean + (analysis.isLongVowelEnd ? 'hul' : 'l');
-        } else {
-            forms.abl = analysis.clean + 'ul';
-        }
-
-        // Strumentale sing.
-        forms.ins = buildInstrumentalSingular(lemma);
-
-        return { forms, analysis };
-    }
-
-    // ===============================
-    // Declinazioni PLURALE
-    // ===============================
-
-    function buildPluralCases(lemma, singular) {
-        const a = analyzeEnding(lemma);
-        const plural = {};
-
-        // NOM pl
-        if (a.isConsonantEnd) {
-            const m = a.clean.match(/([aeiouāēīōū])([^aeiouāēīōū]*)$/i);
-            if (m) {
-                const v = m[1];
-                const c = a.finalConsonant;
-                plural.nom = a.clean + c + v;
-            } else {
-                plural.nom = a.clean;
-            }
-        } else if (a.isLongVowelEnd) {
-            plural.nom = a.clean + 'hin';
-        } else {
-            const lastV = a.clean.slice(-1);
-            plural.nom = a.clean + lastV + 'n';
-        }
-
-        const stem = singular.nom;
-        const endsWithConsonant = a.isConsonantEnd;
-
-        // GEN
-        plural.gen = stem + (endsWithConsonant ? 'en' : 'in');
-        // ACC
-        plural.acc = stem + (endsWithConsonant ? 'ta' : 'ita');
-        // DAT
-        if (endsWithConsonant && a.finalConsonant === 's') {
-            plural.dat = stem + 'shi';
-        } else {
-            plural.dat = stem + 'hi';
-        }
-        // ESS
-        plural.ess = stem + (endsWithConsonant ? 'es' : 'is');
-        // ALL
-        plural.all = stem + (endsWithConsonant ? 'er' : 'ir');
-        // ABL
-        plural.abl = stem + (endsWithConsonant ? 'el' : 'il');
-        // INS
-        plural.ins = singular.ins + 'i';
-
-        if (!endsWithConsonant && a.isLongVowelEnd) {
-            plural.gen = plural.gen.replace(/hin$/, 'hen');
-            plural.ess = plural.ess.replace(/hin$/, 'hen');
-            plural.all = plural.all.replace(/hin$/, 'hen');
-            plural.abl = plural.abl.replace(/hin$/, 'hen');
-        }
-
-        return plural;
-    }
-
-    // ===============================
-    // Funzione principale
-    // ===============================
-
-    function declineNoun(lemma, dictInfo = null) {
-        const sing = buildSingularCases(lemma);
-        const plur = buildPluralCases(lemma, sing.forms);
-        return {
-            singular: sing.forms,
-            plural:   plur,
-            analysis: sing.analysis,
-            dictInfo
-        };
-    }
-
-    // ===============================
-    // UI
-    // ===============================
-
-    function updateInterface(input, result) {
-        if (result.dictInfo) {
-            lemmaInfo.innerHTML = `
-                <strong>${result.dictInfo.lemma}</strong>
-                ${result.dictInfo.byakuzhi ? `<br><small>百字: ${result.dictInfo.byakuzhi}</small>` : ''}
-                <br><em>${result.dictInfo.english}</em>
-            `;
-            lemmaInfo.className = 'notification is-primary';
-        } else {
-            lemmaInfo.innerHTML = `<em>${input}</em><br>(Not found; using general rules / 辞書に見つかりません。一般規則使用)`;
-            lemmaInfo.className = 'notification is-warning';
-        }
-
-        const tbody = formsTable.querySelector('tbody');
-        tbody.innerHTML = '';
-
-        const rows = [
-            { key: 'nom', name: 'Nominative / 主格',   note: '-' },
-            { key: 'gen', name: 'Genitive / 属格',    note: 'sg: -n/-un, pl: -in/-en' },
-            { key: 'acc', name: 'Accusative / 対格',  note: 'sg: V↑, pl: -ita/-ta' },
-            { key: 'dat', name: 'Dative / 與格',      note: '+i / +hi' },
-            { key: 'ess', name: 'Essive / 処格',      note: 'sg: -s/-us, pl: -is/-es' },
-            { key: 'all', name: 'Allative / 向格',    note: 'sg: -r/-ur, pl: -ir/-er' },
-            { key: 'abl', name: 'Ablative / 出格',    note: 'sg: -l/-ul, pl: -il/-el' },
-            { key: 'ins', name: 'Instrumental / 具格',note: 'sg: vowel shift, pl: +i' }
-        ];
-
-        rows.forEach(c => {
-            const row = tbody.insertRow();
-            
-            // Converti in askaoza
-            const singularAskaoza = toAskaozaText(result.singular[c.key]);
-            const pluralAskaoza = toAskaozaText(result.plural[c.key]);
-            
-            row.innerHTML = `
-                <td>${c.name}</td>
-                <td><strong>${result.singular[c.key]}</strong></td>
-                <td class="askaoza-text">${singularAskaoza}</td>
-                <td><strong>${result.plural[c.key]}</strong></td>
-                <td class="askaoza-text">${pluralAskaoza}</td>
-                <td><small>${c.note}</small></td>
-            `;
-        });
-    }
-
-    // ===============================
-    // Eventi
-    // ===============================
-
-    declineBtn.addEventListener('click', function() {
-        const input = nounInput.value.trim();
-        if (!input) return;
-
-        const dictMatch = lookupLemma(input);
-        const result    = declineNoun(dictMatch ? dictMatch.lemma : input, dictMatch);
-        updateInterface(input, result);
-    });
-
-    nounInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') declineBtn.click();
-    });
-
-    loadDictionary();
-});
-</script>
+function analyzeEnding(lemma) {
+  const clean = lemma.replace(/[^a-zāēīōū]/gi, '').toLowerCase();
+  const lastChar = clean.slice(-1);
+  const vowels = 'aeiouāēīōū';
+  const isVowelEnd = vowels.includes(lastChar);
+  const isLongVowelEnd = 'āēīōū'.includes(lastChar);
+  const isConsonantEnd = !isVowelEnd;
   
-  <!-- Script askaoza per conversione automatica -->
-  <script src="/izaki-dictionary/scripts/askaoza.js"></script>
+  return {
+    clean,
+    isVowelEnd,
+    isLongVowelEnd,
+    isConsonantEnd,
+    lastVowel: isVowelEnd ? lastChar : null,
+    finalConsonant: isConsonantEnd ? lastChar : null
+  };
+}
+
+function buildInstrumentalSingular(lemma) {
+  const a = analyzeEnding(lemma);
+  const base = a.clean;
+
+  if (base.endsWith('ai')) return base + 'yo';
+  if (base.endsWith('au')) return base.slice(0,-1) + 'wa';
+  if (base.endsWith('ea')) return base + 'e';
+
+  const last = a.lastVowel;
+  const cons = a.isConsonantEnd ? a.finalConsonant : '';
+
+  if (a.isVowelEnd && !a.isConsonantEnd) {
+    if (last === 'a' || last === 'ā') return base + 'e';
+    if (last === 'e' || last === 'ē') return base + 'i';
+    if (last === 'i' || last === 'ī') return base.slice(0,-1) + 'yo';
+    if (last === 'o' || last === 'ō') return base + 'u';
+    if (last === 'u') return base.slice(0,-1) + 'wa';
+  }
+
+  const prog = { a:'e', e:'i', i:'o', o:'u', u:'a' };
+  if (a.isConsonantEnd && a.lastVowel && prog[a.lastVowel]) {
+    const v2 = prog[a.lastVowel];
+    return base + cons + v2;
+  }
+
+  return base + 'e';
+}
+
+function declineNounSimple(lemma) {
+  const a = analyzeEnding(lemma);
+  const forms = { singular: {}, plural: {} };
+  
+  // SINGOLARE
+  forms.singular.nom = a.clean;
+  
+  // Genitivo
+  if (a.isVowelEnd) {
+    forms.singular.gen = a.clean + (a.isLongVowelEnd ? 'hun' : 'n');
+  } else {
+    forms.singular.gen = a.clean + 'un';
+  }
+  
+  // Accusativo
+  if (a.isVowelEnd && !a.isLongVowelEnd) {
+    const vowelMap = { a:'ā', e:'ē', i:'ī', o:'ō', u:'ū' };
+    forms.singular.acc = a.clean.slice(0, -1) + (vowelMap[a.lastVowel] || a.lastVowel);
+  } else {
+    forms.singular.acc = a.clean;
+  }
+  
+  // Dativo
+  forms.singular.dat = a.clean + 'i';
+  
+  // Essivo
+  if (a.isVowelEnd) {
+    forms.singular.ess = a.clean + (a.isLongVowelEnd ? 'hus' : 's');
+  } else {
+    forms.singular.ess = a.clean + 'us';
+  }
+  
+  // Allativo
+  if (a.isVowelEnd) {
+    forms.singular.all = a.clean + (a.isLongVowelEnd ? 'hur' : 'r');
+  } else {
+    forms.singular.all = a.clean + 'ur';
+  }
+  
+  // Ablativo
+  if (a.isVowelEnd) {
+    forms.singular.abl = a.clean + (a.isLongVowelEnd ? 'hul' : 'l');
+  } else {
+    forms.singular.abl = a.clean + 'ul';
+  }
+  
+  // Strumentale
+  forms.singular.ins = buildInstrumentalSingular(lemma);
+  
+  // PLURALE
+  const stem = forms.singular.nom;
+  const endsWithConsonant = a.isConsonantEnd;
+  
+  // Nominativo plurale
+  if (a.isConsonantEnd) {
+    forms.plural.nom = stem + stem.slice(-1);
+  } else if (a.isLongVowelEnd) {
+    forms.plural.nom = stem + 'hin';
+  } else {
+    forms.plural.nom = stem + a.lastVowel + 'n';
+  }
+  
+  forms.plural.gen = stem + (endsWithConsonant ? 'en' : 'in');
+  forms.plural.acc = stem + (endsWithConsonant ? 'ta' : 'ita');
+  forms.plural.dat = stem + 'hi';
+  forms.plural.ess = stem + (endsWithConsonant ? 'es' : 'is');
+  forms.plural.all = stem + (endsWithConsonant ? 'er' : 'ir');
+  forms.plural.abl = stem + (endsWithConsonant ? 'el' : 'il');
+  forms.plural.ins = forms.singular.ins + 'i';
+  
+  return forms;
+}
+
+// ==========================================
+// IPA → ROMAJI function
+// ==========================================
+function ipaToRomaji(ipa) {
+  if (!ipa) return '';
+  let romaji = ipa;
+
+  const map = [
+    [/aː/g, 'ā'], [/eː/g, 'ē'], [/iː/g, 'ī'], [/oː/g, 'ō'], [/uː/g, 'ū'],
+    [/a/g, 'a'], [/e/g, 'e'], [/i/g, 'i'], [/o/g, 'o'], [/u/g, 'u'],
+    [/y/g, 'y'], [/w/g, 'w'],
+    [/dz/g, 'Ð'], [/ts/g, 'TS'], [/ʒ/g, 'ZH'], [/dʒ/g, 'J'], [/f/g, 'F'], [/v/g, 'V'],
+    [/k/g, 'K'], [/ɡ/g, 'G'], [/h/g, 'H'], [/l/g, 'L'], [/m/g, 'M'], [/n/g, 'N'],
+    [/p/g, 'P'], [/b/g, 'B'], [/s/g, 'S'], [/t/g, 'T'], [/z/g, 'Z'], [/tɕ/g, 'CH'],
+    [/ʃ/g, 'SH'], [/ɾ/g, 'R'], [/r/g, 'R']
+  ];
+
+  map.forEach(([regex, rep]) => {
+    romaji = romaji.replace(regex, rep);
+  });
+
+  return romaji;
+}
+
+// ==========================================
+// Funzione per verificare se è un sostantivo
+// ==========================================
+function isNoun(pos) {
+  if (!pos) return false;
+  const posLower = pos.toLowerCase();
+  return posLower.includes(': n=') || posLower.includes(':n=') || posLower.includes('n =');
+}
+
+// ==========================================
+// Toggle declension table
+// ==========================================
+function toggleDeclension(entryId) {
+  const table = document.getElementById(`decl-${entryId}`);
+  if (table) {
+    table.classList.toggle('show');
+  }
+}
+
+// ==========================================
+// Load JSON
+// ==========================================
+fetch('../../data/dictionary.json')
+  .then(response => response.json())
+  .then(data => {
+
+    // Add ROMAJI and ASKAOZA to each entry
+    data.forEach((entry, index) => {
+      entry.ROMAJI = ipaToRomaji(entry.IZ);
+      entry.ASKAOZA = toAskaozaText(entry.lemma || '');
+      entry.INDEX = index;
+    });
+
+    const searchInput = document.getElementById('search');
+    const langSelect = document.getElementById('lang');
+    const resultsDiv = document.getElementById('results');
+
+    function renderResults() {
+      const query = searchInput.value.toLowerCase();
+      const lang = langSelect.value;
+
+      const filtered = data.filter(e => {
+        if (lang === "EN") return e.english?.some(w => w.toLowerCase().includes(query));
+        if (lang === "IT") return e.italian?.some(w => w.toLowerCase().includes(query));
+        if (lang === "IZ") {
+          return (
+            e.lemma?.toLowerCase().includes(query) ||
+            e.ipa?.toLowerCase().includes(query) ||
+            e.ROMAJI?.toLowerCase().includes(query) ||
+            e.ASKAOZA?.includes(query)
+          );
+        }
+      });
+
+      resultsDiv.innerHTML = filtered.map(e => {
+        const isNounEntry = isNoun(e.pos);
+        let declensionHTML = '';
+
+        if (isNounEntry) {
+          const declined = declineNounSimple(e.lemma);
+          
+          declensionHTML = `
+            <button class="decline-btn" onclick="toggleDeclension(${e.INDEX})">
+              📖 Show declensions / 曲用表示
+            </button>
+            <div id="decl-${e.INDEX}" class="declension-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Case</th>
+                    <th>Singular</th>
+                    <th>Askaoza</th>
+                    <th>Plural</th>
+                    <th>Askaoza</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Nom</strong></td>
+                    <td>${declined.singular.nom}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.nom)}</td>
+                    <td>${declined.plural.nom}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.nom)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gen</strong></td>
+                    <td>${declined.singular.gen}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.gen)}</td>
+                    <td>${declined.plural.gen}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.gen)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Acc</strong></td>
+                    <td>${declined.singular.acc}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.acc)}</td>
+                    <td>${declined.plural.acc}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.acc)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dat</strong></td>
+                    <td>${declined.singular.dat}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.dat)}</td>
+                    <td>${declined.plural.dat}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.dat)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ess</strong></td>
+                    <td>${declined.singular.ess}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.ess)}</td>
+                    <td>${declined.plural.ess}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.ess)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>All</strong></td>
+                    <td>${declined.singular.all}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.all)}</td>
+                    <td>${declined.plural.all}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.all)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Abl</strong></td>
+                    <td>${declined.singular.abl}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.abl)}</td>
+                    <td>${declined.plural.abl}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.abl)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ins</strong></td>
+                    <td>${declined.singular.ins}</td>
+                    <td class="askaoza">${toAskaozaText(declined.singular.ins)}</td>
+                    <td>${declined.plural.ins}</td>
+                    <td class="askaoza">${toAskaozaText(declined.plural.ins)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="entry">
+            <div class="headword">
+              <span class="lemma">${e.lemma}</span>
+              <span class="askaoza">${e.ASKAOZA}</span>
+              <span class="ipa">【${e.ipa}】</span>
+              <span class="pos">&lt;${e.pos || "—"}&gt;</span>
+            </div>
+
+            <div class="translations">
+              ${e.english ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
+              ${e.italian ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
+            </div>
+
+            ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
+            
+            ${declensionHTML}
+          </div>
+        `;
+      }).join('');
+    }
+
+    searchInput.addEventListener('input', renderResults);
+    langSelect.addEventListener('change', renderResults);
+
+    renderResults();
+  })
+  .catch(error => console.error("Error loading JSON:", error));
+</script>
+
 </body>
 </html>
