@@ -4,10 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Izaki Verb Conjugator | Izaki Dictionary</title>
+    
+    <!-- Font gujarati per askaoza -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
+    
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 1rem;
             line-height: 1.6;
@@ -77,6 +84,13 @@
             color: #dc3545;
             font-style: italic;
         }
+        .askaoza-text {
+            font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
+            font-size: 1.2rem;
+            color: #555;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
         .back-link {
             margin-bottom: 2rem;
         }
@@ -89,8 +103,8 @@
     <a href="../.." class="back-link">← Home Izaki Dictionary</a>
 
     <h1>🗣️ Izaki Verb Conjugator / 華邦語動詞活用表</h1>
-    <p>Group 1 • Present simple (affirmative + negative)<br>
-       第一集団・現在形（肯定形＋否定形）</p>
+    <p>Group 1, 2, 3 • Present simple + Simple past (affirmative + negative)<br>
+       第一・二・三集団・現在形＋過去形（肯定形＋否定形）</p>
 
     <div class="autocomplete">
         <input
@@ -104,16 +118,7 @@
 
     <div id="result" class="conjugation-table" style="display: none;">
         <h3 id="verbTitle"></h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Person 人称</th>
-                    <th>Affirmative 肯定形</th>
-                    <th>Negative 否定形</th>
-                </tr>
-            </thead>
-            <tbody id="conjugationTable"></tbody>
-        </table>
+        <table id="conjugationTable"></table>
     </div>
 
    <script>
@@ -215,20 +220,18 @@
         const chars = lemma.split('');
         const len = chars.length;
 
-        const beforeSu = chars[len - 3]; // subito prima di "su"
+        const beforeSu = chars[len - 3];
 
-        // consonante prima di su → 3° gruppo
         if (!VOWELS.includes(beforeSu)) {
             return 'G3';
         }
 
-        const beforeV = chars[len - 4]; // carattere prima della vocale
+        const beforeV = chars[len - 4];
 
         if (!beforeV) {
             return 'G1';
         }
 
-        // vocale-vocale-su → G2; consonante-vocale-su → G1
         if (VOWELS.includes(beforeV)) {
             return 'G2';
         } else {
@@ -240,7 +243,6 @@
     // 4. Present: stem G1 / G2 / G3
     // ==============================
 
-    // mappa sonora → sorda per G1
     const voicedToVoiceless = {
         g: 'k',
         d: 't',
@@ -252,10 +254,8 @@
         'ð': 'ts'
     };
 
-    // G1: weak stem presente
     function buildGroup1WeakStem(lemma) {
-        // togli "su"
-        let base = lemma.slice(0, -2); // kadasu → kada ; rigusu → rigu
+        let base = lemma.slice(0, -2);
         const len = base.length;
         if (len < 2) return base;
 
@@ -263,7 +263,6 @@
         const last = chars[len - 1];
         const beforeLast = chars[len - 2];
 
-        // ... V C finale → rimuovi V e devoicizza C
         if (!VOWELS.includes(last) && VOWELS.includes(beforeLast)) {
             const c = last;
             const devoiced = voicedToVoiceless[c] || c;
@@ -271,7 +270,6 @@
             return stemCore + devoiced;
         }
 
-        // fallback: gradazione interna ... V C V → V C(voiceless) V
         if (len >= 3) {
             const cIndex = len - 2;
             const prev = chars[cIndex - 1];
@@ -291,12 +289,10 @@
         return base;
     }
 
-    // G2: stem presente = lemma senza "su"
     function buildGroup2Stem(lemma) {
         return lemma.slice(0, -2);
     }
 
-    // Cambio di vocale di progressione per G3 (presente)
     function nextVowelForGroup3(v) {
         switch (v) {
             case 'a': return 'e';
@@ -308,9 +304,8 @@
         }
     }
 
-    // G3: stem presente (VCsu → VCCV₂ + pattern)
     function buildGroup3Stem(lemma) {
-        const base = lemma.slice(0, -2); // togli "su"
+        const base = lemma.slice(0, -2);
         const len = base.length;
         if (len < 2) return base;
 
@@ -320,15 +315,10 @@
         const stemCore = base.slice(0, -2);
         const V2 = nextVowelForGroup3(V);
 
-        // -ssu sottotipi per il presente li avevamo già gestiti prima;
-        // per lo stem presente continuiamo a usare la logica precedente:
-        // Vnsu → VnnV₂, Vhsu → VppV₂, ecc.
-
         if (C === 's') {
             const beforeV = chars[len - 3] || '';
             const lastThree = (beforeV + V + C).toLowerCase();
 
-            // -issu → issh(o) (per presente: base + "issho")
             if (lastThree.endsWith('iss')) {
                 return stemCore + 'issho';
             }
@@ -359,7 +349,6 @@
             return stemCore + V + 'kk' + V2;
         }
         if (C === 'r') {
-            // caso speciale -ersu → numerī-
             if (V === 'e') {
                 return stemCore + 'erī';
             }
@@ -373,16 +362,13 @@
     // 5. Simple past: stem G1 / G2 / G3
     // ==============================
 
-    // G1: past stem
     function buildGroup1PastStem(lemma) {
         const presentStem = buildGroup1WeakStem(lemma);
 
-        // C-isu, C-yVsu → aggiungi "i"
         if (lemma.endsWith('isu') || lemma.match(/y[aeiou]su$/)) {
             return presentStem + 'i';
         }
 
-        // C-asu / C-esu / C-osu / C-usu → sostituisci ultima vocale con "i"
         const chars = presentStem.split('');
         const len = chars.length;
         if (len < 1) return presentStem;
@@ -394,7 +380,6 @@
             chars[len - 1] = 'i';
             let pastStem = chars.join('');
 
-            // si → shi
             if (pastStem.endsWith('si')) {
                 pastStem = pastStem.slice(0, -2) + 'shi';
             }
@@ -404,11 +389,9 @@
         return presentStem + 'i';
     }
 
-    // G2: past stem
     function buildGroup2PastStem(lemma) {
         const presentStem = buildGroup2Stem(lemma);
 
-        // irregolare: isu → iki
         if (lemma === 'isu') {
             return 'iki';
         }
@@ -426,9 +409,8 @@
         return presentStem + 'ki';
     }
 
-    // G3: past stem
     function buildGroup3PastStem(lemma) {
-        const base = lemma.slice(0, -2); // togli "su"
+        const base = lemma.slice(0, -2);
         const len = base.length;
         if (len < 2) return base + 'i';
 
@@ -437,7 +419,6 @@
         const V = chars[len - 2];
         const stemCore = base.slice(0, -2);
 
-        // -ssu sottotipi
         if (C === 's') {
             const beforeV = chars[len - 3] || '';
             const lastThree = (beforeV + V + C).toLowerCase();
@@ -459,32 +440,26 @@
             }
         }
 
-        // Vnsu → Vnni-
         if (C === 'n') {
             return stemCore + V + 'nni';
         }
 
-        // Vhsu → Vppi-
         if (C === 'h') {
             return stemCore + V + 'ppi';
         }
 
-        // Vlsu → Vlli-
         if (C === 'l') {
             return stemCore + V + 'lli';
         }
 
-        // Vksu → Vkki-
         if (C === 'k') {
             return stemCore + V + 'kki';
         }
 
-        // Vrsu → Vrki-
         if (C === 'r') {
             return stemCore + V + 'rki';
         }
 
-        // fallback: VCi-
         return stemCore + V + C + 'i';
     }
 
@@ -501,7 +476,7 @@
     ];
 
     // ==============================
-    // 7. Coniugazione: presente + passato
+    // 7. Coniugazione: presente + passato + askaoza
     // ==============================
     function conjugateVerb(lemma) {
         const verb = dictionary.find((v) => v.lemma === lemma);
@@ -523,7 +498,6 @@
             return;
         }
 
-        // stem presente
         let presentStem;
         if (group === 'G1') {
             presentStem = buildGroup1WeakStem(lemma);
@@ -533,7 +507,6 @@
             presentStem = buildGroup3Stem(lemma);
         }
 
-        // stem passato
         let pastStem;
         if (group === 'G1') {
             pastStem = buildGroup1PastStem(lemma);
@@ -550,12 +523,17 @@
         PERSONS.forEach((person) => {
             const affirmative = presentStem + person.ending;
             const negative = presentStem + 'na' + person.ending;
+            
+            const affAskaoza = toAskaozaText(affirmative);
+            const negAskaoza = toAskaozaText(negative);
 
             presentRows += `
                 <tr>
                     <td>${person.label}</td>
                     <td class="affirmative">${affirmative}</td>
+                    <td class="askaoza-text">${affAskaoza}</td>
                     <td class="negative">${negative}</td>
+                    <td class="askaoza-text">${negAskaoza}</td>
                 </tr>
             `;
         });
@@ -565,31 +543,37 @@
         PERSONS.forEach((person) => {
             const affirmative = pastStem + person.ending;
             const negative = pastStem + 'na' + person.ending;
+            
+            const affAskaoza = toAskaozaText(affirmative);
+            const negAskaoza = toAskaozaText(negative);
 
             pastRows += `
                 <tr>
                     <td>${person.label}</td>
                     <td class="affirmative">${affirmative}</td>
+                    <td class="askaoza-text">${affAskaoza}</td>
                     <td class="negative">${negative}</td>
+                    <td class="askaoza-text">${negAskaoza}</td>
                 </tr>
             `;
         });
 
-        // costruzione tabella doppia
         document.getElementById('verbTitle').textContent =
             `${lemma} (${verb.english?.[0] || 'to ?'})`;
 
         document.getElementById('conjugationTable').innerHTML = `
             <thead>
                 <tr>
-                    <th colspan="3" style="text-align:center; background:#e3f2fd; font-size:1.1rem;">
+                    <th colspan="5" style="text-align:center; background:#e3f2fd; font-size:1.1rem;">
                         Present simple / 現在形（肯定形＋否定形）
                     </th>
                 </tr>
                 <tr>
                     <th>Person 人称</th>
                     <th>Affirmative 肯定形</th>
+                    <th>Askaoza</th>
                     <th>Negative 否定形</th>
+                    <th>Askaoza</th>
                 </tr>
             </thead>
             <tbody>
@@ -597,14 +581,16 @@
             </tbody>
             <thead>
                 <tr>
-                    <th colspan="3" style="text-align:center; background:#fff3cd; font-size:1.1rem; padding-top:1.5rem;">
+                    <th colspan="5" style="text-align:center; background:#fff3cd; font-size:1.1rem; padding-top:1.5rem;">
                         Simple past / 過去形（肯定形＋否定形）
                     </th>
                 </tr>
                 <tr>
                     <th>Person 人称</th>
                     <th>Affirmative 肯定形</th>
+                    <th>Askaoza</th>
                     <th>Negative 否定形</th>
+                    <th>Askaoza</th>
                 </tr>
             </thead>
             <tbody>
@@ -625,5 +611,9 @@
         );
     };
 </script>
+
+<!-- Script askaoza per conversione automatica -->
+<script src="/izaki-dictionary/scripts/askaoza.js"></script>
+
 </body>
 </html>
