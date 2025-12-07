@@ -117,101 +117,123 @@ function latinToSyllables(text) {
 
 function parseWordToSyllables(word) {
   const res = [];
-  const lower = word.toLowerCase();
-  let i = 0;
+  let lower = word.toLowerCase();
 
-  while (i < lower.length) {
-    let onset = '';
-    let nucleus = '';
-    let coda = '';
+  // PREPROCESSING: converti vocali duplicate in vocali lunghe
+  lower = lower
+    .replace(/aa/g, 'ā')
+    .replace(/ee/g, 'ē')
+    .replace(/ii/g, 'ī')
+    .replace(/oo/g, 'ō')
+    .replace(/uu/g, 'ū');
 
-    // 1) onset: trigrammi/digrammi (incluse doppie) poi singola
-    if (i + 2 <= lower.length) {
-      const three = lower.slice(i, i + 3);
-      if (DIGRAPHS.includes(three)) {
-        onset = three;
-        i += 3;
-      }
-    }
-    if (!onset && i + 1 < lower.length) {
-      const two = lower.slice(i, i + 2);
-      if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
-        onset = two;
-        i += 2;
-      }
-    }
-    if (!onset && /[kgpbsztdfvhnmlrj]/.test(lower[i])) {
-      onset = lower[i];
-      i += 1;
-    }
+  // Dividi per apostrofi (separatori espliciti di sillabe)
+  const syllableGroups = lower.split("'");
+  
+  for (let groupIdx = 0; groupIdx < syllableGroups.length; groupIdx++) {
+    const group = syllableGroups[groupIdx];
+    if (!group) continue;
+    
+    let i = 0;
+    while (i < group.length) {
+      let onset = '';
+      let nucleus = '';
+      let coda = '';
 
-    // 2) nucleo vocalico o dittongo
-    if (i < lower.length) {
-      const next2 = lower.slice(i, i + 2);
-      const next1 = lower[i];
-
-      if (ASKAOZA_DIPH[next2] || ASKAOZA_COMPOUND[next2]) {
-        nucleus = next2;
-        i += 2;
-      } else if (/[aeiouāēīōūü]/.test(next1)) {
-        nucleus = next1;
-        i += 1;
-      } else {
-        nucleus = ''; // possibile sillaba consonantica pura (solo finale)
-      }
-    }
-
-    // 3) possibile coda consonantica (solo n,l,s,r,h,kk)
-    if (nucleus && i < lower.length) {
-      // guarda avanti: consonante/i che seguono
-      let look = '';
-      if (i + 2 <= lower.length) {
-        const three = lower.slice(i, i + 3);
-        if (DIGRAPHS.includes(three) || ASKAOZA_CONS[three]) {
-          look = three;
+      // 1) onset: trigrammi/digrammi (incluse doppie) poi singola
+      if (i + 2 <= group.length) {
+        const three = group.slice(i, i + 3);
+        if (DIGRAPHS.includes(three)) {
+          onset = three;
+          i += 3;
         }
       }
-      if (!look && i + 1 <= lower.length) {
-        const two = lower.slice(i, i + 2);
+      if (!onset && i + 1 < group.length) {
+        const two = group.slice(i, i + 2);
         if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
-          look = two;
+          onset = two;
+          i += 2;
         }
       }
-      if (!look && /[kgpbsztdfvhnmlrj]/.test(lower[i])) {
-        look = lower[i];
+      if (!onset && /[kgpbsztdfvhnmlrj]/.test(group[i])) {
+        onset = group[i];
+        i += 1;
       }
 
-      const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
-      const cand = finalCandidates.find(fc => look && look.startsWith(fc));
+      // 2) nucleo vocalico o dittongo
+      if (i < group.length) {
+        const next2 = group.slice(i, i + 2);
+        const next1 = group[i];
 
-      if (cand) {
-        const afterCodaIndex = i + cand.length;
-        const nextChar = lower[afterCodaIndex];
-
-        if (nextChar && /[aeiouāēīōūü]/.test(nextChar)) {
-          // V + cons + V → niente coda (es. o-ra-ki)
+        if (ASKAOZA_DIPH[next2] || ASKAOZA_COMPOUND[next2]) {
+          nucleus = next2;
+          i += 2;
+        } else if (/[aeiouāēīōūü]/.test(next1)) {
+          nucleus = next1;
+          i += 1;
         } else {
-          coda = cand;
-          i = afterCodaIndex;
+          nucleus = '';
         }
       }
-    } else if (!nucleus && onset) {
-      // sillaba puramente consonantica in fine parola → coda senza nucleo
-      const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
-      if (finalCandidates.includes(onset)) {
-        coda = onset;
-        onset = '';
+
+      // 3) possibile coda consonantica (solo n,l,s,r,h,kk)
+      if (nucleus && i < group.length) {
+        let look = '';
+        if (i + 2 <= group.length) {
+          const three = group.slice(i, i + 3);
+          if (DIGRAPHS.includes(three)) {
+            look = three;
+          }
+        }
+        if (!look && i + 1 <= group.length) {
+          const two = group.slice(i, i + 2);
+          if (DIGRAPHS.includes(two)) {
+            look = two;
+          }
+        }
+        if (!look && /[kgpbsztdfvhnmlrj]/.test(group[i])) {
+          look = group[i];
+        }
+
+        const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+        const cand = finalCandidates.find(fc => look && look.startsWith(fc));
+
+        if (cand) {
+          const afterCodaIndex = i + cand.length;
+          const nextChar = group[afterCodaIndex];
+
+          if (nextChar) {
+            const potentialDigraph = group.slice(afterCodaIndex, afterCodaIndex + 2);
+            if (DIGRAPHS.includes(potentialDigraph)) {
+              // NON usare come coda: la consonante inizia un digramma
+            } else if (/[aeiouāēīōūü]/.test(nextChar)) {
+              // V + cons + V → niente coda
+            } else {
+              coda = cand;
+              i = afterCodaIndex;
+            }
+          } else {
+            coda = cand;
+            i = afterCodaIndex;
+          }
+        }
+      } else if (!nucleus && onset) {
+        const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+        if (finalCandidates.includes(onset)) {
+          coda = onset;
+          onset = '';
+        }
       }
-    }
 
-    // GUARDIA ANTI-FREEZE
-    if (!onset && !nucleus && !coda) {
-      res.push({ onset: '', nucleus: lower[i], coda: '' });
-      i += 1;
-      continue;
-    }
+      // GUARDIA ANTI-FREEZE
+      if (!onset && !nucleus && !coda) {
+        res.push({ onset: '', nucleus: group[i], coda: '' });
+        i += 1;
+        continue;
+      }
 
-    res.push({ onset, nucleus, coda });
+      res.push({ onset, nucleus, coda });
+    }
   }
 
   return res;
