@@ -92,7 +92,7 @@ const LONG_MARK = 'ઃ';
 // Funzioni di supporto
 // =========================
 
-const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz'];
+const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz', 'zh'];
 
 function splitCV(syl) {
   syl = syl.toLowerCase();
@@ -152,9 +152,7 @@ function parseWordToSyllables(word) {
       let nucleus = '';
       let coda = '';
 
-      // ========================================
-      // 1) SOSTITUISCI TUTTO QUESTO BLOCCO ↓↓↓
-      // ========================================
+      // 1) onset: PRIMA trigrammi, POI doppie, POI digrammi, POI singole
       
       // Trigrammi (cch, ssh, tts)
       if (i + 3 <= group.length) {
@@ -188,10 +186,6 @@ function parseWordToSyllables(word) {
         onset = group[i];
         i += 1;
       }
-      
-      // ========================================
-      // FINE SOSTITUZIONE ↑↑↑
-      // ========================================
 
       // 2) nucleo vocalico o dittongo
       if (i < group.length) {
@@ -208,10 +202,6 @@ function parseWordToSyllables(word) {
           nucleus = '';
         }
       }
-
-      // 3) possibile coda consonantica...
-      // (resto del codice continua come prima)
-
 
       // 3) possibile coda consonantica (solo n,l,s,r,h,kk)
       if (nucleus && i < group.length) {
@@ -248,9 +238,6 @@ function parseWordToSyllables(word) {
           
           // Controlla se dopo c'è un digramma
           if (afterCodaIndex < group.length) {
-            const remainingTwo = group.slice(afterCodaIndex, afterCodaIndex + 2);
-            
-            // Se la consonante candidata + la lettera successiva formano un digramma, NON usare come coda
             const wouldFormDigraph = DIGRAPHS.some(dg => dg.startsWith(cand) && group.slice(i, i + dg.length) === dg);
             
             if (wouldFormDigraph) {
@@ -288,7 +275,6 @@ function parseWordToSyllables(word) {
 
   return res;
 }
-
 
 // =========================
 // Latin → askaoza (sillaba)
@@ -378,7 +364,6 @@ function toAskaozaText(latinText) {
 // Askaoza → Latin (completa)
 // =========================
 
-// Crea mappe inverse per tutti i componenti
 const CONS_REV = {};
 for (const [lat, glyph] of Object.entries(ASKAOZA_CONS)) {
   CONS_REV[glyph] = lat;
@@ -404,16 +389,8 @@ for (const [lat, glyph] of Object.entries(ASKAOZA_FINALS)) {
   FINALS_REV[glyph] = lat;
 }
 
-// Funzione helper per parsare i diacritici vocalici
 function parseVowelMarks(text, startIdx) {
   let vowel = 'a';
-  let isLong = false;
-  let j = startIdx;
-
-// Funzione helper per parsare i diacritici vocalici E consonante finale
-function parseVowelMarks(text, startIdx) {
-  let vowel = 'a';
-  let isLong = false;
   let coda = '';
   let j = startIdx;
 
@@ -442,7 +419,6 @@ function parseVowelMarks(text, startIdx) {
 
   // Controlla marker di lunghezza
   if (j < text.length && text[j] === LONG_MARK) {
-    isLong = true;
     j++;
     
     // Applica lunghezza
@@ -454,7 +430,7 @@ function parseVowelMarks(text, startIdx) {
       .replace('u', 'ū');
   }
 
-  // NUOVO: Controlla consonante finale DOPO la vocale
+  // Controlla consonante finale DOPO la vocale
   if (j + 1 < text.length) {
     const finalCandidate = text.slice(j, j + 2);
     if (FINALS_REV[finalCandidate]) {
@@ -480,7 +456,7 @@ function askaozaToLatinText(askText) {
 
     let matched = false;
 
-    // 1) Cerca consonante finale isolata con virama (2 caratteri: cons + ્)
+    // 1) Cerca consonante finale isolata con virama
     if (i + 1 < askText.length) {
       const twoChars = askText.slice(i, i + 2);
       if (FINALS_REV[twoChars]) {
@@ -491,8 +467,7 @@ function askaozaToLatinText(askText) {
       }
     }
 
-    // 2) Cerca consonante base (può essere 1 o più caratteri)
-    // Controlla prima le consonanti doppie (3 caratteri: es. ડ્ડ)
+    // 2) Cerca consonanti doppie (3 caratteri)
     if (!matched && i + 2 < askText.length) {
       const threeChars = askText.slice(i, i + 3);
       if (CONS_REV[threeChars]) {
@@ -501,7 +476,6 @@ function askaozaToLatinText(askText) {
         let coda = '';
         let j = i + 3;
 
-        // Cerca diacritici vocalici E consonante finale
         [vowel, coda, j] = parseVowelMarks(askText, j);
 
         if (cons === '*') cons = '';
@@ -512,13 +486,13 @@ function askaozaToLatinText(askText) {
       }
     }
 
-    // 3) Cerca consonanti semplici (1 carattere base, può avere ૃ dopo)
+    // 3) Cerca consonanti semplici
     if (!matched) {
       let baseChar = askText[i];
       let consCandidate = baseChar;
       let j = i + 1;
 
-      // Controlla se c'è il diacritico di sonorità (ૃ)
+      // Controlla diacritico di sonorità
       if (j < askText.length && askText[j] === 'ૃ') {
         consCandidate = baseChar + 'ૃ';
         j++;
@@ -529,7 +503,6 @@ function askaozaToLatinText(askText) {
         let vowel = 'a';
         let coda = '';
 
-        // Cerca diacritici vocalici E consonante finale
         [vowel, coda, j] = parseVowelMarks(askText, j);
 
         if (cons === '*') cons = '';
