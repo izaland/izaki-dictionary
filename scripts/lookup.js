@@ -142,6 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
       output.textContent = 'Loading dictionary...';
       return;
     }
-    output.textContent = getOnnufuByCharacters(input.value);
+
+    // lettura in alfabeto latino
+    const latinReading = getOnnufuByCharacters(input.value);
+
+    // lettura in askaoza (usando lo stesso converter globale)
+    const askaozaReading = toAskaozaText(latinReading);
+
+    // output combinato: latino [askaOza]
+    output.textContent = `${latinReading} [${askaozaReading}]`;
   });
 });
