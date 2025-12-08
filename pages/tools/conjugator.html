@@ -14,10 +14,32 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background: #111827;
+            color: #e5e7eb;
+        }
+        .page-container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 1rem;
-            line-height: 1.6;
+        }
+        .back-link {
+            margin-bottom: 1rem;
+            display: inline-block;
+            color: #93c5fd;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #f9fafb;
+        }
+        p.description {
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
         }
         .autocomplete {
             position: relative;
@@ -28,38 +50,41 @@
             width: 100%;
             padding: 0.75rem;
             font-size: 1.1rem;
-            border: 2px solid #ddd;
+            border: 2px solid #4b5563;
             border-radius: 8px;
+            background: #020617;
+            color: #e5e7eb;
         }
         .suggestions {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background: white;
-            border: 1px solid #ddd;
+            background: #020617;
+            border: 1px solid #4b5563;
             border-top: none;
             max-height: 200px;
             overflow-y: auto;
             z-index: 1000;
             border-radius: 0 0 8px 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
         .suggestion {
             padding: 0.75rem;
             cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #1f2937;
+            color: #e5e7eb;
         }
         .suggestion:hover,
         .suggestion.selected {
-            background: #f8f9fa;
+            background: #111827;
         }
         .conjugation-table {
             margin-top: 2rem;
-            background: #f8f9ff;
+            background: #020617;
             padding: 1.5rem;
             border-radius: 12px;
-            border-left: 5px solid #007bff;
+            border-left: 5px solid #3b82f6;
         }
         table {
             width: 100%;
@@ -70,56 +95,73 @@
         td {
             padding: 0.75rem;
             text-align: left;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid #1f2937;
         }
         th {
-            background: #e3f2fd;
+            background: #111827;
             font-weight: 600;
+            color: #e5e7eb;
         }
         .affirmative {
-            color: #28a745;
+            color: #6ee7b7;
             font-weight: 500;
         }
         .negative {
-            color: #dc3545;
+            color: #fca5a5;
             font-style: italic;
         }
         .askaoza-text {
             font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
             font-size: 1.2rem;
-            color: #555;
+            color: #e5e7eb;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
-        }
-        .back-link {
-            margin-bottom: 2rem;
-        }
-        h1 {
-            color: #1a1a1a;
         }
     </style>
 </head>
 <body>
-    <a href="../.." class="back-link">← Home Izaki Dictionary</a>
+    <!-- Navbar -->
+    <div id="navbar"></div>
 
-    <h1>🗣️ Izaki Verb Conjugator / 華邦語動詞活用表</h1>
-    <p>Group 1, 2, 3 • Present simple + Simple past (affirmative + negative)<br>
-       第一・二・三集団・現在形＋過去形（肯定形＋否定形）</p>
+    <div class="page-container">
+        <a href="../.." class="back-link">← Home Izaki Dictionary</a>
 
-    <div class="autocomplete">
-        <input
-            type="text"
-            id="verbInput"
-            placeholder="Type an Izaki verb (e.g. kieresu, kadasu)..."
-            autocomplete="off"
-        />
-        <div id="suggestions" class="suggestions" style="display: none;"></div>
+        <h1>🗣️ Izaki Verb Conjugator / 華邦語動詞活用表</h1>
+        <p class="description">
+            Group 1, 2, 3 • Present simple + Simple past (affirmative + negative)<br>
+            第一・二・三集団・現在形＋過去形（肯定形＋否定形）
+        </p>
+
+        <div class="autocomplete">
+            <input
+                type="text"
+                id="verbInput"
+                placeholder="Type an Izaki verb (e.g. kieresu, kadasu)..."
+                autocomplete="off"
+            />
+            <div id="suggestions" class="suggestions" style="display: none;"></div>
+        </div>
+
+        <div id="result" class="conjugation-table" style="display: none;">
+            <h3 id="verbTitle"></h3>
+            <table id="conjugationTable"></table>
+        </div>
     </div>
 
-    <div id="result" class="conjugation-table" style="display: none;">
-        <h3 id="verbTitle"></h3>
-        <table id="conjugationTable"></table>
-    </div>
+    <!-- Script di logica (immutato) -->
+    <script>
+    /* tutto il tuo script JS esistente, senza modifiche, da 
+       // 1. Caricamento dizionario
+       fino a window.onload = async function () { ... }; */
+    </script>
+
+    <!-- Converter askaoza -->
+    <script src="/izaki-dictionary/scripts/askaoza.js"></script>
+    <!-- Navbar script (posizionato alla fine) -->
+    <script src="/izaki-dictionary/scripts/script.js"></script>
+</body>
+</html>
+
 
    <script>
     // ==============================
@@ -612,12 +654,9 @@
     };
 </script>
 
-<!-- Script askaoza per conversione automatica -->
-<script src="/izaki-dictionary/scripts/askaoza.js"></script>
-
+    <!-- Converter askaoza -->
+    <script src="/izaki-dictionary/scripts/askaoza.js"></script>
+    <!-- Script navbar -->
+    <script src="/izaki-dictionary/scripts/script.js"></script>
 </body>
-
-<!-- Navbar -->
-<div id="navbar"></div>
-<script src="/izaki-dictionary/scripts/script.js"></script>
 </html>
