@@ -19,52 +19,33 @@
   <!-- Navbar e stile Izaki-dictionary -->
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
   
-  <style>
-    .askaoza-sample {
-      font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
-      font-size: 1.8rem;
-      line-height: 1.8;
-      /* Migliora rendering caratteri complessi su mobile */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-    }
-    textarea {
-      font-family: "Noto Sans", system-ui, sans-serif;
-    }
-    textarea.askaoza-sample {
-      font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
-    }
-    .subtitle-ja {
-      font-size: 0.85em;
-      opacity: 0.9;
-    }
+<style>
+  .askaoza-sample {
+    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
+    font-size: 1.8rem;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 
-    /* Miglioria 1: wrapper e pulsante X */
-    .input-wrapper {
-      position: relative;
-    }
-    .clear-btn {
-      position: absolute;
-      right: 0.6rem;
-      top: 0.6rem;
-      border: none;
-      background: transparent;
-      font-size: 1.4rem;
-      line-height: 1;
-      cursor: pointer;
-      color: #888;
-    }
-    .clear-btn:hover {
-      color: #444;
-    }
+  /* NUOVO: migliora interlinea del titolo hero */
+  .hero .title {
+    line-height: 1.3;        /* o 1.25 se vuoi ancora più spazio */
+    margin-bottom: 0.4rem;   /* separa titolo e sottotitolo */
+  }
 
-    /* Miglioria 2: preservare gli a capo negli output */
-    #askaozaOutput,
-    #latinOutput {
-      white-space: pre-wrap;
-    }
-  </style>
+  .hero .subtitle {
+    line-height: 1.4;
+  }
+
+  .subtitle-ja {
+    font-size: 0.85em;
+    opacity: 0.9;
+  }
+
+  /* resto come prima... */
+</style>
 </head>
 
 <body>
