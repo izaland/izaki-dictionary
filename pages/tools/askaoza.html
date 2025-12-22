@@ -19,7 +19,7 @@
   <!-- Navbar e stile Izaki-dictionary -->
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
   
-    <style>
+  <style>
     .askaoza-sample {
       font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
       font-size: 1.8rem;
@@ -38,6 +38,31 @@
     .subtitle-ja {
       font-size: 0.85em;
       opacity: 0.9;
+    }
+
+    /* Miglioria 1: wrapper e pulsante X */
+    .input-wrapper {
+      position: relative;
+    }
+    .clear-btn {
+      position: absolute;
+      right: 0.6rem;
+      top: 0.6rem;
+      border: none;
+      background: transparent;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      color: #888;
+    }
+    .clear-btn:hover {
+      color: #444;
+    }
+
+    /* Miglioria 2: preservare gli a capo negli output */
+    #askaozaOutput,
+    #latinOutput {
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -68,8 +93,16 @@
         <!-- LATIN INPUT -->
         <div class="column">
           <h3 class="title is-5">Latin → Askaoza</h3>
-          <textarea id="latinInput" class="textarea" rows="5"
-            placeholder="Write in alphabet the text you want to convert in Askaoza..."></textarea>
+          <div class="field has-addons is-flex is-align-items-center">
+            <div class="control is-expanded input-wrapper">
+              <textarea id="latinInput" class="textarea" rows="5"
+                placeholder="Write in alphabet the text you want to convert in Askaoza..."></textarea>
+              <button type="button"
+                      id="clearLatin"
+                      class="clear-btn"
+                      aria-label="Clear input">×</button>
+            </div>
+          </div>
           <button id="toAskaozaBtn" class="button is-link is-light mt-2">
             Convert to Askaoza
           </button>
@@ -90,9 +123,29 @@
     </div>
   </section>
 
+  <!-- Script originali -->
   <script src="/izaki-dictionary/scripts/askaoza.js"></script>
   <script src="/izaki-dictionary/scripts/script.js"></script>
-</body>
 
+  <!-- JS aggiuntivo per la X e per usare l’API esistente -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const latinInput = document.getElementById('latinInput');
+      const clearLatin = document.getElementById('clearLatin');
+      const toAskaozaBtn = document.getElementById('toAskaozaBtn');
+
+      if (clearLatin && latinInput) {
+        clearLatin.addEventListener('click', function () {
+          latinInput.value = '';
+
+          // Se il convertitore funziona sul click del bottone,
+          // richiamiamo il click per aggiornare anche l’output.
+          if (toAskaozaBtn) {
+            toAskaozaBtn.click();
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
