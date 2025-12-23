@@ -1,13 +1,15 @@
 [
   {
-    "lemma": "nyuāna",
+    "lemma": "nujāhana",
     "ipa": "nujaːhana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
-      "abundant, rich"
+      "abundant",
+      "rich"
     ],
     "italian": [
-      "abbondante, ricco"
+      "abbondante",
+      "ricco"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -17,7 +19,7 @@
   {
     "lemma": "pakohante",
     "ipa": "pakohante",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "accidentally"
     ],
@@ -30,9 +32,9 @@
     "example": ""
   },
   {
-    "lemma": "haiyau",
+    "lemma": "haijau",
     "ipa": "haijau",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "actor"
     ],
@@ -47,7 +49,7 @@
   {
     "lemma": "nakori",
     "ipa": "nakori",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "name"
     ],
@@ -60,9 +62,9 @@
     "example": ""
   },
   {
-    "lemma": "chokoe",
+    "lemma": "ʧokoe",
     "ipa": "ʧokoe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "afternoon"
     ],
@@ -77,7 +79,7 @@
   {
     "lemma": "shinai",
     "ipa": "ʃinai",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "air"
     ],
@@ -90,9 +92,9 @@
     "example": ""
   },
   {
-    "lemma": "rēnbān",
+    "lemma": "rēnbːan",
     "ipa": "reːnbːan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "air conditioning"
     ],
@@ -105,9 +107,9 @@
     "example": ""
   },
   {
-    "lemma": "pigyōnki",
+    "lemma": "pigjōnki",
     "ipa": "pigjoːnki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "airplane"
     ],
@@ -122,7 +124,7 @@
   {
     "lemma": "kūnkō",
     "ipa": "kuːnkoː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "airport"
     ],
@@ -137,7 +139,7 @@
   {
     "lemma": "shimoro",
     "ipa": "ʃimoro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "turtle"
     ],
@@ -152,7 +154,7 @@
   {
     "lemma": "ikona",
     "ipa": "ikona",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "All"
     ],
@@ -167,7 +169,7 @@
   {
     "lemma": "sakki",
     "ipa": "sakki",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Already"
     ],
@@ -182,7 +184,7 @@
   {
     "lemma": "ri",
     "ipa": "ri",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "also (suffix)"
     ],
@@ -197,7 +199,7 @@
   {
     "lemma": "jomatta",
     "ipa": "jomatta",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "altar"
     ],
@@ -212,7 +214,7 @@
   {
     "lemma": "estinden",
     "ipa": "estinden",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "always"
     ],
@@ -227,7 +229,7 @@
   {
     "lemma": "tsahena",
     "ipa": "ʦahena",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "ancient"
     ],
@@ -242,7 +244,7 @@
   {
     "lemma": "soaka",
     "ipa": "soaka",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "the day after tomorrow"
     ],
@@ -257,7 +259,7 @@
   {
     "lemma": "ta",
     "ipa": "ta",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "and (conj.)"
     ],
@@ -272,7 +274,7 @@
   {
     "lemma": "sugua",
     "ipa": "sugua",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "apple"
     ],
@@ -287,7 +289,7 @@
   {
     "lemma": "sakaso",
     "ipa": "sakaso",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "arm"
     ],
@@ -302,7 +304,7 @@
   {
     "lemma": "shashin",
     "ipa": "ʃaʃin",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "photograph"
     ],
@@ -317,7 +319,7 @@
   {
     "lemma": "anaka",
     "ipa": "anaka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "arrow"
     ],
@@ -330,9 +332,9 @@
     "example": ""
   },
   {
-    "lemma": "karchofu",
+    "lemma": "karʧofu",
     "ipa": "karʧofu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "artichoke"
     ],
@@ -347,7 +349,7 @@
   {
     "lemma": "soi",
     "ipa": "soi",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "as"
     ],
@@ -362,12 +364,14 @@
   {
     "lemma": "rimero",
     "ipa": "rimero",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
-      "steering wheel, helm"
+      "steering wheel",
+      "helm"
     ],
     "italian": [
-      "volante, timone"
+      "volante",
+      "timone"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -377,7 +381,7 @@
   {
     "lemma": "asparaga",
     "ipa": "asparaga",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "asparagus"
     ],
@@ -392,7 +396,7 @@
   {
     "lemma": "estintsas",
     "ipa": "estinʦas",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "at any time"
     ],
@@ -407,7 +411,7 @@
   {
     "lemma": "Atina",
     "ipa": "Atina",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Athens"
     ],
@@ -420,9 +424,9 @@
     "example": ""
   },
   {
-    "lemma": "Ōkkulendi",
+    "lemma": "ōkkulendi",
     "ipa": "oːkkulendi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Auckland"
     ],
@@ -437,7 +441,7 @@
   {
     "lemma": "uino",
     "ipa": "uino",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "above"
     ],
@@ -452,7 +456,7 @@
   {
     "lemma": "taku",
     "ipa": "taku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "back (body part)"
     ],
@@ -467,7 +471,7 @@
   {
     "lemma": "zushina",
     "ipa": "zuʃina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "bad"
     ],
@@ -482,7 +486,7 @@
   {
     "lemma": "samuna",
     "ipa": "samuna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "badger"
     ],
@@ -497,7 +501,7 @@
   {
     "lemma": "mori",
     "ipa": "mori",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bamboo"
     ],
@@ -510,9 +514,9 @@
     "example": ""
   },
   {
-    "lemma": "fuwaða",
+    "lemma": "fūwaʤa",
     "ipa": "fuːwaʤa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "banana"
     ],
@@ -527,7 +531,7 @@
   {
     "lemma": "sano",
     "ipa": "sano",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "base"
     ],
@@ -542,7 +546,7 @@
   {
     "lemma": "sosana",
     "ipa": "sosana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "low"
     ],
@@ -555,9 +559,9 @@
     "example": ""
   },
   {
-    "lemma": "jibetaina",
+    "lemma": "ʤibetaina",
     "ipa": "ʤibetaina",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bathroom (room)"
     ],
@@ -572,7 +576,7 @@
   {
     "lemma": "sahna",
     "ipa": "sahna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bay"
     ],
@@ -587,7 +591,7 @@
   {
     "lemma": "nate",
     "ipa": "nate",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bean"
     ],
@@ -602,7 +606,7 @@
   {
     "lemma": "usumu",
     "ipa": "usumu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bear"
     ],
@@ -617,7 +621,7 @@
   {
     "lemma": "gigiwa",
     "ipa": "gigiwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "beat"
     ],
@@ -630,9 +634,9 @@
     "example": ""
   },
   {
-    "lemma": "enoː",
+    "lemma": "enō",
     "ipa": "enoː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Bed"
     ],
@@ -647,7 +651,7 @@
   {
     "lemma": "tendattan",
     "ipa": "tendattan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "beetle"
     ],
@@ -662,7 +666,7 @@
   {
     "lemma": "ārikko",
     "ipa": "aːrikko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "crane"
     ],
@@ -675,9 +679,9 @@
     "example": ""
   },
   {
-    "lemma": "hĪji",
+    "lemma": "hīʤi",
     "ipa": "hiːʤi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "belt"
     ],
@@ -690,9 +694,9 @@
     "example": ""
   },
   {
-    "lemma": "Nyūyōki",
+    "lemma": "Njūjōki",
     "ipa": "Njuːjoːki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "New York"
     ],
@@ -707,7 +711,7 @@
   {
     "lemma": "suma",
     "ipa": "suma",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "beyond"
     ],
@@ -722,7 +726,7 @@
   {
     "lemma": "ōdana",
     "ipa": "oːdana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "big"
     ],
@@ -737,7 +741,7 @@
   {
     "lemma": "fuwo",
     "ipa": "fuwo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bird"
     ],
@@ -752,7 +756,7 @@
   {
     "lemma": "samo",
     "ipa": "samo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mountain"
     ],
@@ -767,7 +771,7 @@
   {
     "lemma": "rokoi",
     "ipa": "rokoi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "black"
     ],
@@ -782,7 +786,7 @@
   {
     "lemma": "satsoa",
     "ipa": "saʦoa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "blue"
     ],
@@ -797,7 +801,7 @@
   {
     "lemma": "kanli",
     "ipa": "kanli",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "boat"
     ],
@@ -812,7 +816,7 @@
   {
     "lemma": "subuno",
     "ipa": "subuno",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "kiwi"
     ],
@@ -827,7 +831,7 @@
   {
     "lemma": "kino",
     "ipa": "kino",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "book"
     ],
@@ -842,7 +846,7 @@
   {
     "lemma": "kinna",
     "ipa": "kinna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bottle"
     ],
@@ -857,7 +861,7 @@
   {
     "lemma": "poniukatamu",
     "ipa": "poniukatamu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bracelet"
     ],
@@ -872,7 +876,7 @@
   {
     "lemma": "orjua",
     "ipa": "orjua",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "brain"
     ],
@@ -887,7 +891,7 @@
   {
     "lemma": "inta",
     "ipa": "inta",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "shop"
     ],
@@ -902,7 +906,7 @@
   {
     "lemma": "allaimana",
     "ipa": "allaimana",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "breakfast"
     ],
@@ -917,7 +921,7 @@
   {
     "lemma": "ikkae",
     "ipa": "ikkae",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "breeze"
     ],
@@ -932,7 +936,7 @@
   {
     "lemma": "shikoi",
     "ipa": "ʃikoi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "door"
     ],
@@ -947,7 +951,7 @@
   {
     "lemma": "dukaro",
     "ipa": "dukaro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "broccoli"
     ],
@@ -962,7 +966,7 @@
   {
     "lemma": "panoi",
     "ipa": "panoi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "brother/sister"
     ],
@@ -975,9 +979,9 @@
     "example": ""
   },
   {
-    "lemma": "maːkka",
+    "lemma": "mākka",
     "ipa": "maːkka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "voyage"
     ],
@@ -992,7 +996,7 @@
   {
     "lemma": "mupashi",
     "ipa": "mupaʃi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bucket"
     ],
@@ -1007,7 +1011,7 @@
   {
     "lemma": "okkalehi",
     "ipa": "okkalehi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "flamingo"
     ],
@@ -1022,7 +1026,7 @@
   {
     "lemma": "sharumuira",
     "ipa": "ʃarumuira",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "buckle"
     ],
@@ -1037,7 +1041,7 @@
   {
     "lemma": "jaon",
     "ipa": "jaon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "avenue (from north to south)"
     ],
@@ -1052,7 +1056,7 @@
   {
     "lemma": "rakes",
     "ipa": "rakes",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "building"
     ],
@@ -1067,7 +1071,7 @@
   {
     "lemma": "hadaro",
     "ipa": "hadaro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "butter"
     ],
@@ -1082,7 +1086,7 @@
   {
     "lemma": "hinastana",
     "ipa": "hinastana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "Calm"
     ],
@@ -1097,7 +1101,7 @@
   {
     "lemma": "shashinki",
     "ipa": "ʃaʃinki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "camera"
     ],
@@ -1112,7 +1116,7 @@
   {
     "lemma": "tansuikwamus",
     "ipa": "tansuikwamus",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "carbohydrates"
     ],
@@ -1127,7 +1131,7 @@
   {
     "lemma": "sakante",
     "ipa": "sakante",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "carefully"
     ],
@@ -1142,7 +1146,7 @@
   {
     "lemma": "rohtapa",
     "ipa": "rohtapa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "carrot"
     ],
@@ -1157,7 +1161,7 @@
   {
     "lemma": "shero",
     "ipa": "ʃero",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "castle"
     ],
@@ -1172,7 +1176,7 @@
   {
     "lemma": "shinna",
     "ipa": "ʃinna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cat"
     ],
@@ -1187,7 +1191,7 @@
   {
     "lemma": "oriba",
     "ipa": "oriba",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "five"
     ],
@@ -1202,7 +1206,7 @@
   {
     "lemma": "ibu",
     "ipa": "ibu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "center"
     ],
@@ -1217,7 +1221,7 @@
   {
     "lemma": "koiba",
     "ipa": "koiba",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "chair"
     ],
@@ -1232,7 +1236,7 @@
   {
     "lemma": "tsumoki",
     "ipa": "ʦumoki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "chameleon"
     ],
@@ -1247,7 +1251,7 @@
   {
     "lemma": "sohai",
     "ipa": "sohai",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cheek"
     ],
@@ -1262,7 +1266,7 @@
   {
     "lemma": "shinatsa",
     "ipa": "ʃinaʦa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cherry"
     ],
@@ -1277,7 +1281,7 @@
   {
     "lemma": "kiro",
     "ipa": "kiro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "chestnut"
     ],
@@ -1292,7 +1296,7 @@
   {
     "lemma": "iwon",
     "ipa": "iwon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "chin"
     ],
@@ -1307,7 +1311,7 @@
   {
     "lemma": "nāsoi",
     "ipa": "naːsoi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "circle"
     ],
@@ -1322,7 +1326,7 @@
   {
     "lemma": "reiluna",
     "ipa": "reiluna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "clean"
     ],
@@ -1337,7 +1341,7 @@
   {
     "lemma": "ettana",
     "ipa": "ettana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "clear"
     ],
@@ -1352,7 +1356,7 @@
   {
     "lemma": "kiri",
     "ipa": "kiri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cliff"
     ],
@@ -1365,9 +1369,9 @@
     "example": ""
   },
   {
-    "lemma": "tanayari",
+    "lemma": "tanajari",
     "ipa": "tanajari",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "closure"
     ],
@@ -1382,7 +1386,7 @@
   {
     "lemma": "noippa",
     "ipa": "noippa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cloud"
     ],
@@ -1397,7 +1401,7 @@
   {
     "lemma": "tararana",
     "ipa": "tararana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "coarse"
     ],
@@ -1412,7 +1416,7 @@
   {
     "lemma": "nihki",
     "ipa": "nihki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "coast"
     ],
@@ -1427,7 +1431,7 @@
   {
     "lemma": "satā",
     "ipa": "sataː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sugar"
     ],
@@ -1440,9 +1444,9 @@
     "example": ""
   },
   {
-    "lemma": "yoyaku",
+    "lemma": "jojaku",
     "ipa": "jojaku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "reservation"
     ],
@@ -1457,7 +1461,7 @@
   {
     "lemma": "gaire",
     "ipa": "gaire",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cold"
     ],
@@ -1472,7 +1476,7 @@
   {
     "lemma": "dinga",
     "ipa": "dinga",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cold water"
     ],
@@ -1485,9 +1489,9 @@
     "example": ""
   },
   {
-    "lemma": "fukutsassyasu",
+    "lemma": "fukutsa:ssjasu",
     "ipa": "fukuʦa:ssjasu",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "complicated"
     ],
@@ -1500,9 +1504,9 @@
     "example": ""
   },
   {
-    "lemma": "dyensanki",
+    "lemma": "djensanki",
     "ipa": "djensanki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "computer"
     ],
@@ -1517,7 +1521,7 @@
   {
     "lemma": "binnu",
     "ipa": "binnu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cormorant"
     ],
@@ -1532,7 +1536,7 @@
   {
     "lemma": "shumuna",
     "ipa": "ʃumuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "costly"
     ],
@@ -1547,7 +1551,7 @@
   {
     "lemma": "hāsuko",
     "ipa": "haːsuko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cotton"
     ],
@@ -1562,7 +1566,7 @@
   {
     "lemma": "jennin",
     "ipa": "jennin",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cause"
     ],
@@ -1577,7 +1581,7 @@
   {
     "lemma": "rihmi",
     "ipa": "rihmi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "county"
     ],
@@ -1592,7 +1596,7 @@
   {
     "lemma": "neso",
     "ipa": "neso",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cover"
     ],
@@ -1607,7 +1611,7 @@
   {
     "lemma": "hiinuwa",
     "ipa": "hiinuwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cow"
     ],
@@ -1622,7 +1626,7 @@
   {
     "lemma": "emirako",
     "ipa": "emirako",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pool"
     ],
@@ -1637,7 +1641,7 @@
   {
     "lemma": "naga",
     "ipa": "naga",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "Who"
     ],
@@ -1650,9 +1654,9 @@
     "example": ""
   },
   {
-    "lemma": "Shikego",
+    "lemma": "shikego",
     "ipa": "ʃikego",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Chicago"
     ],
@@ -1667,7 +1671,7 @@
   {
     "lemma": "munkan",
     "ipa": "munkan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "curfew"
     ],
@@ -1680,9 +1684,9 @@
     "example": ""
   },
   {
-    "lemma": "yupara",
+    "lemma": "jupara",
     "ipa": "jupara",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cushion"
     ],
@@ -1697,7 +1701,7 @@
   {
     "lemma": "baki",
     "ipa": "baki",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "but"
     ],
@@ -1712,7 +1716,7 @@
   {
     "lemma": "tsūmuna",
     "ipa": "ʦuːmuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "dark"
     ],
@@ -1727,7 +1731,7 @@
   {
     "lemma": "fuskuna",
     "ipa": "fuskuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "dark"
     ],
@@ -1740,9 +1744,9 @@
     "example": ""
   },
   {
-    "lemma": "juskae",
+    "lemma": "ʤuskae",
     "ipa": "ʤuskae",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Daughter"
     ],
@@ -1757,7 +1761,7 @@
   {
     "lemma": "wāri",
     "ipa": "waːri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "gesture"
     ],
@@ -1772,7 +1776,7 @@
   {
     "lemma": "kato",
     "ipa": "kato",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "day"
     ],
@@ -1787,7 +1791,7 @@
   {
     "lemma": "nukore",
     "ipa": "nukore",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "death"
     ],
@@ -1802,7 +1806,7 @@
   {
     "lemma": "tsion",
     "ipa": "ʦion",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "about"
     ],
@@ -1817,7 +1821,7 @@
   {
     "lemma": "warokana",
     "ipa": "warokana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "deep"
     ],
@@ -1832,7 +1836,7 @@
   {
     "lemma": "tottanhei",
     "ipa": "tottanhei",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "deer"
     ],
@@ -1847,7 +1851,7 @@
   {
     "lemma": "haikuna",
     "ipa": "haikuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "delightful"
     ],
@@ -1862,7 +1866,7 @@
   {
     "lemma": "fufun",
     "ipa": "fufun",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "delta (river)"
     ],
@@ -1877,7 +1881,7 @@
   {
     "lemma": "gimurana",
     "ipa": "gimurana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "dense/thick"
     ],
@@ -1892,7 +1896,7 @@
   {
     "lemma": "ahiro",
     "ipa": "ahiro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "color"
     ],
@@ -1907,7 +1911,7 @@
   {
     "lemma": "asatsana",
     "ipa": "asaʦana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "difficult"
     ],
@@ -1922,7 +1926,7 @@
   {
     "lemma": "seikamana",
     "ipa": "seikamana",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "dinner"
     ],
@@ -1937,7 +1941,7 @@
   {
     "lemma": "mustedana",
     "ipa": "mustedana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "dirty"
     ],
@@ -1950,9 +1954,9 @@
     "example": ""
   },
   {
-    "lemma": "chiðona",
+    "lemma": "ʧiʣona",
     "ipa": "ʧiʣona",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "flat"
     ],
@@ -1967,7 +1971,7 @@
   {
     "lemma": "fudoa",
     "ipa": "fudoa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "dish"
     ],
@@ -1982,7 +1986,7 @@
   {
     "lemma": "nantana",
     "ipa": "nantana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "distant"
     ],
@@ -1997,7 +2001,7 @@
   {
     "lemma": "rul",
     "ipa": "rul",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "docking"
     ],
@@ -2012,7 +2016,7 @@
   {
     "lemma": "wizha",
     "ipa": "wizha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "doctor"
     ],
@@ -2027,7 +2031,7 @@
   {
     "lemma": "tento",
     "ipa": "tento",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "dog"
     ],
@@ -2042,7 +2046,7 @@
   {
     "lemma": "otaho",
     "ipa": "otaho",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "dolphin"
     ],
@@ -2057,7 +2061,7 @@
   {
     "lemma": "sakon",
     "ipa": "sakon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "chest"
     ],
@@ -2072,7 +2076,7 @@
   {
     "lemma": "wamiro",
     "ipa": "wamiro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "dormouse"
     ],
@@ -2085,9 +2089,9 @@
     "example": ""
   },
   {
-    "lemma": "sūcchu",
+    "lemma": "sūʧʧu",
     "ipa": "sūʧʧu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "concentration"
     ],
@@ -2102,7 +2106,7 @@
   {
     "lemma": "tobe",
     "ipa": "tobe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "duck"
     ],
@@ -2117,7 +2121,7 @@
   {
     "lemma": "ikoiko",
     "ipa": "ikoiko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "each"
     ],
@@ -2132,7 +2136,7 @@
   {
     "lemma": "hamuda",
     "ipa": "hamuda",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "eagle"
     ],
@@ -2147,7 +2151,7 @@
   {
     "lemma": "tappi",
     "ipa": "tappi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ear"
     ],
@@ -2162,7 +2166,7 @@
   {
     "lemma": "taina",
     "ipa": "taina",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "room"
     ],
@@ -2177,7 +2181,7 @@
   {
     "lemma": "deda",
     "ipa": "deda",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Earth"
     ],
@@ -2192,7 +2196,7 @@
   {
     "lemma": "issana",
     "ipa": "issana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "easy"
     ],
@@ -2205,9 +2209,9 @@
     "example": ""
   },
   {
-    "lemma": "kandannyasu",
+    "lemma": "kandannjasu",
     "ipa": "kandannjasu",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "easy"
     ],
@@ -2222,7 +2226,7 @@
   {
     "lemma": "tawara",
     "ipa": "tawara",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "confine"
     ],
@@ -2237,7 +2241,7 @@
   {
     "lemma": "nakaku",
     "ipa": "nakaku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ebony"
     ],
@@ -2252,7 +2256,7 @@
   {
     "lemma": "isana",
     "ipa": "isana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "economic"
     ],
@@ -2267,7 +2271,7 @@
   {
     "lemma": "deri",
     "ipa": "deri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "elbow"
     ],
@@ -2282,7 +2286,7 @@
   {
     "lemma": "shawin",
     "ipa": "ʃawin",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "employee"
     ],
@@ -2295,9 +2299,9 @@
     "example": ""
   },
   {
-    "lemma": "tekkayase",
+    "lemma": "tekkajase",
     "ipa": "tekkajase",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "However"
     ],
@@ -2312,7 +2316,7 @@
   {
     "lemma": "shaikona",
     "ipa": "ʃaikona",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "empty"
     ],
@@ -2327,7 +2331,7 @@
   {
     "lemma": "rikkihan",
     "ipa": "rikkihan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rabbit"
     ],
@@ -2342,7 +2346,7 @@
   {
     "lemma": "kami",
     "ipa": "kami",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "Where"
     ],
@@ -2355,11 +2359,12 @@
     "example": ""
   },
   {
-    "lemma": "yuena",
+    "lemma": "juena",
     "ipa": "juena",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
-      "every, each"
+      "every",
+      "each"
     ],
     "italian": [
       "ogni"
@@ -2372,7 +2377,7 @@
   {
     "lemma": "kamitsas",
     "ipa": "kamiʦas",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "everywhere"
     ],
@@ -2385,9 +2390,9 @@
     "example": ""
   },
   {
-    "lemma": "teryo",
+    "lemma": "terjo",
     "ipa": "terjo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "meat"
     ],
@@ -2402,7 +2407,7 @@
   {
     "lemma": "otenkuna",
     "ipa": "otenkuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "expert"
     ],
@@ -2417,7 +2422,7 @@
   {
     "lemma": "korigonana",
     "ipa": "korigonana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "extraordinary"
     ],
@@ -2432,7 +2437,7 @@
   {
     "lemma": "tanbo",
     "ipa": "tanbo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "eye"
     ],
@@ -2447,7 +2452,7 @@
   {
     "lemma": "tanborigo",
     "ipa": "tanborigo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "eyeglasses"
     ],
@@ -2460,9 +2465,9 @@
     "example": ""
   },
   {
-    "lemma": "ahajinwa",
+    "lemma": "ahaʤinwa",
     "ipa": "ahaʤinwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "eyelash"
     ],
@@ -2475,9 +2480,9 @@
     "example": ""
   },
   {
-    "lemma": "yuntsuke",
+    "lemma": "juntsuke",
     "ipa": "junʦuke",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "face"
     ],
@@ -2492,7 +2497,7 @@
   {
     "lemma": "kuribena",
     "ipa": "kuribena",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "fake"
     ],
@@ -2507,7 +2512,7 @@
   {
     "lemma": "taeka",
     "ipa": "taeka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fall"
     ],
@@ -2522,12 +2527,14 @@
   {
     "lemma": "nokunoku",
     "ipa": "nokunoku",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
-      "slowly, lazily"
+      "slowly",
+      "lazily"
     ],
     "italian": [
-      "lentamente, pigramente"
+      "lentamente",
+      "pigramente"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -2535,9 +2542,9 @@
     "example": ""
   },
   {
-    "lemma": "jakuna",
+    "lemma": "ʤakuna",
     "ipa": "ʤakuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "fast"
     ],
@@ -2550,9 +2557,9 @@
     "example": ""
   },
   {
-    "lemma": "hipān",
+    "lemma": "chipān",
     "ipa": "chipaːn",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fat (nutrition)"
     ],
@@ -2565,9 +2572,9 @@
     "example": ""
   },
   {
-    "lemma": "shiki",
-    "ipa": "shiki",
-    "pos": ": n =",
+    "lemma": "saki",
+    "ipa": "saki",
+    "pos": "n",
     "english": [
       "feather"
     ],
@@ -2582,7 +2589,7 @@
   {
     "lemma": "totsus",
     "ipa": "toʦus",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fennel"
     ],
@@ -2597,7 +2604,7 @@
   {
     "lemma": "shoikes",
     "ipa": "ʃoikes",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fern"
     ],
@@ -2612,7 +2619,7 @@
   {
     "lemma": "najue",
     "ipa": "najue",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "field"
     ],
@@ -2627,7 +2634,7 @@
   {
     "lemma": "shogos",
     "ipa": "ʃogos",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "chrysanthemum"
     ],
@@ -2642,7 +2649,7 @@
   {
     "lemma": "noppo",
     "ipa": "noppo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "table spoon"
     ],
@@ -2657,7 +2664,7 @@
   {
     "lemma": "geihi",
     "ipa": "geihi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "finger"
     ],
@@ -2672,7 +2679,7 @@
   {
     "lemma": "kamihen",
     "ipa": "kamihen",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "anywhere"
     ],
@@ -2687,7 +2694,7 @@
   {
     "lemma": "hunui",
     "ipa": "hunui",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fire"
     ],
@@ -2702,7 +2709,7 @@
   {
     "lemma": "nokkanki",
     "ipa": "nokkanki",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "firmly"
     ],
@@ -2717,7 +2724,7 @@
   {
     "lemma": "heki",
     "ipa": "heki",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "first (chronological)"
     ],
@@ -2730,9 +2737,9 @@
     "example": ""
   },
   {
-    "lemma": "miweː",
+    "lemma": "miwē",
     "ipa": "miweː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fish"
     ],
@@ -2745,9 +2752,9 @@
     "example": ""
   },
   {
-    "lemma": "hizhōnku",
+    "lemma": "hizhōku",
     "ipa": "hiʒoːku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Emergency Exit"
     ],
@@ -2762,7 +2769,7 @@
   {
     "lemma": "nessana",
     "ipa": "nessana",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Flour"
     ],
@@ -2777,7 +2784,7 @@
   {
     "lemma": "ezan",
     "ipa": "ezan",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "in front of"
     ],
@@ -2792,7 +2799,7 @@
   {
     "lemma": "Moskuwa",
     "ipa": "Moskuwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Fly"
     ],
@@ -2807,7 +2814,7 @@
   {
     "lemma": "arasa",
     "ipa": "arasa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fog"
     ],
@@ -2822,7 +2829,7 @@
   {
     "lemma": "odae",
     "ipa": "odae",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "behind"
     ],
@@ -2837,7 +2844,7 @@
   {
     "lemma": "mikata",
     "ipa": "mikata",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "forehead"
     ],
@@ -2852,7 +2859,7 @@
   {
     "lemma": "tsawa",
     "ipa": "ʦawa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "forest"
     ],
@@ -2865,9 +2872,9 @@
     "example": ""
   },
   {
-    "lemma": "yokoku",
+    "lemma": "jokoku",
     "ipa": "jokoku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "forewarning"
     ],
@@ -2882,7 +2889,7 @@
   {
     "lemma": "kata",
     "ipa": "kata",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fountain"
     ],
@@ -2897,7 +2904,7 @@
   {
     "lemma": "kusawagi",
     "ipa": "kusawagi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fountain"
     ],
@@ -2912,7 +2919,7 @@
   {
     "lemma": "afuana",
     "ipa": "afuana",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fragile"
     ],
@@ -2927,7 +2934,7 @@
   {
     "lemma": "hapen",
     "ipa": "hapen",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fragment"
     ],
@@ -2942,7 +2949,7 @@
   {
     "lemma": "Furankufurti",
     "ipa": "Furankufurti",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Frankfurt"
     ],
@@ -2957,7 +2964,7 @@
   {
     "lemma": "niroena",
     "ipa": "niroena",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "Freddo"
     ],
@@ -2970,9 +2977,9 @@
     "example": ""
   },
   {
-    "lemma": "jikannona",
+    "lemma": "ʤikannona",
     "ipa": "ʤikannona",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "frequent"
     ],
@@ -2987,7 +2994,7 @@
   {
     "lemma": "taikao",
     "ipa": "taikao",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Friend"
     ],
@@ -3002,7 +3009,7 @@
   {
     "lemma": "teittan",
     "ipa": "teittan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fulcrum"
     ],
@@ -3017,7 +3024,7 @@
   {
     "lemma": "hingao",
     "ipa": "hingao",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fungus"
     ],
@@ -3032,7 +3039,7 @@
   {
     "lemma": "tatāha",
     "ipa": "tataːha",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "Furthermore"
     ],
@@ -3047,7 +3054,7 @@
   {
     "lemma": "twaisa",
     "ipa": "twaisa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "future"
     ],
@@ -3062,7 +3069,7 @@
   {
     "lemma": "kunsa",
     "ipa": "kunsa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "garlic"
     ],
@@ -3077,7 +3084,7 @@
   {
     "lemma": "mua",
     "ipa": "mua",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "gate"
     ],
@@ -3090,9 +3097,9 @@
     "example": ""
   },
   {
-    "lemma": "ispancheke yasu",
+    "lemma": "ispanʧeke jasu",
     "ipa": "ispanʧeke jasu",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "general"
     ],
@@ -3107,7 +3114,7 @@
   {
     "lemma": "kappare",
     "ipa": "kappare",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "gift"
     ],
@@ -3122,7 +3129,7 @@
   {
     "lemma": "tassuo",
     "ipa": "tassuo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "glass"
     ],
@@ -3137,7 +3144,7 @@
   {
     "lemma": "gamokoibo",
     "ipa": "gamokoibo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "glove"
     ],
@@ -3152,7 +3159,7 @@
   {
     "lemma": "tepana",
     "ipa": "tepana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "Good"
     ],
@@ -3167,7 +3174,7 @@
   {
     "lemma": "sanki",
     "ipa": "sanki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cake"
     ],
@@ -3182,7 +3189,7 @@
   {
     "lemma": "miraki",
     "ipa": "miraki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "green"
     ],
@@ -3197,7 +3204,7 @@
   {
     "lemma": "asaha",
     "ipa": "asaha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "life"
     ],
@@ -3212,7 +3219,7 @@
   {
     "lemma": "bise(en)",
     "ipa": "bise(en)",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hair"
     ],
@@ -3227,7 +3234,7 @@
   {
     "lemma": "nahana",
     "ipa": "nahana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "Handsome"
     ],
@@ -3242,7 +3249,7 @@
   {
     "lemma": "surina",
     "ipa": "surina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "happy"
     ],
@@ -3257,7 +3264,7 @@
   {
     "lemma": "saihi",
     "ipa": "saihi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "you"
     ],
@@ -3270,9 +3277,9 @@
     "example": ""
   },
   {
-    "lemma": "gahrasu",
-    "ipa": "gahrasu",
-    "pos": ": n =",
+    "lemma": "gahrana",
+    "ipa": "gahrana",
+    "pos": "adj",
     "english": [
       "hard"
     ],
@@ -3285,9 +3292,9 @@
     "example": ""
   },
   {
-    "lemma": "tsashi",
+    "lemma": "tsaʧī",
     "ipa": "tsaʧiː",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "etc."
     ],
@@ -3302,7 +3309,7 @@
   {
     "lemma": "matsu",
     "ipa": "maʦu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "head"
     ],
@@ -3317,7 +3324,7 @@
   {
     "lemma": "reito",
     "ipa": "reito",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Heart"
     ],
@@ -3330,9 +3337,9 @@
     "example": ""
   },
   {
-    "lemma": "dayana",
+    "lemma": "dajana",
     "ipa": "dajana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "heavy"
     ],
@@ -3347,7 +3354,7 @@
   {
     "lemma": "irono",
     "ipa": "irono",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hibiscus"
     ],
@@ -3362,7 +3369,7 @@
   {
     "lemma": "rihana",
     "ipa": "rihana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "high"
     ],
@@ -3377,7 +3384,7 @@
   {
     "lemma": "koe",
     "ipa": "koe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hill"
     ],
@@ -3392,7 +3399,7 @@
   {
     "lemma": "hanno",
     "ipa": "hanno",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "him"
     ],
@@ -3407,7 +3414,7 @@
   {
     "lemma": "sumata",
     "ipa": "sumata",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "vertical"
     ],
@@ -3422,7 +3429,7 @@
   {
     "lemma": "suihjesen",
     "ipa": "suihjesen",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "horizon"
     ],
@@ -3435,9 +3442,9 @@
     "example": ""
   },
   {
-    "lemma": "nanboː",
+    "lemma": "nanbō",
     "ipa": "nanboː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hot air"
     ],
@@ -3452,7 +3459,7 @@
   {
     "lemma": "futaka",
     "ipa": "futaka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "house"
     ],
@@ -3467,7 +3474,7 @@
   {
     "lemma": "katsepo",
     "ipa": "kaʦepo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "liver"
     ],
@@ -3482,7 +3489,7 @@
   {
     "lemma": "suso",
     "ipa": "suso",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hydrogen"
     ],
@@ -3497,7 +3504,7 @@
   {
     "lemma": "naiga",
     "ipa": "naiga",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "I (formal)"
     ],
@@ -3512,7 +3519,7 @@
   {
     "lemma": "nai",
     "ipa": "nai",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "I (informal)"
     ],
@@ -3527,7 +3534,7 @@
   {
     "lemma": "kwikei",
     "ipa": "kwikei",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bill"
     ],
@@ -3542,7 +3549,7 @@
   {
     "lemma": "warana",
     "ipa": "warana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "soft"
     ],
@@ -3557,7 +3564,7 @@
   {
     "lemma": "rikkutoo",
     "ipa": "rikkutoo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ice floe"
     ],
@@ -3572,7 +3579,7 @@
   {
     "lemma": "appi",
     "ipa": "appi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "game"
     ],
@@ -3585,9 +3592,9 @@
     "example": ""
   },
   {
-    "lemma": "juitte",
+    "lemma": "ʤuitte",
     "ipa": "ʤuitte",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "in"
     ],
@@ -3602,7 +3609,7 @@
   {
     "lemma": "hake",
     "ipa": "hake",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "flank"
     ],
@@ -3617,7 +3624,7 @@
   {
     "lemma": "washika",
     "ipa": "waʃika",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "parent"
     ],
@@ -3632,7 +3639,7 @@
   {
     "lemma": "sune",
     "ipa": "sune",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ford"
     ],
@@ -3645,9 +3652,9 @@
     "example": ""
   },
   {
-    "lemma": "gwazhoː",
+    "lemma": "gwazhō",
     "ipa": "gwazhoː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "image"
     ],
@@ -3660,9 +3667,9 @@
     "example": ""
   },
   {
-    "lemma": "naːs",
+    "lemma": "nās",
     "ipa": "naːs",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "insect"
     ],
@@ -3675,9 +3682,9 @@
     "example": ""
   },
   {
-    "lemma": "chadori",
+    "lemma": "ʧadori",
     "ipa": "ʧadori",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "invitation"
     ],
@@ -3690,9 +3697,9 @@
     "example": ""
   },
   {
-    "lemma": "koːsai",
+    "lemma": "kōsai",
     "ipa": "koːsai",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "iris"
     ],
@@ -3707,7 +3714,7 @@
   {
     "lemma": "hanolo",
     "ipa": "hanolo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ivy"
     ],
@@ -3722,7 +3729,7 @@
   {
     "lemma": "horomoi",
     "ipa": "horomoi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "joy"
     ],
@@ -3737,7 +3744,7 @@
   {
     "lemma": "muira",
     "ipa": "muira",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "key"
     ],
@@ -3750,9 +3757,9 @@
     "example": ""
   },
   {
-    "lemma": "koːndas",
+    "lemma": "kōndas",
     "ipa": "koːndas",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "king"
     ],
@@ -3767,7 +3774,7 @@
   {
     "lemma": "namoa",
     "ipa": "namoa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "kiss"
     ],
@@ -3782,7 +3789,7 @@
   {
     "lemma": "neheri",
     "ipa": "neheri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "knee"
     ],
@@ -3797,7 +3804,7 @@
   {
     "lemma": "dunese",
     "ipa": "dunese",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "quickly"
     ],
@@ -3812,7 +3819,7 @@
   {
     "lemma": "mafu",
     "ipa": "mafu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Lady"
     ],
@@ -3827,7 +3834,7 @@
   {
     "lemma": "shakui",
     "ipa": "ʃakui",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lake"
     ],
@@ -3840,9 +3847,9 @@
     "example": ""
   },
   {
-    "lemma": "chakuryuku",
+    "lemma": "ʧakurjuku",
     "ipa": "ʧakurjuku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "landing"
     ],
@@ -3857,7 +3864,7 @@
   {
     "lemma": "kusube",
     "ipa": "kusube",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "larch"
     ],
@@ -3872,7 +3879,7 @@
   {
     "lemma": "njestoko",
     "ipa": "njestoko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "snake"
     ],
@@ -3887,7 +3894,7 @@
   {
     "lemma": "indawose",
     "ipa": "indawose",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "last year"
     ],
@@ -3902,7 +3909,7 @@
   {
     "lemma": "estinki",
     "ipa": "estinki",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "at some point"
     ],
@@ -3917,7 +3924,7 @@
   {
     "lemma": "hahanari",
     "ipa": "hahanari",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "laugh"
     ],
@@ -3932,7 +3939,7 @@
   {
     "lemma": "natsu",
     "ipa": "naʦu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lawn"
     ],
@@ -3947,7 +3954,7 @@
   {
     "lemma": "semodo",
     "ipa": "semodo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "left"
     ],
@@ -3962,7 +3969,7 @@
   {
     "lemma": "huinnon",
     "ipa": "huinnon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "leg"
     ],
@@ -3977,7 +3984,7 @@
   {
     "lemma": "seoma",
     "ipa": "seoma",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lemon"
     ],
@@ -3992,9 +3999,9 @@
   {
     "lemma": "sokko",
     "ipa": "sokko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
-      "on the contrary"
+      "contrary"
     ],
     "italian": [
       "contrario"
@@ -4007,7 +4014,7 @@
   {
     "lemma": "iruna",
     "ipa": "iruna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "light (weight)"
     ],
@@ -4022,7 +4029,7 @@
   {
     "lemma": "nitsos",
     "ipa": "niʦos",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "light"
     ],
@@ -4037,7 +4044,7 @@
   {
     "lemma": "muno",
     "ipa": "muno",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sound"
     ],
@@ -4052,7 +4059,7 @@
   {
     "lemma": "sasatsai",
     "ipa": "sasaʦai",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lightning"
     ],
@@ -4067,7 +4074,7 @@
   {
     "lemma": "resso",
     "ipa": "resso",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "link"
     ],
@@ -4082,7 +4089,7 @@
   {
     "lemma": "danshe",
     "ipa": "danʃe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lip"
     ],
@@ -4095,14 +4102,16 @@
     "example": ""
   },
   {
-    "lemma": "garochina",
+    "lemma": "gaoruʧina",
     "ipa": "gaoruʧina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
-      "lively, lively"
+      "lively",
+      "lively"
     ],
     "italian": [
-      "animato, movimentato"
+      "animato",
+      "movimentato"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -4112,7 +4121,7 @@
   {
     "lemma": "Londun",
     "ipa": "Londun",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "London"
     ],
@@ -4127,7 +4136,7 @@
   {
     "lemma": "dokusho",
     "ipa": "dokuʃo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "reading"
     ],
@@ -4142,7 +4151,7 @@
   {
     "lemma": "rekena",
     "ipa": "rekena",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "long"
     ],
@@ -4157,7 +4166,7 @@
   {
     "lemma": "hama",
     "ipa": "hama",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "island"
     ],
@@ -4170,9 +4179,9 @@
     "example": ""
   },
   {
-    "lemma": "taːs",
+    "lemma": "tās",
     "ipa": "taːs",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "four"
     ],
@@ -4185,9 +4194,9 @@
     "example": ""
   },
   {
-    "lemma": "Lozeinjeles",
+    "lemma": "Lozeinʤeles",
     "ipa": "Lozeinʤeles",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Los Angeles"
     ],
@@ -4202,7 +4211,7 @@
   {
     "lemma": "saison",
     "ipa": "saison",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Love"
     ],
@@ -4215,9 +4224,9 @@
     "example": ""
   },
   {
-    "lemma": "chokomana",
+    "lemma": "ʧokomana",
     "ipa": "ʧokomana",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lunch"
     ],
@@ -4232,7 +4241,7 @@
   {
     "lemma": "takama",
     "ipa": "takama",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "machine"
     ],
@@ -4247,7 +4256,7 @@
   {
     "lemma": "fuhas",
     "ipa": "fuhas",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pig"
     ],
@@ -4262,7 +4271,7 @@
   {
     "lemma": "hagapuha",
     "ipa": "hagapuha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "connection (transport)"
     ],
@@ -4277,7 +4286,7 @@
   {
     "lemma": "maba",
     "ipa": "maba",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "beach"
     ],
@@ -4292,7 +4301,7 @@
   {
     "lemma": "tasun",
     "ipa": "tasun",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "many"
     ],
@@ -4307,7 +4316,7 @@
   {
     "lemma": "hiiloke",
     "ipa": "hiiloke",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "maple"
     ],
@@ -4322,7 +4331,7 @@
   {
     "lemma": "keskon",
     "ipa": "keskon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "marriage"
     ],
@@ -4337,7 +4346,7 @@
   {
     "lemma": "tswanka",
     "ipa": "tswanka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "gem"
     ],
@@ -4352,7 +4361,7 @@
   {
     "lemma": "pinohā",
     "ipa": "pinohaː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "meal"
     ],
@@ -4367,7 +4376,7 @@
   {
     "lemma": "gamo",
     "ipa": "gamo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hand"
     ],
@@ -4382,7 +4391,7 @@
   {
     "lemma": "nuri",
     "ipa": "nuri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "grotto"
     ],
@@ -4397,7 +4406,7 @@
   {
     "lemma": "kaiwi",
     "ipa": "kaiwi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "meeting"
     ],
@@ -4410,9 +4419,9 @@
     "example": ""
   },
   {
-    "lemma": "gunyun",
+    "lemma": "gunjun",
     "ipa": "gunjun",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "milk"
     ],
@@ -4427,7 +4436,7 @@
   {
     "lemma": "motoe",
     "ipa": "motoe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mirror"
     ],
@@ -4442,7 +4451,7 @@
   {
     "lemma": "ira",
     "ipa": "ira",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "first"
     ],
@@ -4457,7 +4466,7 @@
   {
     "lemma": "seitsakku",
     "ipa": "seiʦakku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "moment between the dawns of two suns"
     ],
@@ -4470,9 +4479,9 @@
     "example": ""
   },
   {
-    "lemma": "hītto",
+    "lemma": "hi:tto",
     "ipa": "hi:tto",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pigeon"
     ],
@@ -4487,7 +4496,7 @@
   {
     "lemma": "huka",
     "ipa": "huka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mongoose"
     ],
@@ -4502,7 +4511,7 @@
   {
     "lemma": "allaizhi",
     "ipa": "allaizhi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "morning"
     ],
@@ -4515,9 +4524,9 @@
     "example": ""
   },
   {
-    "lemma": "iːma",
+    "lemma": "īma",
     "ipa": "iːma",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mother"
     ],
@@ -4532,7 +4541,7 @@
   {
     "lemma": "moha",
     "ipa": "moha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mother"
     ],
@@ -4547,7 +4556,7 @@
   {
     "lemma": "oboe",
     "ipa": "oboe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hill"
     ],
@@ -4562,7 +4571,7 @@
   {
     "lemma": "niswae",
     "ipa": "niswae",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mouth"
     ],
@@ -4577,7 +4586,7 @@
   {
     "lemma": "tapuha",
     "ipa": "tapuha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mulberry"
     ],
@@ -4592,7 +4601,7 @@
   {
     "lemma": "nainūku",
     "ipa": "nainuːku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "nainuk (wolf-like animal)"
     ],
@@ -4607,7 +4616,7 @@
   {
     "lemma": "senno",
     "ipa": "senno",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pelican"
     ],
@@ -4622,7 +4631,7 @@
   {
     "lemma": "boi",
     "ipa": "boi",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Very"
     ],
@@ -4637,7 +4646,7 @@
   {
     "lemma": "askashi",
     "ipa": "askaʃi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "nation"
     ],
@@ -4652,7 +4661,7 @@
   {
     "lemma": "sundoe",
     "ipa": "sundoe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "trunk"
     ],
@@ -4667,7 +4676,7 @@
   {
     "lemma": "saisa",
     "ipa": "saisa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "neck"
     ],
@@ -4682,7 +4691,7 @@
   {
     "lemma": "saisatamu",
     "ipa": "saisatamu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "necklace"
     ],
@@ -4697,9 +4706,9 @@
   {
     "lemma": "haikana",
     "ipa": "haikana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
-      "neighbor"
+      "near"
     ],
     "italian": [
       "vicino"
@@ -4712,7 +4721,7 @@
   {
     "lemma": "hanki",
     "ipa": "hanki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "nest"
     ],
@@ -4727,7 +4736,7 @@
   {
     "lemma": "estinhen",
     "ipa": "estinhen",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "never"
     ],
@@ -4740,9 +4749,9 @@
     "example": ""
   },
   {
-    "lemma": "suyona",
+    "lemma": "sujona",
     "ipa": "sujona",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "new"
     ],
@@ -4757,7 +4766,7 @@
   {
     "lemma": "karana",
     "ipa": "karana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "next"
     ],
@@ -4772,7 +4781,7 @@
   {
     "lemma": "saise",
     "ipa": "saise",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "broth"
     ],
@@ -4787,7 +4796,7 @@
   {
     "lemma": "nansha",
     "ipa": "nanʃa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Night"
     ],
@@ -4802,7 +4811,7 @@
   {
     "lemma": "nagahen",
     "ipa": "nagahen",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "Nobody"
     ],
@@ -4817,7 +4826,7 @@
   {
     "lemma": "souon",
     "ipa": "souon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "noise"
     ],
@@ -4832,7 +4841,7 @@
   {
     "lemma": "romo",
     "ipa": "romo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "nose"
     ],
@@ -4847,7 +4856,7 @@
   {
     "lemma": "nashehen",
     "ipa": "naʃehen",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Nothing"
     ],
@@ -4862,7 +4871,7 @@
   {
     "lemma": "ekada",
     "ipa": "ekada",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "oak"
     ],
@@ -4877,7 +4886,7 @@
   {
     "lemma": "shinuso",
     "ipa": "ʃinuso",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "oak"
     ],
@@ -4892,7 +4901,7 @@
   {
     "lemma": "shintsa",
     "ipa": "ʃinʦa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "nail"
     ],
@@ -4907,7 +4916,7 @@
   {
     "lemma": "tahhan",
     "ipa": "tahhan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "onion"
     ],
@@ -4922,7 +4931,7 @@
   {
     "lemma": "parani",
     "ipa": "parani",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "cloud"
     ],
@@ -4937,7 +4946,7 @@
   {
     "lemma": "bon",
     "ipa": "bon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "thousand"
     ],
@@ -4952,7 +4961,7 @@
   {
     "lemma": "ko",
     "ipa": "ko",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "or"
     ],
@@ -4967,7 +4976,7 @@
   {
     "lemma": "konae",
     "ipa": "konae",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "or"
     ],
@@ -4982,7 +4991,7 @@
   {
     "lemma": "isaka",
     "ipa": "isaka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "orange"
     ],
@@ -4997,7 +5006,7 @@
   {
     "lemma": "buneiho",
     "ipa": "buneiho",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ostrich"
     ],
@@ -5012,7 +5021,7 @@
   {
     "lemma": "taguken",
     "ipa": "taguken",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "nine"
     ],
@@ -5027,7 +5036,7 @@
   {
     "lemma": "ipa",
     "ipa": "ipa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "tooth"
     ],
@@ -5042,7 +5051,7 @@
   {
     "lemma": "togu",
     "ipa": "togu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "out"
     ],
@@ -5057,7 +5066,7 @@
   {
     "lemma": "tuhna",
     "ipa": "tuhna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "orchid"
     ],
@@ -5072,7 +5081,7 @@
   {
     "lemma": "sanso",
     "ipa": "sanso",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "oxygen"
     ],
@@ -5087,7 +5096,7 @@
   {
     "lemma": "kinnotaka",
     "ipa": "kinnotaka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "clock"
     ],
@@ -5102,7 +5111,7 @@
   {
     "lemma": "habena",
     "ipa": "habena",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "palm"
     ],
@@ -5117,7 +5126,7 @@
   {
     "lemma": "luhanne",
     "ipa": "luhanne",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "paper"
     ],
@@ -5130,9 +5139,9 @@
     "example": ""
   },
   {
-    "lemma": "Pariː",
+    "lemma": "Parī",
     "ipa": "Pariː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Paris"
     ],
@@ -5145,9 +5154,9 @@
     "example": ""
   },
   {
-    "lemma": "chushajān",
+    "lemma": "ʧūshaʤā",
     "ipa": "ʧuːʃaʤaː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "parking"
     ],
@@ -5162,7 +5171,7 @@
   {
     "lemma": "jodo",
     "ipa": "jodo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "flavor"
     ],
@@ -5175,9 +5184,9 @@
     "example": ""
   },
   {
-    "lemma": "baji",
+    "lemma": "baʤi",
     "ipa": "baʤi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "paulownia"
     ],
@@ -5192,7 +5201,7 @@
   {
     "lemma": "baha",
     "ipa": "baha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "father"
     ],
@@ -5207,7 +5216,7 @@
   {
     "lemma": "kuribeppise",
     "ipa": "kuribeppise",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wig"
     ],
@@ -5222,7 +5231,7 @@
   {
     "lemma": "istori",
     "ipa": "istori",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "payment"
     ],
@@ -5237,7 +5246,7 @@
   {
     "lemma": "asunahiro",
     "ipa": "asunahiro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sky blue"
     ],
@@ -5250,9 +5259,9 @@
     "example": ""
   },
   {
-    "lemma": "shelkya",
+    "lemma": "shelkja",
     "ipa": "ʃelkja",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "salad"
     ],
@@ -5267,7 +5276,7 @@
   {
     "lemma": "tashi",
     "ipa": "taʃi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "village"
     ],
@@ -5280,9 +5289,9 @@
     "example": ""
   },
   {
-    "lemma": "kijonho",
+    "lemma": "kiʤonho",
     "ipa": "kiʤonho",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pelvis"
     ],
@@ -5295,9 +5304,9 @@
     "example": ""
   },
   {
-    "lemma": "chundzo",
+    "lemma": "ʧunʣo",
     "ipa": "ʧunʣo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pepper"
     ],
@@ -5312,7 +5321,7 @@
   {
     "lemma": "joma",
     "ipa": "joma",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "persimmon"
     ],
@@ -5327,7 +5336,7 @@
   {
     "lemma": "kōwen",
     "ipa": "koːwen",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "park"
     ],
@@ -5342,7 +5351,7 @@
   {
     "lemma": "tamato",
     "ipa": "tamato",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "person"
     ],
@@ -5357,7 +5366,7 @@
   {
     "lemma": "mitoko",
     "ipa": "mitoko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "child"
     ],
@@ -5372,7 +5381,7 @@
   {
     "lemma": "sonki",
     "ipa": "sonki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "petal"
     ],
@@ -5387,7 +5396,7 @@
   {
     "lemma": "tolo",
     "ipa": "tolo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "place"
     ],
@@ -5402,7 +5411,7 @@
   {
     "lemma": "jotjoi",
     "ipa": "jotjoi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "plan"
     ],
@@ -5417,7 +5426,7 @@
   {
     "lemma": "alkawataba",
     "ipa": "alkawataba",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sweet potato"
     ],
@@ -5432,7 +5441,7 @@
   {
     "lemma": "wani",
     "ipa": "wani",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pond"
     ],
@@ -5447,7 +5456,7 @@
   {
     "lemma": "sāreo",
     "ipa": "saːreo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "port"
     ],
@@ -5462,7 +5471,7 @@
   {
     "lemma": "wataba",
     "ipa": "wataba",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "potato"
     ],
@@ -5475,9 +5484,9 @@
     "example": ""
   },
   {
-    "lemma": "pastyensho",
+    "lemma": "pastjensho",
     "ipa": "pastjenʃo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "power plant"
     ],
@@ -5492,7 +5501,7 @@
   {
     "lemma": "Puraha",
     "ipa": "Puraha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Prague"
     ],
@@ -5507,7 +5516,7 @@
   {
     "lemma": "karu",
     "ipa": "karu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pine"
     ],
@@ -5522,7 +5531,7 @@
   {
     "lemma": "tsuki",
     "ipa": "ʦuki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "prairie"
     ],
@@ -5537,7 +5546,7 @@
   {
     "lemma": "dahkei",
     "ipa": "dahkei",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "precipice"
     ],
@@ -5552,7 +5561,7 @@
   {
     "lemma": "tahpe",
     "ipa": "tahpe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "flooring"
     ],
@@ -5567,7 +5576,7 @@
   {
     "lemma": "shuspan",
     "ipa": "ʃuspan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "publication"
     ],
@@ -5582,7 +5591,7 @@
   {
     "lemma": "gewairi",
     "ipa": "gewairi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "crying"
     ],
@@ -5597,7 +5606,7 @@
   {
     "lemma": "surin orjukato:",
     "ipa": "surin orjukato:",
-    "pos": ": int =",
+    "pos": "int",
     "english": [
       "Happy birthday"
     ],
@@ -5612,7 +5621,7 @@
   {
     "lemma": "nokada",
     "ipa": "nokada",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "number"
     ],
@@ -5627,7 +5636,7 @@
   {
     "lemma": "euna",
     "ipa": "euna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pride"
     ],
@@ -5642,7 +5651,7 @@
   {
     "lemma": "hatta",
     "ipa": "hatta",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "a"
     ],
@@ -5657,7 +5666,7 @@
   {
     "lemma": "tasuta",
     "ipa": "tasuta",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "chicken"
     ],
@@ -5672,7 +5681,7 @@
   {
     "lemma": "jakusoku",
     "ipa": "jakusoku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "promise"
     ],
@@ -5687,7 +5696,7 @@
   {
     "lemma": "illena",
     "ipa": "illena",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fox"
     ],
@@ -5702,7 +5711,7 @@
   {
     "lemma": "poniuka",
     "ipa": "poniuka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wrist"
     ],
@@ -5717,7 +5726,7 @@
   {
     "lemma": "totsu",
     "ipa": "toʦu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bridge"
     ],
@@ -5730,9 +5739,9 @@
     "example": ""
   },
   {
-    "lemma": "seji",
+    "lemma": "seʤi",
     "ipa": "seʤi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "well"
     ],
@@ -5747,7 +5756,7 @@
   {
     "lemma": "rekki",
     "ipa": "rekki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "quill"
     ],
@@ -5762,7 +5771,7 @@
   {
     "lemma": "funsa",
     "ipa": "funsa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rain"
     ],
@@ -5777,7 +5786,7 @@
   {
     "lemma": "ahirosuo",
     "ipa": "ahirosuo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rainbow"
     ],
@@ -5792,7 +5801,7 @@
   {
     "lemma": "tanpakushis",
     "ipa": "tanpakuʃis",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "protein"
     ],
@@ -5807,7 +5816,7 @@
   {
     "lemma": "samauna",
     "ipa": "samauna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "rare"
     ],
@@ -5820,9 +5829,9 @@
     "example": ""
   },
   {
-    "lemma": "machike",
+    "lemma": "maʧike",
     "ipa": "maʧike",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Really"
     ],
@@ -5837,7 +5846,7 @@
   {
     "lemma": "ul",
     "ipa": "ul",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "promontory"
     ],
@@ -5850,9 +5859,9 @@
     "example": ""
   },
   {
-    "lemma": "hanolo",
+    "lemma": "hano",
     "ipa": "hano",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "seed"
     ],
@@ -5867,7 +5876,7 @@
   {
     "lemma": "tukeraina",
     "ipa": "tukeraina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "reckless"
     ],
@@ -5882,7 +5891,7 @@
   {
     "lemma": "pakkuna",
     "ipa": "pakkuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "red"
     ],
@@ -5897,12 +5906,14 @@
   {
     "lemma": "nokuja",
     "ipa": "nokuja",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
-      "painting, picture"
+      "painting",
+      "picture"
     ],
     "italian": [
-      "quadro, dipinto"
+      "quadro",
+      "dipinto"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -5912,7 +5923,7 @@
   {
     "lemma": "nashiki",
     "ipa": "naʃiki",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "something"
     ],
@@ -5927,7 +5938,7 @@
   {
     "lemma": "nashitsas",
     "ipa": "naʃiʦas",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "anything"
     ],
@@ -5940,9 +5951,9 @@
     "example": ""
   },
   {
-    "lemma": "romo",
-    "ipa": "romo",
-    "pos": ": n =",
+    "lemma": "ʧona",
+    "ipa": "ʧona",
+    "pos": "n",
     "english": [
       "that"
     ],
@@ -5957,7 +5968,7 @@
   {
     "lemma": "kieru",
     "ipa": "kieru",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "request"
     ],
@@ -5972,7 +5983,7 @@
   {
     "lemma": "tomiri",
     "ipa": "tomiri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rest"
     ],
@@ -5987,7 +5998,7 @@
   {
     "lemma": "keskwa",
     "ipa": "keskwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "result"
     ],
@@ -6002,7 +6013,7 @@
   {
     "lemma": "anuha",
     "ipa": "anuha",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "lately"
     ],
@@ -6017,7 +6028,7 @@
   {
     "lemma": "konu",
     "ipa": "konu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rice"
     ],
@@ -6032,7 +6043,7 @@
   {
     "lemma": "iroi",
     "ipa": "iroi",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "when (relative)"
     ],
@@ -6045,9 +6056,9 @@
     "example": ""
   },
   {
-    "lemma": "tsomo",
-    "ipa": "tsomo",
-    "pos": ": n =",
+    "lemma": "tona",
+    "ipa": "tona",
+    "pos": "n",
     "english": [
       "This"
     ],
@@ -6062,7 +6073,7 @@
   {
     "lemma": "kenmodo",
     "ipa": "kenmodo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "right"
     ],
@@ -6077,7 +6088,7 @@
   {
     "lemma": "sāka",
     "ipa": "saːka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ship"
     ],
@@ -6092,7 +6103,7 @@
   {
     "lemma": "tamu",
     "ipa": "tamu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "ring"
     ],
@@ -6107,7 +6118,7 @@
   {
     "lemma": "zhehkasu",
     "ipa": "ʒehkasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to rip"
     ],
@@ -6122,7 +6133,7 @@
   {
     "lemma": "sāri",
     "ipa": "saːri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "river"
     ],
@@ -6135,9 +6146,9 @@
     "example": ""
   },
   {
-    "lemma": "tsoja",
+    "lemma": "tsoʤa",
     "ipa": "ʦoʤa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "roof"
     ],
@@ -6152,7 +6163,7 @@
   {
     "lemma": "take",
     "ipa": "take",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "room"
     ],
@@ -6167,7 +6178,7 @@
   {
     "lemma": "meira",
     "ipa": "meira",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rose"
     ],
@@ -6182,7 +6193,7 @@
   {
     "lemma": "keilo",
     "ipa": "keilo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "route"
     ],
@@ -6197,7 +6208,7 @@
   {
     "lemma": "ra",
     "ipa": "ra",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rice field"
     ],
@@ -6212,7 +6223,7 @@
   {
     "lemma": "koibo",
     "ipa": "koibo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sack"
     ],
@@ -6225,9 +6236,9 @@
     "example": ""
   },
   {
-    "lemma": "anðennyasu",
+    "lemma": "anʣēn jasu",
     "ipa": "anʣeːn jasu",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "Safe"
     ],
@@ -6242,7 +6253,7 @@
   {
     "lemma": "gohari",
     "ipa": "gohari",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "salt"
     ],
@@ -6255,9 +6266,9 @@
     "example": ""
   },
   {
-    "lemma": "kukutaː",
+    "lemma": "kukutā",
     "ipa": "kukutaː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "black sugar"
     ],
@@ -6272,7 +6283,7 @@
   {
     "lemma": "jeisei",
     "ipa": "jeisei",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "satellite"
     ],
@@ -6287,7 +6298,7 @@
   {
     "lemma": "lattasuwa",
     "ipa": "lattasuwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "toad"
     ],
@@ -6300,9 +6311,9 @@
     "example": ""
   },
   {
-    "lemma": "kakkyo",
+    "lemma": "kakkjo",
     "ipa": "kakkjo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "school"
     ],
@@ -6317,7 +6328,7 @@
   {
     "lemma": "bukasha",
     "ipa": "bukaʃa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "scissors"
     ],
@@ -6332,7 +6343,7 @@
   {
     "lemma": "gwamjen",
     "ipa": "gwamjen",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "screen"
     ],
@@ -6347,7 +6358,7 @@
   {
     "lemma": "pakku",
     "ipa": "pakku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "red"
     ],
@@ -6362,7 +6373,7 @@
   {
     "lemma": "kutoo",
     "ipa": "kutoo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sea"
     ],
@@ -6377,7 +6388,7 @@
   {
     "lemma": "panae",
     "ipa": "panae",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "seaweed"
     ],
@@ -6392,7 +6403,7 @@
   {
     "lemma": "Soul",
     "ipa": "Soul",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Seoul"
     ],
@@ -6407,7 +6418,7 @@
   {
     "lemma": "tanma",
     "ipa": "tanma",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "scarf"
     ],
@@ -6422,7 +6433,7 @@
   {
     "lemma": "asoara",
     "ipa": "asoara",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "vase"
     ],
@@ -6435,9 +6446,9 @@
     "example": ""
   },
   {
-    "lemma": "ðoruna",
+    "lemma": "ʣoruna",
     "ipa": "ʣoruna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "severe"
     ],
@@ -6452,7 +6463,7 @@
   {
     "lemma": "hanpa",
     "ipa": "hanpa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "shadow"
     ],
@@ -6467,7 +6478,7 @@
   {
     "lemma": "hanna",
     "ipa": "hanna",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "she"
     ],
@@ -6482,7 +6493,7 @@
   {
     "lemma": "jama",
     "ipa": "jama",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "warehouse"
     ],
@@ -6497,7 +6508,7 @@
   {
     "lemma": "katara",
     "ipa": "katara",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "shelf"
     ],
@@ -6510,9 +6521,9 @@
     "example": ""
   },
   {
-    "lemma": "hamijue",
+    "lemma": "hamiʤue",
     "ipa": "hamiʤue",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "shoe"
     ],
@@ -6525,9 +6536,9 @@
     "example": ""
   },
   {
-    "lemma": "chune",
+    "lemma": "ʧune",
     "ipa": "ʧune",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "dress"
     ],
@@ -6542,7 +6553,7 @@
   {
     "lemma": "sonukki",
     "ipa": "sonukki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "shrimp"
     ],
@@ -6557,7 +6568,7 @@
   {
     "lemma": "nukki",
     "ipa": "nukki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "shrimp"
     ],
@@ -6572,7 +6583,7 @@
   {
     "lemma": "tate",
     "ipa": "tate",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "fortress"
     ],
@@ -6587,7 +6598,7 @@
   {
     "lemma": "jwaseku",
     "ipa": "jwaseku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "seat"
     ],
@@ -6602,7 +6613,7 @@
   {
     "lemma": "zhōnshiki",
     "ipa": "ʒoːnʃiki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "common sense"
     ],
@@ -6617,7 +6628,7 @@
   {
     "lemma": "hobunte",
     "ipa": "hobunte",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "without thinking about it"
     ],
@@ -6632,7 +6643,7 @@
   {
     "lemma": "Warshawa",
     "ipa": "Warʃawa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Warsaw"
     ],
@@ -6647,7 +6658,7 @@
   {
     "lemma": "asuna",
     "ipa": "asuna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sky"
     ],
@@ -6660,9 +6671,9 @@
     "example": ""
   },
   {
-    "lemma": "pejui",
+    "lemma": "peʤui",
     "ipa": "peʤui",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sled"
     ],
@@ -6677,7 +6688,7 @@
   {
     "lemma": "seika",
     "ipa": "seika",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "evening"
     ],
@@ -6692,7 +6703,7 @@
   {
     "lemma": "shaninana",
     "ipa": "ʃaninana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "slimy"
     ],
@@ -6707,7 +6718,7 @@
   {
     "lemma": "noke",
     "ipa": "noke",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "slope"
     ],
@@ -6722,7 +6733,7 @@
   {
     "lemma": "narona",
     "ipa": "narona",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "slow"
     ],
@@ -6737,7 +6748,7 @@
   {
     "lemma": "kakuina",
     "ipa": "kakuina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "small"
     ],
@@ -6752,7 +6763,7 @@
   {
     "lemma": "rintaha",
     "ipa": "rintaha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "smile"
     ],
@@ -6767,7 +6778,7 @@
   {
     "lemma": "nasamina",
     "ipa": "nasamina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "smooth"
     ],
@@ -6782,7 +6793,7 @@
   {
     "lemma": "kiba",
     "ipa": "kiba",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "ten"
     ],
@@ -6795,9 +6806,9 @@
     "example": ""
   },
   {
-    "lemma": "ðuni",
+    "lemma": "ʣuni",
     "ipa": "ʣuni",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "snow"
     ],
@@ -6812,7 +6823,7 @@
   {
     "lemma": "funpana",
     "ipa": "funpana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "soft"
     ],
@@ -6827,7 +6838,7 @@
   {
     "lemma": "nanda",
     "ipa": "nanda",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wind"
     ],
@@ -6842,7 +6853,7 @@
   {
     "lemma": "soiki",
     "ipa": "soiki",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "somehow"
     ],
@@ -6857,7 +6868,7 @@
   {
     "lemma": "nagaki",
     "ipa": "nagaki",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "someone"
     ],
@@ -6872,7 +6883,7 @@
   {
     "lemma": "kamiki",
     "ipa": "kamiki",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "somewhere"
     ],
@@ -6885,9 +6896,9 @@
     "example": ""
   },
   {
-    "lemma": "juska",
+    "lemma": "ʤuska",
     "ipa": "ʤuska",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "son"
     ],
@@ -6902,7 +6913,7 @@
   {
     "lemma": "airi",
     "ipa": "airi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "song"
     ],
@@ -6917,7 +6928,7 @@
   {
     "lemma": "nori",
     "ipa": "nori",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "view"
     ],
@@ -6932,7 +6943,7 @@
   {
     "lemma": "kija",
     "ipa": "kija",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "source"
     ],
@@ -6945,9 +6956,9 @@
     "example": ""
   },
   {
-    "lemma": "shōyu",
+    "lemma": "shōju",
     "ipa": "ʃoːju",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "soy sauce"
     ],
@@ -6960,9 +6971,9 @@
     "example": ""
   },
   {
-    "lemma": "jinwa",
+    "lemma": "ʤinwa",
     "ipa": "ʤinwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "eyebrows"
     ],
@@ -6977,7 +6988,7 @@
   {
     "lemma": "beittana",
     "ipa": "beittana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "sparse"
     ],
@@ -6992,7 +7003,7 @@
   {
     "lemma": "teano",
     "ipa": "teano",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "under"
     ],
@@ -7007,7 +7018,7 @@
   {
     "lemma": "kikaro",
     "ipa": "kikaro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "squirrel"
     ],
@@ -7022,7 +7033,7 @@
   {
     "lemma": "hanka",
     "ipa": "hanka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "star"
     ],
@@ -7037,7 +7048,7 @@
   {
     "lemma": "kaida",
     "ipa": "kaida",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "spade"
     ],
@@ -7052,7 +7063,7 @@
   {
     "lemma": "nakena",
     "ipa": "nakena",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "steep"
     ],
@@ -7065,9 +7076,9 @@
     "example": ""
   },
   {
-    "lemma": "",
+    "lemma": "egaha",
     "ipa": "egaha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "shoulder"
     ],
@@ -7080,9 +7091,9 @@
     "example": ""
   },
   {
-    "lemma": "chakkajana",
+    "lemma": "ʧakkaʤana",
     "ipa": "ʧakkaʤana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "sticky"
     ],
@@ -7097,7 +7108,7 @@
   {
     "lemma": "Stokkuholmi",
     "ipa": "Stokkuholmi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Stockholm"
     ],
@@ -7112,7 +7123,7 @@
   {
     "lemma": "patoro",
     "ipa": "patoro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "stone"
     ],
@@ -7127,7 +7138,7 @@
   {
     "lemma": "shaki",
     "ipa": "ʃaki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "pebble"
     ],
@@ -7140,9 +7151,9 @@
     "example": ""
   },
   {
-    "lemma": "myūha",
+    "lemma": "mjūha",
     "ipa": "mjuːha",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "dream"
     ],
@@ -7157,7 +7168,7 @@
   {
     "lemma": "bimatta",
     "ipa": "bimatta",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "strawberry"
     ],
@@ -7172,7 +7183,7 @@
   {
     "lemma": "kwohe",
     "ipa": "kwohe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sun"
     ],
@@ -7187,7 +7198,7 @@
   {
     "lemma": "runka",
     "ipa": "runka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "street"
     ],
@@ -7202,7 +7213,7 @@
   {
     "lemma": "tappeina",
     "ipa": "tappeina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "strict"
     ],
@@ -7217,7 +7228,7 @@
   {
     "lemma": "hinnan",
     "ipa": "hinnan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "flower"
     ],
@@ -7232,7 +7243,7 @@
   {
     "lemma": "zhukkena",
     "ipa": "ʒukkena",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "strong"
     ],
@@ -7247,7 +7258,7 @@
   {
     "lemma": "kaksei",
     "ipa": "kaksei",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "student"
     ],
@@ -7260,9 +7271,9 @@
     "example": ""
   },
   {
-    "lemma": "rojaste",
+    "lemma": "roʤaste",
     "ipa": "roʤaste",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "suddenly"
     ],
@@ -7277,7 +7288,7 @@
   {
     "lemma": "ʤunna",
     "ipa": "ʤunna",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "broom"
     ],
@@ -7292,7 +7303,7 @@
   {
     "lemma": "tsobune",
     "ipa": "ʦobune",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sunrise"
     ],
@@ -7307,7 +7318,7 @@
   {
     "lemma": "ponsoto",
     "ipa": "ponsoto",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "stomach"
     ],
@@ -7322,7 +7333,7 @@
   {
     "lemma": "eno",
     "ipa": "eno",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "now"
     ],
@@ -7337,7 +7348,7 @@
   {
     "lemma": "uni",
     "ipa": "uni",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "swamp"
     ],
@@ -7352,7 +7363,7 @@
   {
     "lemma": "kwatsi",
     "ipa": "kwaʦi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Sweet"
     ],
@@ -7367,7 +7378,7 @@
   {
     "lemma": "saina",
     "ipa": "saina",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "peace"
     ],
@@ -7382,7 +7393,7 @@
   {
     "lemma": "yuteno",
     "ipa": "yuteno",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "history"
     ],
@@ -7395,9 +7406,9 @@
     "example": ""
   },
   {
-    "lemma": "Siduniː",
+    "lemma": "Sidunī",
     "ipa": "Siduniː",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Sydney"
     ],
@@ -7412,7 +7423,7 @@
   {
     "lemma": "toka",
     "ipa": "toka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "city"
     ],
@@ -7425,9 +7436,9 @@
     "example": ""
   },
   {
-    "lemma": "rĪhi",
+    "lemma": "rīhi",
     "ipa": "riːhi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "tail"
     ],
@@ -7440,9 +7451,9 @@
     "example": ""
   },
   {
-    "lemma": "rilĪku",
+    "lemma": "rilīku",
     "ipa": "riliːku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "takeoff"
     ],
@@ -7457,7 +7468,7 @@
   {
     "lemma": "riljuku",
     "ipa": "riljuku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "takeoff"
     ],
@@ -7470,9 +7481,9 @@
     "example": ""
   },
   {
-    "lemma": "cha",
+    "lemma": "ʧa",
     "ipa": "ʧa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "tea"
     ],
@@ -7487,7 +7498,7 @@
   {
     "lemma": "sawohi",
     "ipa": "sawohi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "table"
     ],
@@ -7502,7 +7513,7 @@
   {
     "lemma": "tsokke",
     "ipa": "ʦokke",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "tear"
     ],
@@ -7515,9 +7526,9 @@
     "example": ""
   },
   {
-    "lemma": "Tehraːn",
+    "lemma": "Tehrān",
     "ipa": "Tehraːn",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Tehran"
     ],
@@ -7532,7 +7543,7 @@
   {
     "lemma": "mijano",
     "ipa": "mijano",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "precipice"
     ],
@@ -7547,12 +7558,16 @@
   {
     "lemma": "notta",
     "ipa": "notta",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
-      "that, which, which"
+      "that",
+      "which",
+      "which"
     ],
     "italian": [
-      "che, il quale, la quale"
+      "che",
+      "il quale",
+      "la quale"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -7562,7 +7577,7 @@
   {
     "lemma": "rigo",
     "ipa": "rigo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lens"
     ],
@@ -7577,7 +7592,7 @@
   {
     "lemma": "raugan",
     "ipa": "raugan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "crow"
     ],
@@ -7592,12 +7607,14 @@
   {
     "lemma": "te",
     "ipa": "te",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
-      "thing, object"
+      "thing",
+      "object"
     ],
     "italian": [
-      "cosa, oggetto"
+      "cosa",
+      "oggetto"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -7607,7 +7624,7 @@
   {
     "lemma": "ohkedos",
     "ipa": "ohkedos",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "storm"
     ],
@@ -7622,7 +7639,7 @@
   {
     "lemma": "komo",
     "ipa": "komo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "this"
     ],
@@ -7635,9 +7652,9 @@
     "example": ""
   },
   {
-    "lemma": "nyeri",
+    "lemma": "njeri",
     "ipa": "njeri",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "worm"
     ],
@@ -7652,7 +7669,7 @@
   {
     "lemma": "kasoi",
     "ipa": "kasoi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "egg"
     ],
@@ -7667,7 +7684,7 @@
   {
     "lemma": "donga",
     "ipa": "donga",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "thunder"
     ],
@@ -7682,7 +7699,7 @@
   {
     "lemma": "ita",
     "ipa": "ita",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "thunder"
     ],
@@ -7697,7 +7714,7 @@
   {
     "lemma": "taka",
     "ipa": "taka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "time"
     ],
@@ -7710,9 +7727,9 @@
     "example": ""
   },
   {
-    "lemma": "gaschuna",
+    "lemma": "gasʧuna",
     "ipa": "gasʧuna",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "tiring"
     ],
@@ -7727,7 +7744,7 @@
   {
     "lemma": "kosunosu",
     "ipa": "kosunosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to act"
     ],
@@ -7742,7 +7759,7 @@
   {
     "lemma": "epagoesu",
     "ipa": "epagoesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to add"
     ],
@@ -7755,9 +7772,9 @@
     "example": ""
   },
   {
-    "lemma": "ichasu",
+    "lemma": "iʧasu",
     "ipa": "iʧasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to advance"
     ],
@@ -7772,7 +7789,7 @@
   {
     "lemma": "kadasu",
     "ipa": "kadasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to arrive"
     ],
@@ -7787,7 +7804,7 @@
   {
     "lemma": "kieresu",
     "ipa": "kieresu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to ask"
     ],
@@ -7802,7 +7819,7 @@
   {
     "lemma": "okasu",
     "ipa": "okasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to attack"
     ],
@@ -7817,7 +7834,7 @@
   {
     "lemma": "ritakusu",
     "ipa": "ritakusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to bake"
     ],
@@ -7832,7 +7849,7 @@
   {
     "lemma": "lan",
     "ipa": "lan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "avenue (from west to east)"
     ],
@@ -7845,9 +7862,9 @@
     "example": ""
   },
   {
-    "lemma": "oryunsu",
+    "lemma": "orjunsu",
     "ipa": "orjunsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to be born"
     ],
@@ -7862,7 +7879,7 @@
   {
     "lemma": "sumisu",
     "ipa": "sumisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to be hiddem"
     ],
@@ -7877,7 +7894,7 @@
   {
     "lemma": "suhkasu",
     "ipa": "suhkasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to be missing"
     ],
@@ -7892,7 +7909,7 @@
   {
     "lemma": "hinurasu",
     "ipa": "hinurasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to beam"
     ],
@@ -7907,7 +7924,7 @@
   {
     "lemma": "mahsu",
     "ipa": "mahsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to become"
     ],
@@ -7922,7 +7939,7 @@
   {
     "lemma": "natoko",
     "ipa": "natoko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Backpack"
     ],
@@ -7937,7 +7954,7 @@
   {
     "lemma": "kana",
     "ipa": "kana",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "two"
     ],
@@ -7952,7 +7969,7 @@
   {
     "lemma": "shobe",
     "ipa": "ʃobe",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "Three"
     ],
@@ -7967,7 +7984,7 @@
   {
     "lemma": "tsessosu",
     "ipa": "ʦessosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to believe"
     ],
@@ -7982,7 +7999,7 @@
   {
     "lemma": "namisu",
     "ipa": "namisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to blossom"
     ],
@@ -7997,7 +8014,7 @@
   {
     "lemma": "tsonaha",
     "ipa": "ʦonaha",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "six"
     ],
@@ -8012,7 +8029,7 @@
   {
     "lemma": "nulesu",
     "ipa": "nulesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to boast"
     ],
@@ -8027,7 +8044,7 @@
   {
     "lemma": "doigi",
     "ipa": "doigi",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
       "seven"
     ],
@@ -8042,12 +8059,57 @@
   {
     "lemma": "soresu",
     "ipa": "soresu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to break"
     ],
     "italian": [
-      "rompere"
+      "rompere (tr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "soreusu",
+    "ipa": "soreusu",
+    "pos": "v",
+    "english": [
+      "to break (intr)"
+    ],
+    "italian": [
+      "rompersi (intr)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "unedasu",
+    "ipa": "unedasu",
+    "pos": "v",
+    "english": [
+      "to shatter"
+    ],
+    "italian": [
+      "frantumare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "unedausu",
+    "ipa": "unedausu",
+    "pos": "v",
+    "english": [
+      "to shatter"
+    ],
+    "italian": [
+      "frantumarsi"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -8057,7 +8119,7 @@
   {
     "lemma": "hankisu",
     "ipa": "hankisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to breathe"
     ],
@@ -8072,7 +8134,7 @@
   {
     "lemma": "kukkasu",
     "ipa": "kukkasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to bring"
     ],
@@ -8085,9 +8147,9 @@
     "example": ""
   },
   {
-    "lemma": "moji",
+    "lemma": "moʤi",
     "ipa": "moʤi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "hole"
     ],
@@ -8100,9 +8162,9 @@
     "example": ""
   },
   {
-    "lemma": "dzukasu",
+    "lemma": "ʣukasu",
     "ipa": "ʣukasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to browse"
     ],
@@ -8117,7 +8179,7 @@
   {
     "lemma": "subaki",
     "ipa": "subaki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "greeting"
     ],
@@ -8132,7 +8194,7 @@
   {
     "lemma": "isomasu",
     "ipa": "isomasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to build"
     ],
@@ -8147,7 +8209,7 @@
   {
     "lemma": "moasu",
     "ipa": "moasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to buy"
     ],
@@ -8160,9 +8222,9 @@
     "example": ""
   },
   {
-    "lemma": "chara",
+    "lemma": "ʧara",
     "ipa": "ʧara",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "white"
     ],
@@ -8177,7 +8239,7 @@
   {
     "lemma": "nakosu",
     "ipa": "nakosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to call"
     ],
@@ -8192,7 +8254,7 @@
   {
     "lemma": "puhansu",
     "ipa": "puhansu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to change"
     ],
@@ -8207,7 +8269,7 @@
   {
     "lemma": "korehasu",
     "ipa": "korehasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to cheat"
     ],
@@ -8222,7 +8284,7 @@
   {
     "lemma": "sanka",
     "ipa": "sanka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "area"
     ],
@@ -8252,7 +8314,7 @@
   {
     "lemma": "nugisu",
     "ipa": "nugisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to clean"
     ],
@@ -8267,7 +8329,7 @@
   {
     "lemma": "horisu",
     "ipa": "horisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to climb"
     ],
@@ -8282,7 +8344,7 @@
   {
     "lemma": "nakke",
     "ipa": "nakke",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bread"
     ],
@@ -8297,7 +8359,7 @@
   {
     "lemma": "tanawasu",
     "ipa": "tanawasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to close"
     ],
@@ -8310,9 +8372,9 @@
     "example": ""
   },
   {
-    "lemma": "tanayasu",
+    "lemma": "tanajasu",
     "ipa": "tanajasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to close"
     ],
@@ -8327,7 +8389,7 @@
   {
     "lemma": "keltari",
     "ipa": "keltari",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "camellia"
     ],
@@ -8342,7 +8404,7 @@
   {
     "lemma": "hantoro",
     "ipa": "hantoro",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "viola"
     ],
@@ -8357,7 +8419,7 @@
   {
     "lemma": "mezukasu",
     "ipa": "mezukasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to collapse"
     ],
@@ -8372,7 +8434,7 @@
   {
     "lemma": "esu",
     "ipa": "esu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to come"
     ],
@@ -8387,7 +8449,7 @@
   {
     "lemma": "nutari",
     "ipa": "nutari",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "olive"
     ],
@@ -8402,7 +8464,7 @@
   {
     "lemma": "ogissu",
     "ipa": "ogissu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to complain"
     ],
@@ -8417,7 +8479,7 @@
   {
     "lemma": "meki",
     "ipa": "meki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "month"
     ],
@@ -8432,7 +8494,7 @@
   {
     "lemma": "wintosu",
     "ipa": "wintosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to complete"
     ],
@@ -8447,7 +8509,7 @@
   {
     "lemma": "tawarasu",
     "ipa": "tawarasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to confine"
     ],
@@ -8460,9 +8522,9 @@
     "example": ""
   },
   {
-    "lemma": "kaida",
+    "lemma": "kai",
     "ipa": "kai",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "price"
     ],
@@ -8475,14 +8537,14 @@
     "example": ""
   },
   {
-    "lemma": "poyohasu",
+    "lemma": "pojohasu",
     "ipa": "pojohasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
-      "to continue"
+      "continue (intr)"
     ],
     "italian": [
-      "continuare"
+      "continuare (intr)"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -8490,11 +8552,26 @@
     "example": ""
   },
   {
-    "lemma": "",
-    "ipa": "konunakke",
-    "pos": ": n =",
+    "lemma": "pojohausu",
+    "ipa": "pojohausu",
+    "pos": "v",
     "english": [
-      "to convince"
+      "continue (tr)"
+    ],
+    "italian": [
+      "continuare (tr)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "konunakke",
+    "ipa": "konunakke",
+    "pos": "n",
+    "english": [
+      "rice bread"
     ],
     "italian": [
       "pane di riso"
@@ -8507,7 +8584,7 @@
   {
     "lemma": "sonomulsu",
     "ipa": "sonomulsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to convince"
     ],
@@ -8522,7 +8599,7 @@
   {
     "lemma": "nebusu",
     "ipa": "nebusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to cook"
     ],
@@ -8537,7 +8614,7 @@
   {
     "lemma": "manloovi",
     "ipa": "manloovi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "mangrove"
     ],
@@ -8552,7 +8629,7 @@
   {
     "lemma": "uirape",
     "ipa": "uirape",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "party"
     ],
@@ -8567,7 +8644,7 @@
   {
     "lemma": "tsohisu",
     "ipa": "ʦohisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to cough"
     ],
@@ -8582,7 +8659,7 @@
   {
     "lemma": "tana",
     "ipa": "tana",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Mr"
     ],
@@ -8597,7 +8674,7 @@
   {
     "lemma": "retsagesu",
     "ipa": "reʦagesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to count"
     ],
@@ -8612,7 +8689,7 @@
   {
     "lemma": "ibesu",
     "ipa": "ibesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to cover"
     ],
@@ -8627,7 +8704,7 @@
   {
     "lemma": "gewaisu",
     "ipa": "gewaisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to cry"
     ],
@@ -8642,7 +8719,7 @@
   {
     "lemma": "sasumi",
     "ipa": "sasumi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "lily"
     ],
@@ -8657,7 +8734,7 @@
   {
     "lemma": "dagasu",
     "ipa": "dagasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to cut"
     ],
@@ -8670,9 +8747,9 @@
     "example": ""
   },
   {
-    "lemma": "yantsasu",
+    "lemma": "jantsasu",
     "ipa": "janʦasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to dance"
     ],
@@ -8687,7 +8764,7 @@
   {
     "lemma": "wose",
     "ipa": "wose",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "year"
     ],
@@ -8702,7 +8779,7 @@
   {
     "lemma": "pinnasu",
     "ipa": "pinnasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to desire"
     ],
@@ -8717,7 +8794,7 @@
   {
     "lemma": "tereosu",
     "ipa": "tereosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to detach"
     ],
@@ -8730,9 +8807,9 @@
     "example": ""
   },
   {
-    "lemma": "woetto",
+    "lemma": "wosetto",
     "ipa": "wosetto",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "this year"
     ],
@@ -8747,7 +8824,7 @@
   {
     "lemma": "nukorosu",
     "ipa": "nukorosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to die"
     ],
@@ -8762,7 +8839,7 @@
   {
     "lemma": "sowose",
     "ipa": "sowose",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "next year"
     ],
@@ -8777,7 +8854,7 @@
   {
     "lemma": "shirosu",
     "ipa": "ʃirosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to dig"
     ],
@@ -8792,7 +8869,7 @@
   {
     "lemma": "menkisu",
     "ipa": "menkisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to diminish"
     ],
@@ -8807,7 +8884,7 @@
   {
     "lemma": "mustesu",
     "ipa": "mustesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to dirty"
     ],
@@ -8822,7 +8899,7 @@
   {
     "lemma": "onkeski",
     "ipa": "onkeski",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "in the end"
     ],
@@ -8837,7 +8914,7 @@
   {
     "lemma": "nushi",
     "ipa": "nuʃi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "side"
     ],
@@ -8850,9 +8927,9 @@
     "example": ""
   },
   {
-    "lemma": "yoshi",
+    "lemma": "joshi",
     "ipa": "joʃi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "peak"
     ],
@@ -8867,7 +8944,7 @@
   {
     "lemma": "tesu",
     "ipa": "tesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to do"
     ],
@@ -8882,7 +8959,7 @@
   {
     "lemma": "kaimasu",
     "ipa": "kaimasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to draw"
     ],
@@ -8897,7 +8974,7 @@
   {
     "lemma": "eisu",
     "ipa": "eisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to drink"
     ],
@@ -8912,7 +8989,7 @@
   {
     "lemma": "manasu",
     "ipa": "manasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to eat"
     ],
@@ -8927,7 +9004,7 @@
   {
     "lemma": "noissutasu",
     "ipa": "noissutasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to engrave"
     ],
@@ -8942,7 +9019,7 @@
   {
     "lemma": "itsasu",
     "ipa": "iʦasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to enter"
     ],
@@ -8957,7 +9034,7 @@
   {
     "lemma": "tohpasu",
     "ipa": "tohpasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to fall"
     ],
@@ -8972,9 +9049,9 @@
   {
     "lemma": "nahtesu",
     "ipa": "nahtesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
-      "to fasten"
+      "to tie up"
     ],
     "italian": [
       "allacciare"
@@ -8987,7 +9064,7 @@
   {
     "lemma": "ubeisu",
     "ipa": "ubeisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to fear"
     ],
@@ -9002,7 +9079,7 @@
   {
     "lemma": "taselsu",
     "ipa": "taselsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to fight"
     ],
@@ -9017,7 +9094,7 @@
   {
     "lemma": "takoraisu",
     "ipa": "takoraisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to fill"
     ],
@@ -9032,7 +9109,7 @@
   {
     "lemma": "ononosu",
     "ipa": "ononosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to find"
     ],
@@ -9047,7 +9124,7 @@
   {
     "lemma": "sebusu",
     "ipa": "sebusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to finish"
     ],
@@ -9062,7 +9139,7 @@
   {
     "lemma": "hoisu",
     "ipa": "hoisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to float"
     ],
@@ -9077,7 +9154,7 @@
   {
     "lemma": "hosu",
     "ipa": "hosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to float"
     ],
@@ -9092,7 +9169,7 @@
   {
     "lemma": "nebosu",
     "ipa": "nebosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to flow"
     ],
@@ -9107,7 +9184,7 @@
   {
     "lemma": "nulbisu",
     "ipa": "nulbisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to fly"
     ],
@@ -9122,7 +9199,7 @@
   {
     "lemma": "nungasu",
     "ipa": "nungasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to fold"
     ],
@@ -9137,7 +9214,7 @@
   {
     "lemma": "suri",
     "ipa": "suri",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "after (chronological)"
     ],
@@ -9150,9 +9227,9 @@
     "example": ""
   },
   {
-    "lemma": "riyasu",
+    "lemma": "rijasu",
     "ipa": "rijasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to follow"
     ],
@@ -9167,7 +9244,7 @@
   {
     "lemma": "karansu",
     "ipa": "karansu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to forgive"
     ],
@@ -9182,7 +9259,7 @@
   {
     "lemma": "rikutsosu",
     "ipa": "rikuʦosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to freeze"
     ],
@@ -9197,7 +9274,7 @@
   {
     "lemma": "mabasu",
     "ipa": "mabasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to fry"
     ],
@@ -9210,9 +9287,9 @@
     "example": ""
   },
   {
-    "lemma": "mochana",
+    "lemma": "moʧana",
     "ipa": "moʧana",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "peach"
     ],
@@ -9227,7 +9304,7 @@
   {
     "lemma": "tashidosu",
     "ipa": "taʃidosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to get up"
     ],
@@ -9242,7 +9319,7 @@
   {
     "lemma": "tsotasu",
     "ipa": "ʦotasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to give"
     ],
@@ -9257,7 +9334,7 @@
   {
     "lemma": "isu",
     "ipa": "isu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to go"
     ],
@@ -9272,7 +9349,7 @@
   {
     "lemma": "raisasu",
     "ipa": "raisasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to go out"
     ],
@@ -9287,7 +9364,7 @@
   {
     "lemma": "aburesu",
     "ipa": "aburesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to grant"
     ],
@@ -9302,7 +9379,7 @@
   {
     "lemma": "lais",
     "ipa": "lais",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "glass"
     ],
@@ -9317,7 +9394,7 @@
   {
     "lemma": "subasu",
     "ipa": "subasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to greet"
     ],
@@ -9332,7 +9409,7 @@
   {
     "lemma": "ibasu",
     "ipa": "ibasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to help"
     ],
@@ -9347,7 +9424,7 @@
   {
     "lemma": "sumesu",
     "ipa": "sumesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to hide"
     ],
@@ -9362,7 +9439,7 @@
   {
     "lemma": "seosu",
     "ipa": "seosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to hit"
     ],
@@ -9377,7 +9454,7 @@
   {
     "lemma": "imisu",
     "ipa": "imisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to hold"
     ],
@@ -9390,9 +9467,9 @@
     "example": ""
   },
   {
-    "lemma": "jingoasu",
+    "lemma": "ʤingoasu",
     "ipa": "ʤingoasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to hurt"
     ],
@@ -9405,9 +9482,9 @@
     "example": ""
   },
   {
-    "lemma": "jirohasu",
+    "lemma": "ʤirohasu",
     "ipa": "ʤirohasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to include"
     ],
@@ -9422,7 +9499,7 @@
   {
     "lemma": "kankisu",
     "ipa": "kankisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to increase"
     ],
@@ -9437,7 +9514,7 @@
   {
     "lemma": "hashisu",
     "ipa": "haʃisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to invite"
     ],
@@ -9450,9 +9527,9 @@
     "example": ""
   },
   {
-    "lemma": "tsadosu",
+    "lemma": "ʧadosu",
     "ipa": "ʧadosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to invite"
     ],
@@ -9467,7 +9544,7 @@
   {
     "lemma": "lendonsu",
     "ipa": "lendonsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to jump"
     ],
@@ -9482,7 +9559,7 @@
   {
     "lemma": "sazoisu",
     "ipa": "sazoisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to kill"
     ],
@@ -9497,7 +9574,7 @@
   {
     "lemma": "korosu",
     "ipa": "korosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to knead"
     ],
@@ -9512,7 +9589,7 @@
   {
     "lemma": "odensu",
     "ipa": "odensu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to know"
     ],
@@ -9527,7 +9604,7 @@
   {
     "lemma": "hahanasu",
     "ipa": "hahanasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to laugh"
     ],
@@ -9542,7 +9619,7 @@
   {
     "lemma": "ufuosu",
     "ipa": "ufuosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to light"
     ],
@@ -9555,9 +9632,9 @@
     "example": ""
   },
   {
-    "lemma": "hĪsu",
+    "lemma": "hīsu",
     "ipa": "hiːsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to listen"
     ],
@@ -9572,7 +9649,7 @@
   {
     "lemma": "asahasu",
     "ipa": "asahasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to live"
     ],
@@ -9587,7 +9664,7 @@
   {
     "lemma": "paesu",
     "ipa": "paesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to live"
     ],
@@ -9602,7 +9679,7 @@
   {
     "lemma": "paikussu",
     "ipa": "paikussu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to locate"
     ],
@@ -9617,7 +9694,7 @@
   {
     "lemma": "onosu",
     "ipa": "onosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to look for"
     ],
@@ -9632,7 +9709,22 @@
   {
     "lemma": "runausu",
     "ipa": "runausu",
-    "pos": ": v =",
+    "pos": "v",
+    "english": [
+      "to get lost"
+    ],
+    "italian": [
+      "perdersi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "runasu",
+    "ipa": "runasu",
+    "pos": "v",
     "english": [
       "to lose"
     ],
@@ -9647,7 +9739,7 @@
   {
     "lemma": "saisosu",
     "ipa": "saisosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to love"
     ],
@@ -9662,7 +9754,7 @@
   {
     "lemma": "ugesu",
     "ipa": "ugesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to make"
     ],
@@ -9677,7 +9769,7 @@
   {
     "lemma": "ehtisu",
     "ipa": "ehtisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to make it on time"
     ],
@@ -9692,7 +9784,7 @@
   {
     "lemma": "kinnosu",
     "ipa": "kinnosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to measure"
     ],
@@ -9707,7 +9799,7 @@
   {
     "lemma": "sakesu",
     "ipa": "sakesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to meet"
     ],
@@ -9720,9 +9812,9 @@
     "example": ""
   },
   {
-    "lemma": "hyonto",
+    "lemma": "hjonto",
     "ipa": "hjonto",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "bench"
     ],
@@ -9737,7 +9829,7 @@
   {
     "lemma": "ritonsusu",
     "ipa": "ritonsusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to mix"
     ],
@@ -9750,9 +9842,9 @@
     "example": ""
   },
   {
-    "lemma": "jikihasu",
+    "lemma": "ʤikihasu",
     "ipa": "ʤikihasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to move"
     ],
@@ -9767,7 +9859,7 @@
   {
     "lemma": "kaguesu",
     "ipa": "kaguesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to occupy"
     ],
@@ -9782,7 +9874,7 @@
   {
     "lemma": "muiwasu",
     "ipa": "muiwasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to open"
     ],
@@ -9795,9 +9887,9 @@
     "example": ""
   },
   {
-    "lemma": "muiyasu",
+    "lemma": "muijasu",
     "ipa": "muijasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to open"
     ],
@@ -9810,9 +9902,9 @@
     "example": ""
   },
   {
-    "lemma": "lātsu",
+    "lemma": "la:tsu",
     "ipa": "la:ʦu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "quality"
     ],
@@ -9827,7 +9919,7 @@
   {
     "lemma": "linpe",
     "ipa": "linpe",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "idea"
     ],
@@ -9842,7 +9934,7 @@
   {
     "lemma": "nikoresu",
     "ipa": "nikoresu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to overcome"
     ],
@@ -9857,7 +9949,7 @@
   {
     "lemma": "pukesu",
     "ipa": "pukesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to overcome"
     ],
@@ -9872,7 +9964,7 @@
   {
     "lemma": "samuo",
     "ipa": "samuo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "money"
     ],
@@ -9887,7 +9979,7 @@
   {
     "lemma": "sadefusu",
     "ipa": "sadefusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to overlap"
     ],
@@ -9902,7 +9994,7 @@
   {
     "lemma": "telkesu",
     "ipa": "telkesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to overtake"
     ],
@@ -9915,9 +10007,9 @@
     "example": ""
   },
   {
-    "lemma": "kichoarsu",
+    "lemma": "kiʧoarsu",
     "ipa": "kiʧoarsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to paint"
     ],
@@ -9932,7 +10024,7 @@
   {
     "lemma": "harasu",
     "ipa": "harasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to parry"
     ],
@@ -9945,9 +10037,9 @@
     "example": ""
   },
   {
-    "lemma": "puchoasu",
+    "lemma": "puʧoasu",
     "ipa": "puʧoasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to paste"
     ],
@@ -9962,7 +10054,7 @@
   {
     "lemma": "istosu",
     "ipa": "istosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to pay"
     ],
@@ -9977,7 +10069,7 @@
   {
     "lemma": "ollakisu",
     "ipa": "ollakisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to perceive"
     ],
@@ -9990,9 +10082,9 @@
     "example": ""
   },
   {
-    "lemma": "jĪssu",
+    "lemma": "ʤīssu",
     "ipa": "ʤiːssu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to press"
     ],
@@ -10007,7 +10099,7 @@
   {
     "lemma": "koshi",
     "ipa": "koʃi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "rope"
     ],
@@ -10022,7 +10114,7 @@
   {
     "lemma": "piraisu",
     "ipa": "piraisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to proceed"
     ],
@@ -10037,7 +10129,7 @@
   {
     "lemma": "tsuruasu",
     "ipa": "ʦuruasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to protect"
     ],
@@ -10052,7 +10144,7 @@
   {
     "lemma": "hengosu",
     "ipa": "hengosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to Pull"
     ],
@@ -10065,14 +10157,16 @@
     "example": ""
   },
   {
-    "lemma": "mōs",
+    "lemma": "moos",
     "ipa": "moos",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
-      "pure, also"
+      "pure",
+      "also"
     ],
     "italian": [
-      "pure, anche"
+      "pure",
+      "anche"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -10080,9 +10174,9 @@
     "example": ""
   },
   {
-    "lemma": "tyosu",
+    "lemma": "tjosu",
     "ipa": "tjosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to push"
     ],
@@ -10097,7 +10191,7 @@
   {
     "lemma": "gindasu",
     "ipa": "gindasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to put"
     ],
@@ -10112,7 +10206,7 @@
   {
     "lemma": "olki",
     "ipa": "olki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "Work"
     ],
@@ -10127,7 +10221,7 @@
   {
     "lemma": "paralsu",
     "ipa": "paralsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to put together"
     ],
@@ -10142,7 +10236,7 @@
   {
     "lemma": "haikis",
     "ipa": "haikis",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "almost"
     ],
@@ -10157,7 +10251,7 @@
   {
     "lemma": "pillasu",
     "ipa": "pillasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to raise"
     ],
@@ -10172,7 +10266,7 @@
   {
     "lemma": "idarsu",
     "ipa": "idarsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to reach"
     ],
@@ -10187,7 +10281,7 @@
   {
     "lemma": "takwi",
     "ipa": "takwi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "type"
     ],
@@ -10202,7 +10296,7 @@
   {
     "lemma": "adekasu",
     "ipa": "adekasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to receive"
     ],
@@ -10215,9 +10309,9 @@
     "example": ""
   },
   {
-    "lemma": "teichorasu",
+    "lemma": "teiʧorasu",
     "ipa": "teiʧorasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to recover"
     ],
@@ -10232,7 +10326,7 @@
   {
     "lemma": "horomosu",
     "ipa": "horomosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to rejoice"
     ],
@@ -10245,9 +10339,9 @@
     "example": ""
   },
   {
-    "lemma": "riikke",
+    "lemma": "ri:kke",
     "ipa": "ri:kke",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "only"
     ],
@@ -10262,7 +10356,7 @@
   {
     "lemma": "hari",
     "ipa": "hari",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "camphor"
     ],
@@ -10277,7 +10371,7 @@
   {
     "lemma": "hindosu",
     "ipa": "hindosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to remove"
     ],
@@ -10292,7 +10386,7 @@
   {
     "lemma": "eida",
     "ipa": "eida",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "butterfly"
     ],
@@ -10307,7 +10401,7 @@
   {
     "lemma": "togosu",
     "ipa": "togosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to remove"
     ],
@@ -10320,9 +10414,9 @@
     "example": ""
   },
   {
-    "lemma": "kyubasu",
+    "lemma": "kjubasu",
     "ipa": "kjubasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to repair"
     ],
@@ -10337,7 +10431,7 @@
   {
     "lemma": "amasu",
     "ipa": "amasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to report"
     ],
@@ -10352,7 +10446,7 @@
   {
     "lemma": "rihtanavusu",
     "ipa": "rihtanavusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to report"
     ],
@@ -10365,11 +10459,11 @@
     "example": ""
   },
   {
-    "lemma": "ryuchitta",
+    "lemma": "rjuʧitta",
     "ipa": "rjuʧitta",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
-      "otter"
+      "to report"
     ],
     "italian": [
       "lontra"
@@ -10382,7 +10476,7 @@
   {
     "lemma": "tomisu",
     "ipa": "tomisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to rest"
     ],
@@ -10397,7 +10491,7 @@
   {
     "lemma": "touso",
     "ipa": "touso",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "brown"
     ],
@@ -10410,9 +10504,9 @@
     "example": ""
   },
   {
-    "lemma": "tsorasu",
+    "lemma": "ʧorasu",
     "ipa": "ʧorasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to return"
     ],
@@ -10427,7 +10521,7 @@
   {
     "lemma": "munuta",
     "ipa": "munuta",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "monkey"
     ],
@@ -10440,9 +10534,9 @@
     "example": ""
   },
   {
-    "lemma": "toeyasu",
+    "lemma": "toejasu",
     "ipa": "toejasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to ride"
     ],
@@ -10455,9 +10549,9 @@
     "example": ""
   },
   {
-    "lemma": "yukasu",
+    "lemma": "jukasu",
     "ipa": "jukasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to rip"
     ],
@@ -10472,7 +10566,7 @@
   {
     "lemma": "tandabasu",
     "ipa": "tandabasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to roll"
     ],
@@ -10485,9 +10579,9 @@
     "example": ""
   },
   {
-    "lemma": "kenchōsu",
+    "lemma": "kenʧōsu",
     "ipa": "kenʧoːsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to roll up"
     ],
@@ -10502,7 +10596,7 @@
   {
     "lemma": "kurisu",
     "ipa": "kurisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to roll up"
     ],
@@ -10517,7 +10611,7 @@
   {
     "lemma": "minbaesu",
     "ipa": "minbaesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to rotate"
     ],
@@ -10532,7 +10626,7 @@
   {
     "lemma": "tederissu",
     "ipa": "tederissu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to rub"
     ],
@@ -10547,7 +10641,7 @@
   {
     "lemma": "rigusu",
     "ipa": "rigusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to run"
     ],
@@ -10562,7 +10656,7 @@
   {
     "lemma": "tosu",
     "ipa": "tosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to say"
     ],
@@ -10577,7 +10671,7 @@
   {
     "lemma": "nosu",
     "ipa": "nosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to see"
     ],
@@ -10590,9 +10684,39 @@
     "example": ""
   },
   {
+    "lemma": "noisu",
+    "ipa": "noisu",
+    "pos": "v",
+    "english": [
+      "to be visible"
+    ],
+    "italian": [
+      "vedersi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nonessu",
+    "ipa": "nonessu",
+    "pos": "v",
+    "english": [
+      "to be visible"
+    ],
+    "italian": [
+      "mostrare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ronosu",
     "ipa": "ronosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to send"
     ],
@@ -10607,7 +10731,7 @@
   {
     "lemma": "nottosorisu",
     "ipa": "nottosorisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to sew"
     ],
@@ -10622,7 +10746,7 @@
   {
     "lemma": "azesu",
     "ipa": "azesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to shave"
     ],
@@ -10637,7 +10761,7 @@
   {
     "lemma": "kiginsu",
     "ipa": "kiginsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to shine"
     ],
@@ -10652,7 +10776,7 @@
   {
     "lemma": "aisu",
     "ipa": "aisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to sing"
     ],
@@ -10667,7 +10791,7 @@
   {
     "lemma": "noresu",
     "ipa": "noresu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to sink"
     ],
@@ -10682,7 +10806,7 @@
   {
     "lemma": "norisu",
     "ipa": "norisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to sink"
     ],
@@ -10695,9 +10819,9 @@
     "example": ""
   },
   {
-    "lemma": "jokkāsu",
+    "lemma": "ʤokkaasu",
     "ipa": "ʤokkaasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to sit"
     ],
@@ -10712,7 +10836,7 @@
   {
     "lemma": "lumasu",
     "ipa": "lumasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to sleep"
     ],
@@ -10727,7 +10851,7 @@
   {
     "lemma": "hobonsu",
     "ipa": "hobonsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to smell"
     ],
@@ -10742,7 +10866,7 @@
   {
     "lemma": "rinusu",
     "ipa": "rinusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to smile"
     ],
@@ -10755,9 +10879,9 @@
     "example": ""
   },
   {
-    "lemma": "shahhachasu",
+    "lemma": "shahhaʧasu",
     "ipa": "ʃahhaʧasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to sneeze"
     ],
@@ -10772,7 +10896,7 @@
   {
     "lemma": "rihtasu",
     "ipa": "rihtasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to speak"
     ],
@@ -10787,7 +10911,7 @@
   {
     "lemma": "sohpusu",
     "ipa": "sohpusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to spit"
     ],
@@ -10800,9 +10924,9 @@
     "example": ""
   },
   {
-    "lemma": "yakkasu",
+    "lemma": "jakkasu",
     "ipa": "jakkasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to split"
     ],
@@ -10817,7 +10941,7 @@
   {
     "lemma": "gengabosu",
     "ipa": "gengabosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to start"
     ],
@@ -10832,7 +10956,7 @@
   {
     "lemma": "pwikausu",
     "ipa": "pwikausu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to start"
     ],
@@ -10847,9 +10971,9 @@
   {
     "lemma": "mikasu",
     "ipa": "mikasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
-      "to stay"
+      "to remain"
     ],
     "italian": [
       "rimanere"
@@ -10862,7 +10986,7 @@
   {
     "lemma": "obasu",
     "ipa": "obasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to stay"
     ],
@@ -10877,7 +11001,7 @@
   {
     "lemma": "uteposu",
     "ipa": "uteposu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to steal"
     ],
@@ -10892,7 +11016,7 @@
   {
     "lemma": "ungisu",
     "ipa": "ungisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to stir fry"
     ],
@@ -10907,7 +11031,7 @@
   {
     "lemma": "sharusu",
     "ipa": "ʃarusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to stop"
     ],
@@ -10920,9 +11044,24 @@
     "example": ""
   },
   {
+    "lemma": "sharuswosu",
+    "ipa": "ʃaruswosu",
+    "pos": "v",
+    "english": [
+      "to stop"
+    ],
+    "italian": [
+      "fermarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "nabisu",
     "ipa": "nabisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to stretch"
     ],
@@ -10937,7 +11076,7 @@
   {
     "lemma": "oppisu",
     "ipa": "oppisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to study"
     ],
@@ -10950,9 +11089,9 @@
     "example": ""
   },
   {
-    "lemma": "chusshisu",
+    "lemma": "ʧushshisu",
     "ipa": "ʧuʃʃisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to suck"
     ],
@@ -10965,9 +11104,9 @@
     "example": ""
   },
   {
-    "lemma": "tsusshisu",
+    "lemma": "ʧushshisu",
     "ipa": "ʧuʃʃisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to suck"
     ],
@@ -10982,7 +11121,7 @@
   {
     "lemma": "raikaisu",
     "ipa": "raikaisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to surround"
     ],
@@ -10997,7 +11136,7 @@
   {
     "lemma": "emirasu",
     "ipa": "emirasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to swim"
     ],
@@ -11012,7 +11151,7 @@
   {
     "lemma": "teisu",
     "ipa": "teisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to take"
     ],
@@ -11027,7 +11166,7 @@
   {
     "lemma": "hakasu",
     "ipa": "hakasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to take (transport)"
     ],
@@ -11040,9 +11179,9 @@
     "example": ""
   },
   {
-    "lemma": "yodonosu",
+    "lemma": "jodonosu",
     "ipa": "jodonosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to taste"
     ],
@@ -11057,7 +11196,7 @@
   {
     "lemma": "hagiuhsu",
     "ipa": "hagiuhsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to teach"
     ],
@@ -11070,9 +11209,9 @@
     "example": ""
   },
   {
-    "lemma": "yosu",
+    "lemma": "josu",
     "ipa": "josu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to think"
     ],
@@ -11087,7 +11226,7 @@
   {
     "lemma": "tsoriosu",
     "ipa": "tsoriosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to throw"
     ],
@@ -11102,7 +11241,7 @@
   {
     "lemma": "māgasu",
     "ipa": "maːgasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to travel"
     ],
@@ -11117,7 +11256,7 @@
   {
     "lemma": "marawasu",
     "ipa": "marawasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to tremble"
     ],
@@ -11132,12 +11271,12 @@
   {
     "lemma": "sogisu",
     "ipa": "sogisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
-      "to turn off"
+      "turn off (tr.)"
     ],
     "italian": [
-      "spegnere"
+      "spegnere (tr.)"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -11145,9 +11284,24 @@
     "example": ""
   },
   {
-    "lemma": "jakaisu",
+    "lemma": "sogjusu",
+    "ipa": "sogjusu",
+    "pos": "v",
+    "english": [
+      "to turn off (intr.)"
+    ],
+    "italian": [
+      "spegnersi (intr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ʤakaisu",
     "ipa": "ʤakaisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to turn on"
     ],
@@ -11162,7 +11316,7 @@
   {
     "lemma": "shigosu",
     "ipa": "ʃigosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to understand"
     ],
@@ -11175,9 +11329,9 @@
     "example": ""
   },
   {
-    "lemma": "nijekisu",
+    "lemma": "niʤekisu",
     "ipa": "niʤekisu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to wait"
     ],
@@ -11192,7 +11346,7 @@
   {
     "lemma": "shogusu",
     "ipa": "ʃogusu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to walk"
     ],
@@ -11205,9 +11359,9 @@
     "example": ""
   },
   {
-    "lemma": "jibesu",
+    "lemma": "ʤibesu",
     "ipa": "ʤibesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to wash"
     ],
@@ -11222,7 +11376,7 @@
   {
     "lemma": "ainosu",
     "ipa": "ainosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to watch"
     ],
@@ -11237,9 +11391,9 @@
   {
     "lemma": "hikesu",
     "ipa": "hikesu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
-      "to what"
+      "to hear"
     ],
     "italian": [
       "sentire"
@@ -11250,9 +11404,24 @@
     "example": ""
   },
   {
+    "lemma": "hikiesu",
+    "ipa": "hikiesu",
+    "pos": "v",
+    "english": [
+      "to be heard"
+    ],
+    "italian": [
+      "sentirsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "olkosu",
     "ipa": "olkosu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to work"
     ],
@@ -11267,7 +11436,7 @@
   {
     "lemma": "keinolsu",
     "ipa": "keinolsu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to wrap"
     ],
@@ -11282,7 +11451,7 @@
   {
     "lemma": "ozasu",
     "ipa": "ozasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to write"
     ],
@@ -11297,7 +11466,7 @@
   {
     "lemma": "āngausu",
     "ipa": "aːngausu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to yawn"
     ],
@@ -11310,9 +11479,9 @@
     "example": ""
   },
   {
-    "lemma": "engai",
+    "lemma": "Engai",
     "ipa": "Engai",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Today"
     ],
@@ -11327,7 +11496,7 @@
   {
     "lemma": "serato",
     "ipa": "serato",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Together"
     ],
@@ -11342,7 +11511,7 @@
   {
     "lemma": "akae",
     "ipa": "akae",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Tomorrow"
     ],
@@ -11357,7 +11526,7 @@
   {
     "lemma": "denasu",
     "ipa": "denasu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to touch"
     ],
@@ -11372,7 +11541,7 @@
   {
     "lemma": "numersu",
     "ipa": "numersu",
-    "pos": ": v =",
+    "pos": "v",
     "english": [
       "to tow"
     ],
@@ -11385,9 +11554,9 @@
     "example": ""
   },
   {
-    "lemma": "dyensha",
+    "lemma": "djensha",
     "ipa": "djenʃa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "train"
     ],
@@ -11402,7 +11571,7 @@
   {
     "lemma": "kori",
     "ipa": "kori",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "meal"
     ],
@@ -11415,9 +11584,9 @@
     "example": ""
   },
   {
-    "lemma": "sayo",
+    "lemma": "sajo",
     "ipa": "sajo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "tree"
     ],
@@ -11432,7 +11601,7 @@
   {
     "lemma": "ronnu",
     "ipa": "ronnu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "trunk"
     ],
@@ -11445,9 +11614,9 @@
     "example": ""
   },
   {
-    "lemma": "kyonga",
+    "lemma": "kjonga",
     "ipa": "kjonga",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "turkey"
     ],
@@ -11462,7 +11631,7 @@
   {
     "lemma": "umasa",
     "ipa": "umasa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "turnip"
     ],
@@ -11477,7 +11646,7 @@
   {
     "lemma": "daigaku",
     "ipa": "daigaku",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "university"
     ],
@@ -11492,7 +11661,7 @@
   {
     "lemma": "naihi",
     "ipa": "naihi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "us"
     ],
@@ -11507,7 +11676,7 @@
   {
     "lemma": "tsakko",
     "ipa": "ʦakko",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "margherita pizza"
     ],
@@ -11522,7 +11691,7 @@
   {
     "lemma": "nehkeu",
     "ipa": "nehkeu",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "too"
     ],
@@ -11535,9 +11704,9 @@
     "example": ""
   },
   {
-    "lemma": "jui",
+    "lemma": "ʤui",
     "ipa": "ʤui",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wall"
     ],
@@ -11552,7 +11721,7 @@
   {
     "lemma": "ʣaifu",
     "ipa": "ʣaifu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wallet"
     ],
@@ -11565,9 +11734,9 @@
     "example": ""
   },
   {
-    "lemma": "ginchau",
+    "lemma": "ginʧau",
     "ipa": "ginʧau",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "walnuts"
     ],
@@ -11582,7 +11751,7 @@
   {
     "lemma": "hanni",
     "ipa": "hanni",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "They"
     ],
@@ -11597,7 +11766,7 @@
   {
     "lemma": "miwa",
     "ipa": "miwa",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "water"
     ],
@@ -11612,7 +11781,7 @@
   {
     "lemma": "ēhina",
     "ipa": "eːhina",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "waterfall"
     ],
@@ -11625,9 +11794,9 @@
     "example": ""
   },
   {
-    "lemma": "wassaji",
+    "lemma": "wassaʤi",
     "ipa": "wassaʤi",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "watermelon"
     ],
@@ -11642,7 +11811,7 @@
   {
     "lemma": "moigon",
     "ipa": "moigon",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wave"
     ],
@@ -11657,7 +11826,7 @@
   {
     "lemma": "ataki",
     "ipa": "ataki",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "in front of"
     ],
@@ -11670,9 +11839,39 @@
     "example": ""
   },
   {
-    "lemma": "abajina",
+    "lemma": "adae",
+    "ipa": "adae",
+    "pos": "n",
+    "english": [
+      "in front of"
+    ],
+    "italian": [
+      "davanti a"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "atae",
+    "ipa": "atae",
+    "pos": "n",
+    "english": [
+      "forward (space)"
+    ],
+    "italian": [
+      "avanti (spazio)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "abaʤina",
     "ipa": "abaʤina",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "weak"
     ],
@@ -11687,7 +11886,7 @@
   {
     "lemma": "shinaga",
     "ipa": "ʃinaga",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "sunset"
     ],
@@ -11700,9 +11899,9 @@
     "example": ""
   },
   {
-    "lemma": "nujanme",
+    "lemma": "nuʤanme",
     "ipa": "nuʤanme",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "week"
     ],
@@ -11717,7 +11916,7 @@
   {
     "lemma": "funnai",
     "ipa": "funnai",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "well"
     ],
@@ -11732,7 +11931,7 @@
   {
     "lemma": "shihkama",
     "ipa": "ʃihkama",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "whale"
     ],
@@ -11747,7 +11946,7 @@
   {
     "lemma": "kirago",
     "ipa": "kirago",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wharf"
     ],
@@ -11762,7 +11961,7 @@
   {
     "lemma": "nashi",
     "ipa": "naʃi",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "what (inter.)"
     ],
@@ -11777,7 +11976,7 @@
   {
     "lemma": "estin",
     "ipa": "estin",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "When"
     ],
@@ -11792,7 +11991,7 @@
   {
     "lemma": "hireike",
     "ipa": "hireike",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "even though"
     ],
@@ -11807,7 +12006,7 @@
   {
     "lemma": "nagatsas",
     "ipa": "nagaʦas",
-    "pos": ": pron =",
+    "pos": "pron",
     "english": [
       "whoever"
     ],
@@ -11822,7 +12021,7 @@
   {
     "lemma": "naki",
     "ipa": "naki",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "Why"
     ],
@@ -11837,7 +12036,7 @@
   {
     "lemma": "nuskana",
     "ipa": "nuskana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
       "wide"
     ],
@@ -11852,7 +12051,7 @@
   {
     "lemma": "hatso",
     "ipa": "haʦo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "tuna"
     ],
@@ -11867,7 +12066,7 @@
   {
     "lemma": "teka",
     "ipa": "teka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "window"
     ],
@@ -11880,9 +12079,9 @@
     "example": ""
   },
   {
-    "lemma": "jaeka",
+    "lemma": "ʤaeka",
     "ipa": "ʤaeka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wing"
     ],
@@ -11897,7 +12096,7 @@
   {
     "lemma": "makusei",
     "ipa": "makusei",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wisteria"
     ],
@@ -11912,7 +12111,7 @@
   {
     "lemma": "tsaikis",
     "ipa": "ʦaikis",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wolf"
     ],
@@ -11927,7 +12126,7 @@
   {
     "lemma": "idano",
     "ipa": "idano",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "woods"
     ],
@@ -11942,7 +12141,7 @@
   {
     "lemma": "namuta",
     "ipa": "namuta",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "word"
     ],
@@ -11957,12 +12156,14 @@
   {
     "lemma": "shiote",
     "ipa": "ʃiote",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
-      "opposite, contrary"
+      "opposite",
+      "contrary"
     ],
     "italian": [
-      "opposto, contrario"
+      "opposto",
+      "contrario"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -11972,7 +12173,7 @@
   {
     "lemma": "doke",
     "ipa": "doke",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "soil"
     ],
@@ -11987,7 +12188,7 @@
   {
     "lemma": "ponikkitaka",
     "ipa": "ponikkitaka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "wristwatch"
     ],
@@ -12002,7 +12203,7 @@
   {
     "lemma": "nekin",
     "ipa": "nekin",
-    "pos": ": conj =",
+    "pos": "conj",
     "english": [
       "if and when"
     ],
@@ -12017,7 +12218,7 @@
   {
     "lemma": "dōnpan",
     "ipa": "doːnpan",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "frost"
     ],
@@ -12032,7 +12233,7 @@
   {
     "lemma": "tsuka",
     "ipa": "ʦuka",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "yellow"
     ],
@@ -12047,7 +12248,7 @@
   {
     "lemma": "kenau",
     "ipa": "kenau",
-    "pos": ": adv =",
+    "pos": "adv",
     "english": [
       "Yesterday"
     ],
@@ -12062,7 +12263,7 @@
   {
     "lemma": "saiga",
     "ipa": "saiga",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "you (honorary)"
     ],
@@ -12077,7 +12278,7 @@
   {
     "lemma": "sai",
     "ipa": "sai",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "you (informal)"
     ],
@@ -12092,9 +12293,9 @@
   {
     "lemma": "panana",
     "ipa": "panana",
-    "pos": ": adj =",
+    "pos": "adj",
     "english": [
-      "youngman"
+      "young"
     ],
     "italian": [
       "giovane"
@@ -12105,11 +12306,11 @@
     "example": ""
   },
   {
-    "lemma": "yutso",
+    "lemma": "jutso",
     "ipa": "juʦo",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
-      "young"
+      "ice"
     ],
     "italian": [
       "ghiaccio"
@@ -12120,11 +12321,11 @@
     "example": ""
   },
   {
-    "lemma": "yeison",
+    "lemma": "jeison",
     "ipa": "jeison",
-    "pos": ": num =",
+    "pos": "num",
     "english": [
-      "zone"
+      "eight"
     ],
     "italian": [
       "otto"
@@ -12137,12 +12338,1886 @@
   {
     "lemma": "tapuisu",
     "ipa": "tapuisu",
-    "pos": ": n =",
+    "pos": "n",
     "english": [
       "to wear"
     ],
     "italian": [
       "vestire"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "eizasu",
+    "ipa": "eizasu",
+    "pos": "v",
+    "english": [
+      "to mark"
+    ],
+    "italian": [
+      "marcare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "serjesu",
+    "ipa": "serjesu",
+    "pos": "v",
+    "english": [
+      "reflect (intr.)"
+    ],
+    "italian": [
+      "riflettere (intr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "serwesu",
+    "ipa": "serwesu",
+    "pos": "v",
+    "english": [
+      "to reflect (tr.)"
+    ],
+    "italian": [
+      "riflettere (tr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "perujasu",
+    "ipa": "perujasu",
+    "pos": "v",
+    "english": [
+      "to pass (intr.)"
+    ],
+    "italian": [
+      "passare (intr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "peruwasu",
+    "ipa": "peruwasu",
+    "pos": "v",
+    "english": [
+      "to pass (tr.)"
+    ],
+    "italian": [
+      "passare (tr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "zai",
+    "ipa": "zai",
+    "pos": "conj",
+    "english": [
+      "even"
+    ],
+    "italian": [
+      "persino"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "wiira",
+    "ipa": "wiira",
+    "pos": "conj",
+    "english": [
+      "still"
+    ],
+    "italian": [
+      "ancora"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tsazasu",
+    "ipa": "ʦazasu",
+    "pos": "v",
+    "english": [
+      "whisper"
+    ],
+    "italian": [
+      "sussurrare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "narsasu",
+    "ipa": "narsasu",
+    "pos": "v",
+    "english": [
+      "shake"
+    ],
+    "italian": [
+      "scuotere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kaisu",
+    "ipa": "kaisu",
+    "pos": "v",
+    "english": [
+      "cancel"
+    ],
+    "italian": [
+      "cancellare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hanki",
+    "ipa": "hanki",
+    "pos": "n",
+    "english": [
+      "breath"
+    ],
+    "italian": [
+      "respiro"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rettausu",
+    "ipa": "rettausu",
+    "pos": "v",
+    "english": [
+      "remember"
+    ],
+    "italian": [
+      "ricordare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hja:nkisu",
+    "ipa": "hja:nkisu",
+    "pos": "v",
+    "english": [
+      "to head"
+    ],
+    "italian": [
+      "dirigersi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tue",
+    "ipa": "tue",
+    "pos": "adv",
+    "english": [
+      "away"
+    ],
+    "italian": [
+      "via"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "sekoisu",
+    "ipa": "sekoisu",
+    "pos": "v",
+    "english": [
+      "to melt"
+    ],
+    "italian": [
+      "sciogliersi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kaʧasu",
+    "ipa": "kaʧasu",
+    "pos": "v",
+    "english": [
+      "to disperse"
+    ],
+    "italian": [
+      "disperdersi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "gakirosu",
+    "ipa": "gakirosu",
+    "pos": "v",
+    "english": [
+      "to come alive"
+    ],
+    "italian": [
+      "animarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "samuna",
+    "ipa": "samuna",
+    "pos": "adj",
+    "english": [
+      "same"
+    ],
+    "italian": [
+      "stesso"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "uʧʧasu",
+    "ipa": "uʧʧasu",
+    "pos": "v",
+    "english": [
+      "to get bored"
+    ],
+    "italian": [
+      "stufarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tasuna",
+    "ipa": "tasuna",
+    "pos": "adj",
+    "english": [
+      "numerous"
+    ],
+    "italian": [
+      "numeroso"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "aʤira",
+    "ipa": "aʤira",
+    "pos": "adv",
+    "english": [
+      "Perhaps"
+    ],
+    "italian": [
+      "forse"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "u:tona",
+    "ipa": "u:tona",
+    "pos": "adj",
+    "english": [
+      "strange"
+    ],
+    "italian": [
+      "strano"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hananena",
+    "ipa": "hananena",
+    "pos": "adj",
+    "english": [
+      "alone",
+      "solitary"
+    ],
+    "italian": [
+      "solo",
+      "solitario"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ʧare",
+    "ipa": "ʧare",
+    "pos": "conj",
+    "english": [
+      "therefore"
+    ],
+    "italian": [
+      "quindi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "eniin",
+    "ipa": "eniin",
+    "pos": "adv",
+    "english": [
+      "not anymore"
+    ],
+    "italian": [
+      "non più"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "oimas",
+    "ipa": "oimas",
+    "pos": "adv",
+    "english": [
+      "sometimes"
+    ],
+    "italian": [
+      "a volte"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "aki",
+    "ipa": "aki",
+    "pos": "adv",
+    "english": [
+      "between"
+    ],
+    "italian": [
+      "tra/fra"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nowelsu",
+    "ipa": "nowelsu",
+    "pos": "v",
+    "english": [
+      "admit"
+    ],
+    "italian": [
+      "ammettere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ime",
+    "ipa": "ime",
+    "pos": "adv",
+    "english": [
+      "just"
+    ],
+    "italian": [
+      "solo"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "itsi",
+    "ipa": "iʦi",
+    "pos": "n",
+    "english": [
+      "self"
+    ],
+    "italian": [
+      "sé stesso"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nazu",
+    "ipa": "nazu",
+    "pos": "n",
+    "english": [
+      "thing"
+    ],
+    "italian": [
+      "cosa"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "reskori",
+    "ipa": "reskori",
+    "pos": "n",
+    "english": [
+      "uproar"
+    ],
+    "italian": [
+      "confusione"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ematsosu",
+    "ipa": "emaʦosu",
+    "pos": "v",
+    "english": [
+      "to vanish"
+    ],
+    "italian": [
+      "svanire"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "koni",
+    "ipa": "koni",
+    "pos": "adv",
+    "english": [
+      "right",
+      "exactly"
+    ],
+    "italian": [
+      "proprio"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "inʤe",
+    "ipa": "inʤe",
+    "pos": "adv",
+    "english": [
+      "things like (after a verb in hypothetical form)"
+    ],
+    "italian": [
+      "cose come (dopo verbo in f. ipotetica)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "maisu",
+    "ipa": "maisu",
+    "pos": "v",
+    "english": [
+      "return"
+    ],
+    "italian": [
+      "tornare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "maesu",
+    "ipa": "maesu",
+    "pos": "v",
+    "english": [
+      "return (tr.)"
+    ],
+    "italian": [
+      "restituire"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "uzemesu",
+    "ipa": "uzemesu",
+    "pos": "v",
+    "english": [
+      "to ooze"
+    ],
+    "italian": [
+      "colare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hoboi",
+    "ipa": "hoboi",
+    "pos": "n",
+    "english": [
+      "odor"
+    ],
+    "italian": [
+      "odore"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "twoku",
+    "ipa": "twoku",
+    "pos": "n",
+    "english": [
+      "perfume"
+    ],
+    "italian": [
+      "profumo"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "erko",
+    "ipa": "erko",
+    "pos": "n",
+    "english": [
+      "pain"
+    ],
+    "italian": [
+      "dolore"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tsukasu",
+    "ipa": "ʦukasu",
+    "pos": "v",
+    "english": [
+      "to catch"
+    ],
+    "italian": [
+      "acchiappare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hishu",
+    "ipa": "hiʃu",
+    "pos": "adv",
+    "english": [
+      "as it is (after participle)"
+    ],
+    "italian": [
+      "così com è (dopo participio)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rangansu",
+    "ipa": "rangansu",
+    "pos": "v",
+    "english": [
+      "to get caught"
+    ],
+    "italian": [
+      "impigliarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "mare",
+    "ipa": "mare",
+    "pos": "n",
+    "english": [
+      "length"
+    ],
+    "italian": [
+      "larghezza"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "toibisu",
+    "ipa": "toibisu",
+    "pos": "v",
+    "english": [
+      "check"
+    ],
+    "italian": [
+      "controllare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "mintona",
+    "ipa": "mintona",
+    "pos": "adj",
+    "english": [
+      "faint"
+    ],
+    "italian": [
+      "flebile"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tulelsu",
+    "ipa": "tulelsu",
+    "pos": "v",
+    "english": [
+      "escape"
+    ],
+    "italian": [
+      "scappare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tulensu",
+    "ipa": "tulensu",
+    "pos": "v",
+    "english": [
+      "let it slip away"
+    ],
+    "italian": [
+      "lasciar scappare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "andasu",
+    "ipa": "andasu",
+    "pos": "v",
+    "english": [
+      "hug"
+    ],
+    "italian": [
+      "abbracciare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tuki",
+    "ipa": "tuki",
+    "pos": "adj",
+    "english": [
+      "whole (suffix)"
+    ],
+    "italian": [
+      "intero (suffisso)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rihosu",
+    "ipa": "rihosu",
+    "pos": "v",
+    "english": [
+      "to reach out"
+    ],
+    "italian": [
+      "tendere",
+      "allungare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "homusu",
+    "ipa": "homusu",
+    "pos": "v",
+    "english": [
+      "to hold back",
+      "retain"
+    ],
+    "italian": [
+      "trattenere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "seta",
+    "ipa": "seta",
+    "pos": "adv",
+    "english": [
+      "again"
+    ],
+    "italian": [
+      "ancora",
+      "nuovamente"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "runekuida",
+    "ipa": "runekuida",
+    "pos": "v",
+    "english": [
+      "guide"
+    ],
+    "italian": [
+      "guidare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "narusu",
+    "ipa": "narusu",
+    "pos": "v",
+    "english": [
+      "heal"
+    ],
+    "italian": [
+      "guarire"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ihmosu",
+    "ipa": "ihmosu",
+    "pos": "v",
+    "english": [
+      "to breathe in"
+    ],
+    "italian": [
+      "inspirare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "talpi",
+    "ipa": "talpi",
+    "pos": "n",
+    "english": [
+      "winter"
+    ],
+    "italian": [
+      "inverno"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nimuno",
+    "ipa": "nimuno",
+    "pos": "n",
+    "english": [
+      "voice"
+    ],
+    "italian": [
+      "voce"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kakedesu",
+    "ipa": "kakedesu",
+    "pos": "v",
+    "english": [
+      "to resemble"
+    ],
+    "italian": [
+      "assomigliare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "wiran",
+    "ipa": "wiran",
+    "pos": "v",
+    "english": [
+      "sleeve"
+    ],
+    "italian": [
+      "manica"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nanti",
+    "ipa": "nanti",
+    "pos": "adv",
+    "english": [
+      "very quietly"
+    ],
+    "italian": [
+      "piano piano"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "sajesu",
+    "ipa": "sajesu",
+    "pos": "v",
+    "english": [
+      "encounter"
+    ],
+    "italian": [
+      "incontrare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ʣuntasu",
+    "ipa": "ʣuntasu",
+    "pos": "v",
+    "english": [
+      "snow"
+    ],
+    "italian": [
+      "nevicare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "utsirsu",
+    "ipa": "uʦirsu",
+    "pos": "v",
+    "english": [
+      "separate (tr.)"
+    ],
+    "italian": [
+      "separare (tr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "utsissu",
+    "ipa": "uʦissu",
+    "pos": "v",
+    "english": [
+      "to separate (intr.)"
+    ],
+    "italian": [
+      "separarsi (intr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "lamina",
+    "ipa": "lamina",
+    "pos": "adj",
+    "english": [
+      "warm"
+    ],
+    "italian": [
+      "tiepido"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pones",
+    "ipa": "pones",
+    "pos": "n",
+    "english": [
+      "Force"
+    ],
+    "italian": [
+      "forza"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "katomake",
+    "ipa": "katomake",
+    "pos": "n",
+    "english": [
+      "palm of the hand"
+    ],
+    "italian": [
+      "palmo della mano"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ikurasu",
+    "ipa": "ikurasu",
+    "pos": "v",
+    "english": [
+      "to accumulate"
+    ],
+    "italian": [
+      "accumulare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ikurausu",
+    "ipa": "ikurausu",
+    "pos": "v",
+    "english": [
+      "accumulate"
+    ],
+    "italian": [
+      "accumularsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "shirubi",
+    "ipa": "ʃirubi",
+    "pos": "n",
+    "english": [
+      "sign",
+      "indication"
+    ],
+    "italian": [
+      "segno",
+      "indicazione"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "parmiste",
+    "ipa": "parmiste",
+    "pos": "n",
+    "english": [
+      "Surely"
+    ],
+    "italian": [
+      "sicuramente"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "irunessu",
+    "ipa": "irunessu",
+    "pos": "v",
+    "english": [
+      "to illuminate"
+    ],
+    "italian": [
+      "illuminare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "razausu",
+    "ipa": "razausu",
+    "pos": "v",
+    "english": [
+      "to untie oneself"
+    ],
+    "italian": [
+      "slegarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "haikanessu",
+    "ipa": "haikanessu",
+    "pos": "v",
+    "english": [
+      "to get closer"
+    ],
+    "italian": [
+      "avvicinare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "jomori",
+    "ipa": "jomori",
+    "pos": "adv",
+    "english": [
+      "even if (hypothetical)"
+    ],
+    "italian": [
+      "anche se (ipotetico)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tsahena",
+    "ipa": "ʦahena",
+    "pos": "adj",
+    "english": [
+      "old"
+    ],
+    "italian": [
+      "vecchio"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kuminona",
+    "ipa": "kuminona",
+    "pos": "adj",
+    "english": [
+      "nostalgic"
+    ],
+    "italian": [
+      "nostalgico"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "aukasna",
+    "ipa": "aukasna",
+    "pos": "adj",
+    "english": [
+      "intelligent"
+    ],
+    "italian": [
+      "intelligente"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "noribesu",
+    "ipa": "noribesu",
+    "pos": "v",
+    "english": [
+      "to stare"
+    ],
+    "italian": [
+      "fissare con lo sguardo"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nokotottuttu",
+    "ipa": "nokotottuttu",
+    "pos": "adj",
+    "english": [
+      "accustomed to seeing"
+    ],
+    "italian": [
+      "abituato a vedere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tottusu",
+    "ipa": "tottusu",
+    "pos": "v",
+    "english": [
+      "get used to it"
+    ],
+    "italian": [
+      "abituarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ma:kkade",
+    "ipa": "ma:kkade",
+    "pos": "n",
+    "english": [
+      "suitcase"
+    ],
+    "italian": [
+      "valigia"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ozaluha",
+    "ipa": "ozaluha",
+    "pos": "n",
+    "english": [
+      "letter"
+    ],
+    "italian": [
+      "lettera"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "okaesu",
+    "ipa": "okaesu",
+    "pos": "v",
+    "english": [
+      "to put/support"
+    ],
+    "italian": [
+      "mettere/appoggiare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nui jaki",
+    "ipa": "nui jaki",
+    "pos": "adv",
+    "english": [
+      "a little more"
+    ],
+    "italian": [
+      "ancora un po'"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kuzusu",
+    "ipa": "kuzusu",
+    "pos": "v",
+    "english": [
+      "to transport"
+    ],
+    "italian": [
+      "trasportare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "atsami",
+    "ipa": "aʦami",
+    "pos": "adv",
+    "english": [
+      "right away"
+    ],
+    "italian": [
+      "subito"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tagulsu",
+    "ipa": "tagulsu",
+    "pos": "v",
+    "english": [
+      "to go back up"
+    ],
+    "italian": [
+      "risalire"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tuite",
+    "ipa": "tuite",
+    "pos": "n",
+    "english": [
+      "needle",
+      "lancet"
+    ],
+    "italian": [
+      "ago",
+      "lancetta"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "un",
+    "ipa": "un",
+    "pos": "inter",
+    "english": [
+      "verbal suffix that expresses doubt"
+    ],
+    "italian": [
+      "suffisso verbale che esprime dubbio"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ikwiste",
+    "ipa": "ikwiste",
+    "pos": "adv",
+    "english": [
+      "forever"
+    ],
+    "italian": [
+      "per sempre"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "erinosu",
+    "ipa": "erinosu",
+    "pos": "v",
+    "english": [
+      "to look at"
+    ],
+    "italian": [
+      "riguardare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "niroejasu",
+    "ipa": "niroejasu",
+    "pos": "v",
+    "english": [
+      "to cool (tr.)"
+    ],
+    "italian": [
+      "raffreddare (tr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "niroewasu",
+    "ipa": "niroewasu",
+    "pos": "v",
+    "english": [
+      "to cool down (intr.)"
+    ],
+    "italian": [
+      "raffreddarsi (intr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ka:fi",
+    "ipa": "ka:fi",
+    "pos": "n",
+    "english": [
+      "coffee"
+    ],
+    "italian": [
+      "caffè"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kuppi",
+    "ipa": "kuppi",
+    "pos": "n",
+    "english": [
+      "small cup"
+    ],
+    "italian": [
+      "coppetta"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "wi:kena",
+    "ipa": "wi:kena",
+    "pos": "adj",
+    "english": [
+      "correct",
+      "right"
+    ],
+    "italian": [
+      "corretto",
+      "giusto"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tagas jaki",
+    "ipa": "tagas jaki",
+    "pos": "adv",
+    "english": [
+      "a little at a time"
+    ],
+    "italian": [
+      "un po' alla volta"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ʧarusu",
+    "ipa": "ʧarusu",
+    "pos": "v",
+    "english": [
+      "scratch away"
+    ],
+    "italian": [
+      "grattare via"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kijonosu",
+    "ipa": "kijonosu",
+    "pos": "v",
+    "english": [
+      "to demand"
+    ],
+    "italian": [
+      "pretendere",
+      "esigere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "naru",
+    "ipa": "naru",
+    "pos": "adv",
+    "english": [
+      "late"
+    ],
+    "italian": [
+      "tardi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "toderi",
+    "ipa": "toderi",
+    "pos": "adv",
+    "english": [
+      "actually"
+    ],
+    "italian": [
+      "in realtà"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kinosu",
+    "ipa": "kinosu",
+    "pos": "v",
+    "english": [
+      "to realize"
+    ],
+    "italian": [
+      "rendersi conto"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tagas jaki",
+    "ipa": "tagas jaki",
+    "pos": "adv",
+    "english": [
+      "a little at a time"
+    ],
+    "italian": [
+      "un po' alla volta"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "wirhesu",
+    "ipa": "wirhesu",
+    "pos": "v",
+    "english": [
+      "to make a mistake"
+    ],
+    "italian": [
+      "sbagliare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "igisu",
+    "ipa": "igisu",
+    "pos": "v",
+    "english": [
+      "to win"
+    ],
+    "italian": [
+      "vincere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "soiha",
+    "ipa": "soiha",
+    "pos": "conj",
+    "english": [
+      "as if"
+    ],
+    "italian": [
+      "come se"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "raso",
+    "ipa": "raso",
+    "pos": "n",
+    "english": [
+      "vice"
+    ],
+    "italian": [
+      "vizio"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hankuri",
+    "ipa": "hankuri",
+    "pos": "n",
+    "english": [
+      "sigh"
+    ],
+    "italian": [
+      "sospiro"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "abusu",
+    "ipa": "abusu",
+    "pos": "v",
+    "english": [
+      "to pretend",
+      "to fake"
+    ],
+    "italian": [
+      "fingere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kubesu",
+    "ipa": "kubesu",
+    "pos": "v",
+    "english": [
+      "apologize"
+    ],
+    "italian": [
+      "scusarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "huhsu",
+    "ipa": "huhsu",
+    "pos": "v",
+    "english": [
+      "scream"
+    ],
+    "italian": [
+      "urlare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "paurasu",
+    "ipa": "paurasu",
+    "pos": "v",
+    "english": [
+      "to avoid"
+    ],
+    "italian": [
+      "evitare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "jui",
+    "ipa": "jui",
+    "pos": "n",
+    "english": [
+      "blade"
+    ],
+    "italian": [
+      "lama"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "fere",
+    "ipa": "fere",
+    "pos": "n",
+    "english": [
+      "blood"
+    ],
+    "italian": [
+      "sangue"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "eke",
+    "ipa": "eke",
+    "pos": "conj",
+    "english": [
+      "if (raff.)"
+    ],
+    "italian": [
+      "se (raff.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "keinolmaisu",
+    "ipa": "keinolmaisu",
+    "pos": "v",
+    "english": [
+      "rewind"
+    ],
+    "italian": [
+      "riavvolgere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "havisu",
+    "ipa": "havisu",
+    "pos": "v",
+    "english": [
+      "to lose (to be defeated)"
+    ],
+    "italian": [
+      "perdere (essere sconfitto)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "munouttana",
+    "ipa": "munouttana",
+    "pos": "adj",
+    "english": [
+      "silent"
+    ],
+    "italian": [
+      "tacente"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kjeresu",
+    "ipa": "kjeresu",
+    "pos": "v",
+    "english": [
+      "ask"
+    ],
+    "italian": [
+      "chiedere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tarpesu",
+    "ipa": "tarpesu",
+    "pos": "v",
+    "english": [
+      "enough"
+    ],
+    "italian": [
+      "sufficere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hankuri",
+    "ipa": "hankuri",
+    "pos": "n",
+    "english": [
+      "aurora"
+    ],
+    "italian": [
+      "aurora"
     ],
     "byakuzhi": "",
     "askaoza": "",
