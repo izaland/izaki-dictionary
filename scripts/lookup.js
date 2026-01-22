@@ -85,7 +85,7 @@ function applyKuRules(prev, next) {
 }
 
 // ---------------------------
-// Funzione principale
+// Funzione principale FORWARD (byakuzhi → onnufu)
 // ---------------------------
 function getOnnufuByCharacters(input) {
   if (!input) return '';
@@ -129,27 +129,67 @@ function getOnnufuByCharacters(input) {
 }
 
 // ---------------------------
-// Event listener
+// NUOVA: Funzione REVERSE (onnufu → byakuzhi)
+// ---------------------------
+function getByakuzhiByReading(searchReading) {
+  if (!searchReading || !byakuzhi) return [];
+
+  const search = searchReading.toLowerCase().trim();
+  const matches = [];
+
+  for (const [char, data] of Object.entries(byakuzhi)) {
+    if (data.onnufu) {
+      const onnufu = data.onnufu.toLowerCase();
+      if (onnufu === search) {
+        matches.push(`${char} → ${data.onnufu}`);
+      } else if (search && onnufu.startsWith(search)) {
+        matches.push(`${char} → ${data.onnufu} (prefisso)`);
+      }
+    }
+  }
+
+  return matches.slice(0, 50); // Limite performance
+}
+
+// ---------------------------
+// Event listener INTEGRATO (forward + reverse)
 // ---------------------------
 document.addEventListener('DOMContentLoaded', () => {
   loadJSON();
 
+  // FORWARD: input #input → output #output
   const input = document.getElementById('input');
   const output = document.getElementById('output');
+  if (input && output) {
+    input.addEventListener('input', () => {
+      if (!byakuzhi || Object.keys(byakuzhi).length === 0) {
+        output.textContent = 'Loading dictionary...';
+        return;
+      }
+      const latinReading = getOnnufuByCharacters(input.value);
+      const askaozaReading = typeof toAskaozaText === 'function' ? toAskaozaText(latinReading) : latinReading;
+      output.textContent = `${latinReading} [${askaozaReading}]`;
+    });
+  }
 
-  input.addEventListener('input', () => {
-    if (!byakuzhi || Object.keys(byakuzhi).length === 0) {
-      output.textContent = 'Loading dictionary...';
-      return;
-    }
-
-    // lettura in alfabeto latino
-    const latinReading = getOnnufuByCharacters(input.value);
-
-    // lettura in askaoza (usando lo stesso converter globale)
-    const askaozaReading = toAskaozaText(latinReading);
-
-    // output combinato: latino [askaOza]
-    output.textContent = `${latinReading} [${askaozaReading}]`;
-  });
+  // REVERSE: input #reverseInput → output #reverseOutput
+  const reverseInput = document.getElementById('reverseInput');
+  const reverseOutput = document.getElementById('reverseOutput');
+  if (reverseInput && reverseOutput) {
+    reverseInput.addEventListener('input', () => {
+      if (!byakuzhi || Object.keys(byakuzhi).length === 0) {
+        reverseOutput.textContent = 'Loading dictionary...';
+        return;
+      }
+      const matches = getByakuzhiByReading(reverseInput.value);
+      if (matches.length === 0) {
+        reverseOutput.textContent = 'Nessun carattere trovato.';
+      } else {
+        reverseOutput.textContent = matches.join('\n');
+        if (matches.length === 50) {
+          reverseOutput.textContent += '\n\n... e altri risultati.';
+        }
+      }
+    });
+  }
 });
