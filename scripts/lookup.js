@@ -129,26 +129,42 @@ function getOnnufuByCharacters(input) {
 }
 
 // ---------------------------
+// NUOVA: Normalizza input utente per ricerca flessibile
+// ---------------------------
+function normalizeSearch(input) {
+  if (!input) return '';
+  
+  return input.toLowerCase()
+    .replace(/aa/g, 'ā')    // ā
+    .replace(/ee/g, 'ē')    // ē
+    .replace(/ii/g, 'ī')    // ī
+    .replace(/oo/g, 'ō')    // ō
+    .replace(/uu/g, 'ū')    // ū
+    .replace(/dz|ð/g, 'ð'); // ð o dz → ð
+}
+
+
+// ---------------------------
 // Funzione REVERSE MIGLIORATA (con HTML styling)
 // ---------------------------
 function getByakuzhiByReading(searchReading) {
   if (!searchReading || !byakuzhi) return [];
 
-  const search = searchReading.toLowerCase().trim();
+  const normalizedSearch = normalizeSearch(searchReading);  // ← AGGIUNGI QUESTA RIGA
   const matches = [];
 
   for (const [char, data] of Object.entries(byakuzhi)) {
     if (data.onnufu) {
       const onnufu = data.onnufu.toLowerCase();
-      if (onnufu === search) {
+      if (onnufu === normalizedSearch) {
         matches.push(`<span class="byakuzhi-char">${char}</span><span class="onnufu-reading">${data.onnufu}</span>`);
-      } else if (search && onnufu.startsWith(search) && search.length > 1) {
+      } else if (normalizedSearch && onnufu.startsWith(normalizedSearch) && normalizedSearch.length > 1) {
         matches.push(`<span class="byakuzhi-char">${char}</span><span class="onnufu-reading">${data.onnufu}</span><span class="prefix-tag">(prefisso)</span>`);
       }
     }
   }
 
-  return matches.slice(0, 30); // Pochi più leggibili
+  return matches.slice(0, 30);
 }
 
 // ---------------------------
