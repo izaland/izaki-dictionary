@@ -129,7 +129,7 @@ function getOnnufuByCharacters(input) {
 }
 
 // ---------------------------
-// NUOVA: Funzione REVERSE (onnufu → byakuzhi)
+// Funzione REVERSE MIGLIORATA (con HTML styling)
 // ---------------------------
 function getByakuzhiByReading(searchReading) {
   if (!searchReading || !byakuzhi) return [];
@@ -141,14 +141,14 @@ function getByakuzhiByReading(searchReading) {
     if (data.onnufu) {
       const onnufu = data.onnufu.toLowerCase();
       if (onnufu === search) {
-        matches.push(`${char} → ${data.onnufu}`);
-      } else if (search && onnufu.startsWith(search)) {
-        matches.push(`${char} → ${data.onnufu} (prefisso)`);
+        matches.push(`<span class="byakuzhi-char">${char}</span><span class="onnufu-reading">${data.onnufu}</span>`);
+      } else if (search && onnufu.startsWith(search) && search.length > 1) {
+        matches.push(`<span class="byakuzhi-char">${char}</span><span class="onnufu-reading">${data.onnufu}</span><span class="prefix-tag">(prefisso)</span>`);
       }
     }
   }
 
-  return matches.slice(0, 50); // Limite performance
+  return matches.slice(0, 30); // Pochi più leggibili
 }
 
 // ---------------------------
@@ -172,24 +172,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // REVERSE: input #reverseInput → output #reverseOutput
-  const reverseInput = document.getElementById('reverseInput');
-  const reverseOutput = document.getElementById('reverseOutput');
-  if (reverseInput && reverseOutput) {
-    reverseInput.addEventListener('input', () => {
-      if (!byakuzhi || Object.keys(byakuzhi).length === 0) {
-        reverseOutput.textContent = 'Loading dictionary...';
-        return;
+// REVERSE: input #reverseInput → output #reverseOutput
+const reverseInput = document.getElementById('reverseInput');
+const reverseOutput = document.getElementById('reverseOutput');
+if (reverseInput && reverseOutput) {
+  reverseInput.addEventListener('input', () => {
+    if (!byakuzhi || Object.keys(byakuzhi).length === 0) {
+      reverseOutput.innerHTML = 'Loading dictionary...';
+      return;
+    }
+    const matches = getByakuzhiByReading(reverseInput.value);
+    if (matches.length === 0) {
+      reverseOutput.innerHTML = 'Nessun carattere trovato.';
+    } else {
+      reverseOutput.innerHTML = matches.join('<br>');  // ← CAMBIA QUI: <br> invece di \n
+      if (matches.length >= 30) {  // ← 30 invece di 50 (coerente col limite funzione)
+        reverseOutput.innerHTML += '<br><br><em>... e altri risultati.</em>';
       }
-      const matches = getByakuzhiByReading(reverseInput.value);
-      if (matches.length === 0) {
-        reverseOutput.textContent = 'Nessun carattere trovato.';
-      } else {
-        reverseOutput.textContent = matches.join('\n');
-        if (matches.length === 50) {
-          reverseOutput.textContent += '\n\n... e altri risultati.';
-        }
-      }
-    });
-  }
+    }
+  });
+}
 });
