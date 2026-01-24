@@ -75,8 +75,7 @@
             border-bottom: 1px solid #1f2937;
             color: #e5e7eb;
         }
-        .suggestion:hover,
-        .suggestion.selected {
+        .suggestion:hover, .suggestion.selected {
             background: #111827;
         }
         .conjugation-table {
@@ -91,8 +90,7 @@
             border-collapse: collapse;
             margin-top: 1rem;
         }
-        th,
-        td {
+        th, td {
             padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid #1f2937;
@@ -102,8 +100,6 @@
             font-weight: 600;
             color: #e5e7eb;
         }
-
-        /* Titoli dei blocchi dei tempi verbali: più contrasto e leggibilità */
         .tense-header {
             text-align: center;
             font-size: 1.1rem;
@@ -111,18 +107,17 @@
             padding: 0.75rem;
         }
         .tense-header.present {
-            background: #bfdbfe;      /* blu chiaro */
-            color: #1f2937;          /* testo scuro */
+            background: #bfdbfe;
+            color: #1f2937;
         }
         .tense-header.past {
-            background: #fee2e2;      /* rosso chiaro */
+            background: #fee2e2;
             color: #1f2937;
         }
         .tense-header.future {
-            background: #fef3c7;      /* giallo chiaro */
+            background: #fef3c7;
             color: #1f2937;
         }
-
         .affirmative {
             color: #6ee7b7;
             font-weight: 500;
@@ -169,6 +164,9 @@
         </div>
     </div>
 
+    <script src="/izaki-dictionary/scripts/askaoza.js"></script>
+    <script src="/izaki-dictionary/scripts/script.js"></script>
+    
     <script>
     // ==============================
     // 1. Caricamento dizionario
@@ -177,18 +175,18 @@
         try {
             const response = await fetch('../../data/dictionary.json');
             if (!response.ok) {
-                console.error(
-                    'HTTP error while loading dictionary:',
-                    response.status,
-                    response.statusText
-                );
+                console.error('HTTP error while loading dictionary:', response.status, response.statusText);
                 return [];
             }
 
             const data = await response.json();
+            console.log('Total entries in dictionary.json:', data.length);
+
             const verbs = data.filter(
                 (item) => item.pos && item.pos.toLowerCase().includes('v')
             );
+
+            console.log('Filtered verb entries:', verbs.length);
             return verbs;
         } catch (error) {
             console.error('Error loading dictionary:', error);
@@ -252,29 +250,20 @@
             }
         });
 
-    // ==============================
-    // 3. Analisi del tipo di verbo (G1 / G2 / G3)
-    // ==============================
-
     const VOWELS = ['a', 'e', 'i', 'o', 'u', 'y', 'w'];
 
     function detectVerbGroup(lemma) {
         if (!lemma.endsWith('su')) return null;
-
         const chars = lemma.split('');
         const len = chars.length;
         const beforeSu = chars[len - 3];
-
         if (!VOWELS.includes(beforeSu)) {
             return 'G3';
         }
-
         const beforeV = chars[len - 4];
-
         if (!beforeV) {
             return 'G1';
         }
-
         if (VOWELS.includes(beforeV)) {
             return 'G2';
         } else {
@@ -282,19 +271,8 @@
         }
     }
 
-    // ==============================
-    // 4. Present: stem G1 / G2 / G3
-    // ==============================
-
     const voicedToVoiceless = {
-        g: 'k',
-        d: 't',
-        b: 'p',
-        v: 'f',
-        j: 'ch',
-        z: 's',
-        zh: 'sh',
-        'ð': 'ts'
+        g: 'k', d: 't', b: 'p', v: 'f', j: 'ch', z: 's', zh: 'sh', 'ð': 'ts'
     };
 
     function buildGroup1WeakStem(lemma) {
@@ -401,10 +379,6 @@
         return stemCore + V + C + C + V2;
     }
 
-    // ==============================
-    // 5. Simple past: stem G1 / G2 / G3
-    // ==============================
-
     function buildGroup1PastStem(lemma) {
         const presentStem = buildGroup1WeakStem(lemma);
 
@@ -506,18 +480,11 @@
         return stemCore + V + C + 'i';
     }
 
-    // ==============================
-    // 6. Futuro: base in -ma
-    // ==============================
     function buildFutureStem(lemma) {
-        // regola base: togli -su e aggiungi -ma (yoma, ukema, mikama, ecc.) [web:5]
-        const base = lemma.slice(0, -2); // senza 'su'
+        const base = lemma.slice(0, -2);
         return base + 'ma';
     }
 
-    // ==============================
-    // 7. Persone
-    // ==============================
     const PERSONS = [
         { id: '1sg', label: 'Nai (I)', ending: 'n' },
         { id: '2sg', label: 'Sai (you sg)', ending: 's' },
@@ -527,9 +494,6 @@
         { id: '3pl', label: 'Hannu (they)', ending: 'han' },
     ];
 
-    // ==============================
-    // 8. Coniugazione: presente + passato + futuro (+ askaoza)
-    // ==============================
     function conjugateVerb(lemma) {
         const verb = dictionary.find((v) => v.lemma === lemma);
 
@@ -569,48 +533,89 @@
 
         const futureStem = buildFutureStem(lemma);
 
-        // Presente
-        let presentRows = '';
-        PERSONS.forEach((person) => {
-            const affirmative = presentStem + person.ending;
-            const negative = presentStem + 'na' + person.ending;
-            const affAskaoza = toAskaozaText(affirmative);
-            const negAskaoza = toAskaozaText(negative);
+        function buildRows(stem) {
+            return PERSONS.map(person => {
+                const affirmative = stem + person.ending;
+                const negative = stem + 'na' + person.ending;
+                const affAskaoza = toAskaozaText(affirmative);
+                const negAskaoza = toAskaozaText(negative);
+                return `
+                    <tr>
+                        <td>${person.label}</td>
+                        <td class="affirmative">${affirmative}</td>
+                        <td class="askaoza-text">${affAskaoza}</td>
+                        <td class="negative">${negative}</td>
+                        <td class="askaoza-text">${negAskaoza}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
 
-            presentRows += `
+        const presentRows = buildRows(presentStem);
+        const pastRows = buildRows(pastStem);
+        const futureRows = buildRows(futureStem);
+
+        document.getElementById('verbTitle').textContent =
+            `${lemma} (${verb.english?.[0] || 'to ?'})`;
+
+        document.getElementById('conjugationTable').innerHTML = `
+            <thead>
                 <tr>
-                    <td>${person.label}</td>
-                    <td class="affirmative">${affirmative}</td>
-                    <td class="askaoza-text">${affAskaoza}</td>
-                    <td class="negative">${negative}</td>
-                    <td class="askaoza-text">${negAskaoza}</td>
+                    <th colspan="5" class="tense-header present">
+                        Present simple / 現在形（肯定形＋否定形）
+                    </th>
                 </tr>
-            `;
-        });
-
-        // Passato
-        let pastRows = '';
-        PERSONS.forEach((person) => {
-            const affirmative = pastStem + person.ending;
-            const negative = pastStem + 'na' + person.ending;
-            const affAskaoza = toAskaozaText(affirmative);
-            const negAskaoza = toAskaozaText(negative);
-
-            pastRows += `
                 <tr>
-                    <td>${person.label}</td>
-                    <td class="affirmative">${affirmative}</td>
-                    <td class="askaoza-text">${affAskaoza}</td>
-                    <td class="negative">${negative}</td>
-                    <td class="askaoza-text">${negAskaoza}</td>
+                    <th>Person 人称</th>
+                    <th>Affirmative 肯定形</th>
+                    <th>Askaoza</th>
+                    <th>Negative 否定形</th>
+                    <th>Askaoza</th>
                 </tr>
-            `;
-        });
+            </thead>
+            <tbody>${presentRows}</tbody>
+            <thead>
+                <tr>
+                    <th colspan="5" class="tense-header past">
+                        Simple past / 過去形（肯定形＋否定形）
+                    </th>
+                </tr>
+                <tr>
+                    <th>Person 人称</th>
+                    <th>Affirmative 肯定形</th>
+                    <th>Askaoza</th>
+                    <th>Negative 否定形</th>
+                    <th>Askaoza</th>
+                </tr>
+            </thead>
+            <tbody>${pastRows}</tbody>
+            <thead>
+                <tr>
+                    <th colspan="5" class="tense-header future">
+                        Future / 未来形（肯定形＋否定形）
+                    </th>
+                </tr>
+                <tr>
+                    <th>Person 人称</th>
+                    <th>Affirmative 肯定形</th>
+                    <th>Askaoza</th>
+                    <th>Negative 否定形</th>
+                    <th>Askaoza</th>
+                </tr>
+            </thead>
+            <tbody>${futureRows}</tbody>
+        `;
 
-        // Futuro
-        let futureRows = '';
-        PERSONS.forEach((person) => {
-            const affirmative = futureStem + person.ending;
-            const negative = futureStem + 'na' + person.ending;
-            const affAskaoza = toAskaozaText(affirmative);
-            const negAskaoza = toA
+        document.getElementById('result').style.display = 'block';
+    }
+
+    // ==============================
+    // 9. Inizializzazione
+    // ==============================
+    window.onload = async function () {
+        dictionary = await loadDictionary();
+        console.log(`Dictionary loaded. Verbs available: ${dictionary.length}`);
+    };
+    </script>
+</body>
+</html>
