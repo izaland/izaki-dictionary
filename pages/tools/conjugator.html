@@ -91,7 +91,7 @@
             margin-top: 1rem;
         }
         th, td {
-            padding: 0.75rem;
+            padding: 0.5rem 0.75rem; /* ridotto padding verticale */
             text-align: left;
             border-bottom: 1px solid #1f2937;
         }
@@ -99,6 +99,7 @@
             background: #111827;
             font-weight: 600;
             color: #e5e7eb;
+            padding: 0.75rem;
         }
         .tense-header {
             text-align: center;
@@ -114,9 +115,13 @@
             background: #fee2e2;
             color: #1f2937;
         }
+        .tense-header.perfect {
+            background: #d1fae5;
+            color: #065f46;
+        }
         .tense-header.future {
             background: #fef3c7;
-            color: #1f2937;
+            color: #92400e;
         }
         .affirmative {
             color: #6ee7b7;
@@ -128,10 +133,16 @@
         }
         .askaoza-text {
             font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem; /* leggermente più piccolo */
             color: #e5e7eb;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
+            padding-left: 0.25rem; /* ravvicinato al romaji */
+        }
+        /* Separazione affermativa/negativa */
+        .affirmative-cell {
+            border-right: 2px solid #374151; /* linea divisoria */
+            padding-right: 1rem; /* spazio extra a destra dell'affermativa */
         }
     </style>
 </head>
@@ -144,8 +155,8 @@
 
         <h1>🗣️ Izaki Verb Conjugator / 華邦語動詞活用表</h1>
         <p class="description">
-            Group 1, 2, 3 • Present simple + Simple past + Future (affirmative + negative)<br>
-            第一・二・三集団・現在形＋過去形＋未来形（肯定形＋否定形）
+            Group 1, 2, 3 • Present + Past + Perfect + Future (affirmative + negative)<br>
+            第一・二・三集団・現在形＋過去形＋完了形＋未来形（肯定形＋否定形）
         </p>
 
         <div class="autocomplete">
@@ -485,6 +496,10 @@
         return base + 'ma';
     }
 
+    function buildPerfectStem(stem) {
+        return stem + 'le';
+    }
+
     const PERSONS = [
         { id: '1sg', label: 'Nai (I)', ending: 'n' },
         { id: '2sg', label: 'Sai (you sg)', ending: 's' },
@@ -532,6 +547,7 @@
         }
 
         const futureStem = buildFutureStem(lemma);
+        const perfectStem = buildPerfectStem(presentStem); // perfetto su base presente
 
         function buildRows(stem) {
             return PERSONS.map(person => {
@@ -542,10 +558,14 @@
                 return `
                     <tr>
                         <td>${person.label}</td>
-                        <td class="affirmative">${affirmative}</td>
-                        <td class="askaoza-text">${affAskaoza}</td>
-                        <td class="negative">${negative}</td>
-                        <td class="askaoza-text">${negAskaoza}</td>
+                        <td class="affirmative-cell">
+                            <span class="affirmative">${affirmative}</span>
+                            <span class="askaoza-text">${affAskaoza}</span>
+                        </td>
+                        <td class="negative-cell">
+                            <span class="negative">${negative}</span>
+                            <span class="askaoza-text">${negAskaoza}</span>
+                        </td>
                     </tr>
                 `;
             }).join('');
@@ -553,6 +573,7 @@
 
         const presentRows = buildRows(presentStem);
         const pastRows = buildRows(pastStem);
+        const perfectRows = buildRows(perfectStem);
         const futureRows = buildRows(futureStem);
 
         document.getElementById('verbTitle').textContent =
@@ -561,46 +582,53 @@
         document.getElementById('conjugationTable').innerHTML = `
             <thead>
                 <tr>
-                    <th colspan="5" class="tense-header present">
+                    <th colspan="2" class="tense-header present">
                         Present simple / 現在形（肯定形＋否定形）
                     </th>
                 </tr>
                 <tr>
                     <th>Person 人称</th>
                     <th>Affirmative 肯定形</th>
-                    <th>Askaoza</th>
                     <th>Negative 否定形</th>
-                    <th>Askaoza</th>
                 </tr>
             </thead>
             <tbody>${presentRows}</tbody>
             <thead>
                 <tr>
-                    <th colspan="5" class="tense-header past">
+                    <th colspan="2" class="tense-header past">
                         Simple past / 過去形（肯定形＋否定形）
                     </th>
                 </tr>
                 <tr>
                     <th>Person 人称</th>
                     <th>Affirmative 肯定形</th>
-                    <th>Askaoza</th>
                     <th>Negative 否定形</th>
-                    <th>Askaoza</th>
                 </tr>
             </thead>
             <tbody>${pastRows}</tbody>
             <thead>
                 <tr>
-                    <th colspan="5" class="tense-header future">
+                    <th colspan="2" class="tense-header perfect">
+                        Perfect / 完了形（肯定形＋否定形）
+                    </th>
+                </tr>
+                <tr>
+                    <th>Person 人称</th>
+                    <th>Affirmative 肯定形</th>
+                    <th>Negative 否定形</th>
+                </tr>
+            </thead>
+            <tbody>${perfectRows}</tbody>
+            <thead>
+                <tr>
+                    <th colspan="2" class="tense-header future">
                         Future / 未来形（肯定形＋否定形）
                     </th>
                 </tr>
                 <tr>
                     <th>Person 人称</th>
                     <th>Affirmative 肯定形</th>
-                    <th>Askaoza</th>
                     <th>Negative 否定形</th>
-                    <th>Askaoza</th>
                 </tr>
             </thead>
             <tbody>${futureRows}</tbody>
