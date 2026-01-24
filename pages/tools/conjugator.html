@@ -102,6 +102,27 @@
             font-weight: 600;
             color: #e5e7eb;
         }
+
+        /* Titoli dei blocchi dei tempi verbali: più contrasto e leggibilità */
+        .tense-header {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.75rem;
+        }
+        .tense-header.present {
+            background: #bfdbfe;      /* blu chiaro */
+            color: #1f2937;          /* testo scuro */
+        }
+        .tense-header.past {
+            background: #fee2e2;      /* rosso chiaro */
+            color: #1f2937;
+        }
+        .tense-header.future {
+            background: #fef3c7;      /* giallo chiaro */
+            color: #1f2937;
+        }
+
         .affirmative {
             color: #6ee7b7;
             font-weight: 500;
@@ -128,8 +149,8 @@
 
         <h1>🗣️ Izaki Verb Conjugator / 華邦語動詞活用表</h1>
         <p class="description">
-            Group 1, 2, 3 • Present simple + Simple past (affirmative + negative)<br>
-            第一・二・三集団・現在形＋過去形（肯定形＋否定形）
+            Group 1, 2, 3 • Present simple + Simple past + Future (affirmative + negative)<br>
+            第一・二・三集団・現在形＋過去形＋未来形（肯定形＋否定形）
         </p>
 
         <div class="autocomplete">
@@ -148,22 +169,7 @@
         </div>
     </div>
 
-    <!-- Script di logica (immutato) -->
     <script>
-    /* tutto il tuo script JS esistente, senza modifiche, da 
-       // 1. Caricamento dizionario
-       fino a window.onload = async function () { ... }; */
-    </script>
-
-    <!-- Converter askaoza -->
-    <script src="/izaki-dictionary/scripts/askaoza.js"></script>
-    <!-- Navbar script (posizionato alla fine) -->
-    <script src="/izaki-dictionary/scripts/script.js"></script>
-</body>
-</html>
-
-
-   <script>
     // ==============================
     // 1. Caricamento dizionario
     // ==============================
@@ -180,13 +186,9 @@
             }
 
             const data = await response.json();
-            console.log('Total entries in dictionary.json:', data.length);
-
             const verbs = data.filter(
                 (item) => item.pos && item.pos.toLowerCase().includes('v')
             );
-
-            console.log('Filtered verb entries:', verbs.length);
             return verbs;
         } catch (error) {
             console.error('Error loading dictionary:', error);
@@ -261,7 +263,6 @@
 
         const chars = lemma.split('');
         const len = chars.length;
-
         const beforeSu = chars[len - 3];
 
         if (!VOWELS.includes(beforeSu)) {
@@ -506,7 +507,16 @@
     }
 
     // ==============================
-    // 6. Persone
+    // 6. Futuro: base in -ma
+    // ==============================
+    function buildFutureStem(lemma) {
+        // regola base: togli -su e aggiungi -ma (yoma, ukema, mikama, ecc.) [web:5]
+        const base = lemma.slice(0, -2); // senza 'su'
+        return base + 'ma';
+    }
+
+    // ==============================
+    // 7. Persone
     // ==============================
     const PERSONS = [
         { id: '1sg', label: 'Nai (I)', ending: 'n' },
@@ -518,7 +528,7 @@
     ];
 
     // ==============================
-    // 7. Coniugazione: presente + passato + askaoza
+    // 8. Coniugazione: presente + passato + futuro (+ askaoza)
     // ==============================
     function conjugateVerb(lemma) {
         const verb = dictionary.find((v) => v.lemma === lemma);
@@ -531,7 +541,6 @@
         }
 
         const group = detectVerbGroup(lemma);
-        console.log('Lemma:', lemma, '| Group:', group);
 
         if (group !== 'G1' && group !== 'G2' && group !== 'G3') {
             document.getElementById('result').innerHTML =
@@ -558,14 +567,13 @@
             pastStem = buildGroup3PastStem(lemma);
         }
 
-        console.log('Present stem:', presentStem, '| Past stem:', pastStem);
+        const futureStem = buildFutureStem(lemma);
 
-        // righe presente
+        // Presente
         let presentRows = '';
         PERSONS.forEach((person) => {
             const affirmative = presentStem + person.ending;
             const negative = presentStem + 'na' + person.ending;
-            
             const affAskaoza = toAskaozaText(affirmative);
             const negAskaoza = toAskaozaText(negative);
 
@@ -580,12 +588,11 @@
             `;
         });
 
-        // righe passato
+        // Passato
         let pastRows = '';
         PERSONS.forEach((person) => {
             const affirmative = pastStem + person.ending;
             const negative = pastStem + 'na' + person.ending;
-            
             const affAskaoza = toAskaozaText(affirmative);
             const negAskaoza = toAskaozaText(negative);
 
@@ -600,63 +607,10 @@
             `;
         });
 
-        document.getElementById('verbTitle').textContent =
-            `${lemma} (${verb.english?.[0] || 'to ?'})`;
-
-        document.getElementById('conjugationTable').innerHTML = `
-            <thead>
-                <tr>
-                    <th colspan="5" style="text-align:center; background:#e3f2fd; font-size:1.1rem;">
-                        Present simple / 現在形（肯定形＋否定形）
-                    </th>
-                </tr>
-                <tr>
-                    <th>Person 人称</th>
-                    <th>Affirmative 肯定形</th>
-                    <th>Askaoza</th>
-                    <th>Negative 否定形</th>
-                    <th>Askaoza</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${presentRows}
-            </tbody>
-            <thead>
-                <tr>
-                    <th colspan="5" style="text-align:center; background:#fff3cd; font-size:1.1rem; padding-top:1.5rem;">
-                        Simple past / 過去形（肯定形＋否定形）
-                    </th>
-                </tr>
-                <tr>
-                    <th>Person 人称</th>
-                    <th>Affirmative 肯定形</th>
-                    <th>Askaoza</th>
-                    <th>Negative 否定形</th>
-                    <th>Askaoza</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${pastRows}
-            </tbody>
-        `;
-
-        document.getElementById('result').style.display = 'block';
-    }
-
-    // ==============================
-    // 8. Inizializzazione
-    // ==============================
-    window.onload = async function () {
-        dictionary = await loadDictionary();
-        console.log(
-            `Dictionary loaded. Verbs available: ${dictionary.length}`
-        );
-    };
-</script>
-
-    <!-- Converter askaoza -->
-    <script src="/izaki-dictionary/scripts/askaoza.js"></script>
-    <!-- Script navbar -->
-    <script src="/izaki-dictionary/scripts/script.js"></script>
-</body>
-</html>
+        // Futuro
+        let futureRows = '';
+        PERSONS.forEach((person) => {
+            const affirmative = futureStem + person.ending;
+            const negative = futureStem + 'na' + person.ending;
+            const affAskaoza = toAskaozaText(affirmative);
+            const negAskaoza = toA
