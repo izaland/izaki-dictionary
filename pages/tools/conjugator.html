@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Izaki Verb Conjugator | Izaki Dictionary</title>
-    
+
     <!-- Font gujarati per askaoza -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
-    
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -91,7 +91,7 @@
             margin-top: 1rem;
         }
         th, td {
-            padding: 0.5rem 0.75rem; /* ridotto padding verticale */
+            padding: 0.5rem 0.75rem;
             text-align: left;
             border-bottom: 1px solid #1f2937;
         }
@@ -102,10 +102,10 @@
             padding: 0.75rem;
         }
         .tense-header {
-            text-align: center;
+            text-align: center !important;
             font-size: 1.1rem;
             font-weight: 600;
-            padding: 0.75rem;
+            padding: 1rem;
         }
         .tense-header.present {
             background: #bfdbfe;
@@ -133,16 +133,17 @@
         }
         .askaoza-text {
             font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
-            font-size: 1.1rem; /* leggermente più piccolo */
+            font-size: 1.1rem;
             color: #e5e7eb;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
-            padding-left: 0.25rem; /* ravvicinato al romaji */
+            padding-left: 0.25rem;
+            display: block;
+            font-size: 0.95em;
         }
-        /* Separazione affermativa/negativa */
         .affirmative-cell {
-            border-right: 2px solid #374151; /* linea divisoria */
-            padding-right: 1rem; /* spazio extra a destra dell'affermativa */
+            border-right: 2px solid #374151;
+            padding-right: 1rem;
         }
     </style>
 </head>
@@ -177,11 +178,8 @@
 
     <script src="/izaki-dictionary/scripts/askaoza.js"></script>
     <script src="/izaki-dictionary/scripts/script.js"></script>
-    
+
     <script>
-    // ==============================
-    // 1. Caricamento dizionario
-    // ==============================
     async function loadDictionary() {
         try {
             const response = await fetch('../../data/dictionary.json');
@@ -208,9 +206,6 @@
     let dictionary = [];
     let selectedVerb = '';
 
-    // ==============================
-    // 2. Autocomplete
-    // ==============================
     document
         .getElementById('verbInput')
         .addEventListener('input', function () {
@@ -547,7 +542,7 @@
         }
 
         const futureStem = buildFutureStem(lemma);
-        const perfectStem = buildPerfectStem(presentStem); // perfetto su base presente
+        const perfectStem = buildPerfectStem(presentStem);
 
         function buildRows(stem) {
             return PERSONS.map(person => {
@@ -562,7 +557,7 @@
                             <span class="affirmative">${affirmative}</span>
                             <span class="askaoza-text">${affAskaoza}</span>
                         </td>
-                        <td class="negative-cell">
+                        <td>
                             <span class="negative">${negative}</span>
                             <span class="askaoza-text">${negAskaoza}</span>
                         </td>
@@ -582,7 +577,7 @@
         document.getElementById('conjugationTable').innerHTML = `
             <thead>
                 <tr>
-                    <th colspan="2" class="tense-header present">
+                    <th colspan="3" class="tense-header present">
                         Present simple / 現在形（肯定形＋否定形）
                     </th>
                 </tr>
@@ -595,7 +590,7 @@
             <tbody>${presentRows}</tbody>
             <thead>
                 <tr>
-                    <th colspan="2" class="tense-header past">
+                    <th colspan="3" class="tense-header past">
                         Simple past / 過去形（肯定形＋否定形）
                     </th>
                 </tr>
@@ -608,7 +603,7 @@
             <tbody>${pastRows}</tbody>
             <thead>
                 <tr>
-                    <th colspan="2" class="tense-header perfect">
+                    <th colspan="3" class="tense-header perfect">
                         Perfect / 完了形（肯定形＋否定形）
                     </th>
                 </tr>
@@ -621,7 +616,7 @@
             <tbody>${perfectRows}</tbody>
             <thead>
                 <tr>
-                    <th colspan="2" class="tense-header future">
+                    <th colspan="3" class="tense-header future">
                         Future / 未来形（肯定形＋否定形）
                     </th>
                 </tr>
@@ -637,9 +632,6 @@
         document.getElementById('result').style.display = 'block';
     }
 
-    // ==============================
-    // 9. Inizializzazione
-    // ==============================
     window.onload = async function () {
         dictionary = await loadDictionary();
         console.log(`Dictionary loaded. Verbs available: ${dictionary.length}`);
