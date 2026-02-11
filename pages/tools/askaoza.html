@@ -126,7 +126,43 @@
   <section class="section">
     <div class="container">
 
-   <!-- Quick reference tables -->
+      <div class="columns">
+        <!-- LATIN INPUT -->
+        <div class="column">
+          <h3 class="title is-5">Latin → Askaoza</h3>
+          <div class="field has-addons is-flex is-align-items-center">
+            <div class="control is-expanded input-wrapper">
+              <textarea id="latinInput" class="textarea" rows="5"
+                placeholder="Write in alphabet the text you want to convert in Askaoza..."></textarea>
+              <button type="button"
+                      id="clearLatin"
+                      class="clear-btn"
+                      aria-label="Clear input">×</button>
+            </div>
+          </div>
+          <button id="toAskaozaBtn" class="button is-link is-light mt-2">
+            Convert to Askaoza
+          </button>
+          <div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
+        </div>
+
+        <!-- ASKAOZA INPUT -->
+        <div class="column">
+          <h3 class="title is-5">Askaoza → Latin</h3>
+          <textarea id="askaozaInput" class="textarea askaoza-sample" rows="5"
+            placeholder="Paste or type Askaoza text here..."></textarea>
+          <button id="toLatinBtn" class="button is-link is-light mt-2">
+            Latinize
+          </button>
+          <div id="latinOutput" class="notification is-white mt-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+     <!-- Quick reference tables -->
 <div class="content">
   <h2 class="title is-4">Quick reference / 速覽表</h2>
   <p class="notes">
@@ -215,40 +251,6 @@
       </div>
 
       <hr>
-
-      <div class="columns">
-        <!-- LATIN INPUT -->
-        <div class="column">
-          <h3 class="title is-5">Latin → Askaoza</h3>
-          <div class="field has-addons is-flex is-align-items-center">
-            <div class="control is-expanded input-wrapper">
-              <textarea id="latinInput" class="textarea" rows="5"
-                placeholder="Write in alphabet the text you want to convert in Askaoza..."></textarea>
-              <button type="button"
-                      id="clearLatin"
-                      class="clear-btn"
-                      aria-label="Clear input">×</button>
-            </div>
-          </div>
-          <button id="toAskaozaBtn" class="button is-link is-light mt-2">
-            Convert to Askaoza
-          </button>
-          <div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
-        </div>
-
-        <!-- ASKAOZA INPUT -->
-        <div class="column">
-          <h3 class="title is-5">Askaoza → Latin</h3>
-          <textarea id="askaozaInput" class="textarea askaoza-sample" rows="5"
-            placeholder="Paste or type Askaoza text here..."></textarea>
-          <button id="toLatinBtn" class="button is-link is-light mt-2">
-            Latinize
-          </button>
-          <div id="latinOutput" class="notification is-white mt-3"></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Script originali -->
   <script src="/izaki-dictionary/scripts/askaoza.js"></script>
