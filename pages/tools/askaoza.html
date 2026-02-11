@@ -29,6 +29,20 @@
       text-rendering: optimizeLegibility;
     }
 
+    .quick-table td.glyph,
+.quick-table th.glyph{
+  font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
+  font-size: 2.25rem;  /* circa “36” a schermo */
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+/* Un po’ più di aria per evitare celle “strette” */
+.quick-table td.glyph{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 /* HERO: evita overlap tra title e subtitle (Bulma usa margini “ravvicinati”) */
 .hero .title{
   line-height: 1.2;
@@ -112,49 +126,50 @@
   <section class="section">
     <div class="container">
 
-      <!-- Quick reference tables -->
-      <div class="content">
-        <h2 class="title is-4">Quick reference / 速覽表</h2>
-        <p class="notes">
-          This page converts Izaki Latin orthography (Roman alp.) to the Askaoza script and back.
-          The tables below are meant as a quick lookup for common letters and pronunciation.
-        </p>
+   <!-- Quick reference tables -->
+<div class="content">
+  <h2 class="title is-4">Quick reference / 速覽表</h2>
+  <p class="notes">
+    This page converts Izaki Latin orthography (Roman alp.) to the Askaoza script and back.
+    The tables below are meant as a quick lookup for common letters and pronunciation.
+  </p>
 
-        <h3 class="title is-5">Askaoza consonant set (draft) / 子音表（草案）</h3>
-        <div class="table-wrap">
-          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth quick-table">
-            <caption class="has-text-weight-semibold">New Version (finalizing in progress)</caption>
-            <thead>
-              <tr>
-                <th>Roman alp.</th>
-                <th>Character</th>
-                <th>IPA</th>
-                <th>Roman alp.</th>
-                <th>Character</th>
-                <th>IPA</th>
-              </tr>
-              <tr>
-                <th colspan="3" class="has-text-centered">清音 (seion) — unvoiced</th>
-                <th colspan="3" class="has-text-centered">濁音 (takuon) — voiced</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><th>K</th><td>ડ</td><td>/k/</td><th>G</th><td>ડૃ</td><td>/g/</td></tr>
-              <tr><th>P</th><td>ર</td><td>/p/</td><th>B</th><td>રૃ</td><td>/b/</td></tr>
-              <tr><th>S</th><td>ટ</td><td>/s/</td><th>Z</th><td>ટૃ</td><td>/z/</td></tr>
-              <tr><th>T</th><td>ઠ</td><td>/t/</td><th>D</th><td>ઠૃ</td><td>/d/</td></tr>
-              <tr><th>F</th><td>૨</td><td>/f/</td><th>V</th><td>૨ૃ</td><td>/v/</td></tr>
-              <tr><th>CH</th><td>મ</td><td>/ʧ/</td><th>J</th><td>મૃ</td><td>/ʤ/</td></tr>
-              <tr><th>SH</th><td>ય</td><td>/ʃ/</td><th>ZH</th><td>યૃ</td><td>/ʒ/</td></tr>
-              <tr><th>TS</th><td>ઢ</td><td>/ʦ/</td><th>Đ</th><td>ઢૃ</td><td>/ʣ/</td></tr>
-              <tr><th>Vowel ph.</th><td>૮</td><td>∅</td><th>H</th><td>ત</td><td>/h/</td></tr>
-              <tr><th></th><td></td><td></td><th>N</th><td>પ</td><td>/n/</td></tr>
-              <tr><th></th><td></td><td></td><th>M</th><td>ઇ</td><td>/m/</td></tr>
-              <tr><th></th><td></td><td></td><th>L</th><td>ધ</td><td>/l/</td></tr>
-              <tr><th></th><td></td><td></td><th>R</th><td>દ</td><td>/r/</td></tr>
-            </tbody>
-          </table>
-        </div>
+  <h3 class="title is-5">Askaoza consonant set (draft) / 子音表（草案）</h3>
+  <div class="table-wrap">
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth quick-table">
+      <caption class="has-text-weight-semibold">New Version (finalizing in progress)</caption>
+      <thead>
+        <tr>
+          <th>Roman alp.</th>
+          <th class="glyph">Character</th>
+          <th>IPA</th>
+          <th>Roman alp.</th>
+          <th class="glyph">Character</th>
+          <th>IPA</th>
+        </tr>
+        <tr>
+          <th colspan="3" class="has-text-centered">清音 (seion) — unvoiced</th>
+          <th colspan="3" class="has-text-centered">濁音 (takuon) — voiced</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th>K</th><td class="glyph">ડ</td><td>/k/</td><th>G</th><td class="glyph">ડૃ</td><td>/g/</td></tr>
+        <tr><th>P</th><td class="glyph">ર</td><td>/p/</td><th>B</th><td class="glyph">રૃ</td><td>/b/</td></tr>
+        <tr><th>S</th><td class="glyph">ટ</td><td>/s/</td><th>Z</th><td class="glyph">ટૃ</td><td>/z/</td></tr>
+        <tr><th>T</th><td class="glyph">ઠ</td><td>/t/</td><th>D</th><td class="glyph">ઠૃ</td><td>/d/</td></tr>
+        <tr><th>F</th><td class="glyph">૨</td><td>/f/</td><th>V</th><td class="glyph">૨ૃ</td><td>/v/</td></tr>
+        <tr><th>CH</th><td class="glyph">મ</td><td>/ʧ/</td><th>J</th><td class="glyph">મૃ</td><td>/ʤ/</td></tr>
+        <tr><th>SH</th><td class="glyph">ય</td><td>/ʃ/</td><th>ZH</th><td class="glyph">યૃ</td><td>/ʒ/</td></tr>
+        <tr><th>TS</th><td class="glyph">ઢ</td><td>/ʦ/</td><th>Đ</th><td class="glyph">ઢૃ</td><td>/ʣ/</td></tr>
+        <tr><th>Vowel ph.</th><td class="glyph">૮</td><td>∅</td><th>H</th><td class="glyph">ત</td><td>/h/</td></tr>
+        <tr><th></th><td class="glyph"></td><td></td><th>N</th><td class="glyph">પ</td><td>/n/</td></tr>
+        <tr><th></th><td class="glyph"></td><td></td><th>M</th><td class="glyph">ઇ</td><td>/m/</td></tr>
+        <tr><th></th><td class="glyph"></td><td></td><th>L</th><td class="glyph">ધ</td><td>/l/</td></tr>
+        <tr><th></th><td class="glyph"></td><td></td><th>R</th><td class="glyph">દ</td><td>/r/</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
         <details class="mt-4">
           <summary class="title is-5" style="cursor: pointer;">Izaki Language Phonetics Guide / 發音指南（點擊展開）</summary>
