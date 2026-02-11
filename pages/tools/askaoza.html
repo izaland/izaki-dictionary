@@ -29,9 +29,20 @@
       text-rendering: optimizeLegibility;
     }
 
-    .hero .title { line-height: 1.3; margin-bottom: 0.4rem; }
-    .hero .subtitle { line-height: 1.4; }
-    .subtitle-ja { font-size: 0.85em; opacity: 0.9; }
+.hero .title{
+  line-height: 1.25;
+  margin-bottom: 1.15rem;
+}
+.hero .title .subtitle-ja{
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.70em;
+  opacity: 0.95;
+}
+.hero .subtitle{
+  margin-top: 0;
+  line-height: 1.45;
+}
 
     /* Tabelle: leggibilità + mobile */
     .table-wrap { overflow-x: auto; }
@@ -40,11 +51,11 @@
     .quick-table code { background: rgba(10, 10, 10, 0.06); padding: 0.1rem 0.35rem; border-radius: 6px; }
 
     /* Microtipografia */
-    .notes {
-      color: rgba(0,0,0,0.75);
-      font-size: 0.95rem;
-      line-height: 1.55;
-    }
+.notes{
+  color: rgba(229, 231, 235, 0.92);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
 
     /* Fallback per clear button */
     .input-wrapper { position: relative; width: 100%; }
