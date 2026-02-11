@@ -12,13 +12,24 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
 
     <style>
+        :root {
+            --bg: #111827;
+            --panel: #020617;
+            --panel2: #0b1220;
+            --text: #e5e7eb;
+            --muted: #d1d5db;
+            --border: #1f2937;
+            --border2: #374151;
+            --accent: #3b82f6;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            background: #111827;
-            color: #e5e7eb;
+            background: var(--bg);
+            color: var(--text);
         }
         .page-container {
             max-width: 1200px;
@@ -31,119 +42,156 @@
             color: #93c5fd;
             text-decoration: none;
         }
-        .back-link:hover {
-            text-decoration: underline;
+        .back-link:hover { text-decoration: underline; }
+        h1 { margin: 0.25rem 0 0.25rem; color: #f9fafb; }
+        p.description { margin: 0.25rem 0 1.5rem; color: var(--muted); }
+
+        .grammar-notes {
+            background: var(--panel);
+            border-radius: 12px;
+            border-left: 5px solid var(--accent);
+            padding: 1.25rem 1.5rem;
+            margin: 1rem 0 1.5rem;
         }
-        h1 {
+        .grammar-notes h2 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+        .grammar-notes p, .grammar-notes li { color: var(--muted); }
+        .grammar-notes code {
+            background: var(--panel2);
+            border: 1px solid var(--border);
+            padding: 0.1rem 0.35rem;
+            border-radius: 6px;
+            color: #e5e7eb;
+        }
+        .grammar-notes details {
+            margin-top: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #0a1020;
+            overflow: clip;
+        }
+        .grammar-notes summary {
+            cursor: pointer;
+            padding: 0.75rem 0.9rem;
+            font-weight: 600;
             color: #f9fafb;
+            list-style: none;
         }
-        p.description {
-            margin-bottom: 1.5rem;
-            color: #d1d5db;
+        .grammar-notes summary::-webkit-details-marker { display: none; }
+        .grammar-notes .details-body {
+            padding: 0.75rem 0.9rem 0.9rem;
+            border-top: 1px solid var(--border);
         }
+        .grammar-notes ul { margin: 0.25rem 0 0.25rem 1.1rem; }
+
         .autocomplete {
             position: relative;
             width: 100%;
-            max-width: 400px;
+            max-width: 480px;
         }
         input {
             width: 100%;
             padding: 0.75rem;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             border: 2px solid #4b5563;
             border-radius: 8px;
-            background: #020617;
-            color: #e5e7eb;
+            background: var(--panel);
+            color: var(--text);
+        }
+        input:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
         }
         .suggestions {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background: #020617;
+            background: var(--panel);
             border: 1px solid #4b5563;
             border-top: none;
-            max-height: 200px;
+            max-height: 240px;
             overflow-y: auto;
             z-index: 1000;
             border-radius: 0 0 8px 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
         }
         .suggestion {
-            padding: 0.75rem;
+            padding: 0.7rem 0.75rem;
             cursor: pointer;
-            border-bottom: 1px solid #1f2937;
-            color: #e5e7eb;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
         }
-        .suggestion:hover, .suggestion.selected {
-            background: #111827;
+        .suggestion:hover, .suggestion.selected { background: #111827; }
+        .suggestion mark {
+            background: rgba(59, 130, 246, 0.25);
+            color: inherit;
+            padding: 0 0.15rem;
+            border-radius: 4px;
         }
+
         .conjugation-table {
             margin-top: 2rem;
-            background: #020617;
+            background: var(--panel);
             padding: 1.5rem;
             border-radius: 12px;
-            border-left: 5px solid #3b82f6;
+            border-left: 5px solid var(--accent);
         }
+        #verbTitle { margin: 0; }
+        .verb-meta { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
         }
         th, td {
-            padding: 0.5rem 0.75rem;
+            padding: 0.55rem 0.75rem;
             text-align: left;
-            border-bottom: 1px solid #1f2937;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
         }
-        th {
+        thead th {
             background: #111827;
             font-weight: 600;
-            color: #e5e7eb;
-            padding: 0.75rem;
+            color: var(--text);
         }
+
         .tense-header {
             text-align: center !important;
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 1rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 0.85rem;
+            border-bottom: 1px solid var(--border);
         }
-        .tense-header.present {
-            background: #bfdbfe;
-            color: #1f2937;
-        }
-        .tense-header.past {
-            background: #fee2e2;
-            color: #1f2937;
-        }
-        .tense-header.perfect {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        .tense-header.future {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        .affirmative {
-            color: #6ee7b7;
-            font-weight: 500;
-        }
-        .negative {
-            color: #fca5a5;
-            font-style: italic;
-        }
+        .tense-header.present { background: #bfdbfe; color: #1f2937; }
+        .tense-header.past { background: #fee2e2; color: #1f2937; }
+        .tense-header.perfect { background: #d1fae5; color: #065f46; }
+        .tense-header.future { background: #fef3c7; color: #92400e; }
+
+        .affirmative { color: #6ee7b7; font-weight: 600; }
+        .negative { color: #fca5a5; font-style: italic; font-weight: 600; }
+
         .askaoza-text {
             font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
-            font-size: 1.1rem;
-            color: #e5e7eb;
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
             padding-left: 0.25rem;
             display: block;
             font-size: 0.95em;
+            opacity: 0.95;
         }
+
         .affirmative-cell {
-            border-right: 2px solid #374151;
+            border-right: 2px solid var(--border2);
             padding-right: 1rem;
+        }
+
+        @media (max-width: 720px) {
+            .page-container { margin: 1rem auto; }
+            .conjugation-table { padding: 1rem; }
+            th, td { padding: 0.5rem; }
         }
     </style>
 </head>
@@ -154,11 +202,67 @@
     <div class="page-container">
         <a href="../.." class="back-link">← Home Izaki Dictionary</a>
 
-        <h1>🗣️ Izaki Verb Conjugator / 華邦語動詞活用表</h1>
+        <h1>Izaki Verb Conjugator / 華邦語動詞活用表</h1>
         <p class="description">
-            Group 1, 2, 3 • Present + Past + Perfect + Future (affirmative + negative)<br>
-            第一・二・三集団・現在形＋過去形＋完了形＋未来形（肯定形＋否定形）
+            Group 1, 2, 3 • Present + Past + Perfect + Future（肯定形＋否定形）<br>
+            第一・二・三集團・現在形＋過去形＋完了形＋未來形（肯定形＋否定形）
         </p>
+
+        <!-- Grammatical notes -->
+        <section class="grammar-notes" aria-label="Izaki verb grammar notes">
+            <h2>Grammatical notes / 文法筆記（動詞）</h2>
+            <p>
+                In Izaki, the dictionary form of verbs ends in <code>-su</code> (𖬖𐐢); the material before it is the lexical stem used to build other forms.
+            </p>
+
+            <details open>
+                <summary>1) Persons / 人稱</summary>
+                <div class="details-body">
+                    <ul>
+                        <li>Singular: 1st <code>-n</code>（我）, 2nd <code>-s</code>（汝）, 3rd <code>∅</code>（彼）.</li>
+                        <li>Plural: 1st <code>-nne</code>（我等）, 2nd <code>-sse</code>（汝等）, 3rd <code>-han</code>（彼等）.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>2) Verb groups / 動詞三類</summary>
+                <div class="details-body">
+                    <ul>
+                        <li>Group 1: ends in <code>CV + su</code> (…<code>-asu</code>, <code>-esu</code>, <code>-isu</code>, <code>-osu</code>, <code>-usu</code>).</li>
+                        <li>Group 2: ends in <code>VV + su</code> (long vowel / two vowels before <code>-su</code>).</li>
+                        <li>Group 3: consonant + <code>su</code> (often <code>n/s/l/r/k/h + su</code>), with stem alternations.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>3) Negative / 否定（無）</summary>
+                <div class="details-body">
+                    <p>
+                        The negative marker is <code>na</code>（無; often written 𖭑） placed close to the stem; personal endings attach after it.
+                    </p>
+                    <p>
+                        Example: <code>luma-n</code> “I sleep” → <code>luma-na-n</code> “I don’t sleep”.
+                    </p>
+                </div>
+            </details>
+
+            <details>
+                <summary>4) Tenses shown here / 本頁所示時制</summary>
+                <div class="details-body">
+                    <ul>
+                        <li>Present / 現在形: stem + person ending.</li>
+                        <li>Simple past / 過去形: past base + person ending; past negative commonly uses <code>-nai</code> right after the stem.</li>
+                        <li>Perfect / 完了形: <code>-le</code> after the (strong) stem.</li>
+                        <li>Future / 未來形: <code>-ma</code> after the (strong) stem; functionally “expectative”.</li>
+                    </ul>
+                    <p>
+                        Note: some Group 1 verbs have a “weak stem” vs “strong stem”; the weak stem is associated with a devoicing/purification pattern (清音化) and is discussed in the grammar tradition as 弱體.
+                    </p>
+                </div>
+            </details>
+        </section>
 
         <div class="autocomplete">
             <input
@@ -166,12 +270,14 @@
                 id="verbInput"
                 placeholder="Type an Izaki verb (e.g. kieresu, kadasu)..."
                 autocomplete="off"
+                aria-label="Verb search"
             />
-            <div id="suggestions" class="suggestions" style="display: none;"></div>
+            <div id="suggestions" class="suggestions" style="display: none;" role="listbox"></div>
         </div>
 
         <div id="result" class="conjugation-table" style="display: none;">
             <h3 id="verbTitle"></h3>
+            <p id="verbMeta" class="verb-meta"></p>
             <table id="conjugationTable"></table>
         </div>
     </div>
@@ -187,15 +293,8 @@
                 console.error('HTTP error while loading dictionary:', response.status, response.statusText);
                 return [];
             }
-
             const data = await response.json();
-            console.log('Total entries in dictionary.json:', data.length);
-
-            const verbs = data.filter(
-                (item) => item.pos && item.pos.toLowerCase().includes('v')
-            );
-
-            console.log('Filtered verb entries:', verbs.length);
+            const verbs = data.filter((item) => item.pos && item.pos.toLowerCase().includes('v'));
             return verbs;
         } catch (error) {
             console.error('Error loading dictionary:', error);
@@ -204,57 +303,115 @@
     }
 
     let dictionary = [];
-    let selectedVerb = '';
+    let selectedIndex = -1;
 
-    document
-        .getElementById('verbInput')
-        .addEventListener('input', function () {
-            const query = this.value.toLowerCase();
-            const suggestionsDiv = document.getElementById('suggestions');
+    const verbInput = document.getElementById('verbInput');
+    const suggestionsDiv = document.getElementById('suggestions');
 
-            if (query.length < 2) {
-                suggestionsDiv.style.display = 'none';
-                return;
-            }
+    function escapeHtml(str) {
+        return str
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
+    }
 
-            const matches = dictionary
-                .filter((verb) => verb.lemma.toLowerCase().includes(query))
-                .slice(0, 8);
+    function highlightMatch(text, query) {
+        const t = text;
+        const q = query.trim();
+        if (!q) return escapeHtml(t);
+        const idx = t.toLowerCase().indexOf(q.toLowerCase());
+        if (idx === -1) return escapeHtml(t);
+        const before = escapeHtml(t.slice(0, idx));
+        const match = escapeHtml(t.slice(idx, idx + q.length));
+        const after = escapeHtml(t.slice(idx + q.length));
+        return `${before}<mark>${match}</mark>${after}`;
+    }
 
-            if (matches.length === 0) {
-                suggestionsDiv.style.display = 'none';
-                return;
-            }
+    function closeSuggestions() {
+        suggestionsDiv.style.display = 'none';
+        suggestionsDiv.innerHTML = '';
+        selectedIndex = -1;
+    }
 
-            suggestionsDiv.innerHTML = matches
-                .map(
-                    (verb) =>
-                        `<div class="suggestion" onclick="selectVerb('${verb.lemma}')">${verb.lemma}</div>`
-                )
-                .join('');
-            suggestionsDiv.style.display = 'block';
-        });
+    function renderSuggestions(matches, query) {
+        if (matches.length === 0) {
+            closeSuggestions();
+            return;
+        }
+        suggestionsDiv.innerHTML = matches.map((verb, i) => {
+            const safeLemma = escapeHtml(verb.lemma);
+            return `<div class="suggestion" role="option" aria-selected="false" data-lemma="${safeLemma}" data-index="${i}">${highlightMatch(verb.lemma, query)}</div>`;
+        }).join('');
+        suggestionsDiv.style.display = 'block';
+        selectedIndex = -1;
+    }
 
-    window.selectVerb = function (lemma) {
-        selectedVerb = lemma;
-        document.getElementById('verbInput').value = lemma;
-        document.getElementById('suggestions').style.display = 'none';
+    function getCurrentMatches(query) {
+        return dictionary
+            .filter((verb) => verb.lemma.toLowerCase().includes(query))
+            .slice(0, 10);
+    }
+
+    function selectVerb(lemma) {
+        verbInput.value = lemma;
+        closeSuggestions();
         conjugateVerb(lemma);
-    };
+    }
 
-    document
-        .getElementById('verbInput')
-        .addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                const query = this.value.trim().toLowerCase();
-                const matched = dictionary.find(
-                    (v) => v.lemma.toLowerCase() === query
-                );
-                if (matched) {
-                    selectVerb(matched.lemma);
-                }
-            }
+    verbInput.addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        if (query.length < 2) {
+            closeSuggestions();
+            return;
+        }
+        const matches = getCurrentMatches(query);
+        renderSuggestions(matches, query);
+    });
+
+    verbInput.addEventListener('keydown', function (e) {
+        if (suggestionsDiv.style.display !== 'block') return;
+
+        const options = Array.from(suggestionsDiv.querySelectorAll('.suggestion'));
+        if (options.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = Math.min(selectedIndex + 1, options.length - 1);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = Math.max(selectedIndex - 1, 0);
+        } else if (e.key === 'Escape') {
+            closeSuggestions();
+            return;
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const idx = selectedIndex >= 0 ? selectedIndex : 0;
+            const lemma = options[idx].dataset.lemma;
+            selectVerb(lemma);
+            return;
+        } else {
+            return;
+        }
+
+        options.forEach((opt, i) => {
+            opt.classList.toggle('selected', i === selectedIndex);
+            opt.setAttribute('aria-selected', i === selectedIndex ? 'true' : 'false');
         });
+    });
+
+    suggestionsDiv.addEventListener('click', (e) => {
+        const el = e.target.closest('.suggestion');
+        if (!el) return;
+        selectVerb(el.dataset.lemma);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!suggestionsDiv.contains(e.target) && e.target !== verbInput) {
+            closeSuggestions();
+        }
+    });
 
     const VOWELS = ['a', 'e', 'i', 'o', 'u', 'y', 'w'];
 
@@ -263,18 +420,10 @@
         const chars = lemma.split('');
         const len = chars.length;
         const beforeSu = chars[len - 3];
-        if (!VOWELS.includes(beforeSu)) {
-            return 'G3';
-        }
+        if (!VOWELS.includes(beforeSu)) return 'G3';
         const beforeV = chars[len - 4];
-        if (!beforeV) {
-            return 'G1';
-        }
-        if (VOWELS.includes(beforeV)) {
-            return 'G2';
-        } else {
-            return 'G1';
-        }
+        if (!beforeV) return 'G1';
+        return VOWELS.includes(beforeV) ? 'G2' : 'G1';
     }
 
     const voicedToVoiceless = {
@@ -291,8 +440,7 @@
         const beforeLast = chars[len - 2];
 
         if (!VOWELS.includes(last) && VOWELS.includes(beforeLast)) {
-            const c = last;
-            const devoiced = voicedToVoiceless[c] || c;
+            const devoiced = voicedToVoiceless[last] || last;
             const stemCore = base.slice(0, -2);
             return stemCore + devoiced;
         }
@@ -302,12 +450,7 @@
             const prev = chars[cIndex - 1];
             const c = chars[cIndex];
             const next = chars[cIndex + 1];
-
-            if (
-                VOWELS.includes(prev) &&
-                VOWELS.includes(next) &&
-                voicedToVoiceless[c]
-            ) {
+            if (VOWELS.includes(prev) && VOWELS.includes(next) && voicedToVoiceless[c]) {
                 chars[cIndex] = voicedToVoiceless[c];
                 return chars.join('');
             }
@@ -316,9 +459,7 @@
         return base;
     }
 
-    function buildGroup2Stem(lemma) {
-        return lemma.slice(0, -2);
-    }
+    function buildGroup2Stem(lemma) { return lemma.slice(0, -2); }
 
     function nextVowelForGroup3(v) {
         switch (v) {
@@ -345,40 +486,19 @@
         if (C === 's') {
             const beforeV = chars[len - 3] || '';
             const lastThree = (beforeV + V + C).toLowerCase();
-
-            if (lastThree.endsWith('iss')) {
-                return stemCore + 'issho';
-            }
-            if (lastThree.endsWith('ass')) {
-                return stemCore + 'asse';
-            }
-            if (lastThree.endsWith('ess')) {
-                return stemCore + 'esshi';
-            }
-            if (lastThree.endsWith('oss')) {
-                return stemCore + 'ossu';
-            }
-            if (lastThree.endsWith('uss')) {
-                return stemCore + 'ussa';
-            }
+            if (lastThree.endsWith('iss')) return stemCore + 'issho';
+            if (lastThree.endsWith('ass')) return stemCore + 'asse';
+            if (lastThree.endsWith('ess')) return stemCore + 'esshi';
+            if (lastThree.endsWith('oss')) return stemCore + 'ossu';
+            if (lastThree.endsWith('uss')) return stemCore + 'ussa';
         }
 
-        if (C === 'n') {
-            return stemCore + V + 'nn' + V2;
-        }
-        if (C === 'h') {
-            return stemCore + V + 'pp' + V2;
-        }
-        if (C === 'l') {
-            return stemCore + V + 'll' + V2;
-        }
-        if (C === 'k') {
-            return stemCore + V + 'kk' + V2;
-        }
+        if (C === 'n') return stemCore + V + 'nn' + V2;
+        if (C === 'h') return stemCore + V + 'pp' + V2;
+        if (C === 'l') return stemCore + V + 'll' + V2;
+        if (C === 'k') return stemCore + V + 'kk' + V2;
         if (C === 'r') {
-            if (V === 'e') {
-                return stemCore + 'erī';
-            }
+            if (V === 'e') return stemCore + 'erī';
             return stemCore + V + 'ry' + V2;
         }
 
@@ -388,9 +508,7 @@
     function buildGroup1PastStem(lemma) {
         const presentStem = buildGroup1WeakStem(lemma);
 
-        if (lemma.endsWith('isu') || lemma.match(/y[aeiou]su$/)) {
-            return presentStem + 'i';
-        }
+        if (lemma.endsWith('isu') || lemma.match(/y[aeiou]su$/)) return presentStem + 'i';
 
         const chars = presentStem.split('');
         const len = chars.length;
@@ -402,10 +520,7 @@
         if (simpleVowels.includes(lastChar)) {
             chars[len - 1] = 'i';
             let pastStem = chars.join('');
-
-            if (pastStem.endsWith('si')) {
-                pastStem = pastStem.slice(0, -2) + 'shi';
-            }
+            if (pastStem.endsWith('si')) pastStem = pastStem.slice(0, -2) + 'shi';
             return pastStem;
         }
 
@@ -414,21 +529,14 @@
 
     function buildGroup2PastStem(lemma) {
         const presentStem = buildGroup2Stem(lemma);
-
-        if (lemma === 'isu') {
-            return 'iki';
-        }
+        if (lemma === 'isu') return 'iki';
 
         const chars = presentStem.split('');
         const len = chars.length;
         if (len < 1) return presentStem + 'ki';
 
         const lastChar = chars[len - 1];
-
-        if (VOWELS.includes(lastChar)) {
-            return presentStem.slice(0, -1) + 'ki';
-        }
-
+        if (VOWELS.includes(lastChar)) return presentStem.slice(0, -1) + 'ki';
         return presentStem + 'ki';
     }
 
@@ -445,196 +553,154 @@
         if (C === 's') {
             const beforeV = chars[len - 3] || '';
             const lastThree = (beforeV + V + C).toLowerCase();
-
-            if (lastThree.endsWith('iss')) {
-                return stemCore + 'isshii';
-            }
-            if (lastThree.endsWith('ass')) {
-                return stemCore + 'asshi';
-            }
-            if (lastThree.endsWith('ess')) {
-                return stemCore + 'esshi';
-            }
-            if (lastThree.endsWith('oss')) {
-                return stemCore + 'osshi';
-            }
-            if (lastThree.endsWith('uss')) {
-                return stemCore + 'usshi';
-            }
+            if (lastThree.endsWith('iss')) return stemCore + 'isshii';
+            if (lastThree.endsWith('ass')) return stemCore + 'asshi';
+            if (lastThree.endsWith('ess')) return stemCore + 'esshi';
+            if (lastThree.endsWith('oss')) return stemCore + 'osshi';
+            if (lastThree.endsWith('uss')) return stemCore + 'usshi';
         }
 
-        if (C === 'n') {
-            return stemCore + V + 'nni';
-        }
-
-        if (C === 'h') {
-            return stemCore + V + 'ppi';
-        }
-
-        if (C === 'l') {
-            return stemCore + V + 'lli';
-        }
-
-        if (C === 'k') {
-            return stemCore + V + 'kki';
-        }
-
-        if (C === 'r') {
-            return stemCore + V + 'rki';
-        }
+        if (C === 'n') return stemCore + V + 'nni';
+        if (C === 'h') return stemCore + V + 'ppi';
+        if (C === 'l') return stemCore + V + 'lli';
+        if (C === 'k') return stemCore + V + 'kki';
+        if (C === 'r') return stemCore + V + 'rki';
 
         return stemCore + V + C + 'i';
     }
 
-    function buildFutureStem(lemma) {
-        const base = lemma.slice(0, -2);
-        return base + 'ma';
-    }
-
-    function buildPerfectStem(stem) {
-        return stem + 'le';
-    }
+    function buildPerfectBase(strongStem) { return strongStem + 'le'; }
+    function buildFutureBase(strongStem) { return strongStem + 'ma'; }
 
     const PERSONS = [
-        { id: '1sg', label: 'Nai (I)', ending: 'n' },
-        { id: '2sg', label: 'Sai (you sg)', ending: 's' },
-        { id: '3sg', label: 'Han (he/she)', ending: '' },
-        { id: '1pl', label: 'Naiin (we)', ending: 'nne' },
-        { id: '2pl', label: 'Saiin (you pl)', ending: 'sse' },
-        { id: '3pl', label: 'Hannu (they)', ending: 'han' },
+        { id: '1sg', label: 'Nai（我）', ending: 'n' },
+        { id: '2sg', label: 'Sai（汝）', ending: 's' },
+        { id: '3sg', label: 'Han（彼）', ending: '' },
+        { id: '1pl', label: 'Naiin（我等）', ending: 'nne' },
+        { id: '2pl', label: 'Saiin（汝等）', ending: 'sse' },
+        { id: '3pl', label: 'Hannu（彼等）', ending: 'han' },
     ];
+
+    function toAskaozaSafe(text) {
+        try {
+            if (typeof toAskaozaText === 'function') return toAskaozaText(text);
+            return '';
+        } catch (e) { return ''; }
+    }
+
+    function buildPersonRows({ affirmativeFn, negativeFn }) {
+        return PERSONS.map(person => {
+            const affirmative = affirmativeFn(person);
+            const negative = negativeFn(person);
+            const affAskaoza = toAskaozaSafe(affirmative);
+            const negAskaoza = toAskaozaSafe(negative);
+
+            return `
+                <tr>
+                    <td>${person.label}</td>
+                    <td class="affirmative-cell">
+                        <span class="affirmative">${affirmative}</span>
+                        <span class="askaoza-text">${affAskaoza}</span>
+                    </td>
+                    <td>
+                        <span class="negative">${negative}</span>
+                        <span class="askaoza-text">${negAskaoza}</span>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
 
     function conjugateVerb(lemma) {
         const verb = dictionary.find((v) => v.lemma === lemma);
 
+        const resultEl = document.getElementById('result');
+        const tableEl = document.getElementById('conjugationTable');
+
         if (!verb || !verb.lemma.endsWith('su')) {
-            document.getElementById('result').innerHTML =
-                '<p>❌ Verb not found or does not end in -su</p>';
-            document.getElementById('result').style.display = 'block';
+            resultEl.style.display = 'block';
+            tableEl.innerHTML = '';
+            document.getElementById('verbTitle').textContent = '❌ Verb not found or does not end in -su';
+            document.getElementById('verbMeta').textContent = '';
             return;
         }
 
         const group = detectVerbGroup(lemma);
-
         if (group !== 'G1' && group !== 'G2' && group !== 'G3') {
-            document.getElementById('result').innerHTML =
-                `<p>⚠️ Only Group 1, 2 and 3 verbs are supported. Detected group: ${group}</p>`;
-            document.getElementById('result').style.display = 'block';
+            resultEl.style.display = 'block';
+            tableEl.innerHTML = '';
+            document.getElementById('verbTitle').textContent = `⚠️ Unsupported verb group: ${group}`;
+            document.getElementById('verbMeta').textContent = '';
             return;
         }
 
-        let presentStem;
-        if (group === 'G1') {
-            presentStem = buildGroup1WeakStem(lemma);
-        } else if (group === 'G2') {
-            presentStem = buildGroup2Stem(lemma);
-        } else {
-            presentStem = buildGroup3Stem(lemma);
-        }
+        const strongStem = lemma.slice(0, -2);
 
-        let pastStem;
-        if (group === 'G1') {
-            pastStem = buildGroup1PastStem(lemma);
-        } else if (group === 'G2') {
-            pastStem = buildGroup2PastStem(lemma);
-        } else {
-            pastStem = buildGroup3PastStem(lemma);
-        }
+        const presentBase = (group === 'G1')
+            ? buildGroup1WeakStem(lemma)
+            : (group === 'G2')
+                ? buildGroup2Stem(lemma)
+                : buildGroup3Stem(lemma);
 
-        const futureStem = buildFutureStem(lemma);
-        const perfectStem = buildPerfectStem(presentStem);
+        const pastAffBase = (group === 'G1')
+            ? buildGroup1PastStem(lemma)
+            : (group === 'G2')
+                ? buildGroup2PastStem(lemma)
+                : buildGroup3PastStem(lemma);
 
-        function buildRows(stem) {
-            return PERSONS.map(person => {
-                const affirmative = stem + person.ending;
-                const negative = stem + 'na' + person.ending;
-                const affAskaoza = toAskaozaText(affirmative);
-                const negAskaoza = toAskaozaText(negative);
-                return `
-                    <tr>
-                        <td>${person.label}</td>
-                        <td class="affirmative-cell">
-                            <span class="affirmative">${affirmative}</span>
-                            <span class="askaoza-text">${affAskaoza}</span>
-                        </td>
-                        <td>
-                            <span class="negative">${negative}</span>
-                            <span class="askaoza-text">${negAskaoza}</span>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
+        const perfectBase = buildPerfectBase(strongStem);
+        const futureBase = buildFutureBase(strongStem);
 
-        const presentRows = buildRows(presentStem);
-        const pastRows = buildRows(pastStem);
-        const perfectRows = buildRows(perfectStem);
-        const futureRows = buildRows(futureStem);
+        const meaning = (verb.english && verb.english.length > 0) ? verb.english[0] : 'to ?';
 
-        document.getElementById('verbTitle').textContent =
-            `${lemma} (${verb.english?.[0] || 'to ?'})`;
+        document.getElementById('verbTitle').textContent = `${lemma} (${meaning})`;
+        document.getElementById('verbMeta').textContent = `Group: ${group} · Stem（語幹）: ${strongStem}-`;
 
-        document.getElementById('conjugationTable').innerHTML = `
+        const presentRows = buildPersonRows({
+            affirmativeFn: (p) => presentBase + p.ending,
+            negativeFn: (p) => presentBase + 'na' + p.ending
+        });
+
+        const pastRows = buildPersonRows({
+            affirmativeFn: (p) => pastAffBase + p.ending,
+            negativeFn: (p) => presentBase + 'nai' + p.ending
+        });
+
+        const perfectRows = buildPersonRows({
+            affirmativeFn: (p) => perfectBase + p.ending,
+            negativeFn: (p) => strongStem + 'na' + 'le' + p.ending
+        });
+
+        const futureRows = buildPersonRows({
+            affirmativeFn: (p) => futureBase + p.ending,
+            negativeFn: (p) => strongStem + 'na' + 'ma' + p.ending
+        });
+
+        tableEl.innerHTML = `
             <thead>
                 <tr>
-                    <th colspan="3" class="tense-header present">
-                        Present simple / 現在形（肯定形＋否定形）
-                    </th>
-                </tr>
-                <tr>
-                    <th>Person 人称</th>
-                    <th>Affirmative 肯定形</th>
-                    <th>Negative 否定形</th>
+                    <th>Person / 人稱</th>
+                    <th>Affirmative / 肯定形</th>
+                    <th>Negative / 否定形</th>
                 </tr>
             </thead>
-            <tbody>${presentRows}</tbody>
-            <thead>
-                <tr>
-                    <th colspan="3" class="tense-header past">
-                        Simple past / 過去形（肯定形＋否定形）
-                    </th>
-                </tr>
-                <tr>
-                    <th>Person 人称</th>
-                    <th>Affirmative 肯定形</th>
-                    <th>Negative 否定形</th>
-                </tr>
-            </thead>
-            <tbody>${pastRows}</tbody>
-            <thead>
-                <tr>
-                    <th colspan="3" class="tense-header perfect">
-                        Perfect / 完了形（肯定形＋否定形）
-                    </th>
-                </tr>
-                <tr>
-                    <th>Person 人称</th>
-                    <th>Affirmative 肯定形</th>
-                    <th>Negative 否定形</th>
-                </tr>
-            </thead>
-            <tbody>${perfectRows}</tbody>
-            <thead>
-                <tr>
-                    <th colspan="3" class="tense-header future">
-                        Future / 未来形（肯定形＋否定形）
-                    </th>
-                </tr>
-                <tr>
-                    <th>Person 人称</th>
-                    <th>Affirmative 肯定形</th>
-                    <th>Negative 否定形</th>
-                </tr>
-            </thead>
-            <tbody>${futureRows}</tbody>
+            <tbody>
+                <tr><th colspan="3" class="tense-header present">Present / 現在形</th></tr>
+                ${presentRows}
+                <tr><th colspan="3" class="tense-header past">Simple past / 過去形</th></tr>
+                ${pastRows}
+                <tr><th colspan="3" class="tense-header perfect">Perfect / 完了形</th></tr>
+                ${perfectRows}
+                <tr><th colspan="3" class="tense-header future">Future / 未來形</th></tr>
+                ${futureRows}
+            </tbody>
         `;
 
-        document.getElementById('result').style.display = 'block';
+        resultEl.style.display = 'block';
     }
 
     window.onload = async function () {
         dictionary = await loadDictionary();
-        console.log(`Dictionary loaded. Verbs available: ${dictionary.length}`);
     };
     </script>
 </body>
