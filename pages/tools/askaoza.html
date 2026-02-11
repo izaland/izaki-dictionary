@@ -29,19 +29,30 @@
       text-rendering: optimizeLegibility;
     }
 
+/* HERO: evita overlap tra title e subtitle (Bulma usa margini “ravvicinati”) */
 .hero .title{
-  line-height: 1.25;
-  margin-bottom: 1.15rem;
+  line-height: 1.2;
+  margin-bottom: 0 !important;     /* annulla margin-bottom Bulma */
+  padding-bottom: 1.6rem;         /* spazio reale che NON collassa */
 }
+
 .hero .title .subtitle-ja{
   display: block;
-  margin-top: 0.35rem;
-  font-size: 0.70em;
-  opacity: 0.95;
+  margin-top: 0.65rem;            /* spazio tra “Askaoza Converter” e “阿須和沙變換” */
+  font-size: 0.68em;
+  opacity: 0.96;
 }
-.hero .subtitle{
-  margin-top: 0;
+
+/* annulla il margin-top negativo che Bulma può dare al subtitle dopo un title */
+.hero .title + .subtitle{
+  margin-top: 0 !important;
   line-height: 1.45;
+}
+
+/* opzionale: rendi anche la seconda riga (漢字) del subtitle su riga propria */
+.hero .subtitle .subtitle-ja{
+  display: block;
+  margin-top: 0.35rem;
 }
 
     /* Tabelle: leggibilità + mobile */
@@ -87,12 +98,12 @@
     <div class="hero-body has-text-centered">
       <p class="title">
         Askaoza Converter
-        <span class="subtitle-ja">阿須和沙變換</span>
+        <span class="subtitle-ja">邦記變換</span>
       </p>
       <p class="subtitle">
         Latin ↔ Askaoza transliteration
         <br>
-        <span class="subtitle-ja">羅馬字・阿須和沙轉寫</span>
+        <span class="subtitle-ja">羅馬字・邦記轉寫</span>
       </p>
     </div>
   </section>
