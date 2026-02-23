@@ -70,49 +70,64 @@
             transition: color 0.2s ease;
         }
 
-        /* Main section */
+        /* Main section - CORRETTO: usa solo variabili tema, nessun fallback */
         body {
-            background-color: var(--bg-primary, #ffffff);
-            color: var(--text-primary, #1a1a1a);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .main-section {
-            background-color: var(--bg-primary, #ffffff);
-            color: var(--text-primary, #1a1a1a);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .main-section .title,
         .main-section .subtitle {
-            color: var(--text-primary, #1a1a1a) !important;
+            color: var(--text-primary) !important;
         }
 
         .main-section p,
-        .main-section li {
-            color: var(--text-primary, #1a1a1a);
+        .main-section li,
+        .main-section strong,
+        .main-section em {
+            color: var(--text-primary) !important;
         }
 
-        /* Table tema aware */
+        /* Table tema aware - CORRETTO */
         .table {
-            background-color: var(--panel, #ffffff);
-            color: var(--text-primary, #1a1a1a);
+            background-color: var(--panel);
+            color: var(--text-primary);
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .table th {
-            background-color: var(--panel-alt, #f8f9fa);
-            color: var(--text-primary, #1a1a1a) !important;
-            border-color: var(--border, #dee2e6);
+            background-color: var(--panel-alt);
+            color: var(--text-primary) !important;
+            border-color: var(--border);
         }
 
         .table td {
-            color: var(--text-primary, #1a1a1a) !important;
-            border-color: var(--border, #dee2e6);
+            color: var(--text-primary) !important;
+            border-color: var(--border);
         }
 
         .table.is-striped tbody tr:nth-child(even) {
-            background-color: var(--panel-alt, #f8f9fa);
+            background-color: var(--panel-alt);
+        }
+
+        /* Content class paragraphs - CORRETTO */
+        .content p,
+        .content ul li,
+        .content ol li {
+            color: var(--text-primary) !important;
+        }
+
+        /* Bulma overrides for hero (mantiene testo bianco) */
+        .hero.is-link .title,
+        .hero.is-link .subtitle {
+            color: #ffffff !important;
         }
     </style>
 </head>
