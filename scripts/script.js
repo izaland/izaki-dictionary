@@ -114,13 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Dark attivo → mostra opzione Light
       toggle.innerHTML = `
         <span class="icon"><i class="fas fa-sun" aria-hidden="true"></i></span>
-        <span>Light</span>
+        <span>Light/明</span>
       `;
     } else {
       // Light attivo → mostra opzione Dark
       toggle.innerHTML = `
         <span class="icon"><i class="fas fa-moon" aria-hidden="true"></i></span>
-        <span>Dark</span>
+        <span>Dark/暗</span>
       `;
     }
   }
