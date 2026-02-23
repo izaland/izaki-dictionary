@@ -15,11 +15,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
 
 <style>
+  /* Theme-aware variables */
+  html[data-theme="light"] {
+    --dict-bg: #f7ecd8;
+    --dict-container: rgba(255, 250, 230, 0.95);
+    --dict-input-bg: #fff8e0;
+    --dict-input-border: #d4b87c;
+    --dict-text: #4b3b2a;
+    --dict-text-dark: #3e2f1c;
+    --dict-lemma: #4b2f1e;
+    --dict-askaoza: #8b6f47;
+    --dict-ipa: #7a5e3a;
+    --dict-pos: #5a4529;
+    --dict-en: #1a3f6b;
+    --dict-it: #3e5a2a;
+    --dict-example: #5e4732;
+    --dict-btn-bg: #d4b87c;
+    --dict-btn-hover: #c4a86c;
+    --dict-entry-bg: rgba(255, 250, 230, 0.85);
+    --dict-entry-border: #d4b87c;
+    --dict-table-header: #f0e8d0;
+    --dict-table-border: #e0d4b8;
+    --dict-table-bg: rgba(255, 255, 255, 0.5);
+    --dict-shadow: rgba(0,0,0,0.1);
+  }
+
+  html[data-theme="dark"] {
+    --dict-bg: #1a1510;
+    --dict-container: rgba(30, 25, 20, 0.95);
+    --dict-input-bg: #2a2218;
+    --dict-input-border: #5a4a32;
+    --dict-text: #e5d5c0;
+    --dict-text-dark: #d0c0a8;
+    --dict-lemma: #f5e0c0;
+    --dict-askaoza: #d4b87c;
+    --dict-ipa: #c0a87a;
+    --dict-pos: #b0a088;
+    --dict-en: #93c5fd;
+    --dict-it: #86efac;
+    --dict-example: #d4b87c;
+    --dict-btn-bg: #5a4a32;
+    --dict-btn-hover: #6a5a42;
+    --dict-entry-bg: rgba(40, 35, 28, 0.85);
+    --dict-entry-border: #5a4a32;
+    --dict-table-header: #3a302a;
+    --dict-table-border: #4a3a2a;
+    --dict-table-bg: rgba(35, 30, 25, 0.5);
+    --dict-shadow: rgba(0,0,0,0.35);
+  }
+
   body {
-    background-color: #f7ecd8;
+    background-color: var(--dict-bg);
     font-family: "Merriweather", Georgia, serif;
     margin: 0;
     padding: 0;
+    transition: background-color 0.2s ease;
   }
 
   #container {
@@ -27,35 +77,42 @@
     max-width: 1000px;
     margin: 2rem auto;
     padding: 2rem 3rem;
-    background-color: rgba(255, 250, 230, 0.95);
+    background-color: var(--dict-container);
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px var(--dict-shadow);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   h1.title {
-    color: #4b3b2a;
+    color: var(--dict-text);
     font-size: 2.2rem;
     margin-bottom: 2rem;
     text-align: center;
-    text-shadow: 0 1px 0 #fff8e0;
   }
 
   label.label {
-    color: #4b3b2a;
+    color: var(--dict-text);
     font-weight: bold;
     font-size: 1rem;
   }
 
   .input,
   .select select {
-    background-color: #fff8e0;
-    border: 1px solid #d4b87c;
-    color: #4b3b2a;
+    background-color: var(--dict-input-bg);
+    border: 1px solid var(--dict-input-border);
+    color: var(--dict-text);
     padding: 0.5rem 0.7rem;
     font-size: 1rem;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .input:focus,
+  .select select:focus {
+    outline: none;
+    border-color: var(--dict-btn-bg);
   }
 
   .field {
@@ -65,11 +122,12 @@
   .entry {
     margin-bottom: 1.2rem;
     padding: 0.9rem 1rem;
-    background-color: rgba(255, 250, 230, 0.85);
-    border-left: 4px solid #d4b87c;
+    background-color: var(--dict-entry-bg);
+    border-left: 4px solid var(--dict-entry-border);
     border-radius: 5px;
     font-size: 1rem;
-    color: #3e2f1c;
+    color: var(--dict-text-dark);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 
   .headword {
@@ -77,7 +135,7 @@
   }
 
   .lemma {
-    color: #4b2f1e;
+    color: var(--dict-lemma);
     font-weight: bold;
     font-size: 1.2rem;
   }
@@ -86,20 +144,20 @@
     margin-left: 0.6rem;
     font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
     font-size: 1.3rem;
-    color: #8b6f47;
+    color: var(--dict-askaoza);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   .ipa {
     margin-left: 0.6rem;
-    color: #7a5e3a;
+    color: var(--dict-ipa);
     font-style: italic;
   }
 
   .pos {
     margin-left: 0.6rem;
-    color: #5a4529;
+    color: var(--dict-pos);
     font-style: italic;
   }
 
@@ -108,17 +166,17 @@
   }
 
   .english strong {
-    color: #1a3f6b;
+    color: var(--dict-en);
   }
 
   .italian strong {
-    color: #3e5a2a;
+    color: var(--dict-it);
   }
 
   .example {
     margin-left: 1rem;
     margin-top: 0.3rem;
-    color: #5e4732;
+    color: var(--dict-example);
     font-style: italic;
   }
 
@@ -126,8 +184,8 @@
   .decline-btn {
     margin-top: 0.5rem;
     padding: 0.4rem 0.8rem;
-    background-color: #d4b87c;
-    color: #4b3b2a;
+    background-color: var(--dict-btn-bg);
+    color: var(--dict-text);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -137,17 +195,18 @@
   }
 
   .decline-btn:hover {
-    background-color: #c4a86c;
+    background-color: var(--dict-btn-hover);
   }
 
   /* Tabella declinazioni */
   .declension-table {
     margin-top: 1rem;
     display: none;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--dict-table-bg);
     padding: 0.8rem;
     border-radius: 5px;
     font-size: 0.9rem;
+    transition: background-color 0.2s ease;
   }
 
   .declension-table.show {
@@ -163,13 +222,13 @@
   .declension-table td {
     padding: 0.4rem 0.6rem;
     text-align: left;
-    border-bottom: 1px solid #e0d4b8;
+    border-bottom: 1px solid var(--dict-table-border);
+    color: var(--dict-text);
   }
 
   .declension-table th {
-    background-color: #f0e8d0;
+    background-color: var(--dict-table-header);
     font-weight: bold;
-    color: #4b3b2a;
   }
 
   .declension-table .askaoza {
@@ -237,8 +296,7 @@ function ipaToRomaji(ipa) {
 // ==========================================
 function isNoun(pos) {
   if (!pos) return false;
-  // Rimuovi tutti gli spazi e controlla
-  const posClean = pos.replace(/s+/g, '');
+  const posClean = pos.replace(/\s+/g, '');
   return posClean.includes(':n=');
 }
 
@@ -259,7 +317,7 @@ fetch('../../data/dictionary.json')
     data.forEach((entry, index) => {
       entry.ROMAJI = ipaToRomaji(entry.IZ);
       entry.ASKAOZA = toAskaozaText(entry.lemma || '');
-      entry.INDEX = index; // per ID univoco
+      entry.INDEX = index;
     });
 
     const searchInput = document.getElementById('search');
@@ -288,9 +346,8 @@ fetch('../../data/dictionary.json')
         let declensionHTML = '';
 
         if (isNounEntry) {
-          // Genera le declinazioni usando le funzioni dal declensor
           const declined = declineNounSimple(e.lemma);
-          
+
           declensionHTML = `
             <button class="decline-btn" onclick="toggleDeclension(${e.INDEX})">
               📖 Show declensions / 曲用表示
@@ -384,7 +441,7 @@ fetch('../../data/dictionary.json')
             </div>
 
             ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
-            
+
             ${declensionHTML}
           </div>
         `;
