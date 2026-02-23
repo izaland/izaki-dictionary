@@ -12,187 +12,232 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
 
     <style>
-        :root {
-            --bg: #111827;
-            --panel: #020617;
-            --panel2: #0b1220;
-            --text: #e5e7eb;
-            --muted: #d1d5db;
-            --border: #1f2937;
-            --border2: #374151;
-            --accent: #3b82f6;
-        }
+/* Usa variabili tema globali (definite da main.css o inline qui come fallback) */
+html[data-theme="light"] {
+    --bg: #f8f9fa;
+    --panel: #ffffff;
+    --panel2: #f1f3f5;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --border: #dee2e6;
+    --border2: #ced4da;
+    --accent: #3b82f6;
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background: var(--bg);
-            color: var(--text);
-        }
-        .page-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1rem;
-        }
-        .back-link {
-            margin-bottom: 1rem;
-            display: inline-block;
-            color: #93c5fd;
-            text-decoration: none;
-        }
-        .back-link:hover { text-decoration: underline; }
-        h1 { margin: 0.25rem 0 0.25rem; color: #f9fafb; }
-        p.description { margin: 0.25rem 0 1.5rem; color: var(--muted); }
+html[data-theme="dark"] {
+    --bg: #111827;
+    --panel: #020617;
+    --panel2: #0b1220;
+    --text: #e5e7eb;
+    --muted: #d1d5db;
+    --border: #1f2937;
+    --border2: #374151;
+    --accent: #3b82f6;
+}
 
-        .grammar-notes {
-            background: var(--panel);
-            border-radius: 12px;
-            border-left: 5px solid var(--accent);
-            padding: 1.25rem 1.5rem;
-            margin: 1rem 0 1.5rem;
-        }
-        .grammar-notes h2 { margin: 0 0 0.5rem; font-size: 1.15rem; }
-        .grammar-notes p, .grammar-notes li { color: var(--muted); }
-        .grammar-notes code {
-            background: var(--panel2);
-            border: 1px solid var(--border);
-            padding: 0.1rem 0.35rem;
-            border-radius: 6px;
-            color: #e5e7eb;
-        }
-        .grammar-notes details {
-            margin-top: 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: #0a1020;
-            overflow: clip;
-        }
-        .grammar-notes summary {
-            cursor: pointer;
-            padding: 0.75rem 0.9rem;
-            font-weight: 600;
-            color: #f9fafb;
-            list-style: none;
-        }
-        .grammar-notes summary::-webkit-details-marker { display: none; }
-        .grammar-notes .details-body {
-            padding: 0.75rem 0.9rem 0.9rem;
-            border-top: 1px solid var(--border);
-        }
-        .grammar-notes ul { margin: 0.25rem 0 0.25rem 1.1rem; }
+/* Fallback se data-theme non è impostato (usa preferenza sistema) */
+:root {
+    --bg: #f8f9fa;
+    --panel: #ffffff;
+    --panel2: #f1f3f5;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --border: #dee2e6;
+    --border2: #ced4da;
+    --accent: #3b82f6;
+}
 
-        .autocomplete {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-        }
-        input {
-            width: 100%;
-            padding: 0.75rem;
-            font-size: 1.05rem;
-            border: 2px solid #4b5563;
-            border-radius: 8px;
-            background: var(--panel);
-            color: var(--text);
-        }
-        input:focus {
-            outline: none;
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
-        }
-        .suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--panel);
-            border: 1px solid #4b5563;
-            border-top: none;
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 1000;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
-        }
-        .suggestion {
-            padding: 0.7rem 0.75rem;
-            cursor: pointer;
-            border-bottom: 1px solid var(--border);
-            color: var(--text);
-        }
-        .suggestion:hover, .suggestion.selected { background: #111827; }
-        .suggestion mark {
-            background: rgba(59, 130, 246, 0.25);
-            color: inherit;
-            padding: 0 0.15rem;
-            border-radius: 4px;
-        }
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #111827;
+        --panel: #020617;
+        --panel2: #0b1220;
+        --text: #e5e7eb;
+        --muted: #d1d5db;
+        --border: #1f2937;
+        --border2: #374151;
+        --accent: #3b82f6;
+    }
+}
 
-        .conjugation-table {
-            margin-top: 2rem;
-            background: var(--panel);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 5px solid var(--accent);
-        }
-        #verbTitle { margin: 0; }
-        .verb-meta { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.95rem; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.page-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+.back-link {
+    margin-bottom: 1rem;
+    display: inline-block;
+    color: #93c5fd;
+    text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+h1 { margin: 0.25rem 0 0.25rem; color: var(--text); }
+p.description { margin: 0.25rem 0 1.5rem; color: var(--muted); }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        th, td {
-            padding: 0.55rem 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        thead th {
-            background: #111827;
-            font-weight: 600;
-            color: var(--text);
-        }
+.grammar-notes {
+    background: var(--panel);
+    border-radius: 12px;
+    border-left: 5px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0 1.5rem;
+}
+.grammar-notes h2 { margin: 0 0 0.5rem; font-size: 1.15rem; color: var(--text); }
+.grammar-notes p, .grammar-notes li { color: var(--muted); }
+.grammar-notes code {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.35rem;
+    border-radius: 6px;
+    color: var(--text);
+}
+.grammar-notes details {
+    margin-top: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel2);
+    overflow: clip;
+}
+.grammar-notes summary {
+    cursor: pointer;
+    padding: 0.75rem 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+}
+.grammar-notes summary::-webkit-details-marker { display: none; }
+.grammar-notes .details-body {
+    padding: 0.75rem 0.9rem 0.9rem;
+    border-top: 1px solid var(--border);
+}
+.grammar-notes ul { margin: 0.25rem 0 0.25rem 1.1rem; }
 
-        .tense-header {
-            text-align: center !important;
-            font-size: 1.05rem;
-            font-weight: 700;
-            padding: 0.85rem;
-            border-bottom: 1px solid var(--border);
-        }
-        .tense-header.present { background: #bfdbfe; color: #1f2937; }
-        .tense-header.past { background: #fee2e2; color: #1f2937; }
-        .tense-header.perfect { background: #d1fae5; color: #065f46; }
-        .tense-header.future { background: #fef3c7; color: #92400e; }
+.autocomplete {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+}
+input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.05rem;
+    border: 2px solid var(--border2);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--text);
+}
+input:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+}
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--panel);
+    border: 1px solid var(--border2);
+    border-top: none;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 1000;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+}
+.suggestion {
+    padding: 0.7rem 0.75rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+.suggestion:hover, .suggestion.selected { background: var(--panel2); }
+.suggestion mark {
+    background: rgba(59, 130, 246, 0.25);
+    color: inherit;
+    padding: 0 0.15rem;
+    border-radius: 4px;
+}
 
-        .affirmative { color: #6ee7b7; font-weight: 600; }
-        .negative { color: #fca5a5; font-style: italic; font-weight: 600; }
+.conjugation-table {
+    margin-top: 2rem;
+    background: var(--panel);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 5px solid var(--accent);
+}
+#verbTitle { margin: 0; color: var(--text); }
+.verb-meta { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.95rem; }
 
-        .askaoza-text {
-            font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-            padding-left: 0.25rem;
-            display: block;
-            font-size: 0.95em;
-            opacity: 0.95;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+th, td {
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+thead th {
+    background: var(--panel2);
+    font-weight: 600;
+    color: var(--text);
+}
 
-        .affirmative-cell {
-            border-right: 2px solid var(--border2);
-            padding-right: 1rem;
-        }
+.tense-header {
+    text-align: center !important;
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.85rem;
+    border-bottom: 1px solid var(--border);
+}
 
-        @media (max-width: 720px) {
-            .page-container { margin: 1rem auto; }
-            .conjugation-table { padding: 1rem; }
-            th, td { padding: 0.5rem; }
-        }
+/* Tense headers: leggibili in entrambi i temi */
+html[data-theme="light"] .tense-header.present { background: #bfdbfe; color: #1e3a8a; }
+html[data-theme="light"] .tense-header.past { background: #fee2e2; color: #7f1d1d; }
+html[data-theme="light"] .tense-header.perfect { background: #d1fae5; color: #065f46; }
+html[data-theme="light"] .tense-header.future { background: #fef3c7; color: #92400e; }
+
+html[data-theme="dark"] .tense-header.present { background: #1e3a8a; color: #bfdbfe; }
+html[data-theme="dark"] .tense-header.past { background: #7f1d1d; color: #fecaca; }
+html[data-theme="dark"] .tense-header.perfect { background: #065f46; color: #6ee7b7; }
+html[data-theme="dark"] .tense-header.future { background: #92400e; color: #fde68a; }
+
+.affirmative { color: #6ee7b7; font-weight: 600; }
+.negative { color: #fca5a5; font-style: italic; font-weight: 600; }
+
+.askaoza-text {
+    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    padding-left: 0.25rem;
+    display: block;
+    font-size: 0.95em;
+    opacity: 0.85;
+}
+
+.affirmative-cell {
+    border-right: 2px solid var(--border2);
+    padding-right: 1rem;
+}
+
+@media (max-width: 720px) {
+    .page-container { margin: 1rem auto; }
+    .conjugation-table { padding: 1rem; }
+    th, td { padding: 0.5rem; }
+}
     </style>
 </head>
 <body>
