@@ -324,13 +324,17 @@ html[data-theme="dark"] .tense-header.future { background: #92400e; color: #fde6
             <h3 id="verbTitle"></h3>
             <p id="verbMeta" class="verb-meta"></p>
             <table id="conjugationTable"></table>
+
+            <!-- Tabella condizionale separata -->
+             <h3 class="title is-5 mt-5">Conditional Mood / 假定法</h3>
+             <table id="conditionalTable" class="table is-bordered is-striped is-hoverable"></table>
         </div>
     </div>
 
     <script src="/izaki-dictionary/scripts/askaoza.js"></script>
     <script src="/izaki-dictionary/scripts/script.js"></script>
 
-    <script>
+ <script>
     async function loadDictionary() {
         try {
             const response = await fetch('../../data/dictionary.json');
@@ -617,6 +621,52 @@ html[data-theme="dark"] .tense-header.future { background: #92400e; color: #fde6
     function buildPerfectBase(strongStem) { return strongStem + 'le'; }
     function buildFutureBase(strongStem) { return strongStem + 'ma'; }
 
+    // === NUOVA FUNZIONE: Conditional (Hypothetical) ===
+    function buildConditionalBase(lemma, group) {
+        if (group === 'G1') {
+            // G1: base debole, ultima vocale → 'o', + 'sesu'
+            // es. kadasu > kada > kata > kato > katosesu
+            const weakStem = buildGroup1WeakStem(lemma);
+            const chars = weakStem.split('');
+            const len = chars.length;
+            if (len === 0) return weakStem + 'osesu';
+
+            const lastChar = chars[len - 1];
+            if (VOWELS.includes(lastChar)) {
+                chars[len - 1] = 'o';
+                return chars.join('') + 'sesu';
+            }
+            return weakStem + 'osesu';
+        }
+
+        if (group === 'G2') {
+            // G2: base del passato (con k inserita), seconda vocale → 'o', + 'sesu'
+            // es. moasu > moka > moko > mokosesu
+            const pastStem = buildGroup2PastStem(lemma);
+            const chars = pastStem.split('');
+            const len = chars.length;
+
+            // Trova la penultima vocale e cambiala in 'o'
+            for (let i = len - 2; i >= 0; i--) {
+                if (VOWELS.includes(chars[i])) {
+                    chars[i] = 'o';
+                    return chars.join('') + 'sesu';
+                }
+            }
+            return pastStem + 'osesu';
+        }
+
+        if (group === 'G3') {
+            // G3: base del presente (con raddoppio) + 'osesu'
+            // es. keinolsu > keinoll > keinollo > keinollosesu
+            // es. sagirsu > sagiry > sagiryo > saigiryosesu
+            const presentStem = buildGroup3Stem(lemma);
+            return presentStem + 'osesu';
+        }
+
+        return lemma + 'osesu';
+    }
+
     const PERSONS = [
         { id: '1sg', label: 'Nai（我）', ending: 'n' },
         { id: '2sg', label: 'Sai（汝）', ending: 's' },
@@ -661,10 +711,12 @@ html[data-theme="dark"] .tense-header.future { background: #92400e; color: #fde6
 
         const resultEl = document.getElementById('result');
         const tableEl = document.getElementById('conjugationTable');
+        const conditionalTableEl = document.getElementById('conditionalTable');
 
         if (!verb || !verb.lemma.endsWith('su')) {
             resultEl.style.display = 'block';
             tableEl.innerHTML = '';
+            if (conditionalTableEl) conditionalTableEl.innerHTML = '';
             document.getElementById('verbTitle').textContent = '❌ Verb not found or does not end in -su';
             document.getElementById('verbMeta').textContent = '';
             return;
@@ -674,6 +726,7 @@ html[data-theme="dark"] .tense-header.future { background: #92400e; color: #fde6
         if (group !== 'G1' && group !== 'G2' && group !== 'G3') {
             resultEl.style.display = 'block';
             tableEl.innerHTML = '';
+            if (conditionalTableEl) conditionalTableEl.innerHTML = '';
             document.getElementById('verbTitle').textContent = `⚠️ Unsupported verb group: ${group}`;
             document.getElementById('verbMeta').textContent = '';
             return;
@@ -695,6 +748,7 @@ html[data-theme="dark"] .tense-header.future { background: #92400e; color: #fde6
 
         const perfectBase = buildPerfectBase(strongStem);
         const futureBase = buildFutureBase(strongStem);
+        const conditionalBase = buildConditionalBase(lemma, group);
 
         const meaning = (verb.english && verb.english.length > 0) ? verb.english[0] : 'to ?';
 
@@ -740,6 +794,28 @@ html[data-theme="dark"] .tense-header.future { background: #92400e; color: #fde6
                 ${futureRows}
             </tbody>
         `;
+
+        // === NUOVA TABELLA: Conditional (Hypothetical) ===
+        if (conditionalTableEl) {
+            const conditionalRows = buildPersonRows({
+                affirmativeFn: (p) => conditionalBase + p.ending,
+                negativeFn: (p) => conditionalBase.replace(/sesu$/, 'na') + 'sesu' + p.ending
+            });
+
+            conditionalTableEl.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Person / 人稱</th>
+                        <th>Affirmative / 肯定形</th>
+                        <th>Negative / 否定形</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><th colspan="3" class="tense-header conditional">Conditional (Hypothetical) / 假定形</th></tr>
+                    ${conditionalRows}
+                </tbody>
+            `;
+        }
 
         resultEl.style.display = 'block';
     }
