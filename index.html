@@ -1,9 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Izaki Dictionary - Home</title>
+
+    <style>
+        /* Theme-aware variables for index page */
+        html[data-theme="light"] {
+            --index-section-bg: #f5f5f5;
+            --index-box-bg: #ffffff;
+            --index-box-border: #e0e0e0;
+            --index-text: #1a1a1a;
+            --index-text-secondary: #4a4a4a;
+            --index-footer-bg: #ffffff;
+            --index-footer-border: #003366;
+            --index-footer-text: #003366;
+        }
+
+        html[data-theme="dark"] {
+            --index-section-bg: #1a1a20;
+            --index-box-bg: #2a2a30;
+            --index-box-border: #3a3a40;
+            --index-text: #e5e7eb;
+            --index-text-secondary: #d1d5db;
+            --index-footer-bg: #1a1a20;
+            --index-footer-border: #4a5568;
+            --index-footer-text: #93c5fd;
+        }
+
+        /* Release log section - tema aware */
+        .release-log-section {
+            background-color: var(--index-section-bg) !important;
+            transition: background-color 0.2s ease;
+        }
+
+        .release-log-section .box {
+            background-color: var(--index-box-bg);
+            border: 1px solid var(--index-box-border);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .release-log-section .title,
+        .release-log-section .subtitle {
+            color: var(--index-text);
+        }
+
+        .release-log-section ul li {
+            color: var(--index-text-secondary);
+        }
+
+        /* Footer tema aware */
+        .theme-footer {
+            background-color: var(--index-footer-bg) !important;
+            border-top: 2px solid var(--index-footer-border);
+            color: var(--index-footer-text);
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .theme-footer a {
+            color: #cc0000;
+            text-decoration: underline;
+        }
+
+        html[data-theme="dark"] .theme-footer a {
+            color: #fca5a5;
+        }
+
+        /* Main section */
+        .main-section {
+            background-color: var(--bg-primary, #ffffff);
+            color: var(--text-primary, #1a1a1a);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .main-section .title,
+        .main-section .subtitle {
+            color: var(--text-primary, #1a1a1a);
+        }
+
+        /* Table tema aware */
+        .table {
+            background-color: var(--panel, #ffffff);
+            color: var(--text-primary, #1a1a1a);
+        }
+
+        .table th {
+            background-color: var(--panel-alt, #f8f9fa);
+            color: var(--text-primary, #1a1a1a);
+        }
+
+        .table td {
+            color: var(--text-primary, #1a1a1a);
+            border-color: var(--border, #dee2e6);
+        }
+
+        .table.is-striped tbody tr:nth-child(even) {
+            background-color: var(--panel-alt, #f8f9fa);
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -20,7 +115,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section main-section">
     <div class="container content">
 
         <!-- ABOUT SECTION -->
@@ -35,11 +130,11 @@
         <p>
             This platform offers a growing collection of tools, including a multilingual dictionary,
             writing-system references, and grammar resources, designed both for learners and for contributors
-            to Izaland’s cultural and linguistic world.
+            to Izaland's cultural and linguistic world.
         </p>
 
         <p>
-            Izaki is developed by Izaland’s mapper <strong>ITC</strong>, shaped as an 
+            Izaki is developed by Izaland's mapper <strong>ITC</strong>, shaped as an 
             <em>a priori</em> language with a structural blend of influences:
         </p>
 
@@ -87,8 +182,8 @@
     </div>
 </section>
 
-<!-- RELEASE LOG -->
-<section class="section has-background-light">
+<!-- RELEASE LOG (tema aware) -->
+<section class="section release-log-section">
     <div class="container content">
 
         <h2 class="title">Project Release Log</h2>
@@ -106,7 +201,7 @@
                 <li><strong>Byakuzhi reverse search</strong> — Enabled bidirectional Byakuzhi ⇄ onnufu reading search tool.</li>
             </ul>
         </div>
-        
+
         <div class="box">
             <h3 class="subtitle">2025-12-07</h3>
             <ul>
@@ -129,7 +224,7 @@
                 <li><strong>Byakuzhi Lookup Page Updated</strong> — Added phonetic changes in semantic boundaries.</li>
             </ul>
         </div>
-                       
+
         <div class="box">
             <h3 class="subtitle">2025-11-23</h3>
             <ul>
@@ -148,18 +243,18 @@
 </section>
 
 
-    <!-- Footer -->
-    <footer style="background-color:#ffffff; padding:1rem; border-top:2px solid #003366; text-align:center; font-size:0.9rem; color:#003366;">
+    <!-- Footer (tema aware) -->
+    <footer class="theme-footer" style="padding:1rem; text-align:center; font-size:0.9rem;">
         <div>
-            Izaki Dictionary – part of the <a href="https://www.opengeofiction.net/" target="_blank" style="color:#cc0000; text-decoration:underline;">Open Geo Fiction</a> project<br>
+            Izaki Dictionary – part of the <a href="https://www.opengeofiction.net/" target="_blank">Open Geo Fiction</a> project<br>
                 <br>
-            華邦辞典 – <a href="https://www.opengeofiction.net/" target="_blank" style="color:#cc0000; text-decoration:underline;">Open Geo Fiction</a> રેદ૾મૃૅઠ્ઠાપ્ 一部。
+            華邦辞典 – <a href="https://www.opengeofiction.net/" target="_blank">Open Geo Fiction</a> રેદ૾મૃૅઠ્ઠાપ્ 一部。
         </div>
         <div>
             In cooperation with the National University of Sainðaul<br>
             作安崎國立大學　外國語學部પ્ 協力
         </div>
-        <div style="margin-top:0.5rem;">Made with ❤️ and ☕ by <a href="https://opengeofiction.net/user/Izaland%20Terramorphing%20Committee" target="_blank" style="color:#cc0000; text-decoration:underline;">ITC</a> & <a href="https://opengeofiction.net/user/ParrotMan" target="_blank" style="color:#cc0000; text-decoration:underline;">ParrotMan</a></div>
+        <div style="margin-top:0.5rem;">Made with ❤️ and ☕ by <a href="https://opengeofiction.net/user/Izaland%20Terramorphing%20Committee" target="_blank">ITC</a> & <a href="https://opengeofiction.net/user/ParrotMan" target="_blank">ParrotMan</a></div>
     </footer>
 
     <!-- Script navbar -->
