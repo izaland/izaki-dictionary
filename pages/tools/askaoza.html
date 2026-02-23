@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Askaoza Converter - Izaki Dictionary</title>
-  
+
   <!-- Bulma CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  
+
   <!-- Preconnect per Google Fonts (migliora velocità caricamento) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+
   <!-- Font gujarati con fallback multipli per compatibilità mobile -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
 
   <!-- Navbar e stile Izaki-dictionary -->
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
-  
+
   <style>
     .askaoza-sample {
       font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
@@ -30,59 +30,82 @@
     }
 
     .quick-table td.glyph,
-.quick-table th.glyph{
-  font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
-  font-size: 2.25rem;  /* circa “36” a schermo */
-  line-height: 1.1;
-  font-weight: 600;
-}
+    .quick-table th.glyph{
+      font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
+      font-size: 2.25rem;
+      line-height: 1.1;
+      font-weight: 600;
+    }
 
-/* Un po’ più di aria per evitare celle “strette” */
-.quick-table td.glyph{
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
+    .quick-table td.glyph{
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
 
-/* HERO: evita overlap tra title e subtitle (Bulma usa margini “ravvicinati”) */
-.hero .title{
-  line-height: 1.2;
-  margin-bottom: 0 !important;     /* annulla margin-bottom Bulma */
-  padding-bottom: 1.6rem;         /* spazio reale che NON collassa */
-}
+    /* HERO */
+    .hero .title{
+      line-height: 1.2;
+      margin-bottom: 0 !important;
+      padding-bottom: 1.6rem;
+    }
 
-.hero .title .subtitle-ja{
-  display: block;
-  margin-top: 0.65rem;            /* spazio tra “Askaoza Converter” e “阿須和沙變換” */
-  font-size: 0.68em;
-  opacity: 0.96;
-}
+    .hero .title .subtitle-ja{
+      display: block;
+      margin-top: 0.65rem;
+      font-size: 0.68em;
+      opacity: 0.96;
+    }
 
-/* annulla il margin-top negativo che Bulma può dare al subtitle dopo un title */
-.hero .title + .subtitle{
-  margin-top: 0 !important;
-  line-height: 1.45;
-}
+    .hero .title + .subtitle{
+      margin-top: 0 !important;
+      line-height: 1.45;
+    }
 
-/* opzionale: rendi anche la seconda riga (漢字) del subtitle su riga propria */
-.hero .subtitle .subtitle-ja{
-  display: block;
-  margin-top: 0.35rem;
-}
+    .hero .subtitle .subtitle-ja{
+      display: block;
+      margin-top: 0.35rem;
+    }
 
-    /* Tabelle: leggibilità + mobile */
-    .table-wrap { overflow-x: auto; }
-    table.table thead th { white-space: nowrap; }
+    /* Reference box con bordo e padding (card-style) */
+    .reference-box {
+      max-width: 920px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      border: 1px solid var(--border, #dee2e6);
+      border-radius: 12px;
+      background: var(--panel, #ffffff);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .reference-box .title {
+      color: var(--text-primary, #1a1a1a);
+    }
+
+    .reference-box .notes {
+      color: var(--text-secondary, #6c757d);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    /* Tabelle */
+    .table-wrap { 
+      overflow-x: auto; 
+      margin-top: 1rem;
+    }
+    table.table thead th { 
+      white-space: nowrap; 
+      background: var(--panel-alt, #f8f9fa);
+      color: var(--text-primary, #1a1a1a);
+    }
+    table.table {
+      background: var(--panel, #ffffff);
+    }
+    table.table td {
+      color: var(--text-primary, #1a1a1a);
+    }
     .quick-table td, .quick-table th { vertical-align: middle; }
-    .quick-table code { background: rgba(10, 10, 10, 0.06); padding: 0.1rem 0.35rem; border-radius: 6px; }
 
-    /* Microtipografia */
-.notes{
-  color: rgba(229, 231, 235, 0.92);
-  font-size: 0.95rem;
-  line-height: 1.55;
-}
-
-    /* Fallback per clear button */
+    /* Clear button */
     .input-wrapper { position: relative; width: 100%; }
     .clear-btn {
       position: absolute;
@@ -100,6 +123,20 @@
       padding: 0;
     }
     .clear-btn:hover { background: rgba(10,10,10,0.12); }
+
+    /* Details/summary styling */
+    details {
+      border: 1px solid var(--border, #dee2e6);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      background: var(--panel-alt, #f8f9fa);
+    }
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-primary, #1a1a1a);
+    }
   </style>
 </head>
 
@@ -160,103 +197,100 @@
     </div>
   </section>
 
-  <hr>
+  <!-- Reference box (contenitore centrato, larghezza limitata) -->
+  <section class="section">
+    <div class="reference-box">
+      <h2 class="title is-4">Quick reference / 速覽表</h2>
+      <p class="notes">
+        This page converts Izaki Latin orthography (Roman alp.) to the Askaoza script and back.
+        The tables below are meant as a quick lookup for common letters and pronunciation.
+      </p>
 
-     <!-- Quick reference tables -->
-<div class="content">
-  <h2 class="title is-4">Quick reference / 速覽表</h2>
-  <p class="notes">
-    This page converts Izaki Latin orthography (Roman alp.) to the Askaoza script and back.
-    The tables below are meant as a quick lookup for common letters and pronunciation.
-  </p>
-
-  <h3 class="title is-5">Askaoza consonant set (draft) / 子音表（草案）</h3>
-  <div class="table-wrap">
-    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth quick-table">
-      <caption class="has-text-weight-semibold">New Version (finalizing in progress)</caption>
-      <thead>
-        <tr>
-          <th>Roman alp.</th>
-          <th class="glyph">Character</th>
-          <th>IPA</th>
-          <th>Roman alp.</th>
-          <th class="glyph">Character</th>
-          <th>IPA</th>
-        </tr>
-        <tr>
-          <th colspan="3" class="has-text-centered">清音 (seion) — unvoiced</th>
-          <th colspan="3" class="has-text-centered">濁音 (takuon) — voiced</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><th>K</th><td class="glyph">ડ</td><td>/k/</td><th>G</th><td class="glyph">ડૃ</td><td>/g/</td></tr>
-        <tr><th>P</th><td class="glyph">ર</td><td>/p/</td><th>B</th><td class="glyph">રૃ</td><td>/b/</td></tr>
-        <tr><th>S</th><td class="glyph">ટ</td><td>/s/</td><th>Z</th><td class="glyph">ટૃ</td><td>/z/</td></tr>
-        <tr><th>T</th><td class="glyph">ઠ</td><td>/t/</td><th>D</th><td class="glyph">ઠૃ</td><td>/d/</td></tr>
-        <tr><th>F</th><td class="glyph">૨</td><td>/f/</td><th>V</th><td class="glyph">૨ૃ</td><td>/v/</td></tr>
-        <tr><th>CH</th><td class="glyph">મ</td><td>/ʧ/</td><th>J</th><td class="glyph">મૃ</td><td>/ʤ/</td></tr>
-        <tr><th>SH</th><td class="glyph">ય</td><td>/ʃ/</td><th>ZH</th><td class="glyph">યૃ</td><td>/ʒ/</td></tr>
-        <tr><th>TS</th><td class="glyph">ઢ</td><td>/ʦ/</td><th>Đ</th><td class="glyph">ઢૃ</td><td>/ʣ/</td></tr>
-        <tr><th>Vowel ph.</th><td class="glyph">૮</td><td>∅</td><th>H</th><td class="glyph">ત</td><td>/h/</td></tr>
-        <tr><th></th><td class="glyph"></td><td></td><th>N</th><td class="glyph">પ</td><td>/n/</td></tr>
-        <tr><th></th><td class="glyph"></td><td></td><th>M</th><td class="glyph">ઇ</td><td>/m/</td></tr>
-        <tr><th></th><td class="glyph"></td><td></td><th>L</th><td class="glyph">ધ</td><td>/l/</td></tr>
-        <tr><th></th><td class="glyph"></td><td></td><th>R</th><td class="glyph">દ</td><td>/r/</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-        <details class="mt-4">
-          <summary class="title is-5" style="cursor: pointer;">Izaki Language Phonetics Guide / 發音指南（點擊展開）</summary>
-          <div class="table-wrap">
-            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-              <thead>
-                <tr>
-                  <th colspan="8" class="has-text-centered">Izaki Language Phonetics Guide</th>
-                </tr>
-                <tr>
-                  <th>Letter</th>
-                  <th>Phonetic</th>
-                  <th>Pronunciation</th>
-                  <th>Example</th>
-                  <th>Letter</th>
-                  <th>Phonetic</th>
-                  <th>Pronunciation</th>
-                  <th>Example</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><th>A</th><td>/a/</td><td>Like “a” in father</td><td><em>alla</em> (morning)</td><th>Ā</th><td>/aː/</td><td>Long “a”, as in calm</td><td><em>ānka</em> (safe)</td></tr>
-                <tr><th>E</th><td>/e/</td><td>Like “e” in bed</td><td><em>engai</em> (today)</td><th>Ē</th><td>/eː/</td><td>Long “e”, as in they</td><td><em>miwē</em> (fish)</td></tr>
-                <tr><th>I</th><td>/i/</td><td>Like “i” in sit</td><td><em>ita</em> (thunder)</td><th>Ī</th><td>/iː/</td><td>Long “i”, as in machine</td><td><em>īmisu</em> (to stand)</td></tr>
-                <tr><th>O</th><td>/o/</td><td>Like “o” in pot</td><td><em>oboe</em> (hill)</td><th>Ō</th><td>/oː/</td><td>Long “o”, as in go</td><td><em>ōdana</em> (big)</td></tr>
-                <tr><th>U</th><td>/u/</td><td>Like “u” in put</td><td><em>uirape</em> (feast)</td><th>Ū</th><td>/uː/</td><td>Long “u”, as in rule</td><td><em>kūra</em> (frost)</td></tr>
-                <tr><th>Y</th><td>/y/</td><td>Like “y” in yell</td><td><em>yaike</em> (thread)</td><th>W</th><td>/w/</td><td>Like “w” in wing</td><td><em>weri</em> (blood)</td></tr>
-                <tr><th>Ð</th><td>/dz/</td><td>Voiced “ts”, like dz in adze</td><td><em>ðuni</em> (snow)</td><th>TS</th><td>/ts/</td><td>Like “ts” in cats</td><td><em>hatso</em> (tuna)</td></tr>
-                <tr><th>ZH</th><td>/ʒ/</td><td>Like s in pleasure</td><td><em>zhindō</em> (humanity)</td><th>J</th><td>/dʒ/</td><td>Like j in jam</td><td><em>jaeka</em> (wing)</td></tr>
-                <tr><th>F</th><td>/f/</td><td>Like f in fun</td><td><em>futaka</em> (house)</td><th>V</th><td>/v/</td><td>Like v in van</td><td><em>kovi</em> (place name)</td></tr>
-                <tr><th>K</th><td>/k/</td><td>Like k in kite</td><td><em>kamo</em> (hand)</td><th>G</th><td>/ɡ/</td><td>Like g in go</td><td><em>gohari</em> (salt)</td></tr>
-                <tr><th>H</th><td>/h/</td><td>Like h in hat</td><td><em>hanpa</em> (shadow)</td><th>L</th><td>/l/</td><td>Like l in love</td><td><em>lattasuwa</em> (toad)</td></tr>
-                <tr><th>M</th><td>/m/</td><td>Like m in man</td><td><em>more</em> (bamboo)</td><th>N</th><td>/n/</td><td>Like n in no</td><td><em>namoas</em> (kiss)</td></tr>
-                <tr><th>P</th><td>/p/</td><td>Like p in pen</td><td><em>panae</em> (weed)</td><th>B</th><td>/b/</td><td>Like b in bat</td><td><em>bimatta</em> (strawberry)</td></tr>
-                <tr><th>S</th><td>/s/</td><td>Like s in see</td><td><em>saison</em> (love)</td><th>T</th><td>/t/</td><td>Like t in top</td><td><em>taeka</em> (autumn)</td></tr>
-                <tr><th>Z</th><td>/z/</td><td>Like z in zoom</td><td><em>kezi</em> (hunt)</td><th>CH</th><td>/tɕ/</td><td>Like Japanese “cha”</td><td><em>chara</em> (white)</td></tr>
-                <tr><th>D</th><td>/d/</td><td>Like d in dog</td><td><em>deri</em> (elbow)</td><th>R</th><td>/ɾ/ or /r/</td><td>Spanish-like flap (or r)</td><td><em>romo</em> (nose)</td></tr>
-                <tr><th>SH</th><td>/ʃ/</td><td>Like sh in she</td><td><em>shobe</em> (three)</td><th>-</th><td>-</td><td>-</td><td>-</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
+      <h3 class="title is-5 mt-5">Askaoza consonant set (draft) / 子音表（草案）</h3>
+      <div class="table-wrap">
+        <table class="table is-bordered is-striped is-narrow is-hoverable quick-table">
+          <caption class="has-text-weight-semibold">New Version (finalizing in progress)</caption>
+          <thead>
+            <tr>
+              <th>Roman alp.</th>
+              <th class="glyph">Character</th>
+              <th>IPA</th>
+              <th>Roman alp.</th>
+              <th class="glyph">Character</th>
+              <th>IPA</th>
+            </tr>
+            <tr>
+              <th colspan="3" class="has-text-centered">清音 (seion) — unvoiced</th>
+              <th colspan="3" class="has-text-centered">濁音 (takuon) — voiced</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>K</th><td class="glyph">ડ</td><td>/k/</td><th>G</th><td class="glyph">ડૃ</td><td>/g/</td></tr>
+            <tr><th>P</th><td class="glyph">ર</td><td>/p/</td><th>B</th><td class="glyph">રૃ</td><td>/b/</td></tr>
+            <tr><th>S</th><td class="glyph">ટ</td><td>/s/</td><th>Z</th><td class="glyph">ટૃ</td><td>/z/</td></tr>
+            <tr><th>T</th><td class="glyph">ઠ</td><td>/t/</td><th>D</th><td class="glyph">ઠૃ</td><td>/d/</td></tr>
+            <tr><th>F</th><td class="glyph">૨</td><td>/f/</td><th>V</th><td class="glyph">૨ૃ</td><td>/v/</td></tr>
+            <tr><th>CH</th><td class="glyph">મ</td><td>/ʧ/</td><th>J</th><td class="glyph">મૃ</td><td>/ʤ/</td></tr>
+            <tr><th>SH</th><td class="glyph">ય</td><td>/ʃ/</td><th>ZH</th><td class="glyph">યૃ</td><td>/ʒ/</td></tr>
+            <tr><th>TS</th><td class="glyph">ઢ</td><td>/ʦ/</td><th>Đ</th><td class="glyph">ઢૃ</td><td>/ʣ/</td></tr>
+            <tr><th>Vowel ph.</th><td class="glyph">૮</td><td>∅</td><th>H</th><td class="glyph">ત</td><td>/h/</td></tr>
+            <tr><th></th><td class="glyph"></td><td></td><th>N</th><td class="glyph">પ</td><td>/n/</td></tr>
+            <tr><th></th><td class="glyph"></td><td></td><th>M</th><td class="glyph">ઇ</td><td>/m/</td></tr>
+            <tr><th></th><td class="glyph"></td><td></td><th>L</th><td class="glyph">ધ</td><td>/l/</td></tr>
+            <tr><th></th><td class="glyph"></td><td></td><th>R</th><td class="glyph">દ</td><td>/r/</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <hr>
+      <details class="mt-4">
+        <summary class="title is-6">Izaki Language Phonetics Guide / 發音指南（點擊展開）</summary>
+        <div class="table-wrap">
+          <table class="table is-bordered is-striped is-narrow is-hoverable">
+            <thead>
+              <tr>
+                <th colspan="8" class="has-text-centered">Izaki Language Phonetics Guide</th>
+              </tr>
+              <tr>
+                <th>Letter</th>
+                <th>Phonetic</th>
+                <th>Pronunciation</th>
+                <th>Example</th>
+                <th>Letter</th>
+                <th>Phonetic</th>
+                <th>Pronunciation</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>A</th><td>/a/</td><td>Like "a" in father</td><td><em>alla</em> (morning)</td><th>Ā</th><td>/aː/</td><td>Long "a", as in calm</td><td><em>ānka</em> (safe)</td></tr>
+              <tr><th>E</th><td>/e/</td><td>Like "e" in bed</td><td><em>engai</em> (today)</td><th>Ē</th><td>/eː/</td><td>Long "e", as in they</td><td><em>miwē</em> (fish)</td></tr>
+              <tr><th>I</th><td>/i/</td><td>Like "i" in sit</td><td><em>ita</em> (thunder)</td><th>Ī</th><td>/iː/</td><td>Long "i", as in machine</td><td><em>īmisu</em> (to stand)</td></tr>
+              <tr><th>O</th><td>/o/</td><td>Like "o" in pot</td><td><em>oboe</em> (hill)</td><th>Ō</th><td>/oː/</td><td>Long "o", as in go</td><td><em>ōdana</em> (big)</td></tr>
+              <tr><th>U</th><td>/u/</td><td>Like "u" in put</td><td><em>uirape</em> (feast)</td><th>Ū</th><td>/uː/</td><td>Long "u", as in rule</td><td><em>kūra</em> (frost)</td></tr>
+              <tr><th>Y</th><td>/y/</td><td>Like "y" in yell</td><td><em>yaike</em> (thread)</td><th>W</th><td>/w/</td><td>Like "w" in wing</td><td><em>weri</em> (blood)</td></tr>
+              <tr><th>Ð</th><td>/dz/</td><td>Voiced "ts", like dz in adze</td><td><em>ðuni</em> (snow)</td><th>TS</th><td>/ts/</td><td>Like "ts" in cats</td><td><em>hatso</em> (tuna)</td></tr>
+              <tr><th>ZH</th><td>/ʒ/</td><td>Like s in pleasure</td><td><em>zhindō</em> (humanity)</td><th>J</th><td>/dʒ/</td><td>Like j in jam</td><td><em>jaeka</em> (wing)</td></tr>
+              <tr><th>F</th><td>/f/</td><td>Like f in fun</td><td><em>futaka</em> (house)</td><th>V</th><td>/v/</td><td>Like v in van</td><td><em>kovi</em> (place name)</td></tr>
+              <tr><th>K</th><td>/k/</td><td>Like k in kite</td><td><em>kamo</em> (hand)</td><th>G</th><td>/ɡ/</td><td>Like g in go</td><td><em>gohari</em> (salt)</td></tr>
+              <tr><th>H</th><td>/h/</td><td>Like h in hat</td><td><em>hanpa</em> (shadow)</td><th>L</th><td>/l/</td><td>Like l in love</td><td><em>lattasuwa</em> (toad)</td></tr>
+              <tr><th>M</th><td>/m/</td><td>Like m in man</td><td><em>more</em> (bamboo)</td><th>N</th><td>/n/</td><td>Like n in no</td><td><em>namoas</em> (kiss)</td></tr>
+              <tr><th>P</th><td>/p/</td><td>Like p in pen</td><td><em>panae</em> (weed)</td><th>B</th><td>/b/</td><td>Like b in bat</td><td><em>bimatta</em> (strawberry)</td></tr>
+              <tr><th>S</th><td>/s/</td><td>Like s in see</td><td><em>saison</em> (love)</td><th>T</th><td>/t/</td><td>Like t in top</td><td><em>taeka</em> (autumn)</td></tr>
+              <tr><th>Z</th><td>/z/</td><td>Like z in zoom</td><td><em>kezi</em> (hunt)</td><th>CH</th><td>/tɕ/</td><td>Like Japanese "cha"</td><td><em>chara</em> (white)</td></tr>
+              <tr><th>D</th><td>/d/</td><td>Like d in dog</td><td><em>deri</em> (elbow)</td><th>R</th><td>/ɾ/ or /r/</td><td>Spanish-like flap (or r)</td><td><em>romo</em> (nose)</td></tr>
+              <tr><th>SH</th><td>/ʃ/</td><td>Like sh in she</td><td><em>shobe</em> (three)</td><th>-</th><td>-</td><td>-</td><td>-</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </section>
 
   <!-- Script originali -->
   <script src="/izaki-dictionary/scripts/askaoza.js"></script>
   <script src="/izaki-dictionary/scripts/script.js"></script>
 
-  <!-- JS aggiuntivo per la X e per usare l’API esistente -->
+  <!-- JS aggiuntivo per la X e per usare l'API esistente -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const latinInput = document.getElementById('latinInput');
