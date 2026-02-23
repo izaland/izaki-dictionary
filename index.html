@@ -11,22 +11,26 @@
             --index-section-bg: #f5f5f5;
             --index-box-bg: #ffffff;
             --index-box-border: #e0e0e0;
+            --index-box-shadow: rgba(0, 0, 0, 0.08);
             --index-text: #1a1a1a;
             --index-text-secondary: #4a4a4a;
             --index-footer-bg: #ffffff;
             --index-footer-border: #003366;
             --index-footer-text: #003366;
+            --index-link-color: #cc0000;
         }
 
         html[data-theme="dark"] {
             --index-section-bg: #1a1a20;
             --index-box-bg: #2a2a30;
             --index-box-border: #3a3a40;
+            --index-box-shadow: rgba(0, 0, 0, 0.3);
             --index-text: #e5e7eb;
             --index-text-secondary: #d1d5db;
             --index-footer-bg: #1a1a20;
             --index-footer-border: #4a5568;
-            --index-footer-text: #93c5fd;
+            --index-footer-text: #e5e7eb;
+            --index-link-color: #fca5a5;
         }
 
         /* Release log section - tema aware */
@@ -38,36 +42,41 @@
         .release-log-section .box {
             background-color: var(--index-box-bg);
             border: 1px solid var(--index-box-border);
+            box-shadow: 0 2px 4px var(--index-box-shadow);
             transition: background-color 0.2s ease, border-color 0.2s ease;
         }
 
         .release-log-section .title,
         .release-log-section .subtitle {
-            color: var(--index-text);
+            color: var(--index-text) !important;
         }
 
-        .release-log-section ul li {
-            color: var(--index-text-secondary);
+        .release-log-section ul li,
+        .release-log-section p {
+            color: var(--index-text-secondary) !important;
         }
 
         /* Footer tema aware */
         .theme-footer {
             background-color: var(--index-footer-bg) !important;
-            border-top: 2px solid var(--index-footer-border);
-            color: var(--index-footer-text);
+            border-top: 2px solid var(--index-footer-border) !important;
+            color: var(--index-footer-text) !important;
             transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
 
         .theme-footer a {
-            color: #cc0000;
+            color: var(--index-link-color) !important;
             text-decoration: underline;
-        }
-
-        html[data-theme="dark"] .theme-footer a {
-            color: #fca5a5;
+            transition: color 0.2s ease;
         }
 
         /* Main section */
+        body {
+            background-color: var(--bg-primary, #ffffff);
+            color: var(--text-primary, #1a1a1a);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
         .main-section {
             background-color: var(--bg-primary, #ffffff);
             color: var(--text-primary, #1a1a1a);
@@ -76,6 +85,11 @@
 
         .main-section .title,
         .main-section .subtitle {
+            color: var(--text-primary, #1a1a1a) !important;
+        }
+
+        .main-section p,
+        .main-section li {
             color: var(--text-primary, #1a1a1a);
         }
 
@@ -83,15 +97,17 @@
         .table {
             background-color: var(--panel, #ffffff);
             color: var(--text-primary, #1a1a1a);
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .table th {
             background-color: var(--panel-alt, #f8f9fa);
-            color: var(--text-primary, #1a1a1a);
+            color: var(--text-primary, #1a1a1a) !important;
+            border-color: var(--border, #dee2e6);
         }
 
         .table td {
-            color: var(--text-primary, #1a1a1a);
+            color: var(--text-primary, #1a1a1a) !important;
             border-color: var(--border, #dee2e6);
         }
 
