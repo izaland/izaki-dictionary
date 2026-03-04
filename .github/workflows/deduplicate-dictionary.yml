@@ -9,6 +9,11 @@ on:
         required: false
         type: boolean
         default: false
+      fix_lemmas:
+        description: 'Fix compound lemmas before deduplication'
+        required: false
+        type: boolean
+        default: true
   
   # Opzionale: trigger automatico dopo push su main che modifica i dati
   # Decommentare per abilitare
@@ -34,6 +39,13 @@ jobs:
         with:
           python-version: '3.11'
       
+      - name: 🔧 Fix compound lemmas
+        if: inputs.fix_lemmas != false
+        run: |
+          echo "## Compound Lemma Fix" >> $GITHUB_STEP_SUMMARY
+          python scripts/fix_compound_lemmas.py | tee lemma_fix.txt
+          cat lemma_fix.txt >> $GITHUB_STEP_SUMMARY
+      
       - name: 📊 Check for duplicates
         id: check
         run: |
@@ -57,7 +69,6 @@ jobs:
           cat dedupe_results.txt >> $GITHUB_STEP_SUMMARY
       
       - name: 📝 Check for changes
-        if: steps.check.outputs.has_duplicates == 'true'
         id: git_diff
         run: |
           if git diff --quiet data/dictionary.json; then
@@ -71,7 +82,6 @@ jobs:
       
       - name: 💾 Commit changes (Direct)
         if: |
-          steps.check.outputs.has_duplicates == 'true' && 
           steps.git_diff.outputs.has_changes == 'true' &&
           !inputs.create_pr
         run: |
@@ -80,58 +90,63 @@ jobs:
           git add data/dictionary.json
           
           # Get statistics for commit message
-          STATS=$(cat dedupe_results.txt | grep -A 4 "Summary:" | tail -4)
+          if [ -f "dedupe_results.txt" ]; then
+            STATS=$(cat dedupe_results.txt | grep -A 4 "Summary:" | tail -4)
+          else
+            STATS="Fixed compound lemmas"
+          fi
           
-          git commit -m "🔧 Auto-deduplicate dictionary entries
+          git commit -m "🔧 Auto-fix dictionary entries
           
           $STATS
           
-          Automatically deduplicated by GitHub Actions."
+          Automatically fixed by GitHub Actions."
           
           git push
       
       - name: 📤 Create Pull Request
         if: |
-          steps.check.outputs.has_duplicates == 'true' && 
           steps.git_diff.outputs.has_changes == 'true' &&
           inputs.create_pr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "🔧 Deduplicate dictionary entries"
-          title: "🔧 Remove duplicate dictionary entries"
+          commit-message: "🔧 Fix and deduplicate dictionary entries"
+          title: "🔧 Fix compound lemmas and remove duplicates"
           body: |
-            ## Automatic Deduplication
+            ## Automatic Dictionary Maintenance
             
-            This PR removes duplicate entries from the dictionary and ensures all entries have proper IPA transcriptions.
+            This PR fixes issues in the dictionary and removes duplicate entries.
             
             ### Changes
+            - Fixed compound entries with English in lemma field
             - Merged duplicate entries with same (lemma, byakuzhi)
             - Generated missing IPA transcriptions
             - Combined translations from duplicate entries
             
-            ### Report
+            ### Compound Lemma Fix
+            ```
+            $(cat lemma_fix.txt)
+            ```
+            
+            ### Deduplication Report
             ```
             $(cat dedupe_results.txt)
             ```
             
             ---
-            🤖 This PR was created automatically by the deduplication workflow.
-          branch: auto-deduplicate-${{ github.run_number }}
+            🤖 This PR was created automatically by the dictionary maintenance workflow.
+          branch: auto-fix-dictionary-${{ github.run_number }}
           delete-branch: true
       
       - name: ✅ Summary
         if: always()
         run: |
           echo "## Workflow Summary" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ steps.check.outputs.has_duplicates }}" = "false" ]; then
-            echo "✅ No duplicates found - dictionary is clean!" >> $GITHUB_STEP_SUMMARY
-          elif [ "${{ steps.git_diff.outputs.has_changes }}" = "true" ]; then
-            if [ "${{ inputs.create_pr }}" = "true" ]; then
-              echo "📤 Pull request created with deduplication changes" >> $GITHUB_STEP_SUMMARY
-            else
-              echo "✅ Dictionary deduplicated and committed to main branch" >> $GITHUB_STEP_SUMMARY
-            fi
+          if [ "${{ steps.git_diff.outputs.has_changes }}" = "false" ]; then
+            echo "✅ No changes needed - dictionary is clean!" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ inputs.create_pr }}" = "true" ]; then
+            echo "📤 Pull request created with fixes" >> $GITHUB_STEP_SUMMARY
           else
-            echo "ℹ️ Duplicates detected but no changes needed" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Dictionary fixed and committed to main branch" >> $GITHUB_STEP_SUMMARY
           fi
