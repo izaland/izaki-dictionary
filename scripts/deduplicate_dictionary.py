@@ -10,17 +10,28 @@ Handles cases where:
 
 import json
 import sys
+import re
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List
 
-# Import IPA generator if available
-try:
-    from generate_ipa import latin_to_ipa
-    HAS_IPA_GENERATOR = True
-except ImportError:
-    HAS_IPA_GENERATOR = False
-    print("⚠️  Warning: generate_ipa.py not found. IPA will not be auto-generated.")
+# Embedded IPA generation (based on generate_ipa.py)
+PHONETIC_RULES = [
+    (r'ā', 'aː'), (r'ē', 'eː'), (r'ī', 'iː'), (r'ō', 'oː'), (r'ū', 'uː'),
+    (r'ts', 'ts'), (r'ch', 'tɕ'), (r'sh', 'ʃ'), (r'zh', 'ʒ'),
+    (r'ð', 'dz'), (r'j', 'dʒ'), (r'y', 'j'), (r'w', 'w'), (r'r', 'ɾ'),
+]
+
+def latin_to_ipa(reading: str) -> str:
+    """Convert Izaki reading to IPA"""
+    if not reading or not isinstance(reading, str):
+        return ''
+    
+    ipa = reading.lower().strip()
+    for pattern, replacement in PHONETIC_RULES:
+        ipa = re.sub(pattern, replacement, ipa, flags=re.IGNORECASE)
+    
+    return ipa
 
 def read_dictionary(filepath: Path) -> List[Dict]:
     """Read dictionary.json"""
@@ -28,19 +39,17 @@ def read_dictionary(filepath: Path) -> List[Dict]:
         return json.load(f)
 
 def generate_ipa_if_missing(entry: Dict) -> Dict:
-    """Generate IPA for entry if missing and generator is available"""
-    if not HAS_IPA_GENERATOR:
-        return entry
-    
+    """Generate IPA for entry if missing"""
     lemma = entry.get('lemma', '').strip()
     current_ipa = entry.get('ipa', '').strip()
     
     # Generate IPA if missing or placeholder
-    if lemma and (not current_ipa or current_ipa in ['', '【—】', '—']):
+    if lemma and (not current_ipa or current_ipa in ['', '【—】', '—', '૮', 'ૃ']):
         try:
             generated_ipa = latin_to_ipa(lemma)
-            entry['ipa'] = f"/{generated_ipa}/"
-            print(f"  ✓ Generated IPA for '{lemma}': {entry['ipa']}")
+            if generated_ipa:
+                entry['ipa'] = f"/{generated_ipa}/"
+                print(f"  ✓ Generated IPA for '{lemma}': {entry['ipa']}")
         except Exception as e:
             print(f"  ✗ Failed to generate IPA for '{lemma}': {e}")
     
@@ -64,7 +73,7 @@ def merge_entries(entries: List[Dict]) -> Dict:
     best_entry = None
     for e in entries:
         ipa = e.get('ipa', '').strip()
-        if ipa and ipa not in ['', '【—】', '—']:
+        if ipa and ipa not in ['', '【—】', '—', '/', '//', '૮', 'ૃ']:
             best_entry = e.copy()
             break
     
@@ -110,6 +119,7 @@ def deduplicate_dictionary(entries: List[Dict]) -> List[Dict]:
     """
     Remove duplicates from dictionary entries.
     Groups by (lemma, byakuzhi) and merges intelligently.
+    Also generates missing IPA for all entries.
     """
     # Group by lemma + byakuzhi
     groups = defaultdict(list)
@@ -127,6 +137,7 @@ def deduplicate_dictionary(entries: List[Dict]) -> List[Dict]:
     # Process groups
     deduplicated = []
     duplicates_found = 0
+    ipa_generated = 0
     
     for key, group_entries in sorted(groups.items()):
         lemma, byakuzhi = key
@@ -143,12 +154,19 @@ def deduplicate_dictionary(entries: List[Dict]) -> List[Dict]:
             deduplicated.append(merged)
         else:
             # Single entry - just ensure IPA is present
+            before_ipa = group_entries[0].get('ipa', '')
             entry = generate_ipa_if_missing(group_entries[0])
+            after_ipa = entry.get('ipa', '')
+            
+            if before_ipa != after_ipa and after_ipa:
+                ipa_generated += 1
+            
             deduplicated.append(entry)
     
     print(f"\n📊 Summary:")
     print(f"   Total entries processed: {len(entries)}")
     print(f"   Duplicate groups found: {duplicates_found}")
+    print(f"   IPA generated: {ipa_generated}")
     print(f"   Final entries: {len(deduplicated)}")
     print(f"   Entries removed: {len(entries) - len(deduplicated)}")
     
@@ -174,7 +192,7 @@ def main():
         json.dump(entries, f, ensure_ascii=False, indent=2)
     
     # Deduplicate
-    print(f"\n🔧 Deduplicating entries...")
+    print(f"\n🔧 Deduplicating and generating IPA...")
     deduplicated = deduplicate_dictionary(entries)
     
     # Write result
