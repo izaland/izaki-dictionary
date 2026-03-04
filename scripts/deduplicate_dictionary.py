@@ -6,6 +6,8 @@ Handles cases where:
 - Same lemma exists as both native word (<n>) and compound (<compound>)
 - Entries are missing IPA transcription
 - Multiple entries have the same lemma+byakuzhi combination
+
+CRITICAL: Native words (without byakuzhi) are NEVER grouped as duplicates!
 """
 
 import json
@@ -15,7 +17,7 @@ from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List
 
-# Embedded IPA generation (based on generate_ipa.py)
+# Embedded IPA generation
 PHONETIC_RULES = [
     (r'ā', 'aː'), (r'ē', 'eː'), (r'ī', 'iː'), (r'ō', 'oː'), (r'ū', 'uː'),
     (r'ts', 'ts'), (r'ch', 'tɕ'), (r'sh', 'ʃ'), (r'zh', 'ʒ'),
@@ -44,7 +46,7 @@ def generate_ipa_if_missing(entry: Dict) -> Dict:
     current_ipa = entry.get('ipa', '').strip()
     
     # Generate IPA if missing or placeholder
-    if lemma and (not current_ipa or current_ipa in ['', '【—】', '—', '૮', 'ૃ']):
+    if lemma and (not current_ipa or current_ipa in ['', '【—】', '—', '/', '//', '૮', 'ૃ']):
         try:
             generated_ipa = latin_to_ipa(lemma)
             if generated_ipa:
@@ -120,11 +122,33 @@ def deduplicate_dictionary(entries: List[Dict]) -> List[Dict]:
     Remove duplicates from dictionary entries.
     Groups by (lemma, byakuzhi) and merges intelligently.
     Also generates missing IPA for all entries.
+    
+    CRITICAL FIX: Native words (byakuzhi='') are NEVER grouped!
+    Each native word is treated as unique.
     """
-    # Group by lemma + byakuzhi
-    groups = defaultdict(list)
+    # Separate native words (no byakuzhi) from compounds
+    native_words = []
+    compounds = []
     
     for entry in entries:
+        byakuzhi = entry.get('byakuzhi', '').strip()
+        
+        if not byakuzhi:
+            # Native word - always unique, just generate IPA
+            native_words.append(generate_ipa_if_missing(entry))
+        else:
+            # Compound - may need deduplication
+            compounds.append(entry)
+    
+    print(f"📊 Initial split:")
+    print(f"   Native words (no byakuzhi): {len(native_words)}")
+    print(f"   Compounds (with byakuzhi): {len(compounds)}")
+    print()
+    
+    # Group compounds by (lemma, byakuzhi)
+    groups = defaultdict(list)
+    
+    for entry in compounds:
         lemma = entry.get('lemma', '').strip()
         byakuzhi = entry.get('byakuzhi', '').strip()
         
@@ -134,8 +158,8 @@ def deduplicate_dictionary(entries: List[Dict]) -> List[Dict]:
         key = (lemma, byakuzhi)
         groups[key].append(entry)
     
-    # Process groups
-    deduplicated = []
+    # Process compound groups
+    deduplicated_compounds = []
     duplicates_found = 0
     ipa_generated = 0
     
@@ -144,14 +168,14 @@ def deduplicate_dictionary(entries: List[Dict]) -> List[Dict]:
         
         if len(group_entries) > 1:
             duplicates_found += 1
-            print(f"\n🔄 Merging {len(group_entries)} entries for '{lemma}' ({byakuzhi})")
+            print(f"🔄 Merging {len(group_entries)} entries for '{lemma}' ({byakuzhi})")
             for i, e in enumerate(group_entries, 1):
                 ipa = e.get('ipa', '—')
                 notes = e.get('notes', '')
                 print(f"   [{i}] IPA: {ipa}, Notes: {notes}")
             
             merged = merge_entries(group_entries)
-            deduplicated.append(merged)
+            deduplicated_compounds.append(merged)
         else:
             # Single entry - just ensure IPA is present
             before_ipa = group_entries[0].get('ipa', '')
@@ -161,16 +185,22 @@ def deduplicate_dictionary(entries: List[Dict]) -> List[Dict]:
             if before_ipa != after_ipa and after_ipa:
                 ipa_generated += 1
             
-            deduplicated.append(entry)
+            deduplicated_compounds.append(entry)
     
-    print(f"\n📊 Summary:")
-    print(f"   Total entries processed: {len(entries)}")
-    print(f"   Duplicate groups found: {duplicates_found}")
+    # Combine native + deduplicated compounds
+    final_entries = native_words + deduplicated_compounds
+    
+    print(f"
+
+📊 Summary:")
+    print(f"   Native words (kept): {len(native_words)}")
+    print(f"   Compounds processed: {len(compounds)}")
+    print(f"   Duplicate compound groups found: {duplicates_found}")
     print(f"   IPA generated: {ipa_generated}")
-    print(f"   Final entries: {len(deduplicated)}")
-    print(f"   Entries removed: {len(entries) - len(deduplicated)}")
+    print(f"   Final total entries: {len(final_entries)}")
+    print(f"   Entries removed: {len(compounds) - len(deduplicated_compounds)}")
     
-    return deduplicated
+    return final_entries
 
 def main():
     # Paths
@@ -192,15 +222,21 @@ def main():
         json.dump(entries, f, ensure_ascii=False, indent=2)
     
     # Deduplicate
-    print(f"\n🔧 Deduplicating and generating IPA...")
+    print(f"
+
+🔧 Deduplicating and generating IPA...\n")
     deduplicated = deduplicate_dictionary(entries)
     
     # Write result
-    print(f"\n✍️  Writing deduplicated dictionary to {dictionary_json}...")
+    print(f"
+
+✍️  Writing deduplicated dictionary to {dictionary_json}...")
     with open(dictionary_json, 'w', encoding='utf-8') as f:
         json.dump(deduplicated, f, ensure_ascii=False, indent=2)
     
-    print(f"\n✅ Done! Dictionary has been deduplicated.")
+    print(f"
+
+✅ Done! Dictionary has been deduplicated.")
     print(f"   Backup saved at: {backup_json}")
 
 if __name__ == '__main__':
