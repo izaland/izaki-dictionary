@@ -24,6 +24,7 @@
     --dict-text: #4b3b2a;
     --dict-text-dark: #3e2f1c;
     --dict-lemma: #4b2f1e;
+    --dict-byakuzhi: #c41e3a;
     --dict-askaoza: #8b6f47;
     --dict-ipa: #7a5e3a;
     --dict-pos: #5a4529;
@@ -48,6 +49,7 @@
     --dict-text: #e5d5c0;
     --dict-text-dark: #d0c0a8;
     --dict-lemma: #f5e0c0;
+    --dict-byakuzhi: #ff6b85;
     --dict-askaoza: #d4b87c;
     --dict-ipa: #c0a87a;
     --dict-pos: #b0a088;
@@ -140,6 +142,13 @@
     font-size: 1.2rem;
   }
 
+  .byakuzhi {
+    margin-left: 0.4rem;
+    font-size: 1.4rem;
+    color: var(--dict-byakuzhi);
+    font-weight: 600;
+  }
+
   .askaoza {
     margin-left: 0.6rem;
     font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
@@ -177,6 +186,15 @@
     margin-left: 1rem;
     margin-top: 0.3rem;
     color: var(--dict-example);
+    font-style: italic;
+  }
+
+  .info-message {
+    padding: 1rem;
+    background-color: var(--dict-entry-bg);
+    border-radius: 5px;
+    text-align: center;
+    color: var(--dict-text);
     font-style: italic;
   }
 
@@ -247,7 +265,7 @@
   <div class="field">
     <label class="label">Search 檢索</label>
     <div class="control">
-      <input class="input" type="text" id="search" placeholder="Type to search... (Latin, Askaoza, English, Italian)">
+      <input class="input" type="text" id="search" placeholder="Type to search... (Latin, Byakuzhi, Askaoza, English, Italian)">
     </div>
   </div>
 
@@ -264,7 +282,11 @@
     </div>
   </div>
 
-  <div id="results"></div>
+  <div id="results">
+    <div class="info-message">
+      👆 Start typing to search the dictionary / 辞書を検索するには入力してください
+    </div>
+  </div>
 </div>
 
 <!-- Load external scripts first -->
@@ -355,7 +377,7 @@ fetch('../../data/dictionary.json')
     // Add ROMAJI and ASKAOZA to each entry
     data.forEach((entry, index) => {
       entry.ROMAJI = ipaToRomaji(entry.ipa || '');
-      entry.ASKAOZA = toAskaozaText(entry.lemma || '');
+      entry.ASKAOZA = toAskaozaText(entry.lemma || entry.reading || '');
       entry.INDEX = index;
     });
 
@@ -367,11 +389,16 @@ fetch('../../data/dictionary.json')
       const query = searchInput.value.toLowerCase().trim();
       const lang = langSelect.value;
 
+      // 🔥 FIX 1: Solo mostra risultati SE c'è una query
+      if (!query) {
+        resultsDiv.innerHTML = '<div class="info-message">👆 Start typing to search the dictionary / 辞書を検索するには入力してください</div>';
+        return;
+      }
+
       const filtered = data.filter(e => {
-        if (!query) return true; // Show all if search is empty
-        
         if (lang === "EN") {
-          return e.english && e.english.some(w => w.toLowerCase().includes(query));
+          return (e.english && e.english.some(w => w.toLowerCase().includes(query))) ||
+                 (e.word && e.word.toLowerCase().includes(query));
         }
         if (lang === "IT") {
           return e.italian && e.italian.some(w => w.toLowerCase().includes(query));
@@ -379,6 +406,8 @@ fetch('../../data/dictionary.json')
         if (lang === "IZ") {
           return (
             (e.lemma && e.lemma.toLowerCase().includes(query)) ||
+            (e.reading && e.reading.toLowerCase().includes(query)) ||
+            (e.byakuzhi && e.byakuzhi.includes(query)) ||
             (e.ipa && e.ipa.toLowerCase().includes(query)) ||
             (e.ROMAJI && e.ROMAJI.toLowerCase().includes(query)) ||
             (e.ASKAOZA && e.ASKAOZA.includes(query))
@@ -387,17 +416,26 @@ fetch('../../data/dictionary.json')
         return false;
       });
 
-      if (filtered.length === 0) {
-        resultsDiv.innerHTML = '<div class="entry">No results found 檢索結果無</div>';
+      // Limita a 100 risultati per performance
+      const limitedResults = filtered.slice(0, 100);
+
+      if (limitedResults.length === 0) {
+        resultsDiv.innerHTML = '<div class="info-message">❌ No results found / 検索結果無</div>';
         return;
       }
 
-      resultsDiv.innerHTML = filtered.map(e => {
+      // Mostra avviso se ci sono più risultati
+      let warningHTML = '';
+      if (filtered.length > 100) {
+        warningHTML = `<div class="info-message">⚠️ Showing first 100 of ${filtered.length} results. Refine your search for better results.</div>`;
+      }
+
+      resultsDiv.innerHTML = warningHTML + limitedResults.map(e => {
         const isNounEntry = isNoun(e.pos);
         let declensionHTML = '';
 
         if (isNounEntry) {
-          const declined = declineNounSimple(e.lemma);
+          const declined = declineNounSimple(e.lemma || e.reading);
 
           declensionHTML = `
             <button class="decline-btn" onclick="toggleDeclension(${e.INDEX})">
@@ -477,17 +515,22 @@ fetch('../../data/dictionary.json')
           `;
         }
 
+        // 🔥 FIX 2: Mostra byakuzhi se esiste
+        const byakuzhiHTML = e.byakuzhi ? `<span class="byakuzhi">${e.byakuzhi}</span>` : '';
+
         return `
           <div class="entry">
             <div class="headword">
-              <span class="lemma">${e.lemma || '—'}</span>
+              <span class="lemma">${e.lemma || e.reading || e.word || '—'}</span>
+              ${byakuzhiHTML}
               <span class="askaoza">${e.ASKAOZA}</span>
               <span class="ipa">【${e.ipa || '—'}】</span>
-              <span class="pos">&lt;${e.pos || "—"}&gt;</span>
+              <span class="pos">&lt;${e.pos || e.type || "—"}&gt;</span>
             </div>
 
             <div class="translations">
               ${e.english && e.english.length > 0 ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
+              ${e.word ? `<div class="english"><strong>EN:</strong> ${e.word}</div>` : ""}
               ${e.italian && e.italian.length > 0 ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
             </div>
 
@@ -502,11 +545,12 @@ fetch('../../data/dictionary.json')
     searchInput.addEventListener('input', renderResults);
     langSelect.addEventListener('change', renderResults);
 
+    // Mostra messaggio iniziale
     renderResults();
   })
   .catch(error => {
     console.error("Error loading JSON:", error);
-    document.getElementById('results').innerHTML = '<div class="entry">Error loading dictionary data. Please check the console.</div>';
+    document.getElementById('results').innerHTML = '<div class="info-message">❌ Error loading dictionary data. Please check the console.</div>';
   });
 </script>
 
