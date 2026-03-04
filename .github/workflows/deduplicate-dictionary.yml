@@ -1,0 +1,137 @@
+name: Deduplicate Dictionary
+
+on:
+  # Trigger manuale dal tab Actions
+  workflow_dispatch:
+    inputs:
+      create_pr:
+        description: 'Create Pull Request instead of direct commit'
+        required: false
+        type: boolean
+        default: false
+  
+  # Opzionale: trigger automatico dopo push su main che modifica i dati
+  # Decommentare per abilitare
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'data/dictionary.json'
+  #     - 'data/compounds.csv'
+
+jobs:
+  deduplicate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📊 Check for duplicates
+        id: check
+        run: |
+          echo "## Duplicate Check Report" >> $GITHUB_STEP_SUMMARY
+          python scripts/check_duplicates.py > duplicate_report.txt 2>&1 || true
+          cat duplicate_report.txt >> $GITHUB_STEP_SUMMARY
+          cat duplicate_report.txt
+          
+          # Check if duplicates were found
+          if grep -q "No duplicates found" duplicate_report.txt; then
+            echo "has_duplicates=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_duplicates=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: 🔧 Run deduplication
+        if: steps.check.outputs.has_duplicates == 'true'
+        run: |
+          echo "## Deduplication Results" >> $GITHUB_STEP_SUMMARY
+          python scripts/deduplicate_dictionary.py | tee dedupe_results.txt
+          cat dedupe_results.txt >> $GITHUB_STEP_SUMMARY
+      
+      - name: 📝 Check for changes
+        if: steps.check.outputs.has_duplicates == 'true'
+        id: git_diff
+        run: |
+          if git diff --quiet data/dictionary.json; then
+            echo "No changes made"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            git diff --stat data/dictionary.json
+          fi
+      
+      - name: 💾 Commit changes (Direct)
+        if: |
+          steps.check.outputs.has_duplicates == 'true' && 
+          steps.git_diff.outputs.has_changes == 'true' &&
+          !inputs.create_pr
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/dictionary.json
+          
+          # Get statistics for commit message
+          STATS=$(cat dedupe_results.txt | grep -A 4 "Summary:" | tail -4)
+          
+          git commit -m "🔧 Auto-deduplicate dictionary entries
+          
+          $STATS
+          
+          Automatically deduplicated by GitHub Actions."
+          
+          git push
+      
+      - name: 📤 Create Pull Request
+        if: |
+          steps.check.outputs.has_duplicates == 'true' && 
+          steps.git_diff.outputs.has_changes == 'true' &&
+          inputs.create_pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "🔧 Deduplicate dictionary entries"
+          title: "🔧 Remove duplicate dictionary entries"
+          body: |
+            ## Automatic Deduplication
+            
+            This PR removes duplicate entries from the dictionary and ensures all entries have proper IPA transcriptions.
+            
+            ### Changes
+            - Merged duplicate entries with same (lemma, byakuzhi)
+            - Generated missing IPA transcriptions
+            - Combined translations from duplicate entries
+            
+            ### Report
+            ```
+            $(cat dedupe_results.txt)
+            ```
+            
+            ---
+            🤖 This PR was created automatically by the deduplication workflow.
+          branch: auto-deduplicate-${{ github.run_number }}
+          delete-branch: true
+      
+      - name: ✅ Summary
+        if: always()
+        run: |
+          echo "## Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check.outputs.has_duplicates }}" = "false" ]; then
+            echo "✅ No duplicates found - dictionary is clean!" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ steps.git_diff.outputs.has_changes }}" = "true" ]; then
+            if [ "${{ inputs.create_pr }}" = "true" ]; then
+              echo "📤 Pull request created with deduplication changes" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "✅ Dictionary deduplicated and committed to main branch" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "ℹ️ Duplicates detected but no changes needed" >> $GITHUB_STEP_SUMMARY
+          fi
