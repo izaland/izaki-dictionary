@@ -240,7 +240,6 @@
 
 <!-- Navbar -->
 <div id="navbar"></div>
-<script src="/izaki-dictionary/scripts/script.js"></script>
 
 <div id="container">
   <h1 class="title">Izaki Dictionary 華邦語辞典</h1>
@@ -267,6 +266,11 @@
 
   <div id="results"></div>
 </div>
+
+<!-- Load external scripts first -->
+<script src="../../scripts/script.js"></script>
+<script src="../../scripts/askaoza.js"></script>
+<script src="../tools/declensor-logic.js"></script>
 
 <script>
 // === IPA → ROMAJI function ===
@@ -296,8 +300,43 @@ function ipaToRomaji(ipa) {
 // ==========================================
 function isNoun(pos) {
   if (!pos) return false;
-  const posClean = pos.replace(/\s+/g, '');
-  return posClean.includes(':n=');
+  const posLower = pos.toLowerCase().trim();
+  return posLower.includes('n=') || posLower.includes('noun');
+}
+
+// === Fallback per toAskaozaText se non caricato ===
+if (typeof toAskaozaText !== 'function') {
+  window.toAskaozaText = function(text) {
+    return text; // Fallback: restituisce il testo originale
+  };
+}
+
+// === Fallback per declineNounSimple se non caricato ===
+if (typeof declineNounSimple !== 'function') {
+  window.declineNounSimple = function(lemma) {
+    return {
+      singular: {
+        nom: lemma,
+        gen: lemma + '-gen',
+        acc: lemma + '-acc',
+        dat: lemma + '-dat',
+        ess: lemma + '-ess',
+        all: lemma + '-all',
+        abl: lemma + '-abl',
+        ins: lemma + '-ins'
+      },
+      plural: {
+        nom: lemma + '-pl',
+        gen: lemma + '-pl-gen',
+        acc: lemma + '-pl-acc',
+        dat: lemma + '-pl-dat',
+        ess: lemma + '-pl-ess',
+        all: lemma + '-pl-all',
+        abl: lemma + '-pl-abl',
+        ins: lemma + '-pl-ins'
+      }
+    };
+  };
 }
 
 // === Toggle declension table ===
@@ -315,7 +354,7 @@ fetch('../../data/dictionary.json')
 
     // Add ROMAJI and ASKAOZA to each entry
     data.forEach((entry, index) => {
-      entry.ROMAJI = ipaToRomaji(entry.IZ);
+      entry.ROMAJI = ipaToRomaji(entry.ipa || '');
       entry.ASKAOZA = toAskaozaText(entry.lemma || '');
       entry.INDEX = index;
     });
@@ -325,21 +364,33 @@ fetch('../../data/dictionary.json')
     const resultsDiv = document.getElementById('results');
 
     function renderResults() {
-      const query = searchInput.value.toLowerCase();
+      const query = searchInput.value.toLowerCase().trim();
       const lang = langSelect.value;
 
       const filtered = data.filter(e => {
-        if (lang === "EN") return e.english?.some(w => w.toLowerCase().includes(query));
-        if (lang === "IT") return e.italian?.some(w => w.toLowerCase().includes(query));
+        if (!query) return true; // Show all if search is empty
+        
+        if (lang === "EN") {
+          return e.english && e.english.some(w => w.toLowerCase().includes(query));
+        }
+        if (lang === "IT") {
+          return e.italian && e.italian.some(w => w.toLowerCase().includes(query));
+        }
         if (lang === "IZ") {
           return (
-            e.lemma?.toLowerCase().includes(query) ||
-            e.ipa?.toLowerCase().includes(query) ||
-            e.ROMAJI?.toLowerCase().includes(query) ||
-            e.ASKAOZA?.includes(query)
+            (e.lemma && e.lemma.toLowerCase().includes(query)) ||
+            (e.ipa && e.ipa.toLowerCase().includes(query)) ||
+            (e.ROMAJI && e.ROMAJI.toLowerCase().includes(query)) ||
+            (e.ASKAOZA && e.ASKAOZA.includes(query))
           );
         }
+        return false;
       });
+
+      if (filtered.length === 0) {
+        resultsDiv.innerHTML = '<div class="entry">No results found 檢索結果無</div>';
+        return;
+      }
 
       resultsDiv.innerHTML = filtered.map(e => {
         const isNounEntry = isNoun(e.pos);
@@ -429,15 +480,15 @@ fetch('../../data/dictionary.json')
         return `
           <div class="entry">
             <div class="headword">
-              <span class="lemma">${e.lemma}</span>
+              <span class="lemma">${e.lemma || '—'}</span>
               <span class="askaoza">${e.ASKAOZA}</span>
-              <span class="ipa">【${e.ipa}】</span>
+              <span class="ipa">【${e.ipa || '—'}】</span>
               <span class="pos">&lt;${e.pos || "—"}&gt;</span>
             </div>
 
             <div class="translations">
-              ${e.english ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
-              ${e.italian ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
+              ${e.english && e.english.length > 0 ? `<div class="english"><strong>EN:</strong> ${e.english.join(", ")}</div>` : ""}
+              ${e.italian && e.italian.length > 0 ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(", ")}</div>` : ""}
             </div>
 
             ${e.example ? `<div class="example">EX: ${e.example}</div>` : ""}
@@ -453,14 +504,11 @@ fetch('../../data/dictionary.json')
 
     renderResults();
   })
-  .catch(error => console.error("Error loading JSON:", error));
+  .catch(error => {
+    console.error("Error loading JSON:", error);
+    document.getElementById('results').innerHTML = '<div class="entry">Error loading dictionary data. Please check the console.</div>';
+  });
 </script>
-
-<!-- Script declensor (funzioni semplificate) -->
-<script src="../tools/declensor-logic.js"></script>
-
-<!-- Script askaoza per conversione automatica -->
-<script src="/izaki-dictionary/scripts/askaoza.js"></script>
 
 </body>
 </html>
