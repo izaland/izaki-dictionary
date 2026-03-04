@@ -1,0 +1,37 @@
+name: Update Izaki Dictionary with IPA
+
+on:
+  push:
+    paths:
+      - 'data/compounds.csv'
+  workflow_dispatch:
+
+jobs:
+  generate-ipa:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 🔄 Generate IPA from CSV
+        run: |
+          python scripts/generate_ipa.py
+      
+      - name: 📤 Commit updated JSON
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/dictionary_with_ipa.json
+          git diff --staged --quiet || git commit -m "🤖 Auto-generate IPA from compounds.csv"
+      
+      - name: 🚀 Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
