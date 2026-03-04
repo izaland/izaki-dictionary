@@ -3,7 +3,6 @@ name: Update Izaki Dictionary
 on:
   push:
     paths:
-      - 'data/dictionary.csv'
       - 'data/compounds.csv'
   workflow_dispatch:
 
