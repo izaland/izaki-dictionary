@@ -1,0 +1,43 @@
+📖 Reading data/dictionary.json...
+   Loaded 3960 entries
+
+🔍 Scanning for missing IPA...
+   Found 3020 entries with missing IPA
+
+📝 First 10 entries needing IPA:
+   - acchaku
+   - ahyō
+   - ai
+   - ai
+   - aibo
+   - aibyō
+   - aichō
+   - aieki
+   - aihi
+   - aiho
+   ... and 3010 more
+
+🔧 Generating IPA...
+
+💾 Creating backup at data/dictionary_backup_ipa.json...
+  ✓ acchaku → /actɕaku/
+  ✓ ahyō → /ahjoː/
+  ✓ ai → /ai/
+  ✓ ai → /ai/
+  ✓ aibo → /aibo/
+  ✓ aibyō → /aibjoː/
+  ✓ aichō → /aitɕoː/
+  ✓ aieki → /aieki/
+  ✓ aihi → /aihi/
+  ✓ aiho → /aiho/
+  ... (showing first 10, generating 3020 total)
+
+📊 Summary:
+   Total entries: 3960
+   IPA generated: 3020
+   Failed: 0
+
+✍️  Writing updated dictionary to data/dictionary.json...
+
+✅ Done! Generated IPA for 3020 entries.
+   Backup saved at: data/dictionary_backup_ipa.json
