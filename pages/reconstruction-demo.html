@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricostruzione Lettura da Byakuzhi - Izaki Dictionary</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 900px;
+      width: 100%;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 2em;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 0.95em;
+    }
+
+    .input-section {
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 1.1em;
+    }
+
+    .description {
+      color: #777;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.3em;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    textarea {
+      min-height: 80px;
+    }
+
+    .output-section {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 20px;
+    }
+
+    .output-title {
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 8px;
+    }
+
+    .readings-output {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .reading-line {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .reading-label {
+      font-weight: 600;
+      color: #667eea;
+      min-width: 80px;
+      font-size: 0.95em;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .reading-text {
+      font-size: 1.3em;
+      color: #333;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .reading-text.latin {
+      font-family: 'Courier New', monospace;
+    }
+
+    .reading-text.ipa {
+      font-family: 'Doulos SIL', 'Charis SIL', serif;
+    }
+
+    .reading-text.askaoza {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 1.5em;
+    }
+
+    .info-box {
+      background: #e8eaf6;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+
+    .info-box h3 {
+      color: #667eea;
+      margin-bottom: 8px;
+      font-size: 1em;
+    }
+
+    .info-box ul {
+      margin-left: 20px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .info-box li {
+      margin-bottom: 5px;
+    }
+
+    .example-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .example-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background 0.3s;
+    }
+
+    .example-btn:hover {
+      background: #5568d3;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 1.6em;
+      }
+
+      .reading-line {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .reading-label {
+        min-width: auto;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>🔤 Ricostruzione Lettura</h1>
+    <p class="subtitle">Sistema di conversione da Byakuzhi ad alfabeto</p>
+
+    <div class="info-box">
+      <h3>ℹ️ Come funziona</h3>
+      <ul>
+        <li>Inserisci una sequenza di <strong>byakuzhi</strong> (白文字)</li>
+        <li>Il sistema ricostruisce automaticamente la lettura applicando le regole fonetiche:</li>
+        <ul>
+          <li><strong>N finale</strong>: raddoppia davanti a vocale, diventa L davanti a R</li>
+          <li><strong>S finale</strong>: assimilazione con consonanti seguenti</li>
+          <li><strong>-ku/-ki</strong>: fusione con K/H iniziale del carattere successivo</li>
+        </ul>
+        <li>L'output include: <strong>Latino</strong>, <strong>IPA</strong> e <strong>Askaoza</strong></li>
+      </ul>
+    </div>
+
+    <div class="example-buttons">
+      <button class="example-btn" onclick="insertExample('結局')">Esempio 1: 結局</button>
+      <button class="example-btn" onclick="insertExample('日本')">Esempio 2: 日本</button>
+      <button class="example-btn" onclick="insertExample('文化')">Esempio 3: 文化</button>
+    </div>
+
+    <div class="input-section">
+      <label for="reconstructInput">✍️ Inserisci Byakuzhi</label>
+      <p class="description">Scrivi o incolla i caratteri byakuzhi da ricostruire</p>
+      <textarea id="reconstructInput" placeholder="例: 結局、日本、文化..."></textarea>
+    </div>
+
+    <div class="output-section">
+      <div class="output-title">📝 Ricostruzione Alfabetica</div>
+      <div id="reconstructOutput">
+        <em style="color: #999;">Inserisci del testo per vedere la ricostruzione...</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script dependencies -->
+  <script src="/izaki-dictionary/scripts/askaoza.js"></script>
+  <script>
+    // Carichiamo byakuzhi.json
+    let byakuzhi = {};
+
+    async function loadJSON() {
+      const url = '/izaki-dictionary/data/byakuzhi.json';
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        byakuzhi = await res.json();
+        console.log('Byakuzhi JSON loaded successfully');
+      } catch (err) {
+        console.error('Failed to load byakuzhi.json:', err);
+        document.getElementById('reconstructOutput').innerHTML = 
+          '<em style="color: red;">❌ Errore nel caricamento del dizionario</em>';
+      }
+    }
+
+    // Funzioni helper per esempi
+    function insertExample(text) {
+      document.getElementById('reconstructInput').value = text;
+      document.getElementById('reconstructInput').dispatchEvent(new Event('input'));
+    }
+
+    loadJSON();
+  </script>
+  <script src="/izaki-dictionary/scripts/reconstruction.js"></script>
+</body>
+</html>
