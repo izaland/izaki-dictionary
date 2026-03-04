@@ -14223,5 +14223,299 @@
     "askaoza": "",
     "notes": "",
     "example": ""
+  },
+  {
+    "lemma": "acchaku",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "Crimping"
+    ],
+    "italian": [],
+    "byakuzhi": "圧着",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "asliki/rī",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "pressure"
+    ],
+    "italian": [],
+    "byakuzhi": "圧力",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "asnyun",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "Press-fit"
+    ],
+    "italian": [],
+    "byakuzhi": "圧入",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "assas",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "crush"
+    ],
+    "italian": [],
+    "byakuzhi": "圧殺",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "assei",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "tyranny"
+    ],
+    "italian": [],
+    "byakuzhi": "圧制",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "assei",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "oppression"
+    ],
+    "italian": [],
+    "byakuzhi": "圧政",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "asshi",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "crushed to death"
+    ],
+    "italian": [],
+    "byakuzhi": "圧死",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "astou",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "Overwhelming"
+    ],
+    "italian": [],
+    "byakuzhi": "圧倒",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "asshyen",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "rolling"
+    ],
+    "italian": [],
+    "byakuzhi": "圧延",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "assaku",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "Compression"
+    ],
+    "italian": [],
+    "byakuzhi": "圧搾",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "ayen",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "zinc"
+    ],
+    "italian": [],
+    "byakuzhi": "亜鉛",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "aima",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "Beloved horse"
+    ],
+    "italian": [],
+    "byakuzhi": "愛馬",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "aitau",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "beloved sword"
+    ],
+    "italian": [],
+    "byakuzhi": "愛刀",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "lemma": "aijōn",
+    "ipa": "",
+    "pos": "n",
+    "english": [
+      "love"
+    ],
+    "italian": [],
+    "byakuzhi": "愛情",
+    "askaoza": "",
+    "notes": "compound",
+    "example": ""
+  },
+  {
+    "word": "Beloved horse",
+    "byakuzhi": "愛馬",
+    "reading": "aima",
+    "ipa": "/aima/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "beloved sword",
+    "byakuzhi": "愛刀",
+    "reading": "aitau",
+    "ipa": "/aitau/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "Compression",
+    "byakuzhi": "圧搾",
+    "reading": "assaku",
+    "ipa": "/assaku/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "Crimping",
+    "byakuzhi": "圧着",
+    "reading": "acchaku",
+    "ipa": "/actɕaku/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "crush",
+    "byakuzhi": "圧殺",
+    "reading": "assas",
+    "ipa": "/assas/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "crushed to death",
+    "byakuzhi": "圧死",
+    "reading": "asshi",
+    "ipa": "/asʃi/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "love",
+    "byakuzhi": "愛情",
+    "reading": "aijōn",
+    "ipa": "/aidʒoːn/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "oppression",
+    "byakuzhi": "圧政",
+    "reading": "assei",
+    "ipa": "/assei/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "Overwhelming",
+    "byakuzhi": "圧倒",
+    "reading": "astou",
+    "ipa": "/astou/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "Press-fit",
+    "byakuzhi": "圧入",
+    "reading": "asnyun",
+    "ipa": "/asnjun/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "pressure",
+    "byakuzhi": "圧力",
+    "reading": "asliki/rī",
+    "ipa": "/asliki/ɾiː/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "rolling",
+    "byakuzhi": "圧延",
+    "reading": "asshyen",
+    "ipa": "/asʃjen/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "tyranny",
+    "byakuzhi": "圧制",
+    "reading": "assei",
+    "ipa": "/assei/",
+    "type": "compound",
+    "source": "sheets_sync"
+  },
+  {
+    "word": "zinc",
+    "byakuzhi": "亜鉛",
+    "reading": "ayen",
+    "ipa": "/ajen/",
+    "type": "compound",
+    "source": "sheets_sync"
   }
 ]
