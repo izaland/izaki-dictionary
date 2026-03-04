@@ -1,0 +1,50 @@
+📖 Reading data/dictionary.json...
+   Total entries: 14804
+
+🔍 Found 9 duplicate groups:
+
+================================================================================
+
+1. hanki 
+   [1] hanki                <n>             EN: nest
+   [2] hanki                <n>             EN: breath
+
+2. hankuri 
+   [1] hankuri              <n>             EN: sigh
+   [2] hankuri              <n>             EN: aurora
+
+3. musli 物理
+   [1]                      <compound>      EN: physics
+   [2]                      <compound>      EN: physics
+
+4. paishin 陪審
+   [1]                      <compound>      EN: jury
+   [2]                      <compound>      EN: jury
+
+5. samuna 
+   [1] samuna               <n>             EN: badger
+   [2] samuna               <adj>           EN: same
+
+6. tagas jaki 
+   [1] tagas jaki           <adv>           EN: a little at a time
+   [2] tagas jaki           <adv>           EN: a little at a time
+
+7. tsahena 
+   [1] ʦahena               <adj>           EN: ancient
+   [2] ʦahena               <adj>           EN: old
+
+8. zaisei 財政
+   [1]                      <compound>      EN: finances
+   [2]                      <compound>      EN: finances
+
+9. ʧushshisu 
+   [1] ʧuʃʃisu              <v>             EN: to suck
+   [2] ʧuʃʃisu              <v>             EN: to suck
+
+================================================================================
+
+📊 Summary:
+   Total duplicate groups: 9
+   Extra entries (removable): 9
+
+💡 Run 'python scripts/deduplicate_dictionary.py' to fix these.

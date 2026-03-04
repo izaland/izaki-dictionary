@@ -1,0 +1,54 @@
+⚠️  Warning: generate_ipa.py not found. IPA will not be auto-generated.
+📖 Reading data/dictionary.json...
+   Loaded 14804 entries
+
+💾 Creating backup at data/dictionary_backup.json...
+
+🔧 Deduplicating entries...
+
+🔄 Merging 2 entries for 'hanki' ()
+   [1] IPA: hanki, Notes: 
+   [2] IPA: hanki, Notes: 
+
+🔄 Merging 2 entries for 'hankuri' ()
+   [1] IPA: hankuri, Notes: 
+   [2] IPA: hankuri, Notes: 
+
+🔄 Merging 2 entries for 'musli' (物理)
+   [1] IPA: , Notes: compound
+   [2] IPA: , Notes: compound
+
+🔄 Merging 2 entries for 'paishin' (陪審)
+   [1] IPA: , Notes: compound
+   [2] IPA: , Notes: compound
+
+🔄 Merging 2 entries for 'samuna' ()
+   [1] IPA: samuna, Notes: 
+   [2] IPA: samuna, Notes: 
+
+🔄 Merging 2 entries for 'tagas jaki' ()
+   [1] IPA: tagas jaki, Notes: 
+   [2] IPA: tagas jaki, Notes: 
+
+🔄 Merging 2 entries for 'tsahena' ()
+   [1] IPA: ʦahena, Notes: 
+   [2] IPA: ʦahena, Notes: 
+
+🔄 Merging 2 entries for 'zaisei' (財政)
+   [1] IPA: , Notes: compound
+   [2] IPA: , Notes: compound
+
+🔄 Merging 2 entries for 'ʧushshisu' ()
+   [1] IPA: ʧuʃʃisu, Notes: 
+   [2] IPA: ʧuʃʃisu, Notes: 
+
+📊 Summary:
+   Total entries processed: 14804
+   Duplicate groups found: 9
+   Final entries: 3960
+   Entries removed: 10844
+
+✍️  Writing deduplicated dictionary to data/dictionary.json...
+
+✅ Done! Dictionary has been deduplicated.
+   Backup saved at: data/dictionary_backup.json
