@@ -1,44 +1,85 @@
-# 🔧 Dictionary Deduplication Guide
+# 🔧 Dictionary Maintenance Guide
 
-Questo documento spiega come usare il sistema automatico di deduplicazione del dizionario.
+Questo documento spiega come usare il sistema automatico di manutenzione del dizionario.
+
+## 🐛 Problemi Risolti
+
+Il workflow automatico risolve questi problemi comuni:
+
+### 1. 🏷️ Lemma Errati nei Composti
+**Problema**: I composti mostrano l'inglese invece della lettura Izaki
+```
+entertainment 遊學 【—】 <compound>
+EN: entertainment
+```
+
+**Dovrebbe essere**:
+```
+yūgaku 遊學 【/yūgaku/】 <compound>
+EN: entertainment
+```
+
+### 2. 🔄 Duplicati
+**Problema**: Stessa entry appare più volte con tag diversi
+```
+ankuku 安國 【—】 <n>
+ankuku 安國 【/ankuku/】 <compound>
+```
+
+### 3. ❌ IPA Mancanti
+**Problema**: Entry senza trascrizione IPA (`【—】`)
+
+---
 
 ## 🚀 Esecuzione Manuale (Consigliata)
 
-### Tramite GitHub Actions (Web Interface)
+### Via GitHub Actions (Web Interface)
 
 1. **Vai alla tab Actions**
    - Apri: https://github.com/izaland/izaki-dictionary/actions
 
-2. **Seleziona il workflow "Deduplicate Dictionary"**
-   - Nella sidebar sinistra, clicca su "Deduplicate Dictionary"
+2. **Seleziona il workflow**
+   - Nella sidebar sinistra: "**Deduplicate Dictionary**"
 
 3. **Clicca "Run workflow"**
    - Pulsante in alto a destra (dropdown grigio)
-   - Scegli il branch: `main`
-   - **Opzione "Create Pull Request"**:
-     - ☐ **Disabilitato** (default): Commit diretto su main
-     - ☑️ **Abilitato**: Crea una PR per revisione manuale
+   - Assicurati branch: **`main`**
+   
+4. **Opzioni disponibili**:
+   - ☑️ **Create Pull Request**: Crea PR per revisione (consigliato prima volta)
+   - ☑️ **Fix compound lemmas**: Corregge i lemma errati (default: abilitato)
 
-4. **Clicca il pulsante verde "Run workflow"**
+5. **Clicca il pulsante verde "Run workflow"**
 
-5. **Attendi il completamento** (~30 secondi)
-   - Verde ✅ = Successo
-   - Rosso ❌ = Errore (controlla i log)
+6. **Aspetta (~30-60 secondi)**
 
-6. **Verifica i risultati**
+7. **Controlla i risultati**
    - Clicca sul workflow completato
-   - Vai alla tab "Summary"
-   - Vedrai il report completo con statistiche
+   - Tab **"Summary"** mostra:
+     - Quanti lemma corretti
+     - Quanti duplicati rimossi
+     - Quanti IPA generati
 
-### Report di Esempio
+---
+
+## 📊 Report di Esempio
 
 ```
-## Duplicate Check Report
-🔍 Found 147 duplicate groups:
+## Compound Lemma Fix
+📖 Reading data/dictionary.json...
+   Loaded 5234 entries
 
-1. ankuku 安國
-   [1] 【—】              <n>             EN: Ankuni
-   [2] /ankuku/          <compound>      EN: Ankuni
+📋 Reading data/compounds.csv...
+   Loaded 3847 compound mappings
+
+🔧 Fixing entries...
+   ✓ Fixing: entertainment → yūgaku (遊學)
+   ✓ Fixing: erudition → hakugaku (博學)
+   ✓ Fixing: ethics → ryongaku (倫理學)
+
+📊 Summary:
+   Fixed entries: 1247
+   Errors found: 0
 
 ## Deduplication Results
 🔄 Merging 2 entries for 'ankuku' (安國)
@@ -55,26 +96,14 @@ Questo documento spiega come usare il sistema automatico di deduplicazione del d
 
 ## 🤖 Esecuzione Automatica (Opzionale)
 
-Per abilitare l'esecuzione automatica ad ogni modifica dei dati:
+Per abilitare l'esecuzione automatica ad ogni modifica:
 
-1. **Apri il file workflow**
+1. **Apri il file workflow**:
    ```
    .github/workflows/deduplicate-dictionary.yml
    ```
 
-2. **Decommenta le righe dell'auto-trigger**
-   
-   Trova queste righe (circa linea 13-17):
-   ```yaml
-   # push:
-   #   branches:
-   #     - main
-   #   paths:
-   #     - 'data/dictionary.json'
-   #     - 'data/compounds.csv'
-   ```
-   
-   Rimuovi i `#` per attivarle:
+2. **Decommenta le righe** (circa linea 16-21):
    ```yaml
    push:
      branches:
@@ -84,32 +113,40 @@ Per abilitare l'esecuzione automatica ad ogni modifica dei dati:
        - 'data/compounds.csv'
    ```
 
-3. **Commit e push** la modifica
+3. **Commit e push**
 
-4. **Da quel momento**, ogni volta che modifichi `dictionary.json` o `compounds.csv`, il workflow si attiverà automaticamente
+Da quel momento, ogni modifica a `dictionary.json` o `compounds.csv` attiverà automaticamente il workflow.
 
-⚠️ **Attenzione**: Con auto-trigger attivo, i duplicati vengono rimossi automaticamente senza revisione manuale. Considera di abilitare l'opzione PR.
+⚠️ **Attenzione**: Con auto-trigger attivo, le modifiche avvengono senza revisione manuale.
 
 ---
 
 ## 🛠️ Esecuzione Locale (Avanzato)
 
-Se preferisci eseguire lo script in locale:
+Se preferisci eseguire gli script localmente:
 
+### Riparare Lemma Errati
 ```bash
-# Clone repository
-git clone https://github.com/izaland/izaki-dictionary.git
-cd izaki-dictionary
+python scripts/fix_compound_lemmas.py
+```
 
-# Controlla duplicati
-python scripts/check_duplicates.py
+### Rimuovere Duplicati
+```bash
+python scripts/check_duplicates.py  # Diagnostica
+python scripts/deduplicate_dictionary.py  # Riparazione
+```
 
-# Esegui deduplicazione
+### Workflow Completo
+```bash
+# 1. Ripara lemma
+python scripts/fix_compound_lemmas.py
+
+# 2. Rimuovi duplicati e genera IPA
 python scripts/deduplicate_dictionary.py
 
-# Commit e push
+# 3. Commit
 git add data/dictionary.json
-git commit -m "Remove duplicates"
+git commit -m "Fix dictionary issues"
 git push
 ```
 
@@ -117,47 +154,69 @@ git push
 
 ## 📋 Opzioni del Workflow
 
-### Input Parametri
-
 | Parametro | Tipo | Default | Descrizione |
 |-----------|------|---------|-------------|
-| `create_pr` | boolean | `false` | Se `true`, crea una Pull Request invece di commit diretto |
+| `create_pr` | boolean | `false` | Crea Pull Request invece di commit diretto |
+| `fix_lemmas` | boolean | `true` | Corregge lemma errati prima della deduplicazione |
 
 ### Quando Usare PR vs Commit Diretto
 
 **Commit Diretto** (`create_pr: false`):
 - ✅ Modifiche automatiche e veloci
-- ✅ Fiducia completa nello script
 - ✅ Dizionario si aggiorna immediatamente
 - ❌ Nessuna revisione manuale
 
 **Pull Request** (`create_pr: true`):
 - ✅ Revisione manuale delle modifiche
-- ✅ Possibilità di vedere il diff prima del merge
-- ✅ Più sicuro per modifiche complesse
+- ✅ Vedere il diff prima del merge
+- ✅ Più sicuro per grandi cambiamenti
 - ❌ Richiede approvazione manuale
-- ❌ Dizionario non si aggiorna subito
 
 ---
 
-## 🔍 Cosa Fa lo Script
+## 🔍 Cosa Fanno Gli Script
 
-### 1. Identificazione Duplicati
-Ragruppa entry per chiave `(lemma, byakuzhi)`:
-- `ankuku` + `安國` = duplicate
-- `ankuku` + `安国` = NON duplicate (caratteri diversi)
+### 1. `fix_compound_lemmas.py`
 
-### 2. Merge Intelligente
-Quando trova duplicati:
-1. **Preferisce** l'entry con IPA già generato
-2. **Combina** tutte le traduzioni (EN + IT)
-3. **Mantiene** il tag più appropriato
-4. **Genera IPA** per entry che non lo hanno
+**Identifica**:
+- Entry compound con lemma che contiene solo caratteri ASCII
+- Lemma che sembrano essere inglese invece di lettura Izaki
 
-### 3. Backup
-Prima di modificare:
-- Salva `data/dictionary_backup.json`
-- Permette rollback in caso di problemi
+**Ripara**:
+- Legge `compounds.csv` per trovare la lettura corretta
+- Sostituisce il lemma con la lettura Izaki appropriata
+- Mantiene tutte le altre informazioni intatte
+
+**Esempio**:
+```python
+# Prima
+{
+  "lemma": "entertainment",  # ❌ ERRORE
+  "byakuzhi": "遊學",
+  "english": ["entertainment"]
+}
+
+# Dopo
+{
+  "lemma": "yūgaku",  # ✅ CORRETTO
+  "byakuzhi": "遊學",
+  "english": ["entertainment"]
+}
+```
+
+### 2. `deduplicate_dictionary.py`
+
+**Identifica**:
+- Duplicati per chiave `(lemma, byakuzhi)`
+
+**Unisce**:
+1. Preferisce entry con IPA già generato
+2. Combina tutte le traduzioni (EN + IT)
+3. Mantiene il tag più appropriato
+4. Genera IPA mancanti
+
+**Backup**:
+- Crea `dictionary_backup.json` prima di modificare
 
 ---
 
@@ -166,36 +225,33 @@ Prima di modificare:
 ### Workflow Fallisce
 
 **Errore: "Permission denied"**
-- Verifica che il workflow abbia permessi di scrittura
 - Settings → Actions → General → Workflow permissions
 - Seleziona "Read and write permissions"
 
 **Errore: "Python module not found"**
-- Controlla che `scripts/deduplicate_dictionary.py` esista
-- Verifica syntax errors nello script Python
+- Verifica che gli script esistano in `scripts/`
+- Controlla syntax errors negli script
 
-**Errore: "No changes to commit"**
-- ✅ Questo è OK! Significa che non c'erano duplicati
+**Errore: "No mapping found for ..."**
+- Verifica che `compounds.csv` contenga quella entry
+- Controlla che la colonna "Izaki Reading" non sia vuota
 
 ### Rollback Modifiche
 
-Se qualcosa va storto:
-
+**Da backup**:
 ```bash
-# Ripristina da backup
 mv data/dictionary_backup.json data/dictionary.json
+# oppure
+mv data/dictionary_backup_lemma.json data/dictionary.json
+
 git add data/dictionary.json
-git commit -m "Rollback deduplication"
+git commit -m "Rollback dictionary changes"
 git push
 ```
 
-O tramite Git history:
-
+**Da Git history**:
 ```bash
-# Trova commit precedente
-git log --oneline
-
-# Ripristina file specifico
+git log --oneline  # Trova commit precedente
 git checkout <commit-hash> -- data/dictionary.json
 git commit -m "Rollback to previous dictionary"
 git push
@@ -203,32 +259,13 @@ git push
 
 ---
 
-## 📊 Statistiche e Report
-
-Dopo ogni esecuzione, il workflow genera:
-
-1. **Summary Report** nella tab Actions
-   - Numero duplicati trovati
-   - Entry rimosse
-   - IPA generati
-
-2. **Commit Message** dettagliato
-   - Include statistiche
-   - Timestamp esecuzione
-
-3. **Backup File** (`dictionary_backup.json`)
-   - Versione pre-deduplicazione
-   - Per sicurezza e rollback
-
----
-
 ## 💡 Best Practices
 
-1. **Esegui manualmente** dopo grandi modifiche al dizionario
-2. **Usa PR mode** la prima volta per verificare i risultati
-3. **Controlla il report** nel workflow summary
-4. **Tieni il backup** per almeno un commit
-5. **Non editare manualmente** `dictionary_backup.json`
+1. **Prima esecuzione**: Usa **PR mode** per vedere cosa succede
+2. **Verifica compounds.csv**: Assicurati che tutti i composti abbiano "Izaki Reading"
+3. **Controlla i report**: Leggi sempre il workflow summary
+4. **Backup automatici**: Gli script creano sempre backup prima di modificare
+5. **Esecuzione regolare**: Esegui dopo grandi modifiche al dizionario
 
 ---
 
@@ -236,5 +273,6 @@ Dopo ogni esecuzione, il workflow genera:
 
 - [Actions Dashboard](https://github.com/izaland/izaki-dictionary/actions)
 - [Workflow File](https://github.com/izaland/izaki-dictionary/blob/main/.github/workflows/deduplicate-dictionary.yml)
-- [Script Source](https://github.com/izaland/izaki-dictionary/blob/main/scripts/deduplicate_dictionary.py)
 - [Scripts README](https://github.com/izaland/izaki-dictionary/blob/main/scripts/README.md)
+- [fix_compound_lemmas.py](https://github.com/izaland/izaki-dictionary/blob/main/scripts/fix_compound_lemmas.py)
+- [deduplicate_dictionary.py](https://github.com/izaland/izaki-dictionary/blob/main/scripts/deduplicate_dictionary.py)
