@@ -34,6 +34,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 🤖 Auto-update dictionary files from CSV
-          file_pattern: 'data/dictionary.json data/dictionary_with_ipa.json'
+          file_pattern: 'data/dictionary.json'
           commit_user_name: GitHub Actions Bot
           commit_user_email: actions@github.com
