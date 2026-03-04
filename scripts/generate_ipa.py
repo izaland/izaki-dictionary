@@ -1,112 +1,187 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Izaki IPA Generator
-Converts Izaki lemmas to IPA notation based on phonetic rules
+Izaki Dictionary Updater
+Integrates byakuzhi compounds from Sheets into dictionary.json
 """
 
 import csv
 import json
-import re
 from pathlib import Path
 
-# Regole fonetiche Izaki (dalla wikitable)
+# Regole fonetiche IPA
 PHONETIC_RULES = [
-    # Vocali lunghe (ordine importante: prima lunghe, poi brevi)
-    (r'ā', 'aː'),
-    (r'ē', 'eː'),
-    (r'ī', 'iː'),
-    (r'ō', 'oː'),
-    (r'ū', 'uː'),
-    
-    # Digrafi consonantici (ordine: più lunghi prima)
-    (r'ts', 'ts'),   # /ts/ in cats
-    (r'ch', 'tɕ'),   # /tɕ/ giapponese cha
-    (r'sh', 'ʃ'),    # /ʃ/ in she
-    (r'zh', 'ʒ'),    # /ʒ/ in pleasure
-    
-    # Consonanti speciali
-    (r'ð', 'dz'),    # /dz/ in adze
-    (r'j', 'dʒ'),    # /dʒ/ in jam
-    (r'y', 'j'),     # /j/ in yell
-    (r'w', 'w'),     # /w/ in wing
-    (r'r', 'ɾ'),     # /ɾ/ flap spagnolo
-    
-    # Consonanti base (rimangono invariate in IPA)
-    # f, v, k, g, h, l, m, n, p, b, s, t, z, d
+    (r'ā', 'aː'), (r'ē', 'eː'), (r'ī', 'iː'), (r'ō', 'oː'), (r'ū', 'uː'),
+    (r'ts', 'ts'), (r'ch', 'tɕ'), (r'sh', 'ʃ'), (r'zh', 'ʒ'),
+    (r'ð', 'dz'), (r'j', 'dʒ'), (r'y', 'j'), (r'w', 'w'), (r'r', 'ɾ'),
 ]
 
-def lemma_to_ipa(lemma):
-    """
-    Converte un lemma Izaki in notazione IPA
-    
-    Args:
-        lemma (str): Parola Izaki (es. 'tsukasu', 'chara')
-    
-    Returns:
-        str: IPA con slash (es. '/tsukasu/', '/tɕaɾa/')
-    """
-    if not lemma or not isinstance(lemma, str):
+def lemma_to_ipa(reading):
+    """Converte lettura Izaki in IPA"""
+    if not reading or not isinstance(reading, str):
         return ''
     
-    ipa = lemma.lower().strip()
-    
-    # Applica regole in ordine (importante per precedenza)
+    import re
+    ipa = reading.lower().strip()
     for pattern, replacement in PHONETIC_RULES:
         ipa = re.sub(pattern, replacement, ipa, flags=re.IGNORECASE)
     
     return f'/{ipa}/'
 
-def process_csv(input_path, output_path):
+def load_compounds_from_csv(csv_path):
     """
-    Processa CSV compounds e genera JSON con IPA
+    Carica compounds da CSV (english, compound, izaki_reading)
     
-    Args:
-        input_path (str): Path al CSV input (es. 'data/compounds.csv')
-        output_path (str): Path al JSON output (es. 'data/dictionary_with_ipa.json')
+    Returns:
+        list: Lista di dict con structure:
+        {
+            'word': 'rolling',
+            'byakuzhi': '圧延',
+            'reading': 'asshyen',
+            'ipa': '/aʃʃjen/',
+            'type': 'compound'
+        }
     """
-    print(f'📖 Lettura CSV: {input_path}')
+    compounds = []
     
-    entries = []
-    with open(input_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        headers = reader.fieldnames
+    print(f'📖 Lettura compounds da: {csv_path}')
+    
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
         
-        for row in reader:
-            # Trova colonna lemma (potrebbe essere 'lemma', 'word', etc.)
-            lemma = row.get('lemma') or row.get('word') or row.get('english') or ''
+        for i, row in enumerate(reader, 1):
+            if len(row) < 3:
+                continue
             
-            if lemma:
-                # Genera IPA
-                ipa_generated = lemma_to_ipa(lemma)
-                row['ipa_generated'] = ipa_generated
+            english = row[0].strip()
+            compound = row[1].strip()
+            izaki_reading = row[2].strip()
             
-            entries.append(row)
+            # Skip righe vuote o header
+            if not english or english.lower() == 'english':
+                continue
+            
+            # Genera IPA
+            ipa = lemma_to_ipa(izaki_reading)
+            
+            entry = {
+                'word': english,
+                'byakuzhi': compound,
+                'reading': izaki_reading,
+                'ipa': ipa,
+                'type': 'compound',
+                'source': 'sheets_sync'  # Tag per identificare origine
+            }
+            
+            compounds.append(entry)
     
-    print(f'✅ Processate {len(entries)} entries')
+    print(f'✅ Caricati {len(compounds)} compounds')
+    return compounds
+
+def load_existing_dictionary(dict_path):
+    """Carica dictionary.json esistente"""
+    if not dict_path.exists():
+        print(f'ℹ️  Dictionary.json non trovato, verrà creato')
+        return []
     
-    # Salva JSON
-    print(f'💾 Salvataggio JSON: {output_path}')
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(entries, f, ensure_ascii=False, indent=2)
+    print(f'📖 Lettura dizionario esistente: {dict_path}')
     
-    print(f'✅ IPA generato con successo!')
-    print(f'   File output: {output_path}')
+    with open(dict_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     
-    # Mostra esempi
-    print('\n📝 Esempi IPA generati:')
-    for entry in entries[:5]:
-        lemma = entry.get('lemma') or entry.get('word', '')
-        ipa = entry.get('ipa_generated', '')
-        if lemma and ipa:
-            print(f'   {lemma:15} → {ipa}')
+    # Se dictionary.json ha struttura diversa, adatta qui
+    if isinstance(data, dict):
+        # Es. {'entries': [...]}
+        entries = data.get('entries', [])
+    else:
+        # Array diretto
+        entries = data
+    
+    print(f'✅ Dizionario esistente: {len(entries)} entries')
+    return entries
+
+def merge_dictionaries(existing_entries, new_compounds):
+    """
+    Merge dizionario esistente + nuovi compounds
+    
+    Logica:
+    - Rimuovi vecchi compounds da Sheets (source='sheets_sync')
+    - Aggiungi nuovi compounds
+    - Mantieni altre entries (verbs, nouns, etc.)
+    """
+    print(f'\n🔄 Merge dizionari...')
+    
+    # Filtra entries non-compounds o compounds non da Sheets
+    filtered_entries = [
+        e for e in existing_entries 
+        if e.get('source') != 'sheets_sync'
+    ]
+    
+    removed_count = len(existing_entries) - len(filtered_entries)
+    print(f'   Rimossi {removed_count} vecchi compounds da Sheets')
+    
+    # Aggiungi nuovi compounds
+    merged = filtered_entries + new_compounds
+    
+    print(f'✅ Merge completato: {len(merged)} totali entries')
+    print(f'   - Compounds da Sheets: {len(new_compounds)}')
+    print(f'   - Altre entries: {len(filtered_entries)}')
+    
+    return merged
+
+def save_dictionary(entries, dict_path):
+    """Salva dictionary.json aggiornato"""
+    print(f'\n💾 Salvataggio: {dict_path}')
+    
+    # Ordina alfabeticamente per 'word' (opzionale)
+    entries_sorted = sorted(entries, key=lambda x: x.get('word', '').lower())
+    
+    with open(dict_path, 'w', encoding='utf-8') as f:
+        json.dump(entries_sorted, f, ensure_ascii=False, indent=2)
+    
+    print(f'✅ Dizionario salvato!')
+
+def show_examples(entries, n=10):
+    """Mostra esempi entries nel log"""
+    print(f'\n📝 Esempi entries (prime {n}):')
+    print(f'{"Word":<20} {"Byakuzhi":<12} {"Reading":<15} {"IPA":<20} {"Type":<10}')
+    print('-' * 80)
+    
+    for entry in entries[:n]:
+        word = entry.get('word', '')[:18]
+        byakuzhi = entry.get('byakuzhi', '')[:10]
+        reading = entry.get('reading', '')[:13]
+        ipa = entry.get('ipa', '')[:18]
+        etype = entry.get('type', '')[:8]
+        
+        print(f'{word:<20} {byakuzhi:<12} {reading:<15} {ipa:<20} {etype:<10}')
 
 if __name__ == '__main__':
-    # Paths relativi alla root del repo
-    input_csv = Path(__file__).parent.parent / 'data' / 'compounds.csv'
-    output_json = Path(__file__).parent.parent / 'data' / 'dictionary_with_ipa.json'
+    # Paths
+    base_dir = Path(__file__).parent.parent
+    csv_path = base_dir / 'data' / 'compounds.csv'
+    dict_path = base_dir / 'data' / 'dictionary.json'
     
-    # Crea cartella data se non esiste
-    output_json.parent.mkdir(parents=True, exist_ok=True)
+    # Verifica CSV esiste
+    if not csv_path.exists():
+        print(f'❌ File non trovato: {csv_path}')
+        exit(1)
     
-    process_csv(input_csv, output_json)
+    # 1. Carica compounds da CSV
+    new_compounds = load_compounds_from_csv(csv_path)
+    
+    # 2. Carica dizionario esistente
+    existing_entries = load_existing_dictionary(dict_path)
+    
+    # 3. Merge
+    merged_entries = merge_dictionaries(existing_entries, new_compounds)
+    
+    # 4. Salva dictionary.json aggiornato
+    save_dictionary(merged_entries, dict_path)
+    
+    # 5. Mostra esempi
+    show_examples(merged_entries)
+    
+    print(f'\n✅ COMPLETATO!')
+    print(f'   File aggiornato: {dict_path}')
+    print(f'   Totale entries: {len(merged_entries)}')
