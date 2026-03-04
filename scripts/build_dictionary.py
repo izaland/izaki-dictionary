@@ -1,29 +1,14 @@
 #!/usr/bin/env python3
-"""Build dictionary.json from dictionary.csv and compounds.csv"""
+"""Build complete dictionary.json from existing dictionary.json and compounds.csv"""
 
 import csv
 import json
 from pathlib import Path
 
-def read_dictionary_csv(filepath):
-    """Read dictionary.csv and convert to list of dicts"""
-    entries = []
+def read_dictionary_json(filepath):
+    """Read existing dictionary.json"""
     with open(filepath, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            entry = {
-                "lemma": row.get('lemma', ''),
-                "ipa": row.get('ipa', ''),
-                "pos": row.get('pos', ''),
-                "english": [e.strip() for e in row.get('english', '').split(',') if e.strip()],
-                "italian": [i.strip() for i in row.get('italian', '').split(',') if i.strip()],
-                "byakuzhi": row.get('byakuzhi', ''),
-                "askaoza": row.get('askaoza', ''),
-                "notes": row.get('notes', ''),
-                "example": row.get('example', '')
-            }
-            entries.append(entry)
-    return entries
+        return json.load(f)
 
 def read_compounds_csv(filepath):
     """Read compounds.csv and convert to list of dicts"""
@@ -55,12 +40,14 @@ def read_compounds_csv(filepath):
 def main():
     # Paths
     data_dir = Path('data')
-    dictionary_csv = data_dir / 'dictionary.csv'
+    dictionary_json = data_dir / 'dictionary.json'
     compounds_csv = data_dir / 'compounds.csv'
     output_json = data_dir / 'dictionary.json'
     
-    print(f"Reading {dictionary_csv}...")
-    native_words = read_dictionary_csv(dictionary_csv)
+    print(f"Reading {dictionary_json}...")
+    native_words = read_dictionary_json(dictionary_json)
+    # Filter out existing compounds to avoid duplicates
+    native_words = [w for w in native_words if w.get('notes') != 'compound']
     print(f"  Found {len(native_words)} native words")
     
     print(f"Reading {compounds_csv}...")
@@ -76,7 +63,7 @@ def main():
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(all_entries, f, ensure_ascii=False, indent=2)
     
-    print("Done!")
+    print("✅ Done!")
 
 if __name__ == '__main__':
     main()
