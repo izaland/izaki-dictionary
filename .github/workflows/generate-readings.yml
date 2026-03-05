@@ -9,8 +9,21 @@ on:
       - 'data/byakuzhi.json'
       - 'data/compounds.csv'
   
-  # Permetti esecuzione manuale
+  # Permetti esecuzione manuale con opzioni
   workflow_dispatch:
+    inputs:
+      create_pr:
+        description: 'Create Pull Request with changes?'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      pr_title:
+        description: 'Custom PR title (optional)'
+        required: false
+        default: '🤖 Auto-generated compound readings'
 
 jobs:
   generate-readings:
@@ -48,15 +61,21 @@ jobs:
         else
           echo "changes=true" >> $GITHUB_OUTPUT
           echo "Changes detected"
+          echo "### 📊 Changes Summary" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          git diff --stat data/compounds.csv >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         fi
     
     - name: Create Pull Request
-      if: steps.check_changes.outputs.changes == 'true'
+      if: |
+        steps.check_changes.outputs.changes == 'true' && 
+        (github.event_name == 'push' || inputs.create_pr == 'true')
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: '🤖 Auto-generate compound readings'
-        title: '🤖 Auto-generated compound readings'
+        title: ${{ inputs.pr_title || '🤖 Auto-generated compound readings' }}
         body: |
           ## 🔍 Automatic Compound Reading Generation
           
@@ -81,22 +100,41 @@ jobs:
           ---
           
           🤖 *This PR was created automatically by GitHub Actions*
-        branch: auto-generate-readings
+          
+          **Triggered by**: ${{ github.event_name == 'workflow_dispatch' && format('Manual run by @{0}', github.actor) || 'Push event' }}
+        branch: auto-generate-readings-${{ github.run_number }}
         delete-branch: true
         labels: |
           automated
           compound-readings
         assignees: izaland
     
+    - name: Commit directly to main
+      if: |
+        steps.check_changes.outputs.changes == 'true' && 
+        github.event_name == 'workflow_dispatch' && 
+        inputs.create_pr == 'false'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add data/compounds.csv
+        git commit -m "🤖 Auto-generate compound readings [skip ci]"
+        git push
+    
     - name: Upload report as artifact
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: generation-report
+        name: generation-report-${{ github.run_number }}
         path: report.txt
         retention-days: 30
     
-    - name: Summary
+    - name: No changes summary
       if: steps.check_changes.outputs.changes == 'false'
       run: |
         echo "✅ No new readings to generate. All compounds already have readings or are missing required byakuzhi." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📋 Report Summary" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        cat report.txt >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
