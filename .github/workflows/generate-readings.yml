@@ -52,6 +52,17 @@ jobs:
           exit 1
         fi
     
+    - name: Read report content
+      id: report
+      run: |
+        if [ -f "report.txt" ]; then
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          cat report.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        else
+          echo "content=Report file not found" >> $GITHUB_OUTPUT
+        fi
+    
     - name: Check for changes
       id: check_changes
       run: |
@@ -88,7 +99,7 @@ jobs:
           ### 📝 Report
           
           ```
-          $(cat report.txt 2>/dev/null || echo "Report file not found")
+          ${{ steps.report.outputs.content }}
           ```
           
           ### ✅ Review Checklist
