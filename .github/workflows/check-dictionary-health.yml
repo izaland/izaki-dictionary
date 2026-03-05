@@ -1,0 +1,44 @@
+name: 💚 Check Dictionary Health
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/dictionary.json'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📊 Count entries
+        run: |
+          echo "## Dictionary Health Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          python scripts/count_entries.py | tee count_output.txt
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          cat count_output.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          
+          # Check if entries are too low
+          COUNT=$(python3 -c "import json; print(len(json.load(open('data/dictionary.json'))))")
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ $COUNT -lt 10000 ]; then
+            echo "⚠️ **WARNING: Only $COUNT entries found (expected ~14,804)**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🚑 Action Needed" >> $GITHUB_STEP_SUMMARY
+            echo "Run the [Rollback Dictionary workflow](https://github.com/${{ github.repository }}/actions/workflows/rollback-dictionary.yml) to restore missing entries." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Use commit SHA: \`1d69383d8f006de84c5461f6be21e4d9b6985d00\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **Dictionary looks healthy with $COUNT entries**" >> $GITHUB_STEP_SUMMARY
+          fi
