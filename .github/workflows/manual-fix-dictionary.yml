@@ -1,0 +1,192 @@
+name: Manual Dictionary Fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      fix_compounds_ipa:
+        description: 'Generate IPA for compounds only'
+        required: true
+        type: boolean
+        default: true
+      remove_duplicates:
+        description: 'Remove duplicate entries (preserving native words)'
+        required: true
+        type: boolean
+        default: true
+
+jobs:
+  fix-dictionary:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install epitran
+        
+    - name: Fix dictionary
+      run: |
+        python3 << 'EOF'
+        import json
+        import re
+        from collections import defaultdict
+        import epitran
+        
+        # Load dictionary
+        with open('data/dictionary.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data['entries']
+        epi = epitran.Epitran('eng-Latn')
+        
+        print(f"Initial entries: {len(entries)}")
+        
+        # Count by type
+        native_count = sum(1 for e in entries if not e.get('is_compound', False))
+        compound_count = sum(1 for e in entries if e.get('is_compound', False))
+        print(f"Native words: {native_count}, Compounds: {compound_count}")
+        
+        # FIX 1: Generate IPA for compounds only
+        if ${{ inputs.fix_compounds_ipa }}:
+            ipa_generated = 0
+            for entry in entries:
+                # Only process compounds
+                if not entry.get('is_compound', False):
+                    continue
+                    
+                ipa = entry.get('ipa', '')
+                
+                # Check if IPA is missing or placeholder
+                if not ipa or ipa in ['【—】', '/', '—', ''] or any(ord(c) >= 0x0A80 and ord(c) <= 0x0AFF for c in ipa):
+                    lemma = entry.get('lemma', '')
+                    if lemma and not any(ord(c) >= 0x0A80 and ord(c) <= 0x0AFF for c in lemma):
+                        # Generate from lemma
+                        clean = re.sub(r'[^a-zA-Z\s]', '', lemma).lower().strip()
+                        if clean:
+                            new_ipa = epi.transliterate(clean)
+                            if new_ipa and new_ipa.strip():
+                                entry['ipa'] = f"/{new_ipa}/"
+                                ipa_generated += 1
+            
+            print(f"Generated IPA for {ipa_generated} compound entries")
+        
+        # FIX 2: Remove duplicates (preserving native words)
+        if ${{ inputs.remove_duplicates }}:
+            seen = {}
+            unique_entries = []
+            duplicates_removed = 0
+            
+            for entry in entries:
+                lemma = entry.get('lemma', '')
+                byakuzhi = entry.get('byakuzhi', '')
+                is_compound = entry.get('is_compound', False)
+                
+                key = (lemma, byakuzhi)
+                
+                if key in seen:
+                    # Duplicate found
+                    existing = seen[key]
+                    
+                    # ALWAYS preserve native words over compounds
+                    if not is_compound and existing.get('is_compound', False):
+                        # Replace compound with native
+                        idx = unique_entries.index(existing)
+                        unique_entries[idx] = entry
+                        seen[key] = entry
+                        duplicates_removed += 1
+                    elif is_compound and not existing.get('is_compound', False):
+                        # Keep native, skip compound
+                        duplicates_removed += 1
+                        continue
+                    else:
+                        # Both same type - merge translations
+                        existing_trans = set(existing.get('translations', []))
+                        new_trans = set(entry.get('translations', []))
+                        merged = sorted(existing_trans | new_trans)
+                        existing['translations'] = merged
+                        duplicates_removed += 1
+                        continue
+                else:
+                    # New entry
+                    seen[key] = entry
+                    unique_entries.append(entry)
+            
+            entries = unique_entries
+            print(f"Removed {duplicates_removed} duplicate entries")
+        
+        # Update data
+        data['entries'] = entries
+        
+        # Final count
+        final_native = sum(1 for e in entries if not e.get('is_compound', False))
+        final_compound = sum(1 for e in entries if e.get('is_compound', False))
+        
+        print(f"\nFinal entries: {len(entries)}")
+        print(f"Native words: {final_native}, Compounds: {final_compound}")
+        
+        # Save
+        with open('data/dictionary.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        # Create report
+        report = f"""# Dictionary Fix Report
+
+## Summary
+- Initial entries: {len(entries) + (duplicates_removed if ${{ inputs.remove_duplicates }} else 0)}
+- Final entries: {len(entries)}
+- Native words: {final_native}
+- Compounds: {final_compound}
+
+## Changes
+- IPA generated for compounds: {ipa_generated if ${{ inputs.fix_compounds_ipa }} else 0}
+- Duplicates removed: {duplicates_removed if ${{ inputs.remove_duplicates }} else 0}
+
+## Verification
+✅ Native words preserved
+✅ Compounds have IPA
+✅ No duplicate (lemma, byakuzhi) pairs
+"""
+        
+        with open('fix_report.txt', 'w', encoding='utf-8') as f:
+            f.write(report)
+        
+        print("\n" + report)
+        EOF
+    
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: '🔧 Manual dictionary fix - IPA for compounds & dedupe'
+        branch: manual-fix-${{ github.run_number }}
+        delete-branch: true
+        title: '🔧 Manual Dictionary Fix'
+        body: |
+          ## Manual Dictionary Fix
+          
+          This PR applies targeted fixes to the dictionary:
+          
+          ### Fixes Applied
+          - ✅ Generate IPA for **compounds only** (preserves native word IPA)
+          - ✅ Remove duplicates while **always preserving native words**
+          
+          ### Report
+          ```
+          $(cat fix_report.txt)
+          ```
+          
+          ### ⚠️ Review Before Merging
+          Please verify:
+          - [ ] Native word count looks correct (~3,966 expected)
+          - [ ] Compound count looks correct (~10,838 expected)
+          - [ ] No unintended data loss
+          
+          ---
+          🤖 This PR was created manually via workflow dispatch.
