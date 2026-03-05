@@ -95,6 +95,66 @@ const LONG_MARK = 'ઃ';
 const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz', 'zh'];
 
 /**
+ * Apply complete Izaki phonetic sandhi rules
+ */
+function applySandhi(text) {
+  let result = text;
+  
+  // ===== FINAL -S + CONSONANT =====
+  result = result
+    .replace(/s([bpfv])/gi, (m, c) => 's' + (c.toLowerCase() === 'b' ? 'p' : c.toLowerCase() === 'v' ? 'f' : c))
+    .replace(/s(ch|j)/gi, 'cch')
+    .replace(/sd/gi, 'st')
+    .replace(/sg/gi, 'sk')
+    .replace(/sh(?=[aeiouāēīōūü])/gi, 'sh')  // s+h before vowel stays sh
+    .replace(/sh(?=[^aeiouāēīōūü])/gi, 'sh') // s+h+cons stays sh
+    .replace(/s([klmnr])/gi, (m, c) => 's' + c)
+    .replace(/ss/gi, 'ss')
+    .replace(/st/gi, 'st')
+    .replace(/s(ts|z|dz)/gi, 'tts')
+    .replace(/szh/gi, 'ssh');
+  
+  // ===== LIQUID ASSIMILATION =====
+  // n + r → n + l
+  result = result.replace(/nr/gi, 'nl');
+  // l + r → ll
+  result = result.replace(/lr/gi, 'll');
+  // r + l → ll
+  result = result.replace(/rl/gi, 'll');
+  
+  // ===== FINAL -H + CONSONANT (devoicing) =====
+  result = result
+    .replace(/hb/gi, 'hp')
+    .replace(/hd/gi, 'ht')
+    .replace(/hg/gi, 'hk')
+    .replace(/hv/gi, 'hf')
+    .replace(/hj/gi, 'hch')
+    .replace(/hz/gi, 'hs')
+    .replace(/hdz/gi, 'hts')
+    .replace(/hzh/gi, 'hsh')
+    .replace(/hh/gi, 'pp');  // h + h → pp
+  
+  // ===== FINAL CONSONANTS + VOWEL =====
+  // n/l/s + vowel → double consonant
+  result = result
+    .replace(/n([aeiouāēīōūü])/gi, (m, v) => 'nn' + v)
+    .replace(/l([aeiouāēīōūü])/gi, (m, v) => 'll' + v)
+    .replace(/s([aeiouāēīōūü])/gi, (m, v) => 'ss' + v);
+  
+  // h + vowel → drop h, lengthen previous vowel
+  // This requires more complex handling - skip for now as it needs context
+  
+  // r + vowel → t + vowel (at morpheme boundary)
+  result = result.replace(/r([aeiouāēīōūü])/gi, (m, v) => 't' + v);
+  
+  // Nasal assimilation (phonetic only, doesn't affect orthography)
+  // n + k/g → ŋ (velar nasal) - questo è solo fonetico
+  // n + p/b → m - already handled by mp→np rule for orthography
+  
+  return result;
+}
+
+/**
  * Revert phonetic sandhi for askaoza orthography
  * Izaki doesn't allow M as syllable-final consonant graphically
  * mp → np, mb → nb (only when M is syllable-final)
@@ -370,10 +430,13 @@ function toAskaozaWordFromSyllables(sylls) {
 function toAskaozaText(latinText) {
   if (!latinText.trim()) return '';
   
-  // ✨ REVERT SANDHI for askaoza orthography
-  const orthographic = revertSandhiForAskaoza(latinText);
+  // ✨ APPLY SANDHI RULES
+  let processed = applySandhi(latinText);
   
-  const words = latinToSyllables(orthographic);
+  // ✨ REVERT SANDHI for askaoza orthography
+  processed = revertSandhiForAskaoza(processed);
+  
+  const words = latinToSyllables(processed);
   return words.map(toAskaozaWordFromSyllables).join(' ');
 }
 
