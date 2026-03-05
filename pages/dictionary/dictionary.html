@@ -448,7 +448,7 @@ fetch('../../data/dictionary.json')
       // Show warning if there are more results
       let warningHTML = '';
       if (filtered.length > 100) {
-        warningHTML = `<div class="info-message">⚠️ Showing first 100 of ${filtered.length} results. Refine your search for better results.</div>`;
+        warningHTML = `<div class="info-message">⚠️ Showing first 100 of ${filtered.length} results. Refine your search for better results.</br>結果 ${filtered.length}件中, તૅડા દાઃડ્ડૅ 100件૮ેઃ 表示中.</div>`;
       }
 
       resultsDiv.innerHTML = warningHTML + limitedResults.map(e => {
