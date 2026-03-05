@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing System - Izaki Language 華邦語文字形態</title>
+
+<!-- Bulma CSS -->
+<link rel="stylesheet" href="../../assets/bulma.min.css">
+
+<!-- Font gujarati per askaoza -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
+
+<style>
+  /* Theme-aware variables */
+  html[data-theme="light"] {
+    --grammar-bg: #f7ecd8;
+    --grammar-container: rgba(255, 250, 230, 0.95);
+    --grammar-text: #4b3b2a;
+    --grammar-text-light: #6b5b4a;
+    --grammar-heading: #3e2f1c;
+    --grammar-link: #1a3f6b;
+    --grammar-link-hover: #c41e3a;
+    --grammar-byakuzhi: #c41e3a;
+    --grammar-askaoza: #8b6f47;
+    --grammar-code-bg: #fff8e0;
+    --grammar-code-border: #d4b87c;
+    --grammar-table-header: #f0e8d0;
+    --grammar-table-border: #e0d4b8;
+    --grammar-table-row: rgba(255, 250, 230, 0.4);
+    --grammar-shadow: rgba(0,0,0,0.1);
+    --grammar-highlight: #fef3c7;
+  }
+
+  html[data-theme="dark"] {
+    --grammar-bg: #1a1510;
+    --grammar-container: rgba(30, 25, 20, 0.95);
+    --grammar-text: #e5d5c0;
+    --grammar-text-light: #c5b5a0;
+    --grammar-heading: #f5e0c0;
+    --grammar-link: #93c5fd;
+    --grammar-link-hover: #ff6b85;
+    --grammar-byakuzhi: #ff6b85;
+    --grammar-askaoza: #d4b87c;
+    --grammar-code-bg: #2a2218;
+    --grammar-code-border: #5a4a32;
+    --grammar-table-header: #3a302a;
+    --grammar-table-border: #4a3a2a;
+    --grammar-table-row: rgba(40, 35, 28, 0.4);
+    --grammar-shadow: rgba(0,0,0,0.35);
+    --grammar-highlight: #3a3020;
+  }
+
+  body {
+    background-color: var(--grammar-bg);
+    font-family: "Merriweather", Georgia, serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.2s ease;
+    color: var(--grammar-text);
+    line-height: 1.7;
+  }
+
+  #container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2.5rem 3rem;
+    background-color: var(--grammar-container);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px var(--grammar-shadow);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  h1 {
+    color: var(--grammar-heading);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid var(--grammar-byakuzhi);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    color: var(--grammar-heading);
+    font-size: 1.9rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--grammar-code-border);
+    padding-bottom: 0.4rem;
+  }
+
+  h3 {
+    color: var(--grammar-heading);
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  h4 {
+    color: var(--grammar-text);
+    font-size: 1.15rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--grammar-text);
+  }
+
+  strong {
+    color: var(--grammar-heading);
+  }
+
+  em {
+    color: var(--grammar-askaoza);
+    font-style: italic;
+  }
+
+  a {
+    color: var(--grammar-link);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: var(--grammar-link-hover);
+    text-decoration: underline;
+  }
+
+  /* Code and inline formatting */
+  code {
+    background-color: var(--grammar-code-bg);
+    border: 1px solid var(--grammar-code-border);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: var(--grammar-text);
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+
+  table thead {
+    background-color: var(--grammar-table-header);
+  }
+
+  table th,
+  table td {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border: 1px solid var(--grammar-table-border);
+    color: var(--grammar-text);
+  }
+
+  table th {
+    font-weight: bold;
+    color: var(--grammar-heading);
+  }
+
+  table tbody tr:nth-child(even) {
+    background-color: var(--grammar-table-row);
+  }
+
+  /* Special table for askaoza chart */
+  .askaoza-chart {
+    margin: 2rem auto;
+    max-width: 800px;
+  }
+
+  .askaoza-chart th {
+    text-align: center;
+    font-size: 0.9rem;
+    background-color: var(--grammar-table-header);
+  }
+
+  .askaoza-chart td {
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.8rem 0.5rem;
+  }
+
+  .askaoza-chart .askaoza-char {
+    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
+    font-size: 1.8rem;
+    color: var(--grammar-askaoza);
+    font-weight: 600;
+  }
+
+  .askaoza-chart .romanization {
+    font-weight: bold;
+    color: var(--grammar-heading);
+  }
+
+  .askaoza-chart .ipa {
+    font-style: italic;
+    color: var(--grammar-text-light);
+    font-size: 0.9rem;
+  }
+
+  .askaoza-chart .category-header {
+    background-color: var(--grammar-highlight);
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+    color: var(--grammar-text);
+  }
+
+  /* Horizontal rule */
+  hr {
+    border: none;
+    border-top: 1px solid var(--grammar-code-border);
+    margin: 2rem 0;
+  }
+
+  /* Askaoza font class */
+  .askaoza {
+    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
+    color: var(--grammar-askaoza);
+    font-weight: 500;
+  }
+
+  /* Byakuzhi class */
+  .byakuzhi {
+    color: var(--grammar-byakuzhi);
+    font-weight: 600;
+  }
+
+  /* Info boxes */
+  .info-box {
+    background-color: var(--grammar-code-bg);
+    border-left: 4px solid var(--grammar-byakuzhi);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 5px;
+  }
+
+  .info-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Submenu navigation */
+  .submenu {
+    background-color: var(--grammar-code-bg);
+    border: 1px solid var(--grammar-code-border);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .submenu h3 {
+    margin: 0 0 0.8rem 0;
+    font-size: 1.1rem;
+    color: var(--grammar-heading);
+  }
+
+  .submenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .submenu li {
+    margin: 0;
+  }
+
+  .submenu a {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background-color: var(--grammar-table-header);
+    border-radius: 5px;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+  }
+
+  .submenu a:hover {
+    background-color: var(--grammar-code-border);
+    text-decoration: none;
+  }
+
+  .submenu a.active {
+    background-color: var(--grammar-byakuzhi);
+    color: white;
+    font-weight: bold;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    #container {
+      padding: 1.5rem 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+    }
+
+    table {
+      font-size: 0.85rem;
+    }
+
+    table th,
+    table td {
+      padding: 0.5rem 0.6rem;
+    }
+
+    .askaoza-chart .askaoza-char {
+      font-size: 1.4rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div id="navbar"></div>
+
+<div id="container">
+  <!-- Submenu -->
+  <div class="submenu">
+    <h3>📖 Grammar Sections 文法章節</h3>
+    <ul>
+      <li><a href="overview.html">Overview 概觀</a></li>
+      <li><a href="writing-system.html" class="active">Writing System 文字形態</a></li>
+      <li><a href="verbs.html">Verbs 動詞</a></li>
+      <li><a href="nouns.html">Nouns 名詞</a></li>
+      <li><a href="adjectives.html">Adjectives 形容詞</a></li>
+      <li><a href="pronouns.html">Pronouns 代名詞</a></li>
+      <li><a href="syntax.html">Syntax 統語</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <h1>Writing System <span class="byakuzhi">文字形態</span></h1>
+
+  <p>The Izaki language writing system is one of the most articulated orthographic systems in use today. It employs a sophisticated combination of two distinct yet complementary scripts: <strong>Bai characters</strong> (logographic) and <strong>askaoza</strong> (<span class="byakuzhi">邦記</span>, or <span class="askaoza">૮ીᒐડ૧૾ટૃ</span>), an indigenous syllabic alphabet.</p>
+
+  <div class="info-box">
+    <p><strong>📝 Key Principle:</strong> The Bai characters and <em>askaoza</em> are <strong>not alternative writing systems</strong>, but rather serve complementary functions within a unified orthography. This digraphic system operates analogously to the Japanese <em>kanji-kana</em> relationship.</p>
+  </div>
+
+  <hr>
+
+  <h2>Functional Distribution</h2>
+
+  <h3>Bai Characters <span class="byakuzhi">百字</span></h3>
+  <p>Bai characters (<em>byakuzhi</em> <span class="byakuzhi">百字</span>, literally "hundred characters") are logographic symbols borrowed from the Bai script system. In Izaki orthography, they fulfill the following functions:</p>
+
+  <ul>
+    <li><strong>Semantic representation</strong>: Byakuzhi convey the core lexical meaning of morphemes</li>
+    <li><strong>Lexical morphemes</strong>: Used to write:
+      <ul>
+        <li>Nouns (e.g., <span class="byakuzhi">水</span> <em>miwa</em> "water")</li>
+        <li>Verb stems (e.g., <span class="byakuzhi">行</span> <em>i-</em> "to go")</li>
+        <li>Adjective roots (e.g., <span class="byakuzhi">大</span> <em>dana</em> "big")</li>
+        <li>Adverbs and other content words</li>
+      </ul>
+    </li>
+    <li><strong>Etymology and disambiguation</strong>: Byakuzhi help distinguish homophones by revealing semantic fields</li>
+    <li><strong>Formal register</strong>: Texts with higher byakuzhi density convey formality and erudition</li>
+  </ul>
+
+  <div class="info-box">
+    <p><strong>Historical Note:</strong> Byakuzhi were adopted from Bai script during cultural exchange periods. While originally Chinese characters, many have undergone semantic shifts or acquired Izaki-specific meanings. The term "hundred characters" is traditional and does not reflect the actual number (several thousand are in common use).</p>
+  </div>
+
+  <h3>Askaoza <span class="byakuzhi">邦記</span></h3>
+  <p><em>Askaoza</em> (<span class="byakuzhi">邦記</span>, literally "national script", or <span class="askaoza">૮ીᒐડ૧૾ટૃ</span>) is an indigenous syllabary developed specifically for the phonological structure of Izaki. It serves the following functions:</p>
+
+  <ul>
+    <li><strong>Grammatical morphology</strong>: Askaoza is employed to write:
+      <ul>
+        <li>Inflectional endings (case markers, verbal conjugations)</li>
+        <li>Grammatical particles</li>
+        <li>Function words (pronouns, conjunctions, postpositions)</li>
+      </ul>
+    </li>
+    <li><strong>Phonetic disambiguation</strong>: When byakuzhi readings are ambiguous, askaoza provides <em>furigana</em>-style annotations</li>
+    <li><strong>Native vocabulary</strong>: Words without established byakuzhi representations are written entirely in askaoza</li>
+    <li><strong>Foreign loanwords</strong>: Recent borrowings are typically rendered in askaoza until byakuzhi equivalents stabilize</li>
+  </ul>
+
+  <p><strong>Example of complementary usage:</strong></p>
+  <ul>
+    <li><span class="byakuzhi">水</span><span class="askaoza">ા</span> = <em>miwa</em> "water" (byakuzhi for "water" + askaoza nominative marker)</li>
+    <li><span class="byakuzhi">水</span><span class="askaoza">ાપ</span> = <em>miwan</em> "water's" (byakuzhi + askaoza genitive <em>-n</em>)</li>
+    <li><span class="byakuzhi">行</span><span class="askaoza">ડૅપ</span> = <em>iken</em> "I go" (byakuzhi verb stem + askaoza conjugation)</li>
+  </ul>
+
+  <hr>
+
+  <h2>Askaoza Structure and Principles</h2>
+
+  <p>The <em>askaoza</em> syllabary is a <strong>moraic</strong> writing system, where each character represents one mora (minimal phonological unit). The system adheres to the following structural principles:</p>
+
+  <ol>
+    <li><strong>Syllabic correspondence</strong>: One character = one sound (one mora)</li>
+    <li><strong>Default vowel /a/</strong>: Consonant characters inherently carry the vowel /a/; other vowels require diacritics</li>
+    <li><strong>No initial clusters</strong>: Izaki phonotactics prohibit word-initial consonant clusters; each consonant forms a syllable with a vowel</li>
+    <li><strong>Vocalic diacritics</strong>: Vowels other than /a/ are indicated through systematic diacritical marks positioned around the base character</li>
+    <li><strong>Vowel placeholder</strong>: Word-initial vowels are written with a dedicated placeholder glyph (<span class="askaoza">૮</span>), which takes the value /a/ unless modified by vowel diacritics</li>
+    <li><strong>Voicing distinction</strong>: Voiced obstruents are marked with a superscript dot (<span class="askaoza">ૃ</span>) above the base unvoiced character</li>
+  </ol>
+
+  <h3>Vowel Diacritics</h3>
+  <p>Askaoza employs a systematic set of diacritics to modify the inherent /a/ vowel:</p>
+
+  <ul>
+    <li><strong>/e/</strong>: Rightward diacritic mark</li>
+    <li><strong>/i/</strong>: Vertical bar element</li>
+    <li><strong>/o/</strong>: Small circle positioned at the top-right</li>
+    <li><strong>/u/</strong>: Curved element resembling an umbrella handle</li>
+  </ul>
+
+  <p><strong>Long vowels</strong> are indicated by an additional diacritic mark (<span class="byakuzhi">長音符</span> <em>chōonfu</em>) placed to the right of the character.</p>
+
+  <h3>Consonant Gemination</h3>
+  <p>Geminate (doubled) consonants, which are phonologically distinctive in Izaki, are marked with a small diacritic symbol on the base character. This applies to the following consonants: /k, p, t, ch, s, sh, ts, n, l/.</p>
+
+  <hr>
+
+  <h2>Askaoza Character Chart</h2>
+
+  <p>The following table presents the core <em>askaoza</em> consonant inventory, organized by voicing distinction:</p>
+
+  <table class="askaoza-chart">
+    <caption style="caption-side: top; font-weight: bold; margin-bottom: 0.5rem; color: var(--grammar-heading);">Core Askaoza Syllabary</caption>
+    <thead>
+      <tr>
+        <th colspan="3" class="category-header">清音 (seion) - Unvoiced</th>
+        <th colspan="3" class="category-header">濁音 (takuon) - Voiced</th>
+      </tr>
+      <tr>
+        <th>Romanization</th>
+        <th>Character</th>
+        <th>IPA</th>
+        <th>Romanization</th>
+        <th>Character</th>
+        <th>IPA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="romanization">K</td>
+        <td class="askaoza-char">ડ</td>
+        <td class="ipa">/k/</td>
+        <td class="romanization">G</td>
+        <td class="askaoza-char">ડૃ</td>
+        <td class="ipa">/g/</td>
+      </tr>
+      <tr>
+        <td class="romanization">P</td>
+        <td class="askaoza-char">ર</td>
+        <td class="ipa">/p/</td>
+        <td class="romanization">B</td>
+        <td class="askaoza-char">રૃ</td>
+        <td class="ipa">/b/</td>
+      </tr>
+      <tr>
+        <td class="romanization">S</td>
+        <td class="askaoza-char">ટ</td>
+        <td class="ipa">/s/</td>
+        <td class="romanization">Z</td>
+        <td class="askaoza-char">ટૃ</td>
+        <td class="ipa">/z/</td>
+      </tr>
+      <tr>
+        <td class="romanization">T</td>
+        <td class="askaoza-char">ઠ</td>
+        <td class="ipa">/t/</td>
+        <td class="romanization">D</td>
+        <td class="askaoza-char">ઠૃ</td>
+        <td class="ipa">/d/</td>
+      </tr>
+      <tr>
+        <td class="romanization">F</td>
+        <td class="askaoza-char">૨</td>
+        <td class="ipa">/f/</td>
+        <td class="romanization">V</td>
+        <td class="askaoza-char">૨ૃ</td>
+        <td class="ipa">/v/</td>
+      </tr>
+      <tr>
+        <td class="romanization">CH</td>
+        <td class="askaoza-char">મ</td>
+        <td class="ipa">/t͡ʃ/</td>
+        <td class="romanization">J</td>
+        <td class="askaoza-char">મૃ</td>
+        <td class="ipa">/d͡ʒ/</td>
+      </tr>
+      <tr>
+        <td class="romanization">SH</td>
+        <td class="askaoza-char">ય</td>
+        <td class="ipa">/ʃ/</td>
+        <td class="romanization">ZH</td>
+        <td class="askaoza-char">યૃ</td>
+        <td class="ipa">/ʒ/</td>
+      </tr>
+      <tr>
+        <td class="romanization">TS</td>
+        <td class="askaoza-char">ઢ</td>
+        <td class="ipa">/t͡s/</td>
+        <td class="romanization">Đ</td>
+        <td class="askaoza-char">ઢૃ</td>
+        <td class="ipa">/d͡z/</td>
+      </tr>
+      <tr>
+        <td class="romanization">(vowel)</td>
+        <td class="askaoza-char">૮</td>
+        <td class="ipa">∅</td>
+        <td class="romanization">H</td>
+        <td class="askaoza-char">ત</td>
+        <td class="ipa">/h/</td>
+      </tr>
+      <tr>
+        <td colspan="3"></td>
+        <td class="romanization">N</td>
+        <td class="askaoza-char">પ</td>
+        <td class="ipa">/n/</td>
+      </tr>
+      <tr>
+        <td colspan="3"></td>
+        <td class="romanization">M</td>
+        <td class="askaoza-char">ઇ</td>
+        <td class="ipa">/m/</td>
+      </tr>
+      <tr>
+        <td colspan="3"></td>
+        <td class="romanization">L</td>
+        <td class="askaoza-char">ધ</td>
+        <td class="ipa">/l/</td>
+      </tr>
+      <tr>
+        <td colspan="3"></td>
+        <td class="romanization">R</td>
+        <td class="askaoza-char">દ</td>
+        <td class="ipa">/r/</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <p><strong>⚠️ Important:</strong> The characters shown above represent the base form with the inherent /a/ vowel (e.g., <span class="askaoza">ડ</span> = /ka/). To produce other vowel combinations, appropriate diacritics must be added to the base character. For example:</p>
+    <ul>
+      <li><span class="askaoza">ડ</span> = <em>ka</em> (base)</li>
+      <li><span class="askaoza">ડે</span> = <em>ke</em> (with /e/ diacritic)</li>
+      <li><span class="askaoza">ડિ</span> = <em>ki</em> (with /i/ diacritic)</li>
+      <li><span class="askaoza">ડો</span> = <em>ko</em> (with /o/ diacritic)</li>
+      <li><span class="askaoza">ડુ</span> = <em>ku</em> (with /u/ diacritic)</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h2>Writing Examples</h2>
+
+  <h3>Mixed Script Sentences</h3>
+  <p>Below are examples demonstrating the complementary use of byakuzhi and askaoza in authentic Izaki text:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Izaki (mixed script)</th>
+        <th>Romanization</th>
+        <th>Translation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="byakuzhi">私</span><span class="askaoza">ા</span> <span class="byakuzhi">学生</span> <span class="askaoza">૧ૉપ</span>.</td>
+        <td><em>Nai hakusei yon.</em></td>
+        <td>"I am a student."</td>
+      </tr>
+      <tr>
+        <td><span class="byakuzhi">華邦語</span><span class="askaoza">્</span> <span class="byakuzhi">美</span><span class="askaoza">્</span> <span class="byakuzhi">言語</span> <span class="askaoza">૧ૉ</span>.</td>
+        <td><em>Izakigo nahana gengo yo.</em></td>
+        <td>"Izaki is a beautiful language."</td>
+      </tr>
+      <tr>
+        <td><span class="byakuzhi">水</span><span class="askaoza">ા</span> <span class="byakuzhi">飲</span><span class="askaoza">્ડિપ</span>.</td>
+        <td><em>Miwa ekin.</em></td>
+        <td>"I drank water."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Pure Askaoza Text</h3>
+  <p>Native Izaki words or informal writing may employ askaoza exclusively:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Askaoza only</th>
+        <th>Romanization</th>
+        <th>Translation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="askaoza">પમિા૮્ટૅ</span></td>
+        <td><em>Nashikae?</em></td>
+        <td>"What is it?"</td>
+      </tr>
+      <tr>
+        <td><span class="askaoza">઼્્૮ી ૧ૉદા੯</span></td>
+        <td><em>Sai yoran.</em></td>
+        <td>"You are (formal)."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>Learning Askaoza</h2>
+
+  <p>For learners of Izaki, mastering the <em>askaoza</em> syllabary is essential, as it provides:</p>
+  <ul>
+    <li><strong>Phonetic transparency</strong>: Unlike byakuzhi, askaoza directly encodes pronunciation</li>
+    <li><strong>Grammatical clarity</strong>: Understanding askaoza enables recognition of inflectional patterns</li>
+    <li><strong>Foundation for byakuzhi</strong>: Askaoza serves as a phonetic scaffold when learning character readings</li>
+  </ul>
+
+  <div class="info-box">
+    <p><strong>💡 Study Tip:</strong> Begin by memorizing the base consonant characters with /a/, then systematically practice adding vowel diacritics. Focus on the voicing pairs (e.g., K/G, P/B) to internalize the dot-marking system. Regular practice with authentic texts will reinforce pattern recognition.</p>
+  </div>
+
+  <hr>
+
+  <h2>Conclusion</h2>
+
+  <p>The Izaki writing system represents a sophisticated balance between semantic precision (via byakuzhi) and phonetic explicitness (via askaoza). This dual-script approach allows for nuanced expression while maintaining accessibility for learners. Subsequent grammar sections will demonstrate how this orthographic system interacts with Izaki's complex morphological structures.</p>
+
+  <hr>
+
+  <p><em>Next: <a href="verbs.html">Verbal Morphology →</a></em></p>
+</div>
+
+<!-- Load navbar script -->
+<script src="../../scripts/script.js"></script>
+
+</body>
+</html>
