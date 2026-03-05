@@ -1,0 +1,31 @@
+
+🔄 Rolling back dictionary.json to commit: 1d69383d...
+
+📥 Downloading from: https://raw.githubusercontent.com/izaland/izaki-dictionary/1d69383d8f006de84c5461f6be21e4d9b6985d00/data/dictionary.json
+   This may take a moment for large files...
+✅ Downloaded 2,443,373 bytes
+
+🔍 Validating JSON...
+✅ Valid JSON array with 14,804 entries
+
+💾 Creating backup of current dictionary...
+   Backup saved to: data/dictionary_before_rollback.json
+
+✍️  Writing rolled-back dictionary to data/dictionary.json...
+
+✅ SUCCESS! Dictionary rolled back to commit 1d69383d
+
+📊 Statistics:
+   Total entries: 14,804
+
+📝 Next steps:
+   1. Verify the dictionary is correct:
+      python scripts/diagnose_structure.py
+
+   2. Commit the rollback:
+      git add data/dictionary.json
+      git commit -m '🚑 ROLLBACK: Restore dictionary to 1d69383d'
+      git push
+
+   3. If something went wrong, restore from backup:
+      cp data/dictionary_before_rollback.json data/dictionary.json
