@@ -1,0 +1,169 @@
+name: 🚑 Rollback Dictionary
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: 'Commit SHA to rollback to (e.g., 1d69383d8f006de84c5461f6be21e4d9b6985d00)'
+        required: true
+        type: string
+      create_pr:
+        description: 'Create Pull Request instead of direct commit'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Fetch all history
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 🔍 Validate commit SHA
+        id: validate
+        run: |
+          COMMIT="${{ inputs.commit_sha }}"
+          
+          # Check if commit exists
+          if git cat-file -e "$COMMIT^{commit}" 2>/dev/null; then
+            echo "✅ Commit $COMMIT exists"
+            echo "valid=true" >> $GITHUB_OUTPUT
+            
+            # Get commit info
+            echo "## Commit Information" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            git show --no-patch --format="SHA:     %H%nAuthor:  %an <%ae>%nDate:    %ad%nMessage: %s" "$COMMIT" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Commit $COMMIT not found in repository!"
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+      
+      - name: 🔄 Rollback dictionary
+        if: steps.validate.outputs.valid == 'true'
+        run: |
+          echo "## Rollback Process" >> $GITHUB_STEP_SUMMARY
+          python scripts/rollback_to_commit.py "${{ inputs.commit_sha }}" | tee rollback_log.txt
+          cat rollback_log.txt >> $GITHUB_STEP_SUMMARY
+      
+      - name: 📊 Show diff statistics
+        run: |
+          echo "## Changes" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          git diff --stat data/dictionary.json >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          
+          # Count entries before/after
+          BEFORE=$(git show HEAD:data/dictionary.json | python3 -c "import sys, json; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "unknown")
+          AFTER=$(python3 -c "import json; print(len(json.load(open('data/dictionary.json'))))" 2>/dev/null || echo "unknown")
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Entries count:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Before: $BEFORE" >> $GITHUB_STEP_SUMMARY
+          echo "- After: $AFTER" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$BEFORE" != "unknown" ] && [ "$AFTER" != "unknown" ]; then
+            DIFF=$((AFTER - BEFORE))
+            if [ $DIFF -gt 0 ]; then
+              echo "- **Change: +$DIFF entries** ✅" >> $GITHUB_STEP_SUMMARY
+            elif [ $DIFF -lt 0 ]; then
+              echo "- **Change: $DIFF entries** ⚠️" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- Change: No difference" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+      
+      - name: 📝 Check for changes
+        id: git_diff
+        run: |
+          if git diff --quiet data/dictionary.json; then
+            echo "No changes made"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: 💾 Commit changes (Direct)
+        if: |
+          steps.git_diff.outputs.has_changes == 'true' &&
+          !inputs.create_pr
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/dictionary.json
+          
+          COMMIT_SHORT="$(echo ${{ inputs.commit_sha }} | cut -c1-8)"
+          
+          git commit -m "🚑 ROLLBACK: Restore dictionary to commit $COMMIT_SHORT
+          
+          Rolled back data/dictionary.json to commit ${{ inputs.commit_sha }}
+          
+          This rollback was performed via GitHub Actions workflow.
+          See workflow run for details and statistics."
+          
+          git push
+      
+      - name: 📤 Create Pull Request
+        if: |
+          steps.git_diff.outputs.has_changes == 'true' &&
+          inputs.create_pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "🚑 ROLLBACK: Restore dictionary to ${{ inputs.commit_sha }}"
+          title: "🚑 Emergency Rollback: Restore dictionary.json"
+          body: |
+            ## Emergency Dictionary Rollback
+            
+            This PR rolls back `data/dictionary.json` to commit `${{ inputs.commit_sha }}`.
+            
+            ### Commit Information
+            ```
+            $(git show --no-patch --format="SHA:     %H%nAuthor:  %an <%ae>%nDate:    %ad%nMessage: %s" "${{ inputs.commit_sha }}")
+            ```
+            
+            ### Rollback Log
+            ```
+            $(cat rollback_log.txt)
+            ```
+            
+            ### ⚠️ Review Carefully
+            
+            Please verify:
+            - [ ] Entry count looks correct
+            - [ ] No unintended data loss
+            - [ ] Rollback addresses the intended issue
+            
+            ---
+            🤖 This PR was created automatically by the rollback workflow.
+          branch: rollback-dictionary-${{ github.run_number }}
+          delete-branch: true
+      
+      - name: ✅ Summary
+        if: always()
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "## Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.validate.outputs.valid }}" != "true" ]; then
+            echo "❌ Rollback failed: Invalid commit SHA" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ steps.git_diff.outputs.has_changes }}" = "false" ]; then
+            echo "ℹ️ No changes needed - dictionary already matches target commit" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ inputs.create_pr }}" = "true" ]; then
+            echo "📤 Pull request created for review" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ Dictionary rolled back and committed to main branch" >> $GITHUB_STEP_SUMMARY
+          fi
