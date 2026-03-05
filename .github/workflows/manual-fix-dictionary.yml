@@ -32,12 +32,20 @@ jobs:
         pip install epitran
         
     - name: Fix dictionary
+      env:
+        FIX_COMPOUNDS_IPA: ${{ inputs.fix_compounds_ipa }}
+        REMOVE_DUPLICATES: ${{ inputs.remove_duplicates }}
       run: |
         python3 << 'EOF'
         import json
         import re
+        import os
         from collections import defaultdict
         import epitran
+        
+        # Read env vars
+        fix_compounds_ipa = os.environ.get('FIX_COMPOUNDS_IPA', 'false').lower() == 'true'
+        remove_duplicates = os.environ.get('REMOVE_DUPLICATES', 'false').lower() == 'true'
         
         # Load dictionary
         with open('data/dictionary.json', 'r', encoding='utf-8') as f:
@@ -53,9 +61,11 @@ jobs:
         compound_count = sum(1 for e in entries if e.get('is_compound', False))
         print(f"Native words: {native_count}, Compounds: {compound_count}")
         
+        ipa_generated = 0
+        duplicates_removed = 0
+        
         # FIX 1: Generate IPA for compounds only
-        if ${{ inputs.fix_compounds_ipa }}:
-            ipa_generated = 0
+        if fix_compounds_ipa:
             for entry in entries:
                 # Only process compounds
                 if not entry.get('is_compound', False):
@@ -78,10 +88,9 @@ jobs:
             print(f"Generated IPA for {ipa_generated} compound entries")
         
         # FIX 2: Remove duplicates (preserving native words)
-        if ${{ inputs.remove_duplicates }}:
+        if remove_duplicates:
             seen = {}
             unique_entries = []
-            duplicates_removed = 0
             
             for entry in entries:
                 lemma = entry.get('lemma', '')
@@ -139,14 +148,14 @@ jobs:
         report = f"""# Dictionary Fix Report
 
 ## Summary
-- Initial entries: {len(entries) + (duplicates_removed if ${{ inputs.remove_duplicates }} else 0)}
+- Initial entries: {len(entries) + duplicates_removed}
 - Final entries: {len(entries)}
 - Native words: {final_native}
 - Compounds: {final_compound}
 
 ## Changes
-- IPA generated for compounds: {ipa_generated if ${{ inputs.fix_compounds_ipa }} else 0}
-- Duplicates removed: {duplicates_removed if ${{ inputs.remove_duplicates }} else 0}
+- IPA generated for compounds: {ipa_generated}
+- Duplicates removed: {duplicates_removed}
 
 ## Verification
 ✅ Native words preserved
@@ -159,6 +168,13 @@ jobs:
         
         print("\n" + report)
         EOF
+    
+    - name: Read report
+      id: report
+      run: |
+        echo "content<<EOF" >> $GITHUB_OUTPUT
+        cat fix_report.txt >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
     
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
@@ -179,7 +195,7 @@ jobs:
           
           ### Report
           ```
-          $(cat fix_report.txt)
+          ${{ steps.report.outputs.content }}
           ```
           
           ### ⚠️ Review Before Merging
