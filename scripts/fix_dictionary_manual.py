@@ -17,11 +17,9 @@ except ImportError:
     print("Warning: epitran not available, using fallback")
     epi = None
 
-# Load dictionary
+# Load dictionary (it's a direct array)
 with open('data/dictionary.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
-
-entries = data['entries']
+    entries = json.load(f)
 
 print(f"📊 Initial State:")
 print(f"Total entries: {len(entries)}")
@@ -97,9 +95,6 @@ for entry in entries:
 
 print(f"\n🗑️  Removed {duplicates_removed} duplicate entries")
 
-# Update data
-data['entries'] = unique_entries
-
 # Final stats
 final_native = sum(1 for e in unique_entries if not e.get('is_compound', False))
 final_compound = sum(1 for e in unique_entries if e.get('is_compound', False))
@@ -109,8 +104,8 @@ print(f"Total entries: {len(unique_entries)}")
 print(f"Native words: {final_native}")
 print(f"Compounds: {final_compound}")
 
-# Save
+# Save (as direct array)
 with open('data/dictionary.json', 'w', encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
+    json.dump(unique_entries, f, ensure_ascii=False, indent=2)
 
 print(f"\n💾 Dictionary saved!")
