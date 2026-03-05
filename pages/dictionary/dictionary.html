@@ -295,6 +295,24 @@
 <script src="../tools/declensor-logic.js"></script>
 
 <script>
+// === Helper: Check if a word starts with query (supports multi-word strings) ===
+function startsWithQuery(text, query) {
+  if (!text || !query) return false;
+  
+  const textLower = text.toLowerCase();
+  const queryLower = query.toLowerCase();
+  
+  // Check if the entire text starts with query
+  if (textLower.startsWith(queryLower)) {
+    return true;
+  }
+  
+  // Check if any word in the text starts with query
+  // Split by spaces and check each word
+  const words = textLower.split(/\s+/);
+  return words.some(word => word.startsWith(queryLower));
+}
+
 // === IPA → ROMAJI function ===
 function ipaToRomaji(ipa) {
   if (!ipa) return '';
@@ -389,7 +407,7 @@ fetch('../../data/dictionary.json')
       const query = searchInput.value.toLowerCase().trim();
       const lang = langSelect.value;
 
-      // 🔥 FIX 1: Solo mostra risultati SE c'è una query
+      // Only show results if there's a query
       if (!query) {
         resultsDiv.innerHTML = '<div class="info-message">👆 Start typing to search the dictionary / 辞書を検索するには入力してください</div>';
         return;
@@ -397,13 +415,16 @@ fetch('../../data/dictionary.json')
 
       const filtered = data.filter(e => {
         if (lang === "EN") {
-          return (e.english && e.english.some(w => w.toLowerCase().includes(query))) ||
-                 (e.word && e.word.toLowerCase().includes(query));
+          // ✨ FIX: Search for words that START with query
+          return (e.english && e.english.some(w => startsWithQuery(w, query))) ||
+                 (e.word && startsWithQuery(e.word, query));
         }
         if (lang === "IT") {
-          return e.italian && e.italian.some(w => w.toLowerCase().includes(query));
+          // ✨ FIX: Same for Italian
+          return e.italian && e.italian.some(w => startsWithQuery(w, query));
         }
         if (lang === "IZ") {
+          // For Izaki, keep substring search (makes sense for non-Latin scripts)
           return (
             (e.lemma && e.lemma.toLowerCase().includes(query)) ||
             (e.reading && e.reading.toLowerCase().includes(query)) ||
@@ -416,7 +437,7 @@ fetch('../../data/dictionary.json')
         return false;
       });
 
-      // Limita a 100 risultati per performance
+      // Limit to 100 results for performance
       const limitedResults = filtered.slice(0, 100);
 
       if (limitedResults.length === 0) {
@@ -424,7 +445,7 @@ fetch('../../data/dictionary.json')
         return;
       }
 
-      // Mostra avviso se ci sono più risultati
+      // Show warning if there are more results
       let warningHTML = '';
       if (filtered.length > 100) {
         warningHTML = `<div class="info-message">⚠️ Showing first 100 of ${filtered.length} results. Refine your search for better results.</div>`;
@@ -515,7 +536,7 @@ fetch('../../data/dictionary.json')
           `;
         }
 
-        // 🔥 FIX 2: Mostra byakuzhi se esiste
+        // Show byakuzhi if it exists
         const byakuzhiHTML = e.byakuzhi ? `<span class="byakuzhi">${e.byakuzhi}</span>` : '';
 
         return `
@@ -545,7 +566,7 @@ fetch('../../data/dictionary.json')
     searchInput.addEventListener('input', renderResults);
     langSelect.addEventListener('change', renderResults);
 
-    // Mostra messaggio iniziale
+    // Show initial message
     renderResults();
   })
   .catch(error => {
