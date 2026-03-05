@@ -12,8 +12,8 @@ const ASKAOZA_CONS = {
   z:  'ટૃ',
   t:  'ઠ',
   d:  'ઠૃ',
-  f:  '૨',
-  v:  '૨ૃ',
+  f:  'ન',
+  v:  'નૃ',
   ch: 'મ',
   j:  'મૃ',
   sh: 'ય',
@@ -35,7 +35,7 @@ const ASKAOZA_CONS = {
   tts: 'ઢ્ઢ',
   ll:  'ધ્ધ',
   nn:  'પ્પ',
-  '*': '૮'
+  '*': 'સ'
 };
 
 // Consonanti finali ufficiali (con virama)
@@ -53,7 +53,7 @@ const ASKAOZA_V = {
   'a': '',    // inerente
   'e': 'ૅ',
   'i': 'ા',
-  'o': '૾',
+  'o': 'ા',
   'u': 'ે',
   'ü': 'ૈ'
 };
@@ -63,26 +63,26 @@ const ASKAOZA_DIPH = {
   // yV
   'ya': 'ો',
   'ye': 'ૅો',
-  'yo': '૾ો',
+  'yo': 'ાો',
   'yu': 'ેો',
   'yü': 'ૈો',
   // wV
   'wa': 'િ',
   'we': 'િૅ',
   'wi': 'િા',
-  'wo': '૮િ૾'
+  'wo': 'સિા'
 };
 
-// Vocali composte (ai, ae, ecc.) — usano il placeholder ૮
+// Vocali composte (ai, ae, ecc.) — usano il placeholder સ
 const ASKAOZA_COMPOUND = {
-  'ai': '૩',
-  'ae': '૩ૅ',
-  'ei': 'ૅ૩',
-  'eu': 'ૅ૩ે',
-  'oe': '૾૩ૅ',
-  'oi': '૾૩',
-  'ou': '૾૩ે',
-  'ui': 'ે૩'
+  'ai': '઩',
+  'ae': '઩ૅ',
+  'ei': 'ૅ઩',
+  'eu': 'ૅ઩ે',
+  'oe': 'ા઩ૅ',
+  'oi': 'ા઩',
+  'ou': 'ા઩ે',
+  'ui': 'ે઩'
 };
 
 // Diacritico di lunghezza
@@ -93,6 +93,19 @@ const LONG_MARK = 'ઃ';
 // =========================
 
 const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz', 'zh'];
+
+/**
+ * Revert phonetic sandhi for askaoza orthography
+ * Izaki doesn't allow M as syllable-final consonant graphically
+ * mp → np, mb → nb (only when M is syllable-final)
+ */
+function revertSandhiForAskaoza(text) {
+  // Replace mp → np, mb → nb only when m is syllable-final
+  // Pattern: m followed by p or b
+  return text
+    .replace(/mp/gi, 'np')
+    .replace(/mb/gi, 'nb');
+}
 
 function splitCV(syl) {
   syl = syl.toLowerCase();
@@ -356,7 +369,11 @@ function toAskaozaWordFromSyllables(sylls) {
 
 function toAskaozaText(latinText) {
   if (!latinText.trim()) return '';
-  const words = latinToSyllables(latinText);
+  
+  // ✨ REVERT SANDHI for askaoza orthography
+  const orthographic = revertSandhiForAskaoza(latinText);
+  
+  const words = latinToSyllables(orthographic);
   return words.map(toAskaozaWordFromSyllables).join(' ');
 }
 
