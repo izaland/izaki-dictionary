@@ -1,0 +1,24 @@
+📖 Reading data/dictionary.json...
+   Loaded 14804 entries
+
+📋 Reading data/compounds.csv...
+   Loaded 3020 compound mappings
+
+🔧 Fixing entries...
+
+📊 Summary:
+   Fixed lemma entries: 0
+   Added 'compound' tags: 10838
+   Warnings: 2
+
+⚠️  Warning details:
+   - No CSV mapping for 鮮菜: 'shelkja'
+   - No CSV mapping for 飯: 'kori'
+
+💾 Creating backup at data/dictionary_backup_lemma.json...
+
+✍️  Writing fixed dictionary to data/dictionary.json...
+
+✅ Done! Dictionary has been fixed.
+   • 0 lemma fields corrected
+   • 10838 entries tagged as 'compound'
