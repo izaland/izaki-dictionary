@@ -5,18 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Askaoza Converter - Izaki Dictionary</title>
 
-  <!-- Bulma CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-
-  <!-- Preconnect per Google Fonts (migliora velocità caricamento) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Font gujarati con fallback multipli per compatibilità mobile -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
-
-  <!-- Navbar e stile Izaki-dictionary -->
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
 
   <style>
@@ -28,45 +21,35 @@
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
     }
-
-    .quick-table td.glyph,
-    .quick-table th.glyph{
+    .quick-table td.glyph, .quick-table th.glyph{
       font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
       font-size: 2.25rem;
       line-height: 1.1;
       font-weight: 600;
     }
-
     .quick-table td.glyph{
       padding-top: 0.75rem;
       padding-bottom: 0.75rem;
     }
-
-    /* HERO */
     .hero .title{
       line-height: 1.2;
       margin-bottom: 0 !important;
       padding-bottom: 1.6rem;
     }
-
     .hero .title .subtitle-ja{
       display: block;
       margin-top: 0.65rem;
       font-size: 0.68em;
       opacity: 0.96;
     }
-
     .hero .title + .subtitle{
       margin-top: 0 !important;
       line-height: 1.45;
     }
-
     .hero .subtitle .subtitle-ja{
       display: block;
       margin-top: 0.35rem;
     }
-
-    /* Reference box con bordo e padding (card-style) */
     .reference-box {
       max-width: 920px;
       margin: 2rem auto;
@@ -76,18 +59,14 @@
       background: var(--panel, #ffffff);
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-
     .reference-box .title {
       color: var(--text-primary, #1a1a1a);
     }
-
     .reference-box .notes {
       color: var(--text-secondary, #6c757d);
       font-size: 0.95rem;
       line-height: 1.55;
     }
-
-    /* Tabelle */
     .table-wrap { 
       overflow-x: auto; 
       margin-top: 1rem;
@@ -104,8 +83,6 @@
       color: var(--text-primary, #1a1a1a);
     }
     .quick-table td, .quick-table th { vertical-align: middle; }
-
-    /* Clear button */
     .input-wrapper { position: relative; width: 100%; }
     .clear-btn {
       position: absolute;
@@ -123,8 +100,6 @@
       padding: 0;
     }
     .clear-btn:hover { background: rgba(10,10,10,0.12); }
-
-    /* Details/summary styling */
     details {
       border: 1px solid var(--border, #dee2e6);
       border-radius: 8px;
@@ -141,10 +116,8 @@
 </head>
 
 <body>
-  <!-- NAVBAR -->
   <div id="navbar"></div>
 
-  <!-- HERO SECTION -->
   <section class="hero is-medium is-link">
     <div class="hero-body has-text-centered">
       <p class="title">
@@ -159,22 +132,16 @@
     </div>
   </section>
 
-  <!-- CONTENT SECTION -->
   <section class="section">
     <div class="container">
-
       <div class="columns">
-        <!-- LATIN INPUT -->
         <div class="column">
           <h3 class="title is-5">Latin → Askaoza</h3>
           <div class="field has-addons is-flex is-align-items-center">
             <div class="control is-expanded input-wrapper">
               <textarea id="latinInput" class="textarea" rows="5"
                 placeholder="Write in alphabet the text you want to convert in Askaoza..."></textarea>
-              <button type="button"
-                      id="clearLatin"
-                      class="clear-btn"
-                      aria-label="Clear input">×</button>
+              <button type="button" id="clearLatin" class="clear-btn" aria-label="Clear input">×</button>
             </div>
           </div>
           <button id="toAskaozaBtn" class="button is-link is-light mt-2">
@@ -183,7 +150,6 @@
           <div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
         </div>
 
-        <!-- ASKAOZA INPUT -->
         <div class="column">
           <h3 class="title is-5">Askaoza → Latin</h3>
           <textarea id="askaozaInput" class="textarea askaoza-sample" rows="5"
@@ -197,7 +163,6 @@
     </div>
   </section>
 
-  <!-- Reference box (contenitore centrato, larghezza limitata) -->
   <section class="section">
     <div class="reference-box">
       <h2 class="title is-4">Quick reference / 速覽表</h2>
@@ -229,9 +194,9 @@
             <tr><th>P</th><td class="glyph">ર</td><td>/p/</td><th>B</th><td class="glyph">રૃ</td><td>/b/</td></tr>
             <tr><th>S</th><td class="glyph">ટ</td><td>/s/</td><th>Z</th><td class="glyph">ટૃ</td><td>/z/</td></tr>
             <tr><th>T</th><td class="glyph">ઠ</td><td>/t/</td><th>D</th><td class="glyph">ઠૃ</td><td>/d/</td></tr>
-            <tr><th>F</th><td class="glyph">૨</td><td>/f/</td><th>V</th><td class="glyph">૨ૃ</td><td>/v/</td></tr>
-            <tr><th>CH</th><td class="glyph">મ</td><td>/ʧ/</td><th>J</th><td class="glyph">મૃ</td><td>/ʤ/</td></tr>
-            <tr><th>SH</th><td class="glyph">ય</td><td>/ʃ/</td><th>ZH</th><td class="glyph">યૃ</td><td>/ʒ/</td></tr>
+            <tr><th>F</th><td class="glyph">ળ</td><td>/f/</td><th>V</th><td class="glyph">ળૃ</td><td>/v/</td></tr>
+            <tr><th>CH</th><td class="glyph">મ</td><td>/ʃ/</td><th>J</th><td class="glyph">મૃ</td><td>/ʒ/</td></tr>
+            <tr><th>SH</th><td class="glyph">ય</td><td>/ɕ/</td><th>ZH</th><td class="glyph">યૃ</td><td>/ʑ/</td></tr>
             <tr><th>TS</th><td class="glyph">ઢ</td><td>/ʦ/</td><th>Đ</th><td class="glyph">ઢૃ</td><td>/ʣ/</td></tr>
             <tr><th>Vowel ph.</th><td class="glyph">૮</td><td>∅</td><th>H</th><td class="glyph">ત</td><td>/h/</td></tr>
             <tr><th></th><td class="glyph"></td><td></td><th>N</th><td class="glyph">પ</td><td>/n/</td></tr>
@@ -286,25 +251,34 @@
     </div>
   </section>
 
-  <!-- Script originali -->
-  <script src="/izaki-dictionary/scripts/askaoza.js"></script>
+  <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
   <script src="/izaki-dictionary/scripts/script.js"></script>
 
-  <!-- JS aggiuntivo per la X e per usare l'API esistente -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const latinInput = document.getElementById('latinInput');
       const clearLatin = document.getElementById('clearLatin');
       const toAskaozaBtn = document.getElementById('toAskaozaBtn');
+      const askOut = document.getElementById('askaozaOutput');
+
+      const askInput = document.getElementById('askaozaInput');
+      const toLatBtn = document.getElementById('toLatinBtn');
+      const latOut = document.getElementById('latinOutput');
 
       if (clearLatin && latinInput) {
         clearLatin.addEventListener('click', function () {
           latinInput.value = '';
-          if (toAskaozaBtn) {
-            toAskaozaBtn.click();
-          }
+          if (toAskaozaBtn) toAskaozaBtn.click();
         });
       }
+
+      toAskaozaBtn.addEventListener('click', () => {
+        askOut.textContent = toAskaozaText(latinInput.value);
+      });
+
+      toLatBtn.addEventListener('click', () => {
+        latOut.textContent = askaozaToLatinText(askInput.value);
+      });
     });
   </script>
 </body>
