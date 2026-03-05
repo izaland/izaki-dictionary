@@ -239,7 +239,8 @@
     "byakuzhi": "",
     "askaoza": "",
     "notes": "",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "soaka",
@@ -496,7 +497,8 @@
     "byakuzhi": "",
     "askaoza": "",
     "notes": "",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "mori",
@@ -4731,7 +4733,8 @@
     "byakuzhi": "",
     "askaoza": "",
     "notes": "",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "estinhen",
@@ -11101,22 +11104,8 @@
     "byakuzhi": "",
     "askaoza": "",
     "notes": "",
-    "example": ""
-  },
-  {
-    "lemma": "ʧushshisu",
-    "ipa": "ʧuʃʃisu",
-    "pos": "v",
-    "english": [
-      "to suck"
-    ],
-    "italian": [
-      "succhiare"
-    ],
-    "byakuzhi": "",
-    "askaoza": "",
-    "notes": "",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "raikaisu",
@@ -12501,21 +12490,6 @@
     "example": ""
   },
   {
-    "lemma": "hanki",
-    "ipa": "hanki",
-    "pos": "n",
-    "english": [
-      "breath"
-    ],
-    "italian": [
-      "respiro"
-    ],
-    "byakuzhi": "",
-    "askaoza": "",
-    "notes": "",
-    "example": ""
-  },
-  {
     "lemma": "rettausu",
     "ipa": "rettausu",
     "pos": "v",
@@ -12599,21 +12573,6 @@
     ],
     "italian": [
       "animarsi"
-    ],
-    "byakuzhi": "",
-    "askaoza": "",
-    "notes": "",
-    "example": ""
-  },
-  {
-    "lemma": "samuna",
-    "ipa": "samuna",
-    "pos": "adj",
-    "english": [
-      "same"
-    ],
-    "italian": [
-      "stesso"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -13514,21 +13473,6 @@
     "example": ""
   },
   {
-    "lemma": "tsahena",
-    "ipa": "ʦahena",
-    "pos": "adj",
-    "english": [
-      "old"
-    ],
-    "italian": [
-      "vecchio"
-    ],
-    "byakuzhi": "",
-    "askaoza": "",
-    "notes": "",
-    "example": ""
-  },
-  {
     "lemma": "kuminona",
     "ipa": "kuminona",
     "pos": "adj",
@@ -13860,7 +13804,8 @@
     "byakuzhi": "",
     "askaoza": "",
     "notes": "",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "ʧarusu",
@@ -13932,21 +13877,6 @@
     ],
     "italian": [
       "rendersi conto"
-    ],
-    "byakuzhi": "",
-    "askaoza": "",
-    "notes": "",
-    "example": ""
-  },
-  {
-    "lemma": "tagas jaki",
-    "ipa": "tagas jaki",
-    "pos": "adv",
-    "english": [
-      "a little at a time"
-    ],
-    "italian": [
-      "un po' alla volta"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -14026,7 +13956,8 @@
     "byakuzhi": "",
     "askaoza": "",
     "notes": "",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "abusu",
@@ -14203,21 +14134,6 @@
     ],
     "italian": [
       "sufficere"
-    ],
-    "byakuzhi": "",
-    "askaoza": "",
-    "notes": "",
-    "example": ""
-  },
-  {
-    "lemma": "hankuri",
-    "ipa": "hankuri",
-    "pos": "n",
-    "english": [
-      "aurora"
-    ],
-    "italian": [
-      "aurora"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -16835,7 +16751,8 @@
     "byakuzhi": "陪審",
     "askaoza": "",
     "notes": "compound",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "mwishis",
@@ -16859,19 +16776,6 @@
     ],
     "italian": [],
     "byakuzhi": "買春",
-    "askaoza": "",
-    "notes": "compound",
-    "example": ""
-  },
-  {
-    "lemma": "paishin",
-    "ipa": "/paiʃin/",
-    "pos": "n",
-    "english": [
-      "jury"
-    ],
-    "italian": [],
-    "byakuzhi": "陪審",
     "askaoza": "",
     "notes": "compound",
     "example": ""
@@ -19877,20 +19781,8 @@
     "byakuzhi": "物理",
     "askaoza": "",
     "notes": "compound",
-    "example": ""
-  },
-  {
-    "lemma": "musli",
-    "ipa": "/musli/",
-    "pos": "n",
-    "english": [
-      "physics"
-    ],
-    "italian": [],
-    "byakuzhi": "物理",
-    "askaoza": "",
-    "notes": "compound",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "puslyōn",
@@ -27729,7 +27621,8 @@
     "byakuzhi": "財政",
     "askaoza": "",
     "notes": "compound",
-    "example": ""
+    "example": "",
+    "translations": []
   },
   {
     "lemma": "tsaisei",
@@ -27740,19 +27633,6 @@
     ],
     "italian": [],
     "byakuzhi": "済生",
-    "askaoza": "",
-    "notes": "compound",
-    "example": ""
-  },
-  {
-    "lemma": "zaisei",
-    "ipa": "/zaisei/",
-    "pos": "n",
-    "english": [
-      "finances"
-    ],
-    "italian": [],
-    "byakuzhi": "財政",
     "askaoza": "",
     "notes": "compound",
     "example": ""
@@ -83959,16 +83839,8 @@
     "ipa": "/zaisei/",
     "type": "compound",
     "source": "sheets_sync",
-    "notes": "compound"
-  },
-  {
-    "word": "finances",
-    "byakuzhi": "財政",
-    "reading": "zaisei",
-    "ipa": "/zaisei/",
-    "type": "compound",
-    "source": "sheets_sync",
-    "notes": "compound"
+    "notes": "compound",
+    "translations": []
   },
   {
     "word": "Financial luck",
@@ -98449,16 +98321,8 @@
     "ipa": "/paiʃin/",
     "type": "compound",
     "source": "sheets_sync",
-    "notes": "compound"
-  },
-  {
-    "word": "jury",
-    "byakuzhi": "陪審",
-    "reading": "paishin",
-    "ipa": "/paiʃin/",
-    "type": "compound",
-    "source": "sheets_sync",
-    "notes": "compound"
+    "notes": "compound",
+    "translations": []
   },
   {
     "word": "Just in case",
@@ -117520,16 +117384,8 @@
     "ipa": "/musli/",
     "type": "compound",
     "source": "sheets_sync",
-    "notes": "compound"
-  },
-  {
-    "word": "physics",
-    "byakuzhi": "物理",
-    "reading": "musli",
-    "ipa": "/musli/",
-    "type": "compound",
-    "source": "sheets_sync",
-    "notes": "compound"
+    "notes": "compound",
+    "translations": []
   },
   {
     "word": "Physics",
