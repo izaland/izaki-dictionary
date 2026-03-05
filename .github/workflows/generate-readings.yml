@@ -29,17 +29,25 @@ jobs:
       run: |
         python generate_compound_readings.py
     
+    - name: Replace compounds.csv with updated version
+      run: |
+        if [ -f "data/compounds_updated.csv" ]; then
+          cp data/compounds_updated.csv data/compounds.csv
+          echo "File replaced successfully"
+        else
+          echo "Error: compounds_updated.csv not found"
+          exit 1
+        fi
+    
     - name: Check for changes
       id: check_changes
       run: |
-        if [ -f "data/compounds_updated.csv" ]; then
-          if ! diff -q data/compounds.csv data/compounds_updated.csv > /dev/null 2>&1; then
-            echo "changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "changes=false" >> $GITHUB_OUTPUT
-          fi
-        else
+        if git diff --quiet data/compounds.csv; then
           echo "changes=false" >> $GITHUB_OUTPUT
+          echo "No changes detected"
+        else
+          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "Changes detected"
         fi
     
     - name: Create Pull Request
@@ -47,7 +55,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 'Auto-generate compound readings'
+        commit-message: '🤖 Auto-generate compound readings'
         title: '🤖 Auto-generated compound readings'
         body: |
           ## 🔍 Automatic Compound Reading Generation
@@ -61,7 +69,7 @@ jobs:
           ### 📝 Report
           
           ```
-          $(cat report.txt)
+          $(cat report.txt 2>/dev/null || echo "Report file not found")
           ```
           
           ### ✅ Review Checklist
@@ -87,3 +95,8 @@ jobs:
         name: generation-report
         path: report.txt
         retention-days: 30
+    
+    - name: Summary
+      if: steps.check_changes.outputs.changes == 'false'
+      run: |
+        echo "✅ No new readings to generate. All compounds already have readings or are missing required byakuzhi." >> $GITHUB_STEP_SUMMARY
