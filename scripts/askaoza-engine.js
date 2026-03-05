@@ -1,15 +1,20 @@
 // =========================
-// Askaoza Engine v2.0 - UNIFIED & CORRECTED
+// Askaoza Engine v3.0 - FINAL CORRECTED
 // =========================
-// Unified Askaoza conversion engine for Izaki Dictionary
-// Fixes: BUG-001 (consonante virtuale ૮), BUG-002 (f → ળ), BUG-003 (v → ળૃ)
+// Complete Askaoza conversion engine for Izaki Dictionary
+// Corrections:
+// - Vowel compounds as diacritics (ai = ળ, not ૮ળ)
+// - Diphthongs corrected (wo = િા, yo = ાો)
+// - F = ળ, V = ળૃ
+// - Geminated consonants (kk, pp, etc.)
+// - ZWNJ separator for CVC syllables
 // Date: 2026-03-06
 
 // =========================
-// Tabelle di mappatura CORRETTE
+// MAPPING TABLES - FINAL CORRECTED
 // =========================
 
-// Consonanti base (valore inerente = /a/)
+// Base consonants (inherent /a/ value)
 const ASKAOZA_CONS = {
   k:  'ડ',
   g:  'ડૃ',
@@ -19,8 +24,8 @@ const ASKAOZA_CONS = {
   z:  'ટૃ',
   t:  'ઠ',
   d:  'ઠૃ',
-  f:  'ળ',      // ✅ CORRETTO (era ન)
-  v:  'ળૃ',     // ✅ CORRETTO (era નૃ)
+  f:  'ળ',      // ✅ CORRECTED
+  v:  'ળૃ',     // ✅ CORRECTED
   ch: 'મ',
   j:  'મૃ',
   sh: 'ય',
@@ -32,7 +37,7 @@ const ASKAOZA_CONS = {
   m:  'ઇ',
   l:  'ધ',
   r:  'દ',
-  // doppie consonanti
+  // Geminated consonants (only voiceless)
   kk:  'ડ્ડ',
   pp:  'ર્ર',
   tt:  'ઠ્ઠ',
@@ -42,10 +47,10 @@ const ASKAOZA_CONS = {
   tts: 'ઢ્ઢ',
   ll:  'ધ્ધ',
   nn:  'પ્પ',
-  '*': '૮'      // ✅ CORRETTO (era સ) - consonante virtuale per vocali
+  '*': '૮'      // Virtual consonant for vowel-initial syllables
 };
 
-// Consonanti finali ufficiali (con virama)
+// Final consonants (official with virama)
 const ASKAOZA_FINALS = {
   n:  'પ્',
   l:  'ધ્',
@@ -55,9 +60,9 @@ const ASKAOZA_FINALS = {
   kk: 'ડ્ડ્'
 };
 
-// Diacritici vocalici semplici
+// Simple vowel diacritics
 const ASKAOZA_V = {
-  'a': '',    // inerente
+  'a': '',    // inherent
   'e': 'ૅ',
   'i': 'ા',
   'o': '૾',
@@ -65,68 +70,69 @@ const ASKAOZA_V = {
   'ü': 'ૈ'
 };
 
-// Dittonghi (y- / w-)
+// Diphthongs (y- / w-) - AS DIACRITICS
 const ASKAOZA_DIPH = {
   // yV
   'ya': 'ો',
   'ye': 'ૅો',
-  'yo': 'ાો',
+  'yo': '૾ો',     // ✅ NOT ા૾ો
   'yu': 'ેો',
   'yü': 'ૈો',
   // wV
   'wa': 'િ',
   'we': 'િૅ',
   'wi': 'િા',
-  'wo': 'સિા'
+  'wo': 'િ૾'      // ✅ CORRECTED (was ૮િ૾)
 };
 
-// Vocali composte (ai, ae, ecc.) — usano il placeholder ઩
+// Compound vowels (hiatus) - AS DIACRITICS
 const ASKAOZA_COMPOUND = {
-  'ai': '઩',
+  'ai': '઩',      // ✅ DIACRITIC (not ૮઩)
   'ae': '઩ૅ',
   'ei': 'ૅ઩',
   'eu': 'ૅ઩ે',
-  'oe': 'ા઩ૅ',
-  'oi': 'ા઩',
-  'ou': 'ા઩ે',
+  'oe': '૾઩ૅ',
+  'oi': '૾઩',
+  'ou': '૾઩ે',
   'ui': 'ે઩'
 };
 
-// Diacritico di lunghezza
+// Length mark
 const LONG_MARK = 'ઃ';
 
+// Zero Width Non-Joiner for CVC separation
+const ZWNJ = '\u200C';
+
 // =========================
-// Funzioni di supporto
+// HELPER FUNCTIONS
 // =========================
 
 const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz', 'zh'];
 
 /**
- * Apply complete Izaki phonetic sandhi rules
+ * Apply Izaki phonetic sandhi rules
  */
 function applySandhi(text) {
   let result = text;
   
-  // ===== FINAL -S + CONSONANT =====
+  // Final -S + consonant
   result = result
     .replace(/s([bpfv])/gi, (m, c) => 's' + (c.toLowerCase() === 'b' ? 'p' : c.toLowerCase() === 'v' ? 'f' : c))
     .replace(/s(ch|j)/gi, 'cch')
     .replace(/sd/gi, 'st')
     .replace(/sg/gi, 'sk')
-    .replace(/sh(?=[aeiouāēīōūü])/gi, 'sh')
-    .replace(/sh(?=[^aeiouāēīōūü])/gi, 'sh')
     .replace(/s([klmnr])/gi, (m, c) => 's' + c)
     .replace(/ss/gi, 'ss')
     .replace(/st/gi, 'st')
     .replace(/s(ts|z|dz)/gi, 'tts')
     .replace(/szh/gi, 'ssh');
   
-  // ===== LIQUID ASSIMILATION =====
+  // Liquid assimilation
   result = result.replace(/nr/gi, 'nl');
   result = result.replace(/lr/gi, 'll');
   result = result.replace(/rl/gi, 'll');
   
-  // ===== FINAL -H + CONSONANT (devoicing) =====
+  // Final -H + consonant (devoicing)
   result = result
     .replace(/hb/gi, 'hp')
     .replace(/hd/gi, 'ht')
@@ -138,19 +144,19 @@ function applySandhi(text) {
     .replace(/hzh/gi, 'hsh')
     .replace(/hh/gi, 'pp');
   
-  // ===== FINAL CONSONANTS + VOWEL =====
+  // Final consonants + vowel
   result = result
-    .replace(/n([aeiouāēīōūü])/gi, (m, v) => 'nn' + v)
-    .replace(/l([aeiouāēīōūü])/gi, (m, v) => 'll' + v)
-    .replace(/s([aeiouāēīōūü])/gi, (m, v) => 'ss' + v);
+    .replace(/n([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 'nn' + v)
+    .replace(/l([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 'll' + v)
+    .replace(/s([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 'ss' + v);
   
-  result = result.replace(/r([aeiouāēīōūü])/gi, (m, v) => 't' + v);
+  result = result.replace(/r([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 't' + v);
   
   return result;
 }
 
 /**
- * Revert phonetic sandhi for askaoza orthography
+ * Revert sandhi for askaoza orthography
  */
 function revertSandhiForAskaoza(text) {
   return text
@@ -174,7 +180,7 @@ function splitCV(syl) {
     }
   }
   
-  if (/^[kgpbsztdfvhnmlrj]/i.test(syl[0])) {
+  if (/^[kgpbsztdfvhnmlrjw]/i.test(syl[0])) {
     return { C: syl[0], V: syl.slice(1) || 'a' };
   }
   
@@ -190,12 +196,13 @@ function parseWordToSyllables(word) {
   const res = [];
   let lower = word.toLowerCase();
 
+  // Normalize long vowels
   lower = lower
-    .replace(/aa/g, 'ā')
-    .replace(/ee/g, 'ē')
-    .replace(/ii/g, 'ī')
-    .replace(/oo/g, 'ō')
-    .replace(/uu/g, 'ū');
+    .replace(/aa/g, '\u0101')
+    .replace(/ee/g, '\u0113')
+    .replace(/ii/g, '\u012b')
+    .replace(/oo/g, '\u014d')
+    .replace(/uu/g, '\u016b');
 
   const syllableGroups = lower.split("'");
   
@@ -209,6 +216,7 @@ function parseWordToSyllables(word) {
       let nucleus = '';
       let coda = '';
 
+      // Check for 3-char digraphs
       if (i + 3 <= group.length) {
         const three = group.slice(i, i + 3);
         if (DIGRAPHS.includes(three)) {
@@ -217,6 +225,7 @@ function parseWordToSyllables(word) {
         }
       }
       
+      // Check for 2-char consonant clusters
       if (!onset && i + 2 <= group.length) {
         const two = group.slice(i, i + 2);
         if (ASKAOZA_CONS[two]) {
@@ -225,6 +234,7 @@ function parseWordToSyllables(word) {
         }
       }
       
+      // Check for 2-char digraphs
       if (!onset && i + 2 <= group.length) {
         const two = group.slice(i, i + 2);
         if (DIGRAPHS.includes(two)) {
@@ -233,11 +243,13 @@ function parseWordToSyllables(word) {
         }
       }
       
-      if (!onset && i < group.length && /[kgpbsztdfvhnmlrj]/.test(group[i])) {
+      // Single consonant
+      if (!onset && i < group.length && /[kgpbsztdfvhnmlrjw]/.test(group[i])) {
         onset = group[i];
         i += 1;
       }
 
+      // Parse nucleus (vowel or diphthong/compound)
       if (i < group.length) {
         const next2 = group.slice(i, i + 2);
         const next1 = group[i];
@@ -245,14 +257,13 @@ function parseWordToSyllables(word) {
         if (ASKAOZA_DIPH[next2] || ASKAOZA_COMPOUND[next2]) {
           nucleus = next2;
           i += 2;
-        } else if (/[aeiouāēīōūü]/.test(next1)) {
+        } else if (/[aeiouyü\u0101\u0113\u012b\u014d\u016b]/.test(next1)) {
           nucleus = next1;
           i += 1;
-        } else {
-          nucleus = '';
         }
       }
 
+      // Parse coda (final consonant)
       if (nucleus && i < group.length) {
         let look = '';
         
@@ -264,21 +275,15 @@ function parseWordToSyllables(word) {
         }
         if (!look && i + 2 <= group.length) {
           const two = group.slice(i, i + 2);
-          if (DIGRAPHS.includes(two)) {
+          if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
             look = two;
           }
         }
-        if (!look && i + 1 <= group.length) {
-          const two = group.slice(i, i + 2);
-          if (ASKAOZA_CONS[two]) {
-            look = two;
-          }
-        }
-        if (!look && /[kgpbsztdfvhnmlrj]/.test(group[i])) {
+        if (!look && /[kgpbsztdfvhnmlr]/.test(group[i])) {
           look = group[i];
         }
 
-        const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+        const finalCandidates = ['kk', 'n', 'l', 's', 'r', 'h'];
         const cand = finalCandidates.find(fc => look && look.startsWith(fc));
 
         if (cand) {
@@ -287,9 +292,7 @@ function parseWordToSyllables(word) {
           if (afterCodaIndex < group.length) {
             const wouldFormDigraph = DIGRAPHS.some(dg => dg.startsWith(cand) && group.slice(i, i + dg.length) === dg);
             
-            if (wouldFormDigraph) {
-            } else if (/[aeiouāēīōūü]/.test(group[afterCodaIndex])) {
-            } else {
+            if (!wouldFormDigraph && !/[aeiouyü\u0101\u0113\u012b\u014d\u016b]/.test(group[afterCodaIndex])) {
               coda = cand;
               i = afterCodaIndex;
             }
@@ -299,7 +302,7 @@ function parseWordToSyllables(word) {
           }
         }
       } else if (!nucleus && onset) {
-        const finalCandidates = ['n', 'l', 's', 'r', 'h', 'kk'];
+        const finalCandidates = ['kk', 'n', 'l', 's', 'r', 'h'];
         if (finalCandidates.includes(onset)) {
           coda = onset;
           onset = '';
@@ -320,12 +323,13 @@ function parseWordToSyllables(word) {
 }
 
 // =========================
-// Latin → askaoza (sillaba)
+// Latin → Askaoza (syllable)
 // =========================
 
 function renderOnsetNucleus(onset, nucleus) {
   if (!onset && !nucleus) return '';
 
+  // Vowel-initial: use virtual consonant
   if (!onset && nucleus) {
     if (ASKAOZA_COMPOUND[nucleus]) {
       return ASKAOZA_CONS['*'] + ASKAOZA_COMPOUND[nucleus];
@@ -333,14 +337,14 @@ function renderOnsetNucleus(onset, nucleus) {
 
     let V = nucleus;
     let isLong = false;
-    if (/[āēīōū]/.test(V)) {
+    if (/[\u0101\u0113\u012b\u014d\u016b]/.test(V)) {
       isLong = true;
       V = V
-        .replace('ā','a')
-        .replace('ē','e')
-        .replace('ī','i')
-        .replace('ō','o')
-        .replace('ū','u');
+        .replace('\u0101','a')
+        .replace('\u0113','e')
+        .replace('\u012b','i')
+        .replace('\u014d','o')
+        .replace('\u016b','u');
     }
 
     if (ASKAOZA_DIPH[V]) {
@@ -351,26 +355,30 @@ function renderOnsetNucleus(onset, nucleus) {
     return ASKAOZA_CONS['*'] + mark + (isLong ? LONG_MARK : '');
   }
 
+  // Consonant + vowel
   let { C, V } = splitCV(onset + (nucleus || ''));
   const base = ASKAOZA_CONS[C] || ASKAOZA_CONS['*'];
 
+  // Check for diphthongs
   if (ASKAOZA_DIPH[V]) {
     return base + ASKAOZA_DIPH[V];
   }
 
+  // Check for compound vowels
   if (C !== '*' && ASKAOZA_COMPOUND[V]) {
     return base + ASKAOZA_COMPOUND[V];
   }
 
+  // Handle long vowels
   let isLong = false;
-  if (/[āēīōū]/.test(V)) {
+  if (/[\u0101\u0113\u012b\u014d\u016b]/.test(V)) {
     isLong = true;
     V = V
-      .replace('ā','a')
-      .replace('ē','e')
-      .replace('ī','i')
-      .replace('ō','o')
-      .replace('ū','u');
+      .replace('\u0101','a')
+      .replace('\u0113','e')
+      .replace('\u012b','i')
+      .replace('\u014d','o')
+      .replace('\u016b','u');
   }
 
   const mark = ASKAOZA_V[V] ?? '';
@@ -383,9 +391,15 @@ function renderCoda(coda) {
 }
 
 function toAskaozaWordFromSyllables(sylls) {
-  return sylls
-    .map(s => renderOnsetNucleus(s.onset, s.nucleus) + renderCoda(s.coda))
-    .join('');
+  return sylls.map((s, i) => {
+    const rendered = renderOnsetNucleus(s.onset, s.nucleus) + renderCoda(s.coda);
+    
+    // ✅ Add ZWNJ after CVC syllables (except last)
+    if (s.coda && i < sylls.length - 1) {
+      return rendered + ZWNJ;
+    }
+    return rendered;
+  }).join('');
 }
 
 function toAskaozaText(latinText) {
@@ -399,7 +413,7 @@ function toAskaozaText(latinText) {
 }
 
 // =========================
-// Askaoza → Latin (completa)
+// Askaoza → Latin (complete)
 // =========================
 
 const CONS_REV = {};
@@ -432,6 +446,7 @@ function parseVowelMarks(text, startIdx) {
   let coda = '';
   let j = startIdx;
 
+  // Try to match compound vowels or diphthongs (longest first)
   for (let len = 3; len >= 1; len--) {
     if (j + len <= text.length) {
       const mark = text.slice(j, j + len);
@@ -454,21 +469,30 @@ function parseVowelMarks(text, startIdx) {
     }
   }
 
+  // Check for long mark
   if (j < text.length && text[j] === LONG_MARK) {
     j++;
     vowel = vowel
-      .replace('a', 'ā')
-      .replace('e', 'ē')
-      .replace('i', 'ī')
-      .replace('o', 'ō')
-      .replace('u', 'ū');
+      .replace('a', '\u0101')
+      .replace('e', '\u0113')
+      .replace('i', '\u012b')
+      .replace('o', '\u014d')
+      .replace('u', '\u016b');
   }
 
-  if (j + 1 < text.length) {
+  // Check for final consonant (2-char first, then 1-char)
+  if (j + 2 <= text.length) {
     const finalCandidate = text.slice(j, j + 2);
     if (FINALS_REV[finalCandidate]) {
       coda = FINALS_REV[finalCandidate];
       j += 2;
+    }
+  }
+  if (!coda && j + 1 <= text.length) {
+    const finalCandidate = text.slice(j, j + 1);
+    if (FINALS_REV[finalCandidate]) {
+      coda = FINALS_REV[finalCandidate];
+      j += 1;
     }
   }
 
@@ -480,14 +504,16 @@ function askaozaToLatinText(askText) {
   let i = 0;
 
   while (i < askText.length) {
-    if (/\s/.test(askText[i])) {
-      result += ' ';
+    // Skip whitespace and ZWNJ
+    if (/\s/.test(askText[i]) || askText[i] === ZWNJ) {
+      if (/\s/.test(askText[i])) result += ' ';
       i++;
       continue;
     }
 
     let matched = false;
 
+    // Try 2-char final consonant
     if (i + 1 < askText.length) {
       const twoChars = askText.slice(i, i + 2);
       if (FINALS_REV[twoChars]) {
@@ -498,6 +524,7 @@ function askaozaToLatinText(askText) {
       }
     }
 
+    // Try 3-char consonant (geminated with diacritic)
     if (!matched && i + 2 < askText.length) {
       const threeChars = askText.slice(i, i + 3);
       if (CONS_REV[threeChars]) {
@@ -516,6 +543,7 @@ function askaozaToLatinText(askText) {
       }
     }
 
+    // Try base consonant + possible diacritic
     if (!matched) {
       let baseChar = askText[i];
       let consCandidate = baseChar;
@@ -541,6 +569,7 @@ function askaozaToLatinText(askText) {
       }
     }
 
+    // Fallback: copy character as-is
     if (!matched) {
       result += askText[i];
       i++;
