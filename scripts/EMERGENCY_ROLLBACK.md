@@ -12,11 +12,70 @@ Lo script `deduplicate_dictionary.py` ha **rimosso 10,844 entries** invece di ri
 
 **Risultato**: Dizionario ridotto da 14,804 → 3,960 entries ❌
 
+**Status**: ✅ **BUG RISOLTO** nel commit `f44de1904bd513a24ba1620970692b0d3e687992`
+
 ---
 
-## ✅ SOLUZIONE IMMEDIATA: Rollback
+## ✅ SOLUZIONE: Rollback Automatico via GitHub Actions
 
-### Opzione 1: Via Git Locale (SE hai una copia locale)
+### 🚀 Metodo Consigliato (Nessun Git Locale Richiesto!)
+
+1. **Vai su GitHub Actions**:
+   https://github.com/izaland/izaki-dictionary/actions/workflows/rollback-dictionary.yml
+
+2. **Clicca "Run workflow"** (pulsante in alto a destra)
+
+3. **Compila i parametri**:
+   - **Branch**: `main` (lascia default)
+   - **commit_sha**: `1d69383d8f006de84c5461f6be21e4d9b6985d00`
+   - **create_pr**: ☑️ `true` (consigliato per revisione)
+
+4. **Clicca "Run workflow"** (pulsante verde)
+
+5. **Aspetta ~30 secondi**
+
+6. **Controlla il workflow summary**:
+   - Vedi quante entries sono state ripristinate
+   - Verifica che il count passi da 3,960 → 14,804
+
+7. **Se create_pr = true**:
+   - Vai su Pull Requests
+   - Troverai una PR "🚑 Emergency Rollback"
+   - Controlla le statistiche
+   - Merge quando sei sicuro
+
+8. **Se create_pr = false**:
+   - Il rollback è già su `main`
+   - Controlla che il dizionario sia tornato a 14,804 entries
+
+---
+
+## 💻 Alternative (Se hai Git Locale)
+
+### Opzione A: Script Python Automatico
+
+```bash
+cd /path/to/izaki-dictionary
+
+# Scarica e applica il rollback
+python scripts/rollback_to_commit.py 1d69383d8f006de84c5461f6be21e4d9b6985d00
+
+# Lo script:
+# - Scarica il file dal commit
+# - Valida il JSON
+# - Crea backup automatico
+# - Scrive il file ripristinato
+
+# Verifica
+python scripts/diagnose_structure.py
+
+# Commit
+git add data/dictionary.json
+git commit -m "🚑 ROLLBACK: Restore dictionary before bad deduplication"
+git push
+```
+
+### Opzione B: Git Checkout Manuale
 
 ```bash
 cd /path/to/izaki-dictionary
@@ -29,7 +88,7 @@ git diff HEAD data/dictionary.json | head -20
 
 # Commit
 git add data/dictionary.json
-git commit -m "🚑 ROLLBACK: Restore dictionary.json before bad deduplication
+git commit -m "🚑 ROLLBACK: Restore 14,804 entries
 
 Reverts dictionary.json to commit 1d69383d8f006de84c5461f6be21e4d9b6985d00
 before the problematic deduplication that removed 10,844 valid entries.
@@ -42,65 +101,21 @@ Restores: 14,804 entries (from broken 3,960)"
 git push
 ```
 
-### Opzione 2: Via GitHub Web UI
-
-1. **Vai al commit buono**:
-   https://github.com/izaland/izaki-dictionary/commit/1d69383d8f006de84c5461f6be21e4d9b6985d00
-
-2. **Clicca su "Browse files"** (in alto a destra)
-
-3. **Naviga a** `data/dictionary.json`
-
-4. **Clicca "Raw"** o **"Download"**
-
-5. **Salva il file localmente**
-
-6. **Vai a**: https://github.com/izaland/izaki-dictionary/blob/main/data/dictionary.json
-
-7. **Clicca l'icona matita** (Edit this file)
-
-8. **Cancella tutto** e **incolla il contenuto** del file salvato
-
-9. **Commit message**:
-   ```
-   🚑 ROLLBACK: Restore dictionary.json before bad deduplication
-   
-   Restores 14,804 entries (from broken 3,960)
-   ```
-
-10. **Commit**!
-
-### Opzione 3: Via GitHub CLI
+### Opzione C: GitHub CLI
 
 ```bash
+# Clona repository
 gh repo clone izaland/izaki-dictionary
 cd izaki-dictionary
 
+# Rollback
 git checkout 1d69383d8f006de84c5461f6be21e4d9b6985d00 -- data/dictionary.json
+
+# Commit e push
 git add data/dictionary.json
 git commit -m "🚑 ROLLBACK: Restore dictionary before bad deduplication"
 git push
 ```
-
----
-
-## 🔧 Dopo il Rollback: Fix dello Script
-
-Lo script `deduplicate_dictionary.py` è stato **già corretto** nei commit successivi.
-
-Il nuovo script:
-- **Ignora** entry con `byakuzhi` vuoto quando raggruppa
-- Tratta le entry native (senza byakuzhi) come **sempre uniche**
-- Raggruppa solo entry con **stesso lemma E stesso byakuzhi non-vuoto**
-
----
-
-## ⚠️ IMPORTANTE: NON eseguire il vecchio workflow
-
-Se il workflow `deduplicate-dictionary.yml` era già stato eseguito:
-1. ✅ Fai il ROLLBACK prima
-2. ✅ Verifica che lo script sia aggiornato
-3. ✅ Poi puoi eseguire di nuovo il workflow
 
 ---
 
@@ -114,33 +129,108 @@ python scripts/diagnose_structure.py
 
 **Aspettati**:
 ```
-📊 Total entries: ~14804
+📊 Total entries: 14804
 📝 Entries by 'notes' field:
-   compound: ~10838
-   (altre categorie): ~3966
+   compound: 10838
+   (native words): 3966
 ```
+
+**O cerca nel dizionario**:
+- Vai su: https://izaland.github.io/izaki-dictionary/
+- Cerca una parola comune
+- Verifica che ci siano ~14k entries invece di ~4k
 
 ---
 
-## 🎯 Prossimi Step (DOPO il rollback)
+## 🔧 Dopo il Rollback: Cosa Fare
 
-1. **Verifica lo script è aggiornato**:
-   - Controlla che `scripts/deduplicate_dictionary.py` abbia il fix
-   - Cerca `if not byakuzhi:` nella sezione di raggruppamento
+### ✅ Il Bug È GIÀ STATO RISOLTO!
 
-2. **Esegui generate_missing_ipa.py** (NON deduplicate!):
-   ```bash
-   python scripts/generate_missing_ipa.py
-   ```
+Commit fix: `f44de1904bd513a24ba1620970692b0d3e687992`
 
-3. **Solo SE necessario**, esegui deduplicate (dopo aver verificato che funzioni):
-   ```bash
-   python scripts/check_duplicates.py  # Prima verifica
-   python scripts/deduplicate_dictionary.py  # Solo se ci sono VERI duplicati
-   ```
+**Cambiamenti**:
+- ✅ Native words (senza byakuzhi) **NON vengono più raggruppate**
+- ✅ Solo compounds (con byakuzhi) possono essere deduplicate
+- ✅ Lo script mostra: "Native words: X | Compounds: Y"
+- ✅ Impossibile cancellare accidentalmente parole native
+
+### Workflow Sicuri da Eseguire
+
+**1. Genera IPA mancanti** (SICURO - non rimuove nulla):
+```bash
+python scripts/generate_missing_ipa.py
+```
+
+Oppure via Actions:
+- Actions → "Generate Missing IPA" → Run workflow
+
+**2. Deduplica compounds** (ORA SICURO - il bug è risolto!):
+```bash
+python scripts/check_duplicates.py  # Prima verifica
+python scripts/deduplicate_dictionary.py  # Solo se ci sono VERI duplicati
+```
+
+Oppure via Actions:
+- Actions → "Deduplicate Dictionary" → Run workflow
+
+---
+
+## ⚠️ IMPORTANTE: Verifiche Prima di Eseguire Script
+
+Prima di eseguire `deduplicate_dictionary.py`, verifica che contenga:
+
+```python
+# Cerca questa sezione nel file:
+for entry in entries:
+    byakuzhi = entry.get('byakuzhi', '').strip()
+    
+    if not byakuzhi:
+        # Native word - always unique, just generate IPA
+        native_words.append(generate_ipa_if_missing(entry))
+    else:
+        # Compound - may need deduplication
+        compounds.append(entry)
+```
+
+Se **NON** vedi questa separazione → **NON ESEGUIRE** lo script!
+
+---
+
+## 🐛 Troubleshooting
+
+### Workflow "Rollback Dictionary" non appare
+- Aspetta 30-60 secondi dopo il commit del workflow
+- Refresh la pagina Actions
+- Verifica che il file `.github/workflows/rollback-dictionary.yml` esista
+
+### Script Python fallisce con "Module not found"
+- Assicurati di essere nella root del repository
+- Usa Python 3.7+
+- Gli script usano solo librerie standard (json, urllib)
+
+### Rollback non cambia il dizionario
+- Verifica il commit SHA sia corretto
+- Controlla il workflow summary per errori
+- Il commit potrebbe già avere la versione corretta
+
+### Dopo rollback, count è ancora 3,960
+- Verifica che il rollback sia stato pushato
+- Pulisci cache browser (Ctrl+Shift+R)
+- Controlla che il file su GitHub sia effettivamente cambiato
+
+---
+
+## 📝 Commit di Riferimento
+
+- **Commit BUONO** (prima della cancellazione): `1d69383d8f006de84c5461f6be21e4d9b6985d00`
+- **Commit CATTIVO** (dopo cancellazione): `222d704702d0627aea2a0110cb7ec57b2387c8c4`
+- **Commit FIX** (bug risolto): `f44de1904bd513a24ba1620970692b0d3e687992`
 
 ---
 
 ## 📞 Contatti
 
-Se hai problemi con il rollback, apri un issue su GitHub.
+Se hai problemi con il rollback, apri un issue su GitHub con:
+- Log del workflow (se usi Actions)
+- Output dello script (se usi Python locale)
+- Numero di entries prima/dopo
