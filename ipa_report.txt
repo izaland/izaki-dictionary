@@ -1,0 +1,43 @@
+📖 Reading data/dictionary.json...
+   Loaded 14804 entries
+
+🔍 Scanning for missing IPA...
+   Found 10835 entries with missing IPA
+
+📝 First 10 entries needing IPA:
+   - acchaku
+   - asliki/rī
+   - asnyun
+   - assas
+   - assei
+   - assei
+   - asshi
+   - astou
+   - asshyen
+   - assaku
+   ... and 10825 more
+
+🔧 Generating IPA...
+
+💾 Creating backup at data/dictionary_backup_ipa.json...
+  ✓ acchaku → /actɕaku/
+  ✓ asliki/rī → /asliki/ɾiː/
+  ✓ asnyun → /asnjun/
+  ✓ assas → /assas/
+  ✓ assei → /assei/
+  ✓ assei → /assei/
+  ✓ asshi → /asʃi/
+  ✓ astou → /astou/
+  ✓ asshyen → /asʃjen/
+  ✓ assaku → /assaku/
+  ... (showing first 10, generating 10835 total)
+
+📊 Summary:
+   Total entries: 14804
+   IPA generated: 3023
+   Failed: 7812
+
+✍️  Writing updated dictionary to data/dictionary.json...
+
+✅ Done! Generated IPA for 3023 entries.
+   Backup saved at: data/dictionary_backup_ipa.json
