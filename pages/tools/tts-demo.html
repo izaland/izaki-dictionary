@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Izaki TTS Demo - Izaki Dictionary</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
+  <style>
+    html[data-theme="light"] {
+      --tts-bg: #ffffff;
+      --tts-border: #dee2e6;
+      --tts-text: #1a1a1a;
+      --tts-sec: #6c757d;
+      --tts-ipa-bg: #f8f9fa;
+      --tts-ipa-border: #e0e0e0;
+    }
+    html[data-theme="dark"] {
+      --tts-bg: #2a2a32;
+      --tts-border: #3e3e4a;
+      --tts-text: #e5e7eb;
+      --tts-sec: #9ca3af;
+      --tts-ipa-bg: #232328;
+      --tts-ipa-border: #4a4a5a;
+    }
+
+    .tts-box {
+      max-width: 680px; margin: 0 auto;
+      background: var(--tts-bg);
+      border: 1px solid var(--tts-border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+    .ipa-display {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.5rem;
+      letter-spacing: .08em;
+      background: var(--tts-ipa-bg);
+      border: 1px solid var(--tts-ipa-border);
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin-top: .5rem;
+      color: var(--tts-text);
+      min-height: 3rem;
+    }
+    .ipa-label {
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--tts-sec);
+      font-weight: 700;
+      margin-bottom: .25rem;
+    }
+    .slider-row {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: .5rem;
+    }
+    .slider-row label { min-width: 80px; font-size: .9rem; color: var(--tts-text); }
+    .slider-row input[type=range] { flex: 1; }
+    .slider-row span { min-width: 36px; font-size: .85rem; font-family: monospace; color: var(--tts-sec); }
+    #status {
+      font-size: .82rem; color: var(--tts-sec);
+      margin-top: .5rem; min-height: 1.2em;
+    }
+    .play-btn { min-width: 140px; }
+    .izaki-preview {
+      font-size: 1.1rem; letter-spacing: .04em;
+      color: var(--tts-text); margin-top: .25rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero is-small is-link">
+    <div class="hero-body has-text-centered">
+      <p class="title">Izaki TTS Demo 🔊</p>
+      <p class="subtitle">Text-to-speech test using eSpeak-ng</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="tts-box">
+
+      <div class="field">
+        <label class="label">Izaki text (Latin script)</label>
+        <div class="control">
+          <input class="input is-medium" type="text" id="inputText"
+            placeholder="e.g. Kaizenshōji, Mitsutyen, Zenshidān"
+            value="Kaizenshōji">
+        </div>
+        <p class="help" style="color:var(--tts-sec)">Write as you would in the toponym generator.</p>
+      </div>
+
+      <div class="field" style="margin-top:1.25rem">
+        <div class="ipa-label">IPA preview (Izaki phonology)</div>
+        <div class="ipa-display" id="ipaDisplay">/…/</div>
+      </div>
+
+      <div class="field" style="margin-top:1.5rem">
+        <div class="slider-row">
+          <label>Speed</label>
+          <input type="range" id="speedRange" min="80" max="300" value="150">
+          <span id="speedVal">150</span>
+        </div>
+        <div class="slider-row">
+          <label>Pitch</label>
+          <input type="range" id="pitchRange" min="0" max="99" value="50">
+          <span id="pitchVal">50</span>
+        </div>
+        <div class="slider-row">
+          <label>Voice</label>
+          <div class="select is-small">
+            <select id="voiceSelect">
+              <option value="it">it (Italian base)</option>
+              <option value="en">en (English base)</option>
+              <option value="la">la (Latin base)</option>
+              <option value="ja">ja (Japanese base)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:1.25rem">
+        <div class="control">
+          <button class="button is-link is-medium play-btn" id="playBtn" disabled>
+            ⏳ Loading…
+          </button>
+        </div>
+        <p id="status"></p>
+      </div>
+
+      <hr>
+      <p class="ipa-label" style="margin-bottom:.5rem">Izaki phoneme map used</p>
+      <div style="overflow-x:auto">
+        <table class="table is-narrow is-bordered" style="font-size:.82rem">
+          <thead><tr><th>Izaki</th><th>eSpeak phoneme</th><th>IPA</th></tr></thead>
+          <tbody id="phonemeTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <script src="/izaki-dictionary/scripts/script.js"></script>
+  <script src="/izaki-dictionary/scripts/espeak/espeakng.min.js"></script>
+  <script>
+  (function(){
+
+    // ── Phoneme map: Izaki orthography → eSpeak phoneme string ──
+    // Rules applied left-to-right, longer matches first
+    const PHONEME_MAP = [
+      // Digraphs & special sequences first
+      ['tsy', 't͡ɕj'],
+      ['tsi', 't͡ɕi'],
+      ['kw',  'kw'   ],
+      ['gw',  'gw'   ],
+      ['hy',  'hj'   ],
+      ['hyen','hjen' ],
+      ['hwa', 'xwa'  ],
+      ['tyen','tjen' ],
+      ['dz',  'd͡z'  ],
+      ['ts',  't͡s'  ],
+      ['zh',  'ʒ'    ],
+      ['sh',  'ʃ'    ],
+      ['ch',  't͡ʃ'  ],
+      ['ny',  'ɲ'    ],
+      // Long vowels (macron)
+      ['ā',  'a:'   ],
+      ['ē',  'e:'   ],
+      ['ī',  'i:'   ],
+      ['ō',  'o:'   ],
+      ['ū',  'u:'   ],
+      // Special consonants
+      ['ð',  'D'    ],  // eth
+      ['þ',  'T'    ],  // thorn
+      ['ŋ',  'N'    ],  // eng
+      // Plain vowels
+      ['a',   'a'   ],
+      ['e',   'e'   ],
+      ['i',   'i'   ],
+      ['o',   'o'   ],
+      ['u',   'u'   ],
+      ['y',   'y'   ],
+      // Plain consonants
+      ['b',   'b'   ],
+      ['d',   'd'   ],
+      ['f',   'f'   ],
+      ['g',   'g'   ],
+      ['h',   'h'   ],
+      ['j',   'd͡ʒ'  ],
+      ['k',   'k'   ],
+      ['l',   'l'   ],
+      ['m',   'm'   ],
+      ['n',   'n'   ],
+      ['p',   'p'   ],
+      ['r',   'r'   ],
+      ['s',   's'   ],
+      ['t',   't'   ],
+      ['v',   'v'   ],
+      ['w',   'w'   ],
+      ['x',   'x'   ],
+      ['z',   'z'   ],
+    ];
+
+    // IPA display map (same keys, IPA values for humans)
+    const IPA_MAP = [
+      ['tsy', 't͡ɕj'],['tsi', 't͡ɕi'],['kw','kw'],['gw','gw'],
+      ['hy','hj'],['hyen','hjɛn'],['hwa','xwa'],['tyen','tjɛn'],
+      ['dz','d͡z'],['ts','t͡s'],['zh','ʒ'],['sh','ʃ'],['ch','t͡ʃ'],['ny','ɲ'],
+      ['ā','aː'],['ē','eː'],['ī','iː'],['ō','oː'],['ū','uː'],
+      ['ð','ð'],['þ','θ'],['ŋ','ŋ'],
+      ['a','a'],['e','e'],['i','i'],['o','o'],['u','u'],['y','y'],
+      ['b','b'],['d','d'],['f','f'],['g','g'],['h','h'],
+      ['j','d͡ʒ'],['k','k'],['l','l'],['m','m'],['n','n'],
+      ['p','p'],['r','r'],['s','s'],['t','t'],['v','v'],
+      ['w','w'],['x','x'],['z','z'],
+    ];
+
+    function applyMap(text, map) {
+      let result = '', i = 0;
+      const lower = text.toLowerCase();
+      while (i < lower.length) {
+        let matched = false;
+        for (const [from, to] of map) {
+          if (lower.startsWith(from, i)) {
+            result += to;
+            i += from.length;
+            matched = true;
+            break;
+          }
+        }
+        if (!matched) { result += lower[i]; i++; }
+      }
+      return result;
+    }
+
+    function toIPA(text) {
+      return '/' + applyMap(text.replace(/[\s\-]+/g, ' '), IPA_MAP) + '/';
+    }
+
+    function toEspeak(text) {
+      // Insert [[...]] phoneme notation for eSpeak
+      return '[[' + applyMap(text.replace(/[\s\-]+/g, ' '), PHONEME_MAP) + ']]';
+    }
+
+    // ── IPA live preview
+    const inputEl   = document.getElementById('inputText');
+    const ipaEl     = document.getElementById('ipaDisplay');
+    inputEl.addEventListener('input', () => {
+      ipaEl.textContent = inputEl.value ? toIPA(inputEl.value) : '/…/';
+    });
+    ipaEl.textContent = toIPA(inputEl.value);
+
+    // ── Sliders
+    const speedRange = document.getElementById('speedRange');
+    const pitchRange = document.getElementById('pitchRange');
+    const speedVal   = document.getElementById('speedVal');
+    const pitchVal   = document.getElementById('pitchVal');
+    speedRange.addEventListener('input', () => speedVal.textContent = speedRange.value);
+    pitchRange.addEventListener('input', () => pitchVal.textContent = pitchRange.value);
+
+    // ── Phoneme reference table
+    const tbody = document.getElementById('phonemeTable');
+    tbody.innerHTML = PHONEME_MAP.slice(0, 20).map(([iz, esp], i) =>
+      `<tr><td><b>${iz}</b></td><td><code>${esp}</code></td><td>${IPA_MAP[i]?.[1] ?? ''}</td></tr>`
+    ).join('');
+
+    // ── eSpeak init
+    const playBtn  = document.getElementById('playBtn');
+    const statusEl = document.getElementById('status');
+    let espeakReady = false;
+    let tts;
+
+    try {
+      tts = new EspeakNG(
+        '/izaki-dictionary/scripts/espeak/espeakng.worker.js',
+        '/izaki-dictionary/scripts/espeak/espeakng.worker.data'
+      );
+      tts.onready = () => {
+        espeakReady = true;
+        playBtn.disabled = false;
+        playBtn.textContent = '🔊 Play';
+        statusEl.textContent = 'eSpeak-ng ready!';
+        setTimeout(() => statusEl.textContent = '', 2000);
+      };
+      tts.onerror = (e) => {
+        statusEl.textContent = '⚠️ eSpeak error: ' + e;
+      };
+    } catch(e) {
+      statusEl.textContent = '❌ Could not initialise eSpeak: ' + e;
+    }
+
+    // ── Play
+    playBtn.addEventListener('click', () => {
+      if (!espeakReady) return;
+      const raw   = inputEl.value.trim();
+      if (!raw) return;
+      const espeakText = toEspeak(raw);
+      statusEl.textContent = '▶️ Speaking… ' + toIPA(raw);
+      playBtn.disabled = true;
+      playBtn.textContent = '▶️…';
+      tts.synthesize(
+        espeakText,
+        {
+          voice:  document.getElementById('voiceSelect').value,
+          speed:  parseInt(speedRange.value),
+          pitch:  parseInt(pitchRange.value),
+        },
+        (audio) => {
+          const blob = new Blob([audio], {type:'audio/wav'});
+          const url  = URL.createObjectURL(blob);
+          const a    = new Audio(url);
+          a.onended  = () => {
+            URL.revokeObjectURL(url);
+            playBtn.disabled  = false;
+            playBtn.textContent = '🔊 Play';
+            statusEl.textContent = '';
+          };
+          a.play();
+        }
+      );
+    });
+
+  })();
+  </script>
+</body>
+</html>
