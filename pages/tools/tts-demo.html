@@ -126,8 +126,7 @@
   <script>
   (function(){
 
-    // ── Debug log
-    const debugEl = document.getElementById('debugLog');
+    const debugEl  = document.getElementById('debugLog');
     function dbg(msg) {
       const t = new Date().toISOString().substr(11,8);
       debugEl.innerHTML += `<div>[${t}] ${msg}</div>`;
@@ -137,7 +136,6 @@
       debugEl.style.display = debugEl.style.display === 'none' ? 'block' : 'none';
     };
 
-    // ── IPA map
     const IPA_MAP = [
       ['tsy','t͡ɕj'],['tsi','t͡ɕi'],['kw','kw'],['gw','gw'],
       ['hyen','hjɛn'],['tyen','tjɛn'],['hwa','xwa'],
@@ -151,8 +149,6 @@
       ['p','p'],['r','r'],['s','s'],['t','t'],['v','v'],
       ['w','w'],['x','x'],['z','z'],
     ];
-
-    // ── eSpeak phoneme map
     const ESP_MAP = [
       ['tsy','ts\\j'],['tsi','ts\\i'],['kw','kw'],['gw','gw'],
       ['hyen','hjen'],['tyen','tjen'],['hwa','xwa'],
@@ -181,11 +177,9 @@
       }
       return result;
     }
+    function toIPA(t)    { return '/​' + applyMap(t, IPA_MAP) + '​/'; }
+    function toEspeak(t) { return '[[' + applyMap(t, ESP_MAP) + ']]'; }
 
-    function toIPA(text)  { return '/​' + applyMap(text, IPA_MAP) + '​/'; }
-    function toEspeak(text) { return '[[' + applyMap(text, ESP_MAP) + ']]'; }
-
-    // ── IPA preview
     const inputEl = document.getElementById('inputText');
     const ipaEl   = document.getElementById('ipaDisplay');
     inputEl.addEventListener('input', () => {
@@ -193,118 +187,127 @@
     });
     ipaEl.textContent = toIPA(inputEl.value.trim());
 
-    // ── Sliders
     const speedRange = document.getElementById('speedRange');
     const pitchRange = document.getElementById('pitchRange');
     speedRange.addEventListener('input', () => document.getElementById('speedVal').textContent = speedRange.value);
     pitchRange.addEventListener('input', () => document.getElementById('pitchVal').textContent = pitchRange.value);
 
-    // ── Phoneme table
     document.getElementById('phonemeTable').innerHTML =
       IPA_MAP.slice(0,18).map(([iz,ipa],i) =>
         `<tr><td><b>${iz}</b></td><td>${ipa}</td><td><code>${ESP_MAP[i]?.[1]??''}</code></td></tr>`
       ).join('');
 
-    // ── Load eSpeakNG
     const playBtn  = document.getElementById('playBtn');
     const statusEl = document.getElementById('status');
+    const SAMPLE_RATE = 22050;
 
-    // Dynamically load espeakng.min.js
-    const s = document.createElement('script');
-    s.src = '/izaki-dictionary/scripts/espeak/espeakng.min.js';
-    s.onload = () => {
-      dbg('espeakng.min.js loaded. Initializing worker...');
-      initEspeak();
-    };
-    s.onerror = (e) => {
-      statusEl.textContent = '❌ Could not load espeakng.min.js';
-      dbg('ERROR loading espeakng.min.js: ' + e);
-    };
-    document.head.appendChild(s);
-
-    let tts = null;
-
-    function initEspeak() {
-      try {
-        dbg('typeof eSpeakNG = ' + typeof eSpeakNG);
-        tts = new eSpeakNG(
-          '/izaki-dictionary/scripts/espeak/espeakng.worker.js',
-          function onReady() {
-            dbg('onReady fired!');
-            // verify with list_voices
-            tts.list_voices(function(voices) {
-              dbg('list_voices returned ' + (voices ? voices.length : 0) + ' voices');
-              playBtn.disabled = false;
-              playBtn.textContent = '🔊 Play';
-              statusEl.textContent = '✅ eSpeak-ng ready — ' + (voices ? voices.length : '?') + ' voices loaded';
-              setTimeout(() => statusEl.textContent = '', 3000);
-            });
-          }
-        );
-        dbg('eSpeakNG worker spawned');
-      } catch(e) {
-        statusEl.textContent = '❌ Init error: ' + e;
-        dbg('EXCEPTION: ' + e);
+    // ── Merge array of ArrayBuffers into one Int16Array
+    function mergeChunks(chunks) {
+      const total = chunks.reduce((s, b) => s + b.byteLength, 0);
+      const merged = new Uint8Array(total);
+      let offset = 0;
+      for (const b of chunks) {
+        merged.set(new Uint8Array(b), offset);
+        offset += b.byteLength;
       }
+      return new Int16Array(merged.buffer);
     }
 
-    // ── PCM → WAV
+    // ── PCM Int16 → WAV Blob
     function pcmToWav(pcm, sampleRate) {
-      const numCh = 1, bps = 16;
       const dataSize = pcm.length * 2;
       const buf = new ArrayBuffer(44 + dataSize);
       const v = new DataView(buf);
       const w = (o, s) => { for(let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); };
       w(0,'RIFF'); v.setUint32(4, 36+dataSize, true);
       w(8,'WAVE'); w(12,'fmt ');
-      v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,numCh,true);
-      v.setUint32(24,sampleRate,true); v.setUint32(28,sampleRate*numCh*bps/8,true);
-      v.setUint16(32,numCh*bps/8,true); v.setUint16(34,bps,true);
+      v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+      v.setUint32(24,sampleRate,true); v.setUint32(28,sampleRate*2,true);
+      v.setUint16(32,2,true); v.setUint16(34,16,true);
       w(36,'data'); v.setUint32(40,dataSize,true);
       new Int16Array(buf,44).set(pcm);
       return new Blob([buf], {type:'audio/wav'});
     }
 
-    // ── Play
+    // ── Play WAV blob
+    function playBlob(blob) {
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.onended = () => {
+        URL.revokeObjectURL(url);
+        playBtn.disabled = false;
+        playBtn.textContent = '🔊 Play';
+        statusEl.textContent = '';
+      };
+      audio.onerror = (e) => {
+        dbg('Audio error: ' + e);
+        statusEl.textContent = '❌ Playback error';
+        playBtn.disabled = false; playBtn.textContent = '🔊 Play';
+      };
+      audio.play();
+    }
+
+    // ── Load eSpeakNG script dynamically
+    let tts = null;
+    const script = document.createElement('script');
+    script.src = '/izaki-dictionary/scripts/espeak/espeakng.min.js';
+    script.onload = () => {
+      dbg('espeakng.min.js loaded');
+      try {
+        tts = new eSpeakNG(
+          '/izaki-dictionary/scripts/espeak/espeakng.worker.js',
+          function onReady() {
+            dbg('onReady ✅');
+            playBtn.disabled = false;
+            playBtn.textContent = '🔊 Play';
+            statusEl.textContent = '✅ eSpeak-ng ready!';
+            setTimeout(() => statusEl.textContent = '', 2500);
+          }
+        );
+      } catch(e) {
+        statusEl.textContent = '❌ Init error: ' + e;
+        dbg('EXCEPTION: ' + e);
+      }
+    };
+    document.head.appendChild(script);
+
+    // ── Play button
     playBtn.addEventListener('click', () => {
       if (!tts) return;
       const raw = inputEl.value.trim();
       if (!raw) return;
 
       const espText = toEspeak(raw);
-      dbg('synthesize: ' + espText);
+      dbg('synthesize input: ' + espText);
       playBtn.disabled = true;
       playBtn.textContent = '▶️…';
       statusEl.textContent = '▶️ ' + toIPA(raw);
 
       tts.set_voice(document.getElementById('voiceSelect').value, () => {
-        dbg('voice set');
         tts.set_rate(parseInt(speedRange.value), () => {
-          dbg('rate set');
           tts.set_pitch(parseInt(pitchRange.value), () => {
-            dbg('pitch set, calling synthesize...');
+
+            const chunks = [];  // accumulate ArrayBuffer chunks
+
             tts.synthesize(espText, function(samples, events) {
-              dbg('synthesize callback fired. samples type=' + (samples ? samples.constructor.name : 'null') + ' len=' + (samples ? samples.length : 0));
-              if (!samples || samples.length === 0) {
-                statusEl.textContent = '⚠️ No audio returned. Check debug log.';
-                playBtn.disabled = false; playBtn.textContent = '🔊 Play';
-                return;
+              if (samples === null) {
+                // ─ END: merge all chunks and play
+                dbg('END signal. Total chunks: ' + chunks.length);
+                if (chunks.length === 0) {
+                  statusEl.textContent = '⚠️ No audio data received';
+                  playBtn.disabled = false; playBtn.textContent = '🔊 Play';
+                  return;
+                }
+                const pcm  = mergeChunks(chunks);
+                dbg('Merged PCM samples: ' + pcm.length + ' (' + (pcm.length/SAMPLE_RATE).toFixed(2) + 's)');
+                playBlob(pcmToWav(pcm, SAMPLE_RATE));
+              } else if (samples instanceof ArrayBuffer && samples.byteLength > 0) {
+                // ─ chunk received
+                chunks.push(samples);
+                dbg('chunk ' + chunks.length + ': ' + samples.byteLength + ' bytes');
               }
-              const blob = pcmToWav(samples, 22050);
-              const url  = URL.createObjectURL(blob);
-              const audio = new Audio(url);
-              audio.onended = () => {
-                URL.revokeObjectURL(url);
-                playBtn.disabled = false; playBtn.textContent = '🔊 Play';
-                statusEl.textContent = '';
-              };
-              audio.onerror = (e) => {
-                dbg('Audio playback error: ' + e);
-                statusEl.textContent = '❌ Playback error';
-                playBtn.disabled = false; playBtn.textContent = '🔊 Play';
-              };
-              audio.play();
             });
+
           });
         });
       });
