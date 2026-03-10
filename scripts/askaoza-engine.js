@@ -76,13 +76,13 @@ const ASKAOZA_DIPH = {
   'ya': 'ો',
   'ye': 'ૅો',
   'yo': '૾ો',     // ✅ NOT ા૾ો
-  'yu': 'ેો',
+  'yu': 'ે\u200Dો',
   'yü': 'ૈો',
   // wV
   'wa': 'િ',
   'we': 'િૅ',
   'wi': 'િા',
-  'wo': 'િ૾'      // ✅ CORRECTED (was ૮િ૾)
+  'wo': 'િ\u200D૾' 
 };
 
 // Compound vowels (hiatus) - AS DIACRITICS
@@ -90,10 +90,10 @@ const ASKAOZA_COMPOUND = {
   'ai': '૩',       // ◌૩
   'ae': '૩ૅ',      // ◌૩ૅ
   'ei': 'ૅ૩',      // ◌ૅ૩
-  'eu': 'ૅ૩ે',     // ◌ૅ૩ે
+  'eu': 'ૅ૩\u200Dે',   // ← ZWJ forza ે a combinarsi con ૩
   'oe': '૾૩ૅ',     // ◌૾૩ૅ
   'oi': '૾૩',      // ◌૾૩
-  'ou': '૾૩ે',     // ◌૾૩ે
+  'ou': '૾૩\u200Dે',   // ← stesso fix per ou
   'ui': 'ે૩'       // ◌ે૩
 };
 
