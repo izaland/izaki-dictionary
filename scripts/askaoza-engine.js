@@ -232,10 +232,17 @@ function parseWordToSyllables(word) {
     if (!group) continue;
     
     let i = 0;
-    while (i < group.length) {
-      let onset = '';
-      let nucleus = '';
-      let coda = '';
+while (i < group.length) {
+  let onset = '';
+  let nucleus = '';
+  let coda = '';
+
+  // ✅ NUOVO: passa direttamente i caratteri non-Askaoza (punteggiatura, numeri, ecc.)
+  if (!/[kgpbsztdfvhnmlrjwaeiouyü\u0101\u0113\u012b\u014d\u016b']/.test(group[i])) {
+    res.push({ onset: '', nucleus: group[i], coda: '', passthrough: true });
+    i += 1;
+    continue;
+  }
 
       // Check for 3-char digraphs
       if (i + 3 <= group.length) {
