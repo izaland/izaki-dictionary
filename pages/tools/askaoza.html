@@ -16,7 +16,7 @@
 .askaoza-sample {
   font-family: "Noto Sans Gujarati", "Anek Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
   font-size: 1.8rem;
-  line-height: 2.2;          /* ← aumenta line-height per diacritici alti */
+  line-height: 2.2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -68,12 +68,12 @@
       font-size: 0.95rem;
       line-height: 1.55;
     }
-    .table-wrap { 
-      overflow-x: auto; 
+    .table-wrap {
+      overflow-x: auto;
       margin-top: 1rem;
     }
-    table.table thead th { 
-      white-space: nowrap; 
+    table.table thead th {
+      white-space: nowrap;
       background: var(--panel-alt, #f8f9fa);
       color: var(--text-primary, #1a1a1a);
     }
@@ -145,10 +145,10 @@
               <button type="button" id="clearLatin" class="clear-btn" aria-label="Clear input">×</button>
             </div>
           </div>
-<div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
-<button id="copyAskaoza" class="button is-light is-small mt-1" style="display:none;">
-  📋 Copy Askaoza
-</button>
+          <div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
+          <button id="copyAskaoza" class="button is-light is-small mt-1" style="display:none;">
+            📋 Copy Askaoza
+          </button>
         </div>
 
         <div class="column">
@@ -252,47 +252,66 @@
     </div>
   </section>
 
+  <!-- Engine must load before script.js rewrites the DOM -->
   <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
   <script src="/izaki-dictionary/scripts/script.js"></script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const latinInput = document.getElementById('latinInput');
-    const clearLatin = document.getElementById('clearLatin');
-    const askOut    = document.getElementById('askaozaOutput');
-    const askInput  = document.getElementById('askaozaInput');
-    const latOut    = document.getElementById('latinOutput');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const latinInput  = document.getElementById('latinInput');
+      const clearLatin  = document.getElementById('clearLatin');
+      const askOut      = document.getElementById('askaozaOutput');
+      const copyBtn     = document.getElementById('copyAskaoza');
+      const askInput    = document.getElementById('askaozaInput');
+      const toLatinBtn  = document.getElementById('toLatinBtn');
+      const latOut      = document.getElementById('latinOutput');
 
-const copyBtn = document.getElementById('copyAskaoza');
+      // Latin → Askaoza (live)
+      latinInput.addEventListener('input', function () {
+        const converted = toAskaozaText(latinInput.value);
+        askOut.innerHTML = converted.trim()
+          ? '<span lang="gu">' + converted + '</span>'
+          : '';
+        copyBtn.style.display = converted.trim() ? 'inline-flex' : 'none';
+      });
 
-// Mostra il pulsante solo quando c'è output
-latinInput.addEventListener('input', () => {
-  const converted = toAskaozaText(latinInput.value);
-  askOut.innerHTML = '<span lang="gu">' + converted + '</span>';
-  copyBtn.style.display = converted.trim() ? 'inline-flex' : 'none';
-});
+      // Clear button
+      clearLatin.addEventListener('click', function () {
+        latinInput.value = '';
+        askOut.innerHTML = '';
+        copyBtn.style.display = 'none';
+        latinInput.focus();
+      });
 
-// Logica copia
-copyBtn.addEventListener('click', () => {
-  const text = askOut.textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    copyBtn.textContent = '✅ Copied! ડ૾ર済!';
-    setTimeout(() => { copyBtn.textContent = '📋 Copy Askaoza 邦記ડ૾રાઃ'; }, 2000);
-  }).catch(() => {
-    // Fallback per browser senza clipboard API
-    const sel = window.getSelection();
-    const range = document.createRange();
-    range.selectNodeContents(askOut);
-    sel.removeAllRanges();
-    sel.addRange(range);
-    document.execCommand('copy');
-    sel.removeAllRanges();
-    copyBtn.textContent = '✅ Copied! ડ૾ર済!';
-    setTimeout(() => { copyBtn.textContent = '📋 Copy Askaoza 邦記ડ૾રાઃ'; }, 2000);
-  });
-});
+      // Copy Askaoza output
+      copyBtn.addEventListener('click', function () {
+        const text = askOut.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () {
+            copyBtn.textContent = '✅ Copied!';
+            setTimeout(function () { copyBtn.textContent = '📋 Copy Askaoza'; }, 2000);
+          });
+        } else {
+          // Fallback
+          const sel = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(askOut);
+          sel.removeAllRanges();
+          sel.addRange(range);
+          document.execCommand('copy');
+          sel.removeAllRanges();
+          copyBtn.textContent = '✅ Copied!';
+          setTimeout(function () { copyBtn.textContent = '📋 Copy Askaoza'; }, 2000);
+        }
+      });
 
-</script>
+      // Askaoza → Latin (on button click)
+      toLatinBtn.addEventListener('click', function () {
+        const converted = askaozaToLatinText(askInput.value);
+        latOut.textContent = converted;
+      });
+    });
+  </script>
 
 </body>
 </html>
