@@ -38,7 +38,13 @@
     .slider-row label { min-width: 80px; font-size: .9rem; color: var(--tts-text); }
     .slider-row input[type=range] { flex: 1; }
     .slider-row span { min-width: 36px; font-size: .85rem; font-family: monospace; color: var(--tts-sec); }
-    #status { font-size: .82rem; color: var(--tts-sec); margin-top: .5rem; min-height: 1.2em; }
+    #status { font-size: .85rem; color: var(--tts-sec); margin-top: .5rem; min-height: 1.4em; }
+    #debugLog {
+      font-family: monospace; font-size: .75rem;
+      background: #111; color: #0f0; border-radius: 6px;
+      padding: .75rem; max-height: 120px; overflow-y: auto;
+      margin-top: 1rem; display: none;
+    }
     .play-btn { min-width: 140px; }
   </style>
 </head>
@@ -48,7 +54,7 @@
   <section class="hero is-small is-link">
     <div class="hero-body has-text-centered">
       <p class="title">Izaki TTS Demo 🔊</p>
-      <p class="subtitle">Text-to-speech test using eSpeak-ng</p>
+      <p class="subtitle">Text-to-speech test — eSpeak-ng</p>
     </div>
   </section>
 
@@ -62,19 +68,18 @@
             placeholder="e.g. Kaizenshōji, Mitsutyen, Zenshidān"
             value="Kaizenshōji">
         </div>
-        <p class="help" style="color:var(--tts-sec)">Write as you would in the toponym generator.</p>
       </div>
 
-      <div class="field" style="margin-top:1.25rem">
-        <div class="ipa-label">IPA preview (Izaki phonology)</div>
+      <div class="field" style="margin-top:1rem">
+        <div class="ipa-label">IPA preview</div>
         <div class="ipa-display" id="ipaDisplay">/…/</div>
       </div>
 
       <div class="field" style="margin-top:1.5rem">
         <div class="slider-row">
           <label>Speed</label>
-          <input type="range" id="speedRange" min="80" max="300" value="150">
-          <span id="speedVal">150</span>
+          <input type="range" id="speedRange" min="80" max="300" value="140">
+          <span id="speedVal">140</span>
         </div>
         <div class="slider-row">
           <label>Pitch</label>
@@ -85,29 +90,32 @@
           <label>Voice</label>
           <div class="select is-small">
             <select id="voiceSelect">
-              <option value="it">it (Italian base)</option>
-              <option value="en">en (English base)</option>
-              <option value="la">la (Latin base)</option>
-              <option value="ja">ja (Japanese base)</option>
+              <option value="it">it (Italian)</option>
+              <option value="en">en (English)</option>
+              <option value="la">la (Latin)</option>
+              <option value="ja">ja (Japanese)</option>
+              <option value="eo">eo (Esperanto)</option>
             </select>
           </div>
         </div>
       </div>
 
       <div class="field" style="margin-top:1.25rem">
-        <div class="control">
+        <div class="buttons">
           <button class="button is-link is-medium play-btn" id="playBtn" disabled>
             ⏳ Loading…
           </button>
+          <button class="button is-small" id="debugToggle">Debug</button>
         </div>
         <p id="status"></p>
+        <div id="debugLog"></div>
       </div>
 
       <hr>
-      <p class="ipa-label" style="margin-bottom:.5rem">Izaki phoneme map</p>
+      <p class="ipa-label" style="margin-bottom:.5rem">Phoneme map (sample)</p>
       <div style="overflow-x:auto">
         <table class="table is-narrow is-bordered" style="font-size:.82rem">
-          <thead><tr><th>Izaki</th><th>IPA</th></tr></thead>
+          <thead><tr><th>Izaki</th><th>IPA</th><th>eSpeak</th></tr></thead>
           <tbody id="phonemeTable"></tbody>
         </table>
       </div>
@@ -115,11 +123,21 @@
   </section>
 
   <script src="/izaki-dictionary/scripts/script.js"></script>
-  <script src="/izaki-dictionary/scripts/espeak/espeakng.min.js"></script>
   <script>
   (function(){
 
-    // ── IPA display map: Izaki orthography → IPA ──
+    // ── Debug log
+    const debugEl = document.getElementById('debugLog');
+    function dbg(msg) {
+      const t = new Date().toISOString().substr(11,8);
+      debugEl.innerHTML += `<div>[${t}] ${msg}</div>`;
+      debugEl.scrollTop = debugEl.scrollHeight;
+    }
+    document.getElementById('debugToggle').onclick = () => {
+      debugEl.style.display = debugEl.style.display === 'none' ? 'block' : 'none';
+    };
+
+    // ── IPA map
     const IPA_MAP = [
       ['tsy','t͡ɕj'],['tsi','t͡ɕi'],['kw','kw'],['gw','gw'],
       ['hyen','hjɛn'],['tyen','tjɛn'],['hwa','xwa'],
@@ -134,7 +152,7 @@
       ['w','w'],['x','x'],['z','z'],
     ];
 
-    // eSpeak phoneme notation (maps Izaki → eSpeak [[...]] strings)
+    // ── eSpeak phoneme map
     const ESP_MAP = [
       ['tsy','ts\\j'],['tsi','ts\\i'],['kw','kw'],['gw','gw'],
       ['hyen','hjen'],['tyen','tjen'],['hwa','xwa'],
@@ -167,7 +185,7 @@
     function toIPA(text)  { return '/​' + applyMap(text, IPA_MAP) + '​/'; }
     function toEspeak(text) { return '[[' + applyMap(text, ESP_MAP) + ']]'; }
 
-    // ── IPA live preview
+    // ── IPA preview
     const inputEl = document.getElementById('inputText');
     const ipaEl   = document.getElementById('ipaDisplay');
     inputEl.addEventListener('input', () => {
@@ -183,57 +201,107 @@
 
     // ── Phoneme table
     document.getElementById('phonemeTable').innerHTML =
-      IPA_MAP.slice(0,22).map(([iz,ipa]) =>
-        `<tr><td><b>${iz}</b></td><td>${ipa}</td></tr>`
+      IPA_MAP.slice(0,18).map(([iz,ipa],i) =>
+        `<tr><td><b>${iz}</b></td><td>${ipa}</td><td><code>${ESP_MAP[i]?.[1]??''}</code></td></tr>`
       ).join('');
 
-    // ── eSpeakNG init (note: lowercase 'e'!)
+    // ── Load eSpeakNG
     const playBtn  = document.getElementById('playBtn');
     const statusEl = document.getElementById('status');
+
+    // Dynamically load espeakng.min.js
+    const s = document.createElement('script');
+    s.src = '/izaki-dictionary/scripts/espeak/espeakng.min.js';
+    s.onload = () => {
+      dbg('espeakng.min.js loaded. Initializing worker...');
+      initEspeak();
+    };
+    s.onerror = (e) => {
+      statusEl.textContent = '❌ Could not load espeakng.min.js';
+      dbg('ERROR loading espeakng.min.js: ' + e);
+    };
+    document.head.appendChild(s);
+
     let tts = null;
 
-    try {
-      tts = new eSpeakNG(
-        '/izaki-dictionary/scripts/espeak/espeakng.worker.js',
-        function onReady() {
-          playBtn.disabled = false;
-          playBtn.textContent = '🔊 Play';
-          statusEl.textContent = '✅ eSpeak-ng ready!';
-          setTimeout(() => statusEl.textContent = '', 2500);
-        }
-      );
-    } catch(e) {
-      statusEl.textContent = '❌ Could not initialise eSpeak: ' + e;
+    function initEspeak() {
+      try {
+        dbg('typeof eSpeakNG = ' + typeof eSpeakNG);
+        tts = new eSpeakNG(
+          '/izaki-dictionary/scripts/espeak/espeakng.worker.js',
+          function onReady() {
+            dbg('onReady fired!');
+            // verify with list_voices
+            tts.list_voices(function(voices) {
+              dbg('list_voices returned ' + (voices ? voices.length : 0) + ' voices');
+              playBtn.disabled = false;
+              playBtn.textContent = '🔊 Play';
+              statusEl.textContent = '✅ eSpeak-ng ready — ' + (voices ? voices.length : '?') + ' voices loaded';
+              setTimeout(() => statusEl.textContent = '', 3000);
+            });
+          }
+        );
+        dbg('eSpeakNG worker spawned');
+      } catch(e) {
+        statusEl.textContent = '❌ Init error: ' + e;
+        dbg('EXCEPTION: ' + e);
+      }
     }
 
-    // ── Play button
+    // ── PCM → WAV
+    function pcmToWav(pcm, sampleRate) {
+      const numCh = 1, bps = 16;
+      const dataSize = pcm.length * 2;
+      const buf = new ArrayBuffer(44 + dataSize);
+      const v = new DataView(buf);
+      const w = (o, s) => { for(let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); };
+      w(0,'RIFF'); v.setUint32(4, 36+dataSize, true);
+      w(8,'WAVE'); w(12,'fmt ');
+      v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,numCh,true);
+      v.setUint32(24,sampleRate,true); v.setUint32(28,sampleRate*numCh*bps/8,true);
+      v.setUint16(32,numCh*bps/8,true); v.setUint16(34,bps,true);
+      w(36,'data'); v.setUint32(40,dataSize,true);
+      new Int16Array(buf,44).set(pcm);
+      return new Blob([buf], {type:'audio/wav'});
+    }
+
+    // ── Play
     playBtn.addEventListener('click', () => {
-      if (!tts || !tts.ready) return;
+      if (!tts) return;
       const raw = inputEl.value.trim();
       if (!raw) return;
 
+      const espText = toEspeak(raw);
+      dbg('synthesize: ' + espText);
       playBtn.disabled = true;
       playBtn.textContent = '▶️…';
-      statusEl.textContent = '▶️ Speaking… ' + toIPA(raw);
+      statusEl.textContent = '▶️ ' + toIPA(raw);
 
-      const voice = document.getElementById('voiceSelect').value;
-      const speed = parseInt(speedRange.value);
-      const pitch = parseInt(pitchRange.value);
-
-      // Set voice, speed, pitch, then synthesize
-      tts.set_voice(voice, () => {
-        tts.set_rate(speed, () => {
-          tts.set_pitch(pitch, () => {
-            tts.synthesize(toEspeak(raw), function(samples, events) {
-              // samples = Int16Array PCM, 22050 Hz mono
-              const wavBlob = pcmToWav(samples, 22050);
-              const url = URL.createObjectURL(wavBlob);
+      tts.set_voice(document.getElementById('voiceSelect').value, () => {
+        dbg('voice set');
+        tts.set_rate(parseInt(speedRange.value), () => {
+          dbg('rate set');
+          tts.set_pitch(parseInt(pitchRange.value), () => {
+            dbg('pitch set, calling synthesize...');
+            tts.synthesize(espText, function(samples, events) {
+              dbg('synthesize callback fired. samples type=' + (samples ? samples.constructor.name : 'null') + ' len=' + (samples ? samples.length : 0));
+              if (!samples || samples.length === 0) {
+                statusEl.textContent = '⚠️ No audio returned. Check debug log.';
+                playBtn.disabled = false; playBtn.textContent = '🔊 Play';
+                return;
+              }
+              const blob = pcmToWav(samples, 22050);
+              const url  = URL.createObjectURL(blob);
               const audio = new Audio(url);
               audio.onended = () => {
                 URL.revokeObjectURL(url);
-                playBtn.disabled = false;
-                playBtn.textContent = '🔊 Play';
+                playBtn.disabled = false; playBtn.textContent = '🔊 Play';
                 statusEl.textContent = '';
+              };
+              audio.onerror = (e) => {
+                dbg('Audio playback error: ' + e);
+                statusEl.textContent = '❌ Playback error';
+                playBtn.disabled = false; playBtn.textContent = '🔊 Play';
               };
               audio.play();
             });
@@ -241,31 +309,6 @@
         });
       });
     });
-
-    // ── PCM Int16 → WAV blob helper
-    function pcmToWav(pcm, sampleRate) {
-      const numChannels = 1;
-      const bitsPerSample = 16;
-      const byteRate = sampleRate * numChannels * bitsPerSample / 8;
-      const blockAlign = numChannels * bitsPerSample / 8;
-      const dataSize = pcm.length * 2;
-      const buffer = new ArrayBuffer(44 + dataSize);
-      const view = new DataView(buffer);
-      function w(o, s) { for (let i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); }
-      w(0,'RIFF'); view.setUint32(4, 36 + dataSize, true);
-      w(8,'WAVE'); w(12,'fmt ');
-      view.setUint32(16, 16, true);       // chunk size
-      view.setUint16(20, 1, true);        // PCM
-      view.setUint16(22, numChannels, true);
-      view.setUint32(24, sampleRate, true);
-      view.setUint32(28, byteRate, true);
-      view.setUint16(32, blockAlign, true);
-      view.setUint16(34, bitsPerSample, true);
-      w(36,'data'); view.setUint32(40, dataSize, true);
-      const d = new Int16Array(buffer, 44);
-      d.set(pcm);
-      return new Blob([buffer], { type: 'audio/wav' });
-    }
 
   })();
   </script>
