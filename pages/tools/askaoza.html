@@ -145,10 +145,10 @@
               <button type="button" id="clearLatin" class="clear-btn" aria-label="Clear input">×</button>
             </div>
           </div>
-          <button id="toAskaozaBtn" class="button is-link is-light mt-2">
-            Convert to Askaoza
-          </button>
-          <div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
+<div id="askaozaOutput" class="notification is-white askaoza-sample mt-3"></div>
+<button id="copyAskaoza" class="button is-light is-small mt-1" style="display:none;">
+  📋 Copy Askaoza
+</button>
         </div>
 
         <div class="column">
@@ -263,25 +263,35 @@
     const askInput  = document.getElementById('askaozaInput');
     const latOut    = document.getElementById('latinOutput');
 
-    // Real-time Latin → Askaoza
-    latinInput.addEventListener('input', () => {
-      const converted = toAskaozaText(latinInput.value);
-      askOut.innerHTML = '<span lang="gu">' + converted + '</span>';
-    });
+const copyBtn = document.getElementById('copyAskaoza');
 
-    // Real-time Askaoza → Latin
-    askInput.addEventListener('input', () => {
-      latOut.textContent = askaozaToLatinText(askInput.value);
-    });
+// Mostra il pulsante solo quando c'è output
+latinInput.addEventListener('input', () => {
+  const converted = toAskaozaText(latinInput.value);
+  askOut.innerHTML = '<span lang="gu">' + converted + '</span>';
+  copyBtn.style.display = converted.trim() ? 'inline-flex' : 'none';
+});
 
-    // Clear button
-    if (clearLatin) {
-      clearLatin.addEventListener('click', () => {
-        latinInput.value = '';
-        askOut.innerHTML = '';
-      });
-    }
+// Logica copia
+copyBtn.addEventListener('click', () => {
+  const text = askOut.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    copyBtn.textContent = '✅ Copied! ડ૾ર済!';
+    setTimeout(() => { copyBtn.textContent = '📋 Copy Askaoza 邦記ડ૾રાઃ'; }, 2000);
+  }).catch(() => {
+    // Fallback per browser senza clipboard API
+    const sel = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(askOut);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    copyBtn.textContent = '✅ Copied! ડ૾ર済!';
+    setTimeout(() => { copyBtn.textContent = '📋 Copy Askaoza 邦記ડ૾રાઃ'; }, 2000);
   });
+});
+
 </script>
 
 </body>
