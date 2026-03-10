@@ -113,7 +113,36 @@ const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz', 'zh'];
  * Apply Izaki phonetic sandhi rules
  */
 function applySandhi(text) {
-  let result = text;
+  const words = text.trim().split(/\s+/);
+  
+  let result = [];
+  
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    let nextWord = words[i + 1] || '';
+    
+    // Applica sandhi solo se la parola FINISCE con n/l/s
+    // e la parola SUCCESSIVA inizia con vocale
+    if (nextWord && /^[aeiouyü\u0101\u0113\u012b\u014d\u016b]/i.test(nextWord)) {
+      
+      if (word.endsWith('n')) {
+        word = word.slice(0, -1) + 'nn';
+      } else if (word.endsWith('l')) {
+        word = word.slice(0, -1) + 'll';
+      } else if (word.endsWith('s')) {
+        word = word.slice(0, -1) + 'ss';
+      }
+    }
+    
+    result.push(word);
+  }
+  
+  // Ora applica le altre regole (consonanti interne) a ogni parola singola
+  return result.map(word => applyInternalSandhi(word)).join(' ');
+}
+
+function applyInternalSandhi(word) {
+  let result = word;
   
   // Final -S + consonant
   result = result
@@ -144,12 +173,7 @@ function applySandhi(text) {
     .replace(/hzh/gi, 'hsh')
     .replace(/hh/gi, 'pp');
   
-  // Final consonants + vowel
-  result = result
-    .replace(/n([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 'nn' + v)
-    .replace(/l([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 'll' + v)
-    .replace(/s([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 'ss' + v);
-  
+  // r + vocale → t + vocale (sandhi interno)
   result = result.replace(/r([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 't' + v);
   
   return result;
