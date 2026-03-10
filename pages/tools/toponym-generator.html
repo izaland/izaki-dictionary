@@ -124,10 +124,29 @@
       color: var(--tp-text);
       letter-spacing: 0.01em;
     }
+    /* Scripts row: byakuzhi + separator + askaoza side by side */
+    .toponym-scripts {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
     .result-card .toponym-char {
       font-size: 1.3rem;
       color: var(--tp-text-char);
       letter-spacing: 0.12em;
+      opacity: 0.9;
+    }
+    .scripts-sep {
+      color: var(--tp-text-sec);
+      font-size: 1rem;
+      opacity: 0.5;
+      user-select: none;
+    }
+    .result-card .toponym-ask {
+      font-size: 1.3rem;
+      color: var(--tp-text-char);
+      letter-spacing: 0.06em;
       opacity: 0.9;
     }
     .result-card .toponym-gloss {
@@ -370,6 +389,7 @@
   </section>
 
   <script src="/izaki-dictionary/scripts/script.js"></script>
+  <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
   <script>
   (function () {
     function mulberry32(seed) {
@@ -402,7 +422,11 @@
       const latin = cap(parts.map(p => p.read).join(''));
       const chars = parts.map(p => p.char).join('');
       const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
-      return { latin, chars, gloss, parts };
+      // Askaoza: feed the lowercase romaji form to the engine
+      const ask = (typeof toAskaozaText === 'function')
+        ? toAskaozaText(latin.toLowerCase())
+        : '';
+      return { latin, chars, ask, gloss, parts };
     }
 
     let DB = null;
@@ -466,7 +490,10 @@
         <div class="result-card">
           <button class="copy-btn" data-copy="${r.latin}" title="Copy toponym">📋 Copy</button>
           <div class="toponym-latin">${r.latin}</div>
-          <div class="toponym-char">${r.chars}</div>
+          <div class="toponym-scripts">
+            <span class="toponym-char">${r.chars}</span>
+            ${r.ask ? `<span class="scripts-sep">/</span><span class="toponym-ask">${r.ask}</span>` : ''}
+          </div>
           <div class="morpheme-breakdown" style="margin-top:0.3rem;flex-wrap:wrap;display:flex;gap:0.1rem">
             ${r.parts.map(p =>
               `<span class="morpheme-pill">
