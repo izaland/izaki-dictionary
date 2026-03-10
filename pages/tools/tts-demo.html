@@ -178,9 +178,6 @@
       return result;
     }
     function toIPA(t)    { return '/​' + applyMap(t, IPA_MAP) + '​/'; }
-    function toEspeak(t) { return '[[' + applyMap(t, ESP_eak) + ']]'; }
-
-    // --- fix: toEspeak usa ESP_MAP
     function toEspeak(t) { return '[[' + applyMap(t, ESP_MAP) + ']]'; }
 
     const inputEl = document.getElementById('inputText');
@@ -202,9 +199,7 @@
 
     const playBtn  = document.getElementById('playBtn');
     const statusEl = document.getElementById('status');
-
-    // eSpeak-ng WASM (questa versione) genera audio a 11025 Hz, mono, Int16 PCM
-    const SAMPLE_RATE = 11025;
+    const SAMPLE_RATE = 44100;
     const END_TIMEOUT_MS = 300;
 
     function mergeChunks(chunks) {
