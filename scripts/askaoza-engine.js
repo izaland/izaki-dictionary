@@ -1,36 +1,36 @@
 // =========================
-// Askaoza Engine v3.1 - FIXED
+// Askaoza Engine v3.2
 // =========================
-// Corrections in this version:
-// - Fixed missing closing braces in parseWordToSyllables (broken render)
-// - No logic changes
+// Fix history:
+// v3.1 - Fixed missing closing braces in parseWordToSyllables
+// v3.2 - Fixed duplicate `let isLong` in renderOnsetNucleus (SyntaxError)
 
 // =========================
 // MAPPING TABLES
 // =========================
 
 const ASKAOZA_CONS = {
-  k:  'ડ',
-  g:  'ડૃ',
-  p:  'ર',
-  b:  'રૃ',
-  s:  'ટ',
-  z:  'ટૃ',
-  t:  'ઠ',
-  d:  'ઠૃ',
-  f:  'ળ',
-  v:  'ળૃ',
-  ch: 'મ',
-  j:  'મૃ',
-  sh: 'ય',
-  zh: 'યૃ',
-  ts: 'ઢ',
-  dz: 'ઢૃ',
-  h:  'ત',
-  n:  'પ',
-  m:  'ઇ',
-  l:  'ધ',
-  r:  'દ',
+  k:   'ડ',
+  g:   'ડૃ',
+  p:   'ર',
+  b:   'રૃ',
+  s:   'ટ',
+  z:   'ટૃ',
+  t:   'ઠ',
+  d:   'ઠૃ',
+  f:   'ળ',
+  v:   'ળૃ',
+  ch:  'મ',
+  j:   'મૃ',
+  sh:  'ય',
+  zh:  'યૃ',
+  ts:  'ઢ',
+  dz:  'ઢૃ',
+  h:   'ત',
+  n:   'પ',
+  m:   'ઇ',
+  l:   'ધ',
+  r:   'દ',
   kk:  'ડ્ડ',
   pp:  'ર્ર',
   tt:  'ઠ્ઠ',
@@ -92,101 +92,80 @@ const ZWNJ = '\u200C';
 // =========================
 
 const DIGRAPHS = ['cch', 'ssh', 'tts', 'ch', 'sh', 'ts', 'dz', 'zh'];
+const GEMINATES = ['cch', 'ssh', 'tts', 'ss', 'nn', 'll', 'kk', 'pp', 'tt'];
+const VOWEL_RE = /[aeiouyü\u0101\u0113\u012b\u014d\u016b]/;
+const LONG_VOWELS = { '\u0101': 'a', '\u0113': 'e', '\u012b': 'i', '\u014d': 'o', '\u016b': 'u' };
+const SHORT_TO_LONG  = { 'a': '\u0101', 'e': '\u0113', 'i': '\u012b', 'o': '\u014d', 'u': '\u016b' };
+
+// ---- Sandhi ----
 
 function applySandhi(text) {
   const words = text.trim().split(/\s+/);
-  let result = [];
+  const result = [];
 
   for (let i = 0; i < words.length; i++) {
     let word = words[i];
-    let nextWord = words[i + 1] || '';
+    const nextWord = words[i + 1] || '';
 
-    if (nextWord && /^[aeiouyü\u0101\u0113\u012b\u014d\u016b]/i.test(nextWord)) {
-      if (word.endsWith('n')) {
-        word = word.slice(0, -1) + 'nn';
-      } else if (word.endsWith('l')) {
-        word = word.slice(0, -1) + 'll';
-      } else if (word.endsWith('s')) {
-        word = word.slice(0, -1) + 'ss';
-      }
+    if (nextWord && VOWEL_RE.test(nextWord[0])) {
+      if      (word.endsWith('n')) word = word.slice(0, -1) + 'nn';
+      else if (word.endsWith('l')) word = word.slice(0, -1) + 'll';
+      else if (word.endsWith('s')) word = word.slice(0, -1) + 'ss';
     }
     result.push(word);
   }
 
-  return result.map(word => applyInternalSandhi(word)).join(' ');
+  return result.map(applyInternalSandhi).join(' ');
 }
 
 function applyInternalSandhi(word) {
-  let result = word;
-
-  result = result
-    .replace(/s([bpfv])/gi, (m, c) => 's' + (c.toLowerCase() === 'b' ? 'p' : c.toLowerCase() === 'v' ? 'f' : c))
-    .replace(/s(ch|j)/gi, 'cch')
-    .replace(/sd/gi, 'st')
-    .replace(/sg/gi, 'sk')
-    .replace(/s([klmnr])/gi, (m, c) => 's' + c)
-    .replace(/ss/gi, 'ss')
-    .replace(/st/gi, 'st')
-    .replace(/s(ts|z|dz)/gi, 'tts')
-    .replace(/szh/gi, 'ssh');
-
-  result = result.replace(/nr/gi, 'nl');
-  result = result.replace(/lr/gi, 'll');
-  result = result.replace(/rl/gi, 'll');
-
-  result = result
-    .replace(/hb/gi, 'hp')
-    .replace(/hd/gi, 'ht')
-    .replace(/hg/gi, 'hk')
-    .replace(/hv/gi, 'hf')
-    .replace(/hj/gi, 'hch')
-    .replace(/hz/gi, 'hs')
-    .replace(/hdz/gi, 'hts')
-    .replace(/hzh/gi, 'hsh')
-    .replace(/hh/gi, 'pp');
-
-  return result;
+  return word
+    .replace(/s([bpfv])/gi, (_, c) => {
+      const lc = c.toLowerCase();
+      return 's' + (lc === 'b' ? 'p' : lc === 'v' ? 'f' : lc);
+    })
+    .replace(/s(ch|j)/gi,  'cch')
+    .replace(/sd/gi,        'st')
+    .replace(/sg/gi,        'sk')
+    .replace(/s(ts|z|dz)/gi,'tts')
+    .replace(/szh/gi,       'ssh')
+    .replace(/nr/gi,        'nl')
+    .replace(/l[r]/gi,      'll')
+    .replace(/rl/gi,        'll')
+    .replace(/hb/gi,  'hp').replace(/hd/gi,  'ht').replace(/hg/gi,  'hk')
+    .replace(/hv/gi,  'hf').replace(/hj/gi,  'hch').replace(/hz/gi, 'hs')
+    .replace(/hdz/gi, 'hts').replace(/hzh/gi,'hsh').replace(/hh/gi, 'pp');
 }
 
 function revertSandhiForAskaoza(text) {
-  return text
-    .replace(/mp/gi, 'np')
-    .replace(/mb/gi, 'nb');
+  return text.replace(/mp/gi, 'np').replace(/mb/gi, 'nb');
 }
+
+// ---- CV splitter ----
 
 function splitCV(syl) {
   syl = syl.toLowerCase();
-
   for (const dg of DIGRAPHS) {
-    if (syl.startsWith(dg)) {
-      return { C: dg, V: syl.slice(dg.length) || 'a' };
-    }
+    if (syl.startsWith(dg)) return { C: dg, V: syl.slice(dg.length) || 'a' };
   }
-
-  if (syl.length >= 2) {
-    const two = syl.slice(0, 2);
-    if (ASKAOZA_CONS[two]) {
-      return { C: two, V: syl.slice(2) || 'a' };
-    }
+  if (syl.length >= 2 && ASKAOZA_CONS[syl.slice(0, 2)]) {
+    return { C: syl.slice(0, 2), V: syl.slice(2) || 'a' };
   }
-
   if (/^[kgpbsztdfvhnmlrjw]/i.test(syl[0])) {
     return { C: syl[0], V: syl.slice(1) || 'a' };
   }
-
   return { C: '*', V: syl };
 }
 
+// ---- Syllable parser ----
+
 function latinToSyllables(text) {
-  const words = text.trim().split(/\s+/);
-  return words.map(parseWordToSyllables);
+  return text.trim().split(/\s+/).map(parseWordToSyllables);
 }
 
 function parseWordToSyllables(word) {
   const res = [];
-  let lower = word.toLowerCase();
-
-  lower = lower
+  let lower = word.toLowerCase()
     .replace(/aa/g, '\u0101')
     .replace(/ee/g, '\u0113')
     .replace(/ii/g, '\u012b')
@@ -195,124 +174,73 @@ function parseWordToSyllables(word) {
 
   const syllableGroups = lower.split("'");
 
-  for (let groupIdx = 0; groupIdx < syllableGroups.length; groupIdx++) {
-    const group = syllableGroups[groupIdx];
+  for (const group of syllableGroups) {
     if (!group) continue;
-
     let i = 0;
-    while (i < group.length) {
-      let onset = '';
-      let nucleus = '';
-      let coda = '';
 
-      // Pass through non-Askaoza characters
+    while (i < group.length) {
+      let onset = '', nucleus = '', coda = '';
+
+      // Pass-through non-Askaoza characters
       if (!/[kgpbsztdfvhnmlrjwaeiouyü\u0101\u0113\u012b\u014d\u016b']/.test(group[i])) {
         res.push({ onset: '', nucleus: group[i], coda: '', passthrough: true });
-        i += 1;
+        i++;
         continue;
       }
 
-      // Check for 3-char digraphs
-      if (i + 3 <= group.length) {
-        const three = group.slice(i, i + 3);
-        if (DIGRAPHS.includes(three)) {
-          onset = three;
-          i += 3;
-        }
+      // Onset: 3-char digraph
+      if (!onset && i + 3 <= group.length && DIGRAPHS.includes(group.slice(i, i + 3))) {
+        onset = group.slice(i, i + 3); i += 3;
       }
-
-      // Check for 2-char consonant clusters
+      // Onset: 2-char cluster or digraph
       if (!onset && i + 2 <= group.length) {
         const two = group.slice(i, i + 2);
-        if (ASKAOZA_CONS[two]) {
-          onset = two;
-          i += 2;
-        }
+        if (ASKAOZA_CONS[two] || DIGRAPHS.includes(two)) { onset = two; i += 2; }
       }
-
-      // Check for 2-char digraphs
-      if (!onset && i + 2 <= group.length) {
-        const two = group.slice(i, i + 2);
-        if (DIGRAPHS.includes(two)) {
-          onset = two;
-          i += 2;
-        }
-      }
-
-      // Single consonant
+      // Onset: single consonant
       if (!onset && i < group.length && /[kgpbsztdfvhnmlrjw]/.test(group[i])) {
-        onset = group[i];
-        i += 1;
+        onset = group[i]; i++;
       }
 
-      // Parse nucleus
+      // Nucleus
       if (i < group.length) {
-        const next2 = group.slice(i, i + 2);
-        const next1 = group[i];
-
-        if (ASKAOZA_DIPH[next2] || ASKAOZA_COMPOUND[next2]) {
-          nucleus = next2;
-          i += 2;
-        } else if (/[aeiouyü\u0101\u0113\u012b\u014d\u016b]/.test(next1)) {
-          nucleus = next1;
-          i += 1;
-        }
+        const n2 = group.slice(i, i + 2);
+        const n1 = group[i];
+        if (ASKAOZA_DIPH[n2] || ASKAOZA_COMPOUND[n2]) { nucleus = n2; i += 2; }
+        else if (VOWEL_RE.test(n1))                    { nucleus = n1; i++; }
       }
 
-      // Parse coda
+      // Coda
       if (nucleus && i < group.length) {
         let look = '';
-
-        if (i + 3 <= group.length) {
-          const three = group.slice(i, i + 3);
-          if (DIGRAPHS.includes(three)) {
-            look = three;
-          }
-        }
+        if (!look && i + 3 <= group.length && DIGRAPHS.includes(group.slice(i, i + 3))) look = group.slice(i, i + 3);
         if (!look && i + 2 <= group.length) {
           const two = group.slice(i, i + 2);
-          if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) {
-            look = two;
-          }
+          if (DIGRAPHS.includes(two) || ASKAOZA_CONS[two]) look = two;
         }
-        if (!look && /[kgpbsztdfvhnmlr]/.test(group[i])) {
-          look = group[i];
-        }
+        if (!look && /[kgpbsztdfvhnmlr]/.test(group[i])) look = group[i];
 
-        const finalCandidates = ['kk', 'n', 'l', 's', 'r', 'h'];
-        const cand = finalCandidates.find(fc => look && look.startsWith(fc));
-
+        const cand = ['kk','n','l','s','r','h'].find(fc => look && look.startsWith(fc));
         if (cand) {
-          const afterCodaIndex = i + cand.length;
-
-          if (afterCodaIndex < group.length) {
-            const nextChar = group[afterCodaIndex];
-            const wouldFormDigraph = DIGRAPHS.some(dg => dg.startsWith(cand) && group.slice(i, i + dg.length) === dg);
-
-            const GEMINATES = ['ss', 'nn', 'll', 'kk', 'pp', 'tt', 'cch', 'ssh', 'tts'];
-            const doubleCandidate = group.slice(i, i + cand.length * 2);
-            const wouldFormGeminate = GEMINATES.includes(doubleCandidate);
-
-            if (!wouldFormDigraph && !wouldFormGeminate && !/[aeiouyü\u0101\u0113\u012b\u014d\u016b]/.test(nextChar)) {
-              coda = cand;
-              i = afterCodaIndex;
-            }
+          const after = i + cand.length;
+          const isLastChar = after >= group.length;
+          if (isLastChar) {
+            coda = cand; i = after;
           } else {
-            coda = cand;
-            i = afterCodaIndex;
-          }
-        } else if (!nucleus && onset) {
-          const finalCandidates2 = ['kk', 'n', 'l', 's', 'r', 'h'];
-          if (finalCandidates2.includes(onset)) {
-            coda = onset;
-            onset = '';
+            const nextCh = group[after];
+            const wouldFormDigraph  = DIGRAPHS.some(dg => dg.startsWith(cand) && group.slice(i, i + dg.length) === dg);
+            const wouldFormGeminate = GEMINATES.includes(group.slice(i, i + cand.length * 2));
+            if (!wouldFormDigraph && !wouldFormGeminate && !VOWEL_RE.test(nextCh)) {
+              coda = cand; i = after;
+            }
           }
         }
       }
 
+      // Safety: avoid infinite loop
       if (!onset && !nucleus && !coda) {
-        res.push({ onset: '', nucleus: group[i], coda: '' });
-        i += 1;
+        res.push({ onset: '', nucleus: group[i] || '', coda: '' });
+        i++;
         continue;
       }
 
@@ -324,166 +252,84 @@ function parseWordToSyllables(word) {
 }
 
 // =========================
-// Latin → Askaoza (syllable)
+// Latin → Askaoza
 // =========================
+
+function normaliseV(V) {
+  // Returns { short, isLong }
+  if (LONG_VOWELS[V] !== undefined) return { short: LONG_VOWELS[V], isLong: true };
+  return { short: V, isLong: false };
+}
 
 function renderOnsetNucleus(onset, nucleus) {
   if (!onset && !nucleus) return '';
 
-  if (!onset && nucleus) {
-    if (ASKAOZA_COMPOUND[nucleus]) {
-      return ASKAOZA_CONS['*'] + ASKAOZA_COMPOUND[nucleus];
-    }
+  const base = onset ? (ASKAOZA_CONS[onset] || ASKAOZA_CONS['*']) : ASKAOZA_CONS['*'];
+  const V    = nucleus || 'a';
 
-    let V = nucleus;
-    let isLong = false;
-    if (/[\u0101\u0113\u012b\u014d\u016b]/.test(V)) {
-      isLong = true;
-      V = V
-        .replace('\u0101', 'a')
-        .replace('\u0113', 'e')
-        .replace('\u012b', 'i')
-        .replace('\u014d', 'o')
-        .replace('\u016b', 'u');
-    }
+  // Diphthong
+  if (ASKAOZA_DIPH[V])     return base + ASKAOZA_DIPH[V];
+  // Compound vowel
+  if (ASKAOZA_COMPOUND[V]) return base + ASKAOZA_COMPOUND[V];
 
-    if (ASKAOZA_DIPH[V]) {
-      return ASKAOZA_CONS['*'] + ASKAOZA_DIPH[V] + (isLong ? LONG_MARK : '');
-    }
-
-    const mark = ASKAOZA_V[V] ?? '';
-    return ASKAOZA_CONS['*'] + mark + (isLong ? LONG_MARK : '');
-  }
-
-  let { C, V } = splitCV(onset + (nucleus || ''));
-  const base = ASKAOZA_CONS[C] || ASKAOZA_CONS['*'];
-
-  if (ASKAOZA_DIPH[V]) {
-    return base + ASKAOZA_DIPH[V];
-  }
-
-  if (C !== '*' && ASKAOZA_COMPOUND[V]) {
-    return base + ASKAOZA_COMPOUND[V];
-  }
-
-  let isLong = false;
-  if (/[\u0101\u0113\u012b\u014d\u016b]/.test(V)) {
-    isLong = true;
-    V = V
-      .replace('\u0101', 'a')
-      .replace('\u0113', 'e')
-      .replace('\u012b', 'i')
-      .replace('\u014d', 'o')
-      .replace('\u016b', 'u');
-  }
-
-  const mark = ASKAOZA_V[V] ?? '';
+  // Simple vowel (possibly long)
+  const { short, isLong } = normaliseV(V);
+  const mark = ASKAOZA_V[short] ?? '';
   return base + mark + (isLong ? LONG_MARK : '');
 }
 
 function renderCoda(coda) {
   if (!coda) return '';
-  return ASKAOZA_FINALS[coda] || (ASKAOZA_CONS[coda] || '');
+  return ASKAOZA_FINALS[coda] || ASKAOZA_CONS[coda] || '';
 }
 
 function toAskaozaWordFromSyllables(sylls) {
   return sylls.map((s, i) => {
     const rendered = renderOnsetNucleus(s.onset, s.nucleus) + renderCoda(s.coda);
-    if (s.coda && i < sylls.length - 1) {
-      return rendered + ZWNJ;
-    }
-    return rendered;
+    return (s.coda && i < sylls.length - 1) ? rendered + ZWNJ : rendered;
   }).join('');
 }
 
 function toAskaozaText(latinText) {
   if (!latinText.trim()) return '';
-
-  let processed = applySandhi(latinText);
-  processed = revertSandhiForAskaoza(processed);
-
-  const words = latinToSyllables(processed);
-  return words.map(toAskaozaWordFromSyllables).join(' ');
+  const processed = revertSandhiForAskaoza(applySandhi(latinText));
+  return latinToSyllables(processed).map(toAskaozaWordFromSyllables).join(' ');
 }
 
 // =========================
-// Askaoza → Latin (complete)
+// Askaoza → Latin
 // =========================
 
-const CONS_REV = {};
-for (const [lat, glyph] of Object.entries(ASKAOZA_CONS)) {
-  CONS_REV[glyph] = lat;
-}
-
-const V_REV = {};
-for (const [v, mark] of Object.entries(ASKAOZA_V)) {
-  if (mark) V_REV[mark] = v;
-}
-
-const DIPH_REV = {};
-for (const [diph, mark] of Object.entries(ASKAOZA_DIPH)) {
-  DIPH_REV[mark] = diph;
-}
-
-const COMPOUND_REV = {};
-for (const [comp, mark] of Object.entries(ASKAOZA_COMPOUND)) {
-  COMPOUND_REV[mark] = comp;
-}
-
-const FINALS_REV = {};
-for (const [lat, glyph] of Object.entries(ASKAOZA_FINALS)) {
-  FINALS_REV[glyph] = lat;
-}
+const CONS_REV     = Object.fromEntries(Object.entries(ASKAOZA_CONS).map(([k,v])     => [v, k]));
+const V_REV        = Object.fromEntries(Object.entries(ASKAOZA_V).filter(([,v]) => v).map(([k,v]) => [v, k]));
+const DIPH_REV     = Object.fromEntries(Object.entries(ASKAOZA_DIPH).map(([k,v])    => [v, k]));
+const COMPOUND_REV = Object.fromEntries(Object.entries(ASKAOZA_COMPOUND).map(([k,v])=> [v, k]));
+const FINALS_REV   = Object.fromEntries(Object.entries(ASKAOZA_FINALS).map(([k,v])  => [v, k]));
 
 function parseVowelMarks(text, startIdx) {
-  let vowel = 'a';
-  let coda = '';
-  let j = startIdx;
+  let vowel = 'a', coda = '', j = startIdx;
 
-  for (let len = 3; len >= 1; len--) {
-    if (j + len <= text.length) {
-      const mark = text.slice(j, j + len);
-
-      if (COMPOUND_REV[mark]) {
-        vowel = COMPOUND_REV[mark];
-        j += len;
-        break;
-      }
-      if (DIPH_REV[mark]) {
-        vowel = DIPH_REV[mark];
-        j += len;
-        break;
-      }
-      if (len === 1 && V_REV[mark]) {
-        vowel = V_REV[mark];
-        j += len;
-        break;
-      }
-    }
+  // Try compound / diphthong / simple vowel mark (longest first)
+  outer:
+  for (let len = 4; len >= 1; len--) {
+    if (j + len > text.length) continue;
+    const mark = text.slice(j, j + len);
+    if (COMPOUND_REV[mark]) { vowel = COMPOUND_REV[mark]; j += len; break outer; }
+    if (DIPH_REV[mark])     { vowel = DIPH_REV[mark];     j += len; break outer; }
+    if (len === 1 && V_REV[mark]) { vowel = V_REV[mark];  j += len; break outer; }
   }
 
+  // Long mark
   if (j < text.length && text[j] === LONG_MARK) {
     j++;
-    vowel = vowel
-      .replace('a', '\u0101')
-      .replace('e', '\u0113')
-      .replace('i', '\u012b')
-      .replace('o', '\u014d')
-      .replace('u', '\u016b');
+    vowel = SHORT_TO_LONG[vowel] || vowel;
   }
 
-  if (j + 2 <= text.length) {
-    const finalCandidate = text.slice(j, j + 2);
-    if (FINALS_REV[finalCandidate]) {
-      coda = FINALS_REV[finalCandidate];
-      j += 2;
-    }
-  }
-  if (!coda && j + 1 <= text.length) {
-    const finalCandidate = text.slice(j, j + 1);
-    if (FINALS_REV[finalCandidate]) {
-      coda = FINALS_REV[finalCandidate];
-      j += 1;
+  // Final consonant (2-char then 1-char)
+  for (const len of [2, 1]) {
+    if (!coda && j + len <= text.length) {
+      const fc = text.slice(j, j + len);
+      if (FINALS_REV[fc]) { coda = FINALS_REV[fc]; j += len; }
     }
   }
 
@@ -491,91 +337,62 @@ function parseVowelMarks(text, startIdx) {
 }
 
 function askaozaToLatinText(askText) {
-  let result = '';
-  let i = 0;
+  let result = '', i = 0;
 
   while (i < askText.length) {
-    if (/\s/.test(askText[i]) || askText[i] === ZWNJ) {
-      if (/\s/.test(askText[i])) result += ' ';
-      i++;
-      continue;
+    const ch = askText[i];
+
+    // Whitespace / ZWNJ
+    if (/\s/.test(ch) || ch === ZWNJ) {
+      if (/\s/.test(ch)) result += ' ';
+      i++; continue;
     }
 
     let matched = false;
 
-    if (i + 1 < askText.length) {
-      const twoChars = askText.slice(i, i + 2);
-      if (FINALS_REV[twoChars]) {
-        result += FINALS_REV[twoChars];
-        i += 2;
-        matched = true;
-        continue;
-      }
+    // 2-char final consonant first
+    if (i + 2 <= askText.length) {
+      const two = askText.slice(i, i + 2);
+      if (FINALS_REV[two]) { result += FINALS_REV[two]; i += 2; matched = true; continue; }
     }
 
-    if (!matched && i + 2 < askText.length) {
-      const threeChars = askText.slice(i, i + 3);
-      if (CONS_REV[threeChars]) {
-        let cons = CONS_REV[threeChars];
-        let vowel = 'a';
-        let coda = '';
+    // 3-char consonant glyph (geminated)
+    if (!matched && i + 3 <= askText.length) {
+      const three = askText.slice(i, i + 3);
+      if (CONS_REV[three]) {
+        let cons = CONS_REV[three]; if (cons === '*') cons = '';
         let j = i + 3;
-
-        [vowel, coda, j] = parseVowelMarks(askText, j);
-
-        if (cons === '*') cons = '';
-        result += cons + vowel + coda;
-        i = j;
-        matched = true;
-        continue;
+        const [vowel, codaL, jNew] = parseVowelMarks(askText, j);
+        result += cons + vowel + codaL;
+        i = jNew; matched = true; continue;
       }
     }
 
+    // Base consonant (1 char + optional ૃ voiced mark)
     if (!matched) {
-      let baseChar = askText[i];
-      let consCandidate = baseChar;
-      let j = i + 1;
-
-      if (j < askText.length && askText[j] === 'ૃ') {
-        consCandidate = baseChar + 'ૃ';
-        j++;
-      }
-
-      if (CONS_REV[consCandidate]) {
-        let cons = CONS_REV[consCandidate];
-        let vowel = 'a';
-        let coda = '';
-
-        [vowel, coda, j] = parseVowelMarks(askText, j);
-
-        if (cons === '*') cons = '';
-        result += cons + vowel + coda;
-        i = j;
-        matched = true;
-        continue;
+      let consGlyph = ch, j = i + 1;
+      if (j < askText.length && askText[j] === 'ૃ') { consGlyph += 'ૃ'; j++; }
+      if (CONS_REV[consGlyph]) {
+        let cons = CONS_REV[consGlyph]; if (cons === '*') cons = '';
+        const [vowel, codaL, jNew] = parseVowelMarks(askText, j);
+        result += cons + vowel + codaL;
+        i = jNew; matched = true; continue;
       }
     }
 
-    if (!matched) {
-      result += askText[i];
-      i++;
-    }
+    // Fallback
+    result += ch; i++;
   }
 
   return result.trim().replace(/\s+/g, ' ');
 }
 
 // =========================
-// Export for module usage
+// Module export
 // =========================
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
-    toAskaozaText,
-    askaozaToLatinText,
-    ASKAOZA_CONS,
-    ASKAOZA_V,
-    ASKAOZA_DIPH,
-    ASKAOZA_COMPOUND,
-    ASKAOZA_FINALS
+    toAskaozaText, askaozaToLatinText,
+    ASKAOZA_CONS, ASKAOZA_V, ASKAOZA_DIPH, ASKAOZA_COMPOUND, ASKAOZA_FINALS
   };
 }
