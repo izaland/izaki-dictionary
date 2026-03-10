@@ -126,7 +126,7 @@
   <script>
   (function(){
 
-    const debugEl  = document.getElementById('debugLog');
+    const debugEl = document.getElementById('debugLog');
     function dbg(msg) {
       const t = new Date().toISOString().substr(11,8);
       debugEl.innerHTML += `<div>[${t}] ${msg}</div>`;
@@ -200,6 +200,8 @@
     const playBtn  = document.getElementById('playBtn');
     const statusEl = document.getElementById('status');
     const SAMPLE_RATE = 22050;
+    // Tempo di silenzio dopo l'ultimo chunk prima di considerare lo stream finito
+    const END_TIMEOUT_MS = 300;
 
     function mergeChunks(chunks) {
       const total = chunks.reduce((s, b) => s + b.byteLength, 0);
@@ -232,21 +234,22 @@
         playBtn.disabled = false; playBtn.textContent = '🔊 Play';
         statusEl.textContent = '';
       };
-      audio.onerror = (e) => {
-        dbg('Audio error: ' + JSON.stringify(e));
+      audio.onerror = () => {
         statusEl.textContent = '❌ Playback error';
         playBtn.disabled = false; playBtn.textContent = '🔊 Play';
       };
-      dbg('Calling audio.play()...');
       const p = audio.play();
-      if (p && p.catch) p.catch(e => dbg('play() rejected: ' + e));
+      if (p && p.catch) p.catch(e => {
+        dbg('play() rejected: ' + e);
+        statusEl.textContent = '❌ ' + e;
+        playBtn.disabled = false; playBtn.textContent = '🔊 Play';
+      });
     }
 
     let tts = null;
     const script = document.createElement('script');
     script.src = '/izaki-dictionary/scripts/espeak/espeakng.min.js';
     script.onload = () => {
-      dbg('espeakng.min.js loaded');
       try {
         tts = new eSpeakNG(
           '/izaki-dictionary/scripts/espeak/espeakng.worker.js',
@@ -271,7 +274,7 @@
       if (!raw) return;
 
       const espText = toEspeak(raw);
-      dbg('synthesize input: ' + espText);
+      dbg('Synthesizing: ' + espText);
       playBtn.disabled = true;
       playBtn.textContent = '▶️…';
       statusEl.textContent = '▶️ ' + toIPA(raw);
@@ -282,45 +285,38 @@
 
             const chunks = [];
             let done = false;
+            let endTimer = null;
+
+            function finish() {
+              if (done) return;
+              done = true;
+              dbg('Stream end. chunks=' + chunks.length
+                + ' total=' + chunks.reduce((s,b) => s+b.byteLength, 0) + ' bytes');
+              if (chunks.length === 0) {
+                statusEl.textContent = '⚠️ No audio received';
+                playBtn.disabled = false; playBtn.textContent = '🔊 Play';
+                return;
+              }
+              const pcm = mergeChunks(chunks);
+              dbg('Playing ' + pcm.length + ' samples (' + (pcm.length/SAMPLE_RATE).toFixed(2) + 's)');
+              playBlob(pcmToWav(pcm, SAMPLE_RATE));
+            }
 
             tts.synthesize(espText, function(samples, events) {
-              // Log everything to understand what arrives
-              const sType = samples === null ? 'NULL'
-                          : samples === undefined ? 'UNDEFINED'
-                          : samples.constructor ? samples.constructor.name : typeof samples;
-              const sSize = samples ? (samples.byteLength ?? samples.length ?? '?') : 0;
-              const eType = Array.isArray(events) ? 'events[' + events.length + ']'
-                          : (events == null ? 'null' : typeof events);
-              dbg('cb: samples=' + sType + '(' + sSize + ') events=' + eType
-                + (Array.isArray(events) && events.length
-                   ? ' last_type=' + events[events.length-1].type : ''));
-
               if (done) return;
 
-              // Accumulate PCM chunks
+              // Segnale di fine esplicito
+              if (samples == null) { clearTimeout(endTimer); finish(); return; }
+
+              // Chunk PCM valido
               if (samples instanceof ArrayBuffer && samples.byteLength > 0) {
                 chunks.push(samples);
+                dbg('chunk ' + chunks.length + ': ' + samples.byteLength + 'B');
               }
 
-              // Detect end: events array contains a msg_terminated event (type 8)
-              // OR samples is null/undefined
-              let isEnd = (samples == null);
-              if (!isEnd && Array.isArray(events)) {
-                isEnd = events.some(e => e.type === 8 || e.type === 'MSG_TERMINATED');
-              }
-
-              if (isEnd) {
-                done = true;
-                dbg('END detected. chunks=' + chunks.length);
-                if (chunks.length === 0) {
-                  statusEl.textContent = '⚠️ No audio received';
-                  playBtn.disabled = false; playBtn.textContent = '🔊 Play';
-                  return;
-                }
-                const pcm = mergeChunks(chunks);
-                dbg('PCM ready: ' + pcm.length + ' samples (' + (pcm.length/SAMPLE_RATE).toFixed(2) + 's)');
-                playBlob(pcmToWav(pcm, SAMPLE_RATE));
-              }
+              // Reset del timer di idle: se non arriva nulla per END_TIMEOUT_MS, consideriamo finito
+              clearTimeout(endTimer);
+              endTimer = setTimeout(finish, END_TIMEOUT_MS);
             });
 
           });
