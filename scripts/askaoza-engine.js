@@ -337,6 +337,7 @@ function parseWordToSyllables(word) {
     onset = '';
   }
 }
+}
 
 
       if (!onset && !nucleus && !coda) {
