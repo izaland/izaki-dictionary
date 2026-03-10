@@ -52,6 +52,9 @@ document.getElementById("navbar").innerHTML = `
         <a class="navbar-item" href="/izaki-dictionary/pages/tools/askaoza.html">
           Askaoza converter
         </a>
+        <a class="navbar-item" href="/izaki-dictionary/pages/tools/toponym-generator.html">
+          Toponym Generator 地名生成ઠેઃધ્
+        </a>
       </div>
     </div>
 
@@ -60,13 +63,12 @@ document.getElementById("navbar").innerHTML = `
       <div class="navbar-item">
         <div class="buttons">
           <button id="themeToggle" class="button is-small">
-            <!-- testo/icona impostati via JS -->
             Loading…
           </button>
         </div>
       </div>
 
-      <div class="navbar-item">Made with ❤️ and ☕</div>
+      <div class="navbar-item">Made with ❤️ and ☕️</div>
     </div>
   </div>
 </nav>
@@ -88,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Theme toggle
-  const root = document.documentElement; // <html>
+  const root = document.documentElement;
   const toggle = document.getElementById('themeToggle');
 
   function getStoredTheme() {
@@ -111,13 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!toggle) return;
     const theme = currentTheme();
     if (theme === 'dark') {
-      // Dark attivo → mostra opzione Light
       toggle.innerHTML = `
         <span class="icon"><i class="fas fa-sun" aria-hidden="true"></i></span>
         <span>Light/明</span>
       `;
     } else {
-      // Light attivo → mostra opzione Dark
       toggle.innerHTML = `
         <span class="icon"><i class="fas fa-moon" aria-hidden="true"></i></span>
         <span>Dark/暗</span>
@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Inizializzazione tema: localStorage → prefers-color-scheme → default light
   const stored = getStoredTheme();
   if (stored) {
     applyTheme(stored);
