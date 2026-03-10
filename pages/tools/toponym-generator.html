@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toponym Generator - Izaki Dictionary</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
+
+  <style>
+    .hero .title { line-height: 1.2; margin-bottom: 0 !important; padding-bottom: 1.6rem; }
+    .hero .title .subtitle-ja { display: block; margin-top: 0.65rem; font-size: 0.68em; opacity: 0.96; }
+    .hero .title + .subtitle { margin-top: 0 !important; line-height: 1.45; }
+    .hero .subtitle .subtitle-ja { display: block; margin-top: 0.35rem; }
+
+    .result-card {
+      border: 1px solid var(--border, #dee2e6);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 0.85rem;
+      background: var(--panel, #fff);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      position: relative;
+    }
+    .result-card .toponym-latin {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-primary, #1a1a1a);
+      letter-spacing: 0.01em;
+    }
+    .result-card .toponym-char {
+      font-size: 1.25rem;
+      color: #4a4a4a;
+      letter-spacing: 0.1em;
+    }
+    .result-card .toponym-gloss {
+      font-size: 0.88rem;
+      color: var(--text-secondary, #6c757d);
+      margin-top: 0.15rem;
+    }
+    .result-card .toponym-type {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #e8f4fd;
+      color: #2a6ebb;
+      margin-top: 0.3rem;
+      align-self: flex-start;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.78rem;
+      color: #666;
+    }
+    .copy-btn:hover { background: #f0f0f0; }
+
+    .controls-box {
+      max-width: 760px;
+      margin: 0 auto 2rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border, #dee2e6);
+      border-radius: 12px;
+      background: var(--panel, #fff);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .results-box {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .seed-display {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #888;
+      margin-top: 0.5rem;
+    }
+    .tag-cat {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      margin-right: 0.2rem;
+      margin-bottom: 0.1rem;
+    }
+    .cat-modifier  { background:#eee;    color:#555; }
+    .cat-direction { background:#fef3cd; color:#856404; }
+    .cat-relief    { background:#d4edda; color:#155724; }
+    .cat-water     { background:#cce5ff; color:#004085; }
+    .cat-vegetation{ background:#d4edda; color:#155724; }
+    .cat-settlement{ background:#f8d7da; color:#721c24; }
+    .cat-sacred    { background:#e2d9f3; color:#4a235a; }
+    .cat-color     { background:#fff3cd; color:#856404; }
+    .cat-weather   { background:#d6eaf8; color:#1a5276; }
+    .cat-season    { background:#fde8d8; color:#784212; }
+    .cat-fauna     { background:#d5f5e3; color:#1e8449; }
+    .cat-land      { background:#f9ebde; color:#784212; }
+
+    .morpheme-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #f4f4f4;
+      border-radius: 6px;
+      padding: 0.2rem 0.6rem;
+      margin-right: 0.25rem;
+      font-size: 0.9rem;
+    }
+    .morpheme-pill .pill-char { font-size: 1.05rem; }
+    .morpheme-pill .pill-read { font-weight: 600; }
+    .morpheme-pill .pill-meaning { color: #888; font-size: 0.78rem; }
+
+    details.reference-section {
+      border: 1px solid var(--border, #dee2e6);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 1.5rem;
+      background: var(--panel-alt, #f8f9fa);
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    details.reference-section summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-primary, #1a1a1a);
+    }
+    .ref-table-wrap { overflow-x: auto; margin-top: 1rem; }
+    table.ref-table { font-size: 0.88rem; }
+    table.ref-table td, table.ref-table th { vertical-align: middle; }
+    table.ref-table .char-cell { font-size: 1.3rem; }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero is-medium is-link">
+    <div class="hero-body has-text-centered">
+      <p class="title">
+        Toponym Generator
+        <span class="subtitle-ja">地名生成器</span>
+      </p>
+      <p class="subtitle">
+        Generate Izaki place names from byakuzhi components
+        <span class="subtitle-ja">以百字組合生成伊嶋地名</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="controls-box">
+      <div class="columns is-multiline">
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Geographic type <span style="font-weight:400;color:#888">(head element)</span></label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="geoType">
+                  <option value="any">Any</option>
+                  <option value="water">Water (river, lake, sea…)</option>
+                  <option value="relief">Relief (mountain, valley, hill…)</option>
+                  <option value="settlement">Settlement (town, castle, temple…)</option>
+                  <option value="land">Land (field, shore, sand…)</option>
+                  <option value="vegetation">Vegetation (forest, pine, reed…)</option>
+                  <option value="sacred">Sacred (god, heaven, festival…)</option>
+                  <option value="fauna">Fauna (bird, deer, wolf…)</option>
+                  <option value="weather">Weather (snow, wind, fog…)</option>
+                  <option value="season">Season / Time (moon, autumn…)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Number of morphemes</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="morphCount">
+                  <option value="2">2 byakuzhi</option>
+                  <option value="3" selected>3 byakuzhi</option>
+                  <option value="4">4 byakuzhi</option>
+                  <option value="random">Random (2–4)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Modifier prefix</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="modifierType">
+                  <option value="none">None</option>
+                  <option value="direction">Direction (N/S/E/W…)</option>
+                  <option value="modifier">Adjective (big, old, new…)</option>
+                  <option value="random">Random (sometimes)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">How many results</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="resultCount">
+                  <option value="5">5</option>
+                  <option value="10" selected>10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-full">
+          <div class="field">
+            <label class="label">Seed <span style="font-weight:400;color:#888">(leave blank for random; paste a seed to reproduce a result)</span></label>
+            <div class="control">
+              <input class="input" type="text" id="seedInput" placeholder="e.g. 48291">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="field" style="margin-top:0.5rem">
+        <div class="control">
+          <button class="button is-link is-medium" id="generateBtn">Generate toponyms</button>
+        </div>
+      </div>
+
+      <p class="seed-display" id="seedDisplay"></p>
+    </div>
+
+    <div class="results-box" id="resultsBox"></div>
+
+    <details class="reference-section" id="referenceSection">
+      <summary>Byakuzhi reference table / 百字參考表</summary>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:#555">
+        All byakuzhi in the database, grouped by semantic category. Click a category tag to filter the table.
+      </p>
+      <div style="margin-bottom:0.75rem" id="catFilterButtons"></div>
+      <div class="ref-table-wrap">
+        <table class="table is-bordered is-striped is-narrow is-hoverable ref-table" id="refTable">
+          <thead>
+            <tr>
+              <th>Char</th>
+              <th>Meaning</th>
+              <th>Readings</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody id="refTableBody"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <script src="/izaki-dictionary/scripts/script.js"></script>
+  <script>
+  (function () {
+    // ── Seeded PRNG (mulberry32) ──────────────────────────────────────────
+    function mulberry32(seed) {
+      return function () {
+        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+        var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+    function hashSeed(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) { h = Math.imul(31, h) + str.charCodeAt(i) | 0; }
+      return Math.abs(h);
+    }
+    function pick(arr, rand) { return arr[Math.floor(rand() * arr.length)]; }
+
+    // ── Clean reading string ──────────────────────────────────────────────
+    function cleanReading(r) {
+      return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
+    }
+
+    // ── Capitalise first letter ───────────────────────────────────────────
+    function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+    // ── Build toponym from morpheme list ─────────────────────────────────
+    function buildToponym(morphemes, rand) {
+      // Each morpheme: pick one reading randomly
+      const parts = morphemes.map(m => {
+        const pool = m.readings.filter(r => cleanReading(r).length > 0);
+        if (!pool.length) return null;
+        return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
+      }).filter(Boolean);
+
+      if (!parts.length) return null;
+
+      const latin = cap(parts.map(p => p.read).join(''));
+      const chars = parts.map(p => p.char).join('');
+      const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
+      return { latin, chars, gloss, parts };
+    }
+
+    // ── Main generator ────────────────────────────────────────────────────
+    let DB = null;
+
+    function generate() {
+      if (!DB) return;
+
+      const geoType    = document.getElementById('geoType').value;
+      const morphCount = document.getElementById('morphCount').value;
+      const modType    = document.getElementById('modifierType').value;
+      const count      = parseInt(document.getElementById('resultCount').value, 10);
+      const seedRaw    = document.getElementById('seedInput').value.trim();
+      const seed       = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
+      const rand       = mulberry32(seed);
+
+      document.getElementById('seedDisplay').textContent = '🎲 Seed: ' + seed;
+      document.getElementById('seedInput').placeholder   = '' + seed;
+
+      const all = DB.byakuzhi;
+      const headPool = geoType === 'any'
+        ? all.filter(b => b.readings.length > 0)
+        : all.filter(b => b.cat === geoType && b.readings.length > 0);
+
+      if (!headPool.length) {
+        document.getElementById('resultsBox').innerHTML =
+          '<p class="notification is-warning">No byakuzhi found for this combination. Try changing the settings.</p>';
+        return;
+      }
+
+      const dirPool = all.filter(b => b.cat === 'direction' && b.readings.length > 0);
+      const modPool = all.filter(b => b.cat === 'modifier'  && b.readings.length > 0);
+      const descPool = all.filter(b =>
+        ['color','weather','season','relief','vegetation'].includes(b.cat) && b.readings.length > 0);
+
+      const results = [];
+      for (let i = 0; i < count; i++) {
+        const n = morphCount === 'random' ? (2 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
+        const morphemes = [];
+
+        // Optional prefix
+        if (modType === 'direction') {
+          morphemes.push(pick(dirPool, rand));
+        } else if (modType === 'modifier') {
+          morphemes.push(pick(modPool, rand));
+        } else if (modType === 'random' && rand() > 0.5) {
+          morphemes.push(pick(rand() > 0.5 ? dirPool : modPool, rand));
+        }
+
+        // Descriptor morphemes (fill up to n-1)
+        const descSlots = Math.max(0, n - morphemes.length - 1);
+        for (let j = 0; j < descSlots; j++) {
+          morphemes.push(pick(descPool, rand));
+        }
+
+        // Head (geographic)
+        morphemes.push(pick(headPool, rand));
+
+        const result = buildToponym(morphemes, rand);
+        if (result) results.push(result);
+      }
+
+      renderResults(results);
+    }
+
+    function renderResults(results) {
+      const box = document.getElementById('resultsBox');
+      if (!results.length) {
+        box.innerHTML = '<p class="notification is-warning">No results generated.</p>';
+        return;
+      }
+      box.innerHTML = results.map((r, idx) => `
+        <div class="result-card">
+          <button class="copy-btn" data-copy="${r.latin}" title="Copy toponym">📋 Copy</button>
+          <div class="toponym-latin">${r.latin}</div>
+          <div class="toponym-char">${r.chars}</div>
+          <div class="morpheme-breakdown">
+            ${r.parts.map(p =>
+              `<span class="morpheme-pill">
+                <span class="pill-char">${p.char}</span>
+                <span class="pill-read">${p.read}</span>
+                <span class="pill-meaning">${p.meaning}</span>
+                <span class="tag-cat cat-${p.cat}">${p.cat}</span>
+              </span>`
+            ).join('')}
+          </div>
+          <div class="toponym-gloss">${r.gloss}</div>
+        </div>
+      `).join('');
+
+      // Copy buttons
+      box.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+            const orig = btn.textContent;
+            btn.textContent = '✅ Copied!';
+            setTimeout(() => { btn.textContent = orig; }, 1800);
+          });
+        });
+      });
+    }
+
+    // ── Reference table ───────────────────────────────────────────────────
+    function buildRefTable(data) {
+      const tbody = document.getElementById('refTableBody');
+      const cats  = [...new Set(data.map(b => b.cat))].sort();
+
+      // Filter buttons
+      const btnWrap = document.getElementById('catFilterButtons');
+      btnWrap.innerHTML = '<button class="button is-small is-light" data-cat="all" style="margin:0.2rem">All</button>' +
+        cats.map(c =>
+          `<button class="button is-small is-light" data-cat="${c}" style="margin:0.2rem">
+             <span class="tag-cat cat-${c}">${c}</span>
+           </button>`
+        ).join('');
+
+      let activeFilter = 'all';
+      function renderTable(filter) {
+        const rows = filter === 'all' ? data : data.filter(b => b.cat === filter);
+        tbody.innerHTML = rows.map(b => `
+          <tr>
+            <td class="char-cell">${b.char}</td>
+            <td>${b.meaning}</td>
+            <td>${b.readings.slice(0,4).join(' · ')}</td>
+            <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
+          </tr>
+        `).join('');
+      }
+
+      btnWrap.querySelectorAll('[data-cat]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeFilter = btn.dataset.cat;
+          renderTable(activeFilter);
+        });
+      });
+
+      renderTable('all');
+    }
+
+    // ── Load DB and init ──────────────────────────────────────────────────
+    fetch('/izaki-dictionary/data/placename-byakuzhi.json')
+      .then(r => r.json())
+      .then(data => {
+        DB = data;
+        buildRefTable(data.byakuzhi);
+      })
+      .catch(() => {
+        document.getElementById('resultsBox').innerHTML =
+          '<p class="notification is-danger">Could not load byakuzhi database. Make sure <code>data/placename-byakuzhi.json</code> exists.</p>';
+      });
+
+    document.getElementById('generateBtn').addEventListener('click', generate);
+
+    // Enter key in seed input triggers generation
+    document.getElementById('seedInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') generate();
+    });
+  })();
+  </script>
+</body>
+</html>
