@@ -154,11 +154,11 @@
     <div class="hero-body has-text-centered">
       <p class="title">
         Toponym Generator
-        <span class="subtitle-ja">地名生成器</span>
+        <span class="subtitle-ja">地名生成 ઠેઃધ્</span>
       </p>
       <p class="subtitle">
         Generate Izaki place names from byakuzhi components
-        <span class="subtitle-ja">以百字組合生成伊嶋地名</span>
+        <span class="subtitle-ja">百字૮ાધ્ 華邦પ્ 地名ઠ 生成ઠૅડૅદ.</span>
       </p>
     </div>
   </section>
@@ -169,20 +169,21 @@
 
         <div class="column is-half">
           <div class="field">
-            <label class="label">Geographic type <span style="font-weight:400;color:#888">(head element)</span></label>
+            <label class="label">Geographic type <span style="font-weight:400;color:#888">(head element)</br>
+            地理的種類 <span style="font-weight:400;color:#888">(冒頭字)</span></label>
             <div class="control">
               <div class="select is-fullwidth">
                 <select id="geoType">
-                  <option value="any">Any</option>
-                  <option value="water">Water (river, lake, sea…)</option>
-                  <option value="relief">Relief (mountain, valley, hill…)</option>
-                  <option value="settlement">Settlement (town, castle, temple…)</option>
-                  <option value="land">Land (field, shore, sand…)</option>
-                  <option value="vegetation">Vegetation (forest, pine, reed…)</option>
-                  <option value="sacred">Sacred (god, heaven, festival…)</option>
-                  <option value="fauna">Fauna (bird, deer, wolf…)</option>
-                  <option value="weather">Weather (snow, wind, fog…)</option>
-                  <option value="season">Season / Time (moon, autumn…)</option>
+                  <option value="any">Any પઢટ્</option>
+                  <option value="water">Water 水系 (river, lake, sea…)</option>
+                  <option value="relief">Relief 山系 (mountain, valley, hill…)</option>
+                  <option value="settlement">Settlement 住系 (town, castle, temple…)</option>
+                  <option value="land">Land 土系 (field, shore, sand…)</option>
+                  <option value="vegetation">Vegetation 植系 (forest, pine, reed…)</option>
+                  <option value="sacred">Sacred 聖系 (god, heaven, festival…)</option>
+                  <option value="fauna">Fauna 猛系 (bird, deer, wolf…)</option>
+                  <option value="weather">Weather 天候系 (snow, wind, fog…)</option>
+                  <option value="season">Season / Time 季節/時間系 (moon, autumn…)</option>
                 </select>
               </div>
             </div>
@@ -191,13 +192,13 @@
 
         <div class="column is-half">
           <div class="field">
-            <label class="label">Number of morphemes</label>
+            <label class="label">Number of morphemes 形態素数</label>
             <div class="control">
               <div class="select is-fullwidth">
                 <select id="morphCount">
-                  <option value="2">2 byakuzhi</option>
-                  <option value="3" selected>3 byakuzhi</option>
-                  <option value="4">4 byakuzhi</option>
+                  <option value="2">2 byakuzhi 2字</option>
+                  <option value="3" selected>3 byakuzhi 3字</option>
+                  <option value="4">4 byakuzhi 4字</option>
                   <option value="random">Random (2–4)</option>
                 </select>
               </div>
@@ -207,13 +208,13 @@
 
         <div class="column is-half">
           <div class="field">
-            <label class="label">Modifier prefix</label>
+            <label class="label">Modifier prefix 前修飾句</label>
             <div class="control">
               <div class="select is-fullwidth">
                 <select id="modifierType">
-                  <option value="none">None</option>
-                  <option value="direction">Direction (N/S/E/W…)</option>
-                  <option value="modifier">Adjective (big, old, new…)</option>
+                  <option value="none">None પયા</option>
+                  <option value="direction">Direction (N/S/E/W…) 方向</option>
+                  <option value="modifier">Adjective (big, old, new…) 形容詞</option>
                   <option value="random">Random (sometimes)</option>
                 </select>
               </div>
@@ -223,7 +224,7 @@
 
         <div class="column is-half">
           <div class="field">
-            <label class="label">How many results</label>
+            <label class="label">How many results 結果件数</label>
             <div class="control">
               <div class="select is-fullwidth">
                 <select id="resultCount">
@@ -250,7 +251,7 @@
 
       <div class="field" style="margin-top:0.5rem">
         <div class="control">
-          <button class="button is-link is-medium" id="generateBtn">Generate toponyms</button>
+          <button class="button is-link is-medium" id="generateBtn">Generate toponyms 地名生成</button>
         </div>
       </div>
 
@@ -396,7 +397,7 @@
       }
       box.innerHTML = results.map((r, idx) => `
         <div class="result-card">
-          <button class="copy-btn" data-copy="${r.latin}" title="Copy toponym">📋 Copy</button>
+          <button class="copy-btn" data-copy="${r.latin}" title="Copy toponym 地名ડ૾રાઃ">📋 Copy</button>
           <div class="toponym-latin">${r.latin}</div>
           <div class="toponym-char">${r.chars}</div>
           <div class="morpheme-breakdown">
@@ -418,7 +419,7 @@
         btn.addEventListener('click', () => {
           navigator.clipboard.writeText(btn.dataset.copy).then(() => {
             const orig = btn.textContent;
-            btn.textContent = '✅ Copied!';
+            btn.textContent = '✅ Copied! ડ૾રાઃ済!';
             setTimeout(() => { btn.textContent = orig; }, 1800);
           });
         });
