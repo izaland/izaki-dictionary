@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toponym Generator - Izaki Dictionary</title>
+  <title>Toponym & Temple Generator - Izaki Dictionary</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
@@ -36,6 +36,11 @@
       --cat-season-bg:     #fde8d8;  --cat-season-fg:     #784212;
       --cat-fauna-bg:      #d5f5e3;  --cat-fauna-fg:      #1e8449;
       --cat-land-bg:       #f9ebde;  --cat-land-fg:       #784212;
+      --cat-buddha-bg:     #e8d5f5;  --cat-buddha-fg:     #4a235a;
+      --cat-virtue-bg:     #fef3cd;  --cat-virtue-fg:     #7d5a00;
+      --cat-nature-bg:     #d4edda;  --cat-nature-fg:     #155724;
+      --cat-cosmic-bg:     #cce5ff;  --cat-cosmic-fg:     #004085;
+      --cat-suffix-bg:     #f8d7da;  --cat-suffix-fg:     #721c24;
     }
     html[data-theme="dark"] {
       --tp-card-bg:        #2a2a32;
@@ -63,185 +68,124 @@
       --cat-season-bg:     #3a2010;  --cat-season-fg:     #f5b97a;
       --cat-fauna-bg:      #0f2a1a;  --cat-fauna-fg:      #6fefaa;
       --cat-land-bg:       #2a1a0f;  --cat-land-fg:       #e8b87a;
+      --cat-buddha-bg:     #26173a;  --cat-buddha-fg:     #c8a8f0;
+      --cat-virtue-bg:     #3d3318;  --cat-virtue-fg:     #f5d97a;
+      --cat-nature-bg:     #1a2e1f;  --cat-nature-fg:     #6fcf8a;
+      --cat-cosmic-bg:     #0f2340;  --cat-cosmic-fg:     #7ec8f5;
+      --cat-suffix-bg:     #2e1a1a;  --cat-suffix-fg:     #f5a0a0;
     }
 
-    /* ── Hero with antique map watermark ───────────────────────────── */
+    /* ── Hero ──────────────────────────────────────────────────────── */
     .hero.is-link.hero-map {
       background-image:
-        linear-gradient(
-          rgba(32, 86, 174, 0.78),
-          rgba(32, 86, 174, 0.78)
-        ),
+        linear-gradient(rgba(32,86,174,0.78), rgba(32,86,174,0.78)),
         url('https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/Imperii_Sinarum_nova_descriptio_-_btv1b53179352v_(1_of_2).jpg&width=1280');
       background-size: cover;
       background-position: center 30%;
       background-repeat: no-repeat;
     }
     .hero.is-link.hero-map .title,
-    .hero.is-link.hero-map .subtitle {
-      color: #ffffff !important;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.45);
-    }
+    .hero.is-link.hero-map .subtitle { color:#ffffff !important; text-shadow:0 1px 6px rgba(0,0,0,.45); }
     .map-credit {
-      position: absolute;
-      bottom: 0.4rem;
-      right: 0.75rem;
-      font-size: 0.62rem;
-      color: rgba(255,255,255,0.55);
-      font-style: italic;
-      letter-spacing: 0.02em;
+      position:absolute; bottom:0.4rem; right:0.75rem;
+      font-size:0.62rem; color:rgba(255,255,255,.55);
+      font-style:italic; letter-spacing:0.02em;
     }
-    .hero.is-link.hero-map { position: relative; }
+    .hero.is-link.hero-map { position:relative; }
+    .hero .title { line-height:1.2; margin-bottom:0 !important; padding-bottom:1.6rem; }
+    .hero .title .subtitle-ja { display:block; margin-top:0.65rem; font-size:0.68em; opacity:0.96; }
+    .hero .title + .subtitle  { margin-top:0 !important; line-height:1.45; }
+    .hero .subtitle .subtitle-ja { display:block; margin-top:0.35rem; }
 
-    /* ── Hero text ─────────────────────────────────────────────────── */
-    .hero .title { line-height: 1.2; margin-bottom: 0 !important; padding-bottom: 1.6rem; }
-    .hero .title .subtitle-ja { display: block; margin-top: 0.65rem; font-size: 0.68em; opacity: 0.96; }
-    .hero .title + .subtitle  { margin-top: 0 !important; line-height: 1.45; }
-    .hero .subtitle .subtitle-ja { display: block; margin-top: 0.35rem; }
+    /* ── Tabs ──────────────────────────────────────────────────────── */
+    .generator-tabs {
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+    }
+    .generator-tabs .tabs { margin-bottom: 0; }
 
     /* ── Result card ───────────────────────────────────────────────── */
     .result-card {
-      border: 1px solid var(--tp-card-border);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 0.85rem;
-      background: var(--tp-card-bg);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      position: relative;
+      border:1px solid var(--tp-card-border); border-radius:12px;
+      padding:1.25rem 1.5rem; margin-bottom:.85rem;
+      background:var(--tp-card-bg); box-shadow:0 2px 6px rgba(0,0,0,.08);
+      display:flex; flex-direction:column; gap:.3rem; position:relative;
     }
-    .result-card .toponym-latin {
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--tp-text);
-      letter-spacing: 0.01em;
-    }
-    .toponym-scripts {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-    .result-card .toponym-char {
-      font-size: 1.3rem;
-      color: var(--tp-text-char);
-      letter-spacing: 0.12em;
-      opacity: 0.9;
-    }
-    .scripts-sep {
-      color: var(--tp-text-sec);
-      font-size: 1rem;
-      opacity: 0.5;
-      user-select: none;
-    }
-    .result-card .toponym-ask {
-      font-size: 1.3rem;
-      color: var(--tp-text-char);
-      letter-spacing: 0.06em;
-      opacity: 0.9;
-    }
-    .result-card .toponym-gloss {
-      font-size: 0.88rem;
-      color: var(--tp-text-sec);
-      margin-top: 0.2rem;
-    }
+    .result-card .toponym-latin { font-size:1.45rem; font-weight:700; color:var(--tp-text); }
+    .toponym-scripts { display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap; }
+    .result-card .toponym-char { font-size:1.3rem; color:var(--tp-text-char); letter-spacing:.12em; opacity:.9; }
+    .scripts-sep { color:var(--tp-text-sec); font-size:1rem; opacity:.5; user-select:none; }
+    .result-card .toponym-ask  { font-size:1.3rem; color:var(--tp-text-char); letter-spacing:.06em; opacity:.9; }
+    .result-card .toponym-gloss { font-size:.88rem; color:var(--tp-text-sec); margin-top:.2rem; }
 
     /* ── Copy button ───────────────────────────────────────────────── */
     .copy-btn {
-      position: absolute;
-      top: 0.75rem;
-      right: 0.75rem;
-      background: none;
-      border: 1px solid var(--tp-copy-border);
-      border-radius: 6px;
-      cursor: pointer;
-      padding: 0.2rem 0.55rem;
-      font-size: 0.78rem;
-      color: var(--tp-copy-color);
-      transition: background 0.15s;
+      position:absolute; top:.75rem; right:.75rem; background:none;
+      border:1px solid var(--tp-copy-border); border-radius:6px;
+      cursor:pointer; padding:.2rem .55rem; font-size:.78rem;
+      color:var(--tp-copy-color); transition:background .15s;
     }
-    .copy-btn:hover { background: var(--tp-copy-hover); }
+    .copy-btn:hover { background:var(--tp-copy-hover); }
 
     /* ── Controls & results boxes ──────────────────────────────────── */
     .controls-box {
-      max-width: 760px;
-      margin: 0 auto 2rem;
-      padding: 1.5rem;
-      border: 1px solid var(--tp-card-border);
-      border-radius: 12px;
-      background: var(--tp-controls-bg);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      max-width:760px; margin:0 auto 2rem; padding:1.5rem;
+      border:1px solid var(--tp-card-border); border-radius:12px;
+      background:var(--tp-controls-bg); box-shadow:0 2px 8px rgba(0,0,0,.06);
     }
-    .results-box  { max-width: 760px; margin: 0 auto; }
-    .seed-display {
-      font-family: monospace;
-      font-size: 0.82rem;
-      color: var(--tp-seed-color);
-      margin-top: 0.5rem;
-    }
+    .results-box  { max-width:760px; margin:0 auto; }
+    .seed-display { font-family:monospace; font-size:.82rem; color:var(--tp-seed-color); margin-top:.5rem; }
 
     /* ── Category pill ─────────────────────────────────────────────── */
     .tag-cat {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.1rem 0.45rem;
-      border-radius: 4px;
+      display:inline-block; font-size:.68rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:.05em;
+      padding:.1rem .45rem; border-radius:4px;
     }
-    .cat-modifier   { background: var(--cat-modifier-bg);   color: var(--cat-modifier-fg); }
-    .cat-direction  { background: var(--cat-direction-bg);  color: var(--cat-direction-fg); }
-    .cat-relief     { background: var(--cat-relief-bg);     color: var(--cat-relief-fg); }
-    .cat-water      { background: var(--cat-water-bg);      color: var(--cat-water-fg); }
-    .cat-vegetation { background: var(--cat-vegetation-bg); color: var(--cat-vegetation-fg); }
-    .cat-settlement { background: var(--cat-settlement-bg); color: var(--cat-settlement-fg); }
-    .cat-sacred     { background: var(--cat-sacred-bg);     color: var(--cat-sacred-fg); }
-    .cat-color      { background: var(--cat-color-bg);      color: var(--cat-color-fg); }
-    .cat-weather    { background: var(--cat-weather-bg);    color: var(--cat-weather-fg); }
-    .cat-season     { background: var(--cat-season-bg);     color: var(--cat-season-fg); }
-    .cat-fauna      { background: var(--cat-fauna-bg);      color: var(--cat-fauna-fg); }
-    .cat-land       { background: var(--cat-land-bg);       color: var(--cat-land-fg); }
+    .cat-modifier   { background:var(--cat-modifier-bg);   color:var(--cat-modifier-fg); }
+    .cat-direction  { background:var(--cat-direction-bg);  color:var(--cat-direction-fg); }
+    .cat-relief     { background:var(--cat-relief-bg);     color:var(--cat-relief-fg); }
+    .cat-water      { background:var(--cat-water-bg);      color:var(--cat-water-fg); }
+    .cat-vegetation { background:var(--cat-vegetation-bg); color:var(--cat-vegetation-fg); }
+    .cat-settlement { background:var(--cat-settlement-bg); color:var(--cat-settlement-fg); }
+    .cat-sacred     { background:var(--cat-sacred-bg);     color:var(--cat-sacred-fg); }
+    .cat-color      { background:var(--cat-color-bg);      color:var(--cat-color-fg); }
+    .cat-weather    { background:var(--cat-weather-bg);    color:var(--cat-weather-fg); }
+    .cat-season     { background:var(--cat-season-bg);     color:var(--cat-season-fg); }
+    .cat-fauna      { background:var(--cat-fauna-bg);      color:var(--cat-fauna-fg); }
+    .cat-land       { background:var(--cat-land-bg);       color:var(--cat-land-fg); }
+    .cat-buddha     { background:var(--cat-buddha-bg);     color:var(--cat-buddha-fg); }
+    .cat-virtue     { background:var(--cat-virtue-bg);     color:var(--cat-virtue-fg); }
+    .cat-nature     { background:var(--cat-nature-bg);     color:var(--cat-nature-fg); }
+    .cat-cosmic     { background:var(--cat-cosmic-bg);     color:var(--cat-cosmic-fg); }
+    .cat-suffix     { background:var(--cat-suffix-bg);     color:var(--cat-suffix-fg); }
 
     /* ── Morpheme pill ─────────────────────────────────────────────── */
     .morpheme-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: var(--tp-pill-bg);
-      border: 1px solid var(--tp-pill-border);
-      border-radius: 7px;
-      padding: 0.25rem 0.65rem;
-      margin-right: 0.3rem;
-      margin-bottom: 0.2rem;
-      font-size: 0.9rem;
+      display:inline-flex; align-items:center; gap:.35rem;
+      background:var(--tp-pill-bg); border:1px solid var(--tp-pill-border);
+      border-radius:7px; padding:.25rem .65rem;
+      margin-right:.3rem; margin-bottom:.2rem; font-size:.9rem;
     }
-    .morpheme-pill .pill-char    { font-size: 1.15rem; color: var(--tp-text); }
-    .morpheme-pill .pill-read    { font-weight: 600; color: var(--tp-text); }
-    .morpheme-pill .pill-meaning { color: var(--tp-text-sec); font-size: 0.78rem; }
+    .morpheme-pill .pill-char    { font-size:1.15rem; color:var(--tp-text); }
+    .morpheme-pill .pill-read    { font-weight:600; color:var(--tp-text); }
+    .morpheme-pill .pill-meaning { color:var(--tp-text-sec); font-size:.78rem; }
 
     /* ── Reference section ─────────────────────────────────────────── */
     details.reference-section {
-      border: 1px solid var(--tp-card-border);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      margin-top: 1.5rem;
-      background: var(--tp-ref-bg);
-      max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
+      border:1px solid var(--tp-card-border); border-radius:8px;
+      padding:.75rem 1rem; margin-top:1.5rem; background:var(--tp-ref-bg);
+      max-width:960px; margin-left:auto; margin-right:auto;
     }
-    details.reference-section summary {
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--tp-text);
-    }
-    .ref-table-wrap { overflow-x: auto; margin-top: 1rem; }
-    table.ref-table { font-size: 0.88rem; }
-    table.ref-table td, table.ref-table th { vertical-align: middle; color: var(--tp-text); }
-    table.ref-table .char-cell { font-size: 1.3rem; }
+    details.reference-section summary { cursor:pointer; font-weight:600; color:var(--tp-text); }
+    .ref-table-wrap { overflow-x:auto; margin-top:1rem; }
+    table.ref-table { font-size:.88rem; }
+    table.ref-table td, table.ref-table th { vertical-align:middle; color:var(--tp-text); }
+    table.ref-table .char-cell { font-size:1.3rem; }
+
+    /* ── Tab panel visibility ──────────────────────────────────────── */
+    .tab-panel { display:none; }
+    .tab-panel.is-active { display:block; }
   </style>
 </head>
 
@@ -251,140 +195,282 @@
   <section class="hero is-medium is-link hero-map">
     <div class="hero-body has-text-centered">
       <p class="title">
-        Toponym Generator
-        <span class="subtitle-ja">地名生成 ઠેઃધ્</span>
+        Toponym &amp; Temple Generator
+        <span class="subtitle-ja">地名・寺院名生成 ઠેઃધ્</span>
       </p>
       <p class="subtitle">
-        Generate Izaki place names from byakuzhi components
-        <span class="subtitle-ja">百字૮ાધ્ 華邦પ્ 地名ઠ 生成ઠૅડૅદ.</span>
+        Generate Izaki place names and Buddhist temple names from byakuzhi components
+        <span class="subtitle-ja">百字૮ાધ્ 地名ઠ・寺院名ઠ 生成ઠૅડૅદ.</span>
       </p>
     </div>
     <span class="map-credit">Map: <em>Imperii Sinarum nova descriptio</em>, Joan Blaeu, 1655 — Wikimedia Commons (public domain)</span>
   </section>
 
   <section class="section">
-    <div class="controls-box">
-      <div class="columns is-multiline">
 
-        <div class="column is-half">
-          <div class="field">
-            <label class="label">Geographic type <span style="font-weight:400;color:var(--tp-text-sec)">(head element)</span><br>
-            地理的種類 <span style="font-weight:400;color:var(--tp-text-sec)">（冒頭字）</span></label>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select id="geoType">
-                  <option value="any">Any પઢટ્</option>
-                  <option value="water">Water 水系 (river, lake, sea…)</option>
-                  <option value="relief">Relief 山系 (mountain, valley, hill…)</option>
-                  <option value="settlement">Settlement 住系 (town, castle, temple…)</option>
-                  <option value="land">Land 土系 (field, shore, sand…)</option>
-                  <option value="vegetation">Vegetation 植系 (forest, pine, reed…)</option>
-                  <option value="sacred">Sacred 聖系 (god, heaven, festival…)</option>
-                  <option value="fauna">Fauna 猛系 (bird, deer, wolf…)</option>
-                  <option value="weather">Weather 天候系 (snow, wind, fog…)</option>
-                  <option value="season">Season / Time 季節/時間系 (moon, autumn…)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="column is-half">
-          <div class="field">
-            <label class="label">Number of morphemes 形態素数</label>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select id="morphCount">
-                  <option value="2">2 byakuzhi 2字</option>
-                  <option value="3" selected>3 byakuzhi 3字</option>
-                  <option value="4">4 byakuzhi 4字</option>
-                  <option value="random">Random (2–4)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="column is-half">
-          <div class="field">
-            <label class="label">Modifier prefix 前修飾句</label>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select id="modifierType">
-                  <option value="none">None પયા</option>
-                  <option value="direction">Direction (N/S/E/W…) 方向</option>
-                  <option value="modifier">Adjective (big, old, new…) 形容詞</option>
-                  <option value="random">Random (sometimes)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="column is-half">
-          <div class="field">
-            <label class="label">How many results 結果件数</label>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select id="resultCount">
-                  <option value="5">5</option>
-                  <option value="10" selected>10</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="column is-full">
-          <div class="field">
-            <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave blank for random; paste a seed to reproduce a result)</span></label>
-            <div class="control">
-              <input class="input" type="text" id="seedInput" placeholder="e.g. 48291">
-            </div>
-          </div>
-        </div>
-
+    <!-- ── Mode tabs ─────────────────────────────────────────────── -->
+    <div class="generator-tabs">
+      <div class="tabs is-boxed is-medium">
+        <ul>
+          <li class="is-active" id="tab-toponym">
+            <a><span class="icon">🗺️</span><span>Place names 地名</span></a>
+          </li>
+          <li id="tab-temple">
+            <a><span class="icon">🏯</span><span>Temple names 寺院名</span></a>
+          </li>
+        </ul>
       </div>
-
-      <div class="field" style="margin-top:0.5rem">
-        <div class="control">
-          <button class="button is-link is-medium" id="generateBtn">Generate toponyms 地名生成</button>
-        </div>
-      </div>
-
-      <p class="seed-display" id="seedDisplay"></p>
     </div>
 
-    <div class="results-box" id="resultsBox"></div>
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 1: TOPONYM GENERATOR                                  -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="tab-panel is-active" id="panel-toponym">
 
-    <details class="reference-section" id="referenceSection">
-      <summary>Byakuzhi reference table / 百字參考表</summary>
-      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--tp-text-sec)">
-        All byakuzhi in the database, grouped by semantic category. Click a category tag to filter the table.
-      </p>
-      <div style="margin-bottom:0.75rem" id="catFilterButtons"></div>
-      <div class="ref-table-wrap">
-        <table class="table is-bordered is-striped is-narrow is-hoverable ref-table" id="refTable">
-          <thead>
-            <tr>
-              <th>Char</th>
-              <th>Meaning</th>
-              <th>Readings</th>
-              <th>Category</th>
-            </tr>
-          </thead>
-          <tbody id="refTableBody"></tbody>
-        </table>
+      <div class="controls-box">
+        <div class="columns is-multiline">
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Geographic type <span style="font-weight:400;color:var(--tp-text-sec)">(head element)</span><br>
+              地理的種類 <span style="font-weight:400;color:var(--tp-text-sec)">（冒頭字）</span></label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="geoType">
+                    <option value="any">Any પઢટ્</option>
+                    <option value="water">Water 水系 (river, lake, sea…)</option>
+                    <option value="relief">Relief 山系 (mountain, valley, hill…)</option>
+                    <option value="settlement">Settlement 住系 (town, castle, temple…)</option>
+                    <option value="land">Land 土系 (field, shore, sand…)</option>
+                    <option value="vegetation">Vegetation 植系 (forest, pine, reed…)</option>
+                    <option value="sacred">Sacred 聖系 (god, heaven, festival…)</option>
+                    <option value="fauna">Fauna 猛系 (bird, deer, wolf…)</option>
+                    <option value="weather">Weather 天候系 (snow, wind, fog…)</option>
+                    <option value="season">Season / Time 季節/時間系 (moon, autumn…)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Number of morphemes 形態素数</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="morphCount">
+                    <option value="2">2 byakuzhi 2字</option>
+                    <option value="3" selected>3 byakuzhi 3字</option>
+                    <option value="4">4 byakuzhi 4字</option>
+                    <option value="random">Random (2–4)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Modifier prefix 前修飾句</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="modifierType">
+                    <option value="none">None પયા</option>
+                    <option value="direction">Direction (N/S/E/W…) 方向</option>
+                    <option value="modifier">Adjective (big, old, new…) 形容詞</option>
+                    <option value="random">Random (sometimes)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">How many results 結果件数</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="resultCount">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-full">
+            <div class="field">
+              <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave blank for random; paste a seed to reproduce a result)</span></label>
+              <div class="control">
+                <input class="input" type="text" id="seedInput" placeholder="e.g. 48291">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="field" style="margin-top:0.5rem">
+          <div class="control">
+            <button class="button is-link is-medium" id="generateBtn">Generate toponyms 地名生成</button>
+          </div>
+        </div>
+        <p class="seed-display" id="seedDisplay"></p>
       </div>
-    </details>
+
+      <div class="results-box" id="resultsBox"></div>
+
+      <details class="reference-section" id="referenceSection">
+        <summary>Byakuzhi reference table / 百字參考表</summary>
+        <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
+          All byakuzhi in the database, grouped by semantic category. Click a category tag to filter the table.
+        </p>
+        <div style="margin-bottom:.75rem" id="catFilterButtons"></div>
+        <div class="ref-table-wrap">
+          <table class="table is-bordered is-striped is-narrow is-hoverable ref-table" id="refTable">
+            <thead>
+              <tr><th>Char</th><th>Meaning</th><th>Readings</th><th>Category</th></tr>
+            </thead>
+            <tbody id="refTableBody"></tbody>
+          </table>
+        </div>
+      </details>
+
+    </div><!-- /panel-toponym -->
+
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 2: TEMPLE GENERATOR                                   -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="tab-panel" id="panel-temple">
+
+      <div class="controls-box">
+        <div class="columns is-multiline">
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Temple suffix 末尾字<br>
+              <span style="font-weight:400;color:var(--tp-text-sec)">寺 · 院 · 庵 · 堂 · 坊</span></label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="t-suffixType">
+                    <option value="any">Any (random)</option>
+                    <option value="ji">寺 ji — temple</option>
+                    <option value="in">院 in — cloister</option>
+                    <option value="an">庵 an — hermitage</option>
+                    <option value="do">堂 dō — hall</option>
+                    <option value="bo">坊 bō — monk quarter</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Number of body morphemes 本体形態素数<br>
+              <span style="font-weight:400;color:var(--tp-text-sec)">(excluding suffix)</span></label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="t-morphCount">
+                    <option value="1">1 byakuzhi</option>
+                    <option value="2" selected>2 byakuzhi</option>
+                    <option value="3">3 byakuzhi</option>
+                    <option value="random">Random (1–3)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Body category 本体種類</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="t-bodyCategory">
+                    <option value="any">Any mix</option>
+                    <option value="buddha">Buddha / Bodhisattva 佛</option>
+                    <option value="virtue">Virtue / Dharma 德</option>
+                    <option value="nature">Nature 自然</option>
+                    <option value="cosmic">Cosmic / Eternity 宇宙</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">How many results 結果件数</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="t-resultCount">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-full">
+            <div class="field">
+              <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave blank for random)</span></label>
+              <div class="control">
+                <input class="input" type="text" id="t-seedInput" placeholder="e.g. 12345">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:.5rem">
+          <div class="control">
+            <button class="button is-link is-medium" id="t-generateBtn">Generate temple names 寺院名生成</button>
+          </div>
+        </div>
+        <p class="seed-display" id="t-seedDisplay"></p>
+      </div>
+
+      <div class="results-box" id="t-resultsBox"></div>
+
+      <details class="reference-section">
+        <summary>Byakuzhi reference table / 百字參考表</summary>
+        <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
+          All temple byakuzhi in the database, grouped by semantic category.
+        </p>
+        <div style="margin-bottom:.75rem" id="t-catFilterButtons"></div>
+        <div class="ref-table-wrap">
+          <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
+            <thead><tr><th>Char</th><th>Meaning</th><th>Readings</th><th>Category</th></tr></thead>
+            <tbody id="t-refTableBody"></tbody>
+          </table>
+        </div>
+      </details>
+
+    </div><!-- /panel-temple -->
+
   </section>
 
   <script src="/izaki-dictionary/scripts/script.js"></script>
   <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
   <script>
   (function () {
+
+    // ── Tab switching ────────────────────────────────────────────────
+    const TAB_IDS = ['toponym', 'temple'];
+    TAB_IDS.forEach(id => {
+      document.getElementById('tab-' + id).addEventListener('click', () => {
+        TAB_IDS.forEach(t => {
+          document.getElementById('tab-' + t).classList.toggle('is-active', t === id);
+          document.getElementById('panel-' + t).classList.toggle('is-active', t === id);
+        });
+      });
+    });
 
     // ── PRNG ────────────────────────────────────────────────────────
     function mulberry32(seed) {
@@ -401,231 +487,79 @@
       return Math.abs(h);
     }
     function pick(arr, rand) { return arr[Math.floor(rand() * arr.length)]; }
-
-    // ── Helpers ─────────────────────────────────────────────────────
+    function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
     function cleanReading(r) {
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
-    function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
     // ── Sandhi utilities ─────────────────────────────────────────────
-
     const VOICED_ONSETS = new Set(['g','b','z','d','v','j','zh','dz','n','m','l','r']);
-    const VOICING    = { 'ch':'j', 'sh':'zh', 'ts':'dz', 'k':'g', 'p':'b', 's':'z', 't':'d', 'f':'v' };
-    const S_DEVOICE  = { 'b':'p', 'v':'f', 'd':'t', 'g':'k', 'j':'ch', 'z':'s', 'dz':'ts', 'zh':'sh' };
-    const GEMINATORS = new Set(['n', 'l', 's']);
-    const LOGICAL_CATS = new Set(['direction', 'modifier']);
+    const VOICING    = { 'ch':'j','sh':'zh','ts':'dz','k':'g','p':'b','s':'z','t':'d','f':'v' };
+    const S_DEVOICE  = { 'b':'p','v':'f','d':'t','g':'k','j':'ch','z':'s','dz':'ts','zh':'sh' };
+    const GEMINATORS = new Set(['n','l','s']);
+    const LOGICAL_CATS = new Set(['direction','modifier']);
 
     function getOnset(s) {
-      if (['cch','ssh','tts'].some(d => s.startsWith(d))) return s.slice(0, 3);
-      if (['ch','sh','ts','dz','zh'].some(d => s.startsWith(d))) return s.slice(0, 2);
+      if (['cch','ssh','tts'].some(d => s.startsWith(d))) return s.slice(0,3);
+      if (['ch','sh','ts','dz','zh'].some(d => s.startsWith(d))) return s.slice(0,2);
       return s[0] || '';
     }
     function getFinal(s) {
       const m = s.match(/([^aeiouyüāēīōū]+)$/i);
       return m ? m[1].toLowerCase() : '';
     }
-
     const C_PAT  = '(?:ch|sh|ts|dz|zh|[kgpbsztdfvhnmlrj])';
     const V_PAT  = '[aeiouyü]';
     const CVCV_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
 
-    // ── Junction sandhi ──────────────────────────────────────────────
     function applyJunctionSandhi(read1, read2) {
-      const r1 = read1.toLowerCase();
-      const r2 = read2.toLowerCase();
+      const r1 = read1.toLowerCase(), r2 = read2.toLowerCase();
       const fin = getFinal(r1);
       const onset2 = getOnset(r2);
-      const r2StartsWithVowel = /^[aeiouyüāēīōū]/i.test(r2);
-
-      if (GEMINATORS.has(fin) && r2StartsWithVowel) return [read1, fin + read2];
-      if (fin === 's' && VOICED_ONSETS.has(onset2) && S_DEVOICE[onset2]) {
+      const r2V = /^[aeiouyüāēīōū]/i.test(r2);
+      if (GEMINATORS.has(fin) && r2V) return [read1, fin + read2];
+      if (fin === 's' && VOICED_ONSETS.has(onset2) && S_DEVOICE[onset2])
         return [read1, S_DEVOICE[onset2] + r2.slice(onset2.length)];
-      }
       return [read1, read2];
     }
-
-    // ── Compound voicing sandhi (CVCV + CVCV only) ───────────────────
     function applyCompoundVoicing(read1, read2) {
-      const r1 = read1.toLowerCase();
-      const r2 = read2.toLowerCase();
+      const r1 = read1.toLowerCase(), r2 = read2.toLowerCase();
       if (!CVCV_RE.test(r1) || !CVCV_RE.test(r2)) return read2;
-      const firstVowelIdx = r1.search(/[aeiouyü]/i);
-      if (firstVowelIdx < 0) return read2;
-      const onset2ofR1 = getOnset(r1.slice(firstVowelIdx + 1));
-      if (VOICED_ONSETS.has(onset2ofR1)) return read2;
-      const onsetR2 = getOnset(r2);
-      const voiced  = VOICING[onsetR2];
-      if (!voiced) return read2;
-      return voiced + r2.slice(onsetR2.length);
+      const idx = r1.search(/[aeiouyü]/i);
+      if (idx < 0) return read2;
+      const o2r1 = getOnset(r1.slice(idx + 1));
+      if (VOICED_ONSETS.has(o2r1)) return read2;
+      const oR2 = getOnset(r2);
+      const v = VOICING[oR2];
+      if (!v) return read2;
+      return v + read2.slice(oR2.length);
     }
-
-    // ── K evanescente ────────────────────────────────────────────────
-    // Inserts 'k' between 'a' and 'e' at the end of a byakuzhi reading
-    // when: reading ends in (C)ae, byakuzhi is descriptive (not direction/modifier),
-    // and the PRNG roll passes (50% if position 0, 30% otherwise).
-    // Operates on the final concatenated latin string, not on parts.read.
-    //
-    // Returns the modified latin string.
-    function applyKEvanescente(latin, parts, rand) {
-      // We rebuild the latin position by position using original reads
-      // to know exactly where each boundary falls.
-      let result = '';
-      let cursor = 0;
-      for (let i = 0; i < parts.length; i++) {
-        const read = parts[i].read;
-        const prob = (i === 0) ? 0.50 : 0.30;
-        // Check: read ends in 'ae' (optionally preceded by a consonant cluster)
-        // and category is not logical
-        if (!LOGICAL_CATS.has(parts[i].cat) && /ae$/i.test(read) && rand() < prob) {
-          // insert 'k' before the trailing 'e'
-          result += read.slice(0, -1) + 'k' + 'e';
-        } else {
-          result += read;
-        }
-        cursor += read.length;
-      }
-      return cap(result);
-    }
-
-    // ── Armonia vocalica residua ─────────────────────────────────────
-    // (C)VCe + A-initial next byakuzhi → (C)VCa
-    // Fixed rule, no probability. Operates on parts.read[] before concatenation.
-    // Does NOT touch pill display (parts[i].read is already set for pills before
-    // buildToponym calls this; we apply it to a working copy).
-    //
-    // Returns a new array of surface reads (not mutating parts[i].read).
     function applyVowelHarmony(parts) {
       const surface = parts.map(p => p.read);
       for (let i = 0; i < surface.length - 1; i++) {
-        const r1 = surface[i].toLowerCase();
-        const r2 = surface[i + 1].toLowerCase();
-        // r1 must end in (C)VCe  — i.e. consonant then vowel then consonant then e
-        // r2 first vowel must be 'a'
-        const endsInCVCe = /[aeiouyü][^aeiouyü]e$/i.test(r1);
-        const nextStartsWithA = /^[^aeiouyü]*a/i.test(r2); // first vowel in r2 is 'a'
-        if (endsInCVCe && nextStartsWithA) {
-          // replace trailing 'e' with 'a'
-          surface[i] = surface[i].slice(0, -1) + 'a';
-        }
+        const r1 = surface[i].toLowerCase(), r2 = surface[i+1].toLowerCase();
+        if (/[aeiouyü][^aeiouyü]e$/i.test(r1) && /^[^aeiouyü]*a/i.test(r2))
+          surface[i] = surface[i].slice(0,-1) + 'a';
       }
       return surface;
     }
 
-    // ── Build toponym ────────────────────────────────────────────────
-    function buildToponym(morphemes, rand) {
-      const parts = morphemes.map(m => {
-        const pool = m.readings.filter(r => cleanReading(r).length > 0);
-        if (!pool.length) return null;
-        return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
-      }).filter(Boolean);
-      if (!parts.length) return null;
-
-      // 1. Compound voicing sandhi (CVCV + CVCV, exactly 2 byakuzhi)
-      if (parts.length === 2) {
-        parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
-      }
-
-      // 2. Junction sandhi pairwise (gemination, s-assimilation)
-      for (let i = 0; i < parts.length - 1; i++) {
-        const [, newNext] = applyJunctionSandhi(parts[i].read, parts[i + 1].read);
-        parts[i + 1].read = newNext;
-      }
-
-      // --- From here we work on surface reads without touching pill reads ---
-
-      // 3. Armonia vocalica residua (CVCe + A → CVCa) — fixed rule
-      const surfaceReads = applyVowelHarmony(parts);
-
-      // 4. K evanescente (ae → ake, probabilistic) — uses original parts[i].read
-      //    We apply it on the surface reads array directly
-      let latinRaw = '';
-      for (let i = 0; i < parts.length; i++) {
-        let r = surfaceReads[i];
-        const prob = (i === 0) ? 0.50 : 0.30;
-        if (!LOGICAL_CATS.has(parts[i].cat) && /ae$/i.test(r) && rand() < prob) {
-          r = r.slice(0, -1) + 'ke';
-        }
-        latinRaw += r;
-      }
-
-      const latin = cap(latinRaw);
-      const chars = parts.map(p => p.char).join('');
-      const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
-      const ask   = (typeof toAskaozaText === 'function')
-        ? toAskaozaText(latin.toLowerCase())
-        : '';
-      return { latin, chars, ask, gloss, parts };
-    }
-
-    // ── Generate ─────────────────────────────────────────────────────
-    let DB = null;
-
-    function generate() {
-      if (!DB) return;
-      const geoType    = document.getElementById('geoType').value;
-      const morphCount = document.getElementById('morphCount').value;
-      const modType    = document.getElementById('modifierType').value;
-      const count      = parseInt(document.getElementById('resultCount').value, 10);
-      const seedRaw    = document.getElementById('seedInput').value.trim();
-      const seed       = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
-      const rand       = mulberry32(seed);
-
-      document.getElementById('seedDisplay').textContent = '\uD83C\uDFB2 Seed: ' + seed;
-      document.getElementById('seedInput').placeholder   = '' + seed;
-
-      const all = DB.byakuzhi;
-      const headPool = geoType === 'any'
-        ? all.filter(b => b.readings.length > 0)
-        : all.filter(b => b.cat === geoType && b.readings.length > 0);
-
-      if (!headPool.length) {
-        document.getElementById('resultsBox').innerHTML =
-          '<p class="notification is-warning">No byakuzhi found for this combination. Try changing the settings.</p>';
-        return;
-      }
-
-      const dirPool  = all.filter(b => b.cat === 'direction' && b.readings.length > 0);
-      const modPool  = all.filter(b => b.cat === 'modifier'  && b.readings.length > 0);
-      const descPool = all.filter(b =>
-        ['color','weather','season','relief','vegetation'].includes(b.cat) && b.readings.length > 0);
-
-      const results = [];
-      for (let i = 0; i < count; i++) {
-        const n = morphCount === 'random' ? (2 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
-        const morphemes = [];
-        if (modType === 'direction') {
-          morphemes.push(pick(dirPool, rand));
-        } else if (modType === 'modifier') {
-          morphemes.push(pick(modPool, rand));
-        } else if (modType === 'random' && rand() > 0.5) {
-          morphemes.push(pick(rand() > 0.5 ? dirPool : modPool, rand));
-        }
-        const descSlots = Math.max(0, n - morphemes.length - 1);
-        for (let j = 0; j < descSlots; j++) { morphemes.push(pick(descPool, rand)); }
-        morphemes.push(pick(headPool, rand));
-        const result = buildToponym(morphemes, rand);
-        if (result) results.push(result);
-      }
-      renderResults(results);
-    }
-
-    // ── Render ───────────────────────────────────────────────────────
-    function renderResults(results) {
-      const box = document.getElementById('resultsBox');
+    // ── Shared render util ───────────────────────────────────────────
+    function renderResults(results, boxId) {
+      const box = document.getElementById(boxId);
       if (!results.length) {
         box.innerHTML = '<p class="notification is-warning">No results generated.</p>';
         return;
       }
       box.innerHTML = results.map(r => `
         <div class="result-card">
-          <button class="copy-btn" data-copy="${r.latin}" title="Copy toponym">📋 Copy</button>
+          <button class="copy-btn" data-copy="${r.latin}" title="Copy">📋 Copy</button>
           <div class="toponym-latin">${r.latin}</div>
           <div class="toponym-scripts">
             <span class="toponym-char">${r.chars}</span>
             ${r.ask ? `<span class="scripts-sep">/</span><span class="toponym-ask">${r.ask}</span>` : ''}
           </div>
-          <div class="morpheme-breakdown" style="margin-top:0.3rem;flex-wrap:wrap;display:flex;gap:0.1rem">
+          <div class="morpheme-breakdown" style="margin-top:.3rem;flex-wrap:wrap;display:flex;gap:.1rem">
             ${r.parts.map(p =>
               `<span class="morpheme-pill">
                 <span class="pill-char">${p.char}</span>
@@ -638,68 +572,230 @@
           <div class="toponym-gloss">${r.gloss}</div>
         </div>
       `).join('');
-
       box.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           navigator.clipboard.writeText(btn.dataset.copy).then(() => {
             const orig = btn.textContent;
-            btn.textContent = '\u2705 Copied!';
+            btn.textContent = '✅ Copied!';
             setTimeout(() => { btn.textContent = orig; }, 1800);
           });
         });
       });
     }
 
-    // ── Reference table ──────────────────────────────────────────────
-    function buildRefTable(data) {
-      const tbody = document.getElementById('refTableBody');
+    // ═══════════════════════════════════════════════════════════════
+    // TOPONYM LOGIC
+    // ═══════════════════════════════════════════════════════════════
+    function buildToponym(morphemes, rand) {
+      const parts = morphemes.map(m => {
+        const pool = m.readings.filter(r => cleanReading(r).length > 0);
+        if (!pool.length) return null;
+        return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
+      }).filter(Boolean);
+      if (!parts.length) return null;
+
+      if (parts.length === 2)
+        parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
+      for (let i = 0; i < parts.length - 1; i++) {
+        const [, nn] = applyJunctionSandhi(parts[i].read, parts[i+1].read);
+        parts[i+1].read = nn;
+      }
+      const surfaceReads = applyVowelHarmony(parts);
+      let latinRaw = '';
+      for (let i = 0; i < parts.length; i++) {
+        let r = surfaceReads[i];
+        const prob = (i === 0) ? 0.50 : 0.30;
+        if (!LOGICAL_CATS.has(parts[i].cat) && /ae$/i.test(r) && rand() < prob)
+          r = r.slice(0,-1) + 'ke';
+        latinRaw += r;
+      }
+      const latin = cap(latinRaw);
+      const chars = parts.map(p => p.char).join('');
+      const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
+      const ask   = (typeof toAskaozaText === 'function') ? toAskaozaText(latin.toLowerCase()) : '';
+      return { latin, chars, ask, gloss, parts };
+    }
+
+    let DB_TOPONYM = null;
+
+    function generateToponym() {
+      if (!DB_TOPONYM) return;
+      const geoType    = document.getElementById('geoType').value;
+      const morphCount = document.getElementById('morphCount').value;
+      const modType    = document.getElementById('modifierType').value;
+      const count      = parseInt(document.getElementById('resultCount').value, 10);
+      const seedRaw    = document.getElementById('seedInput').value.trim();
+      const seed       = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
+      const rand       = mulberry32(seed);
+
+      document.getElementById('seedDisplay').textContent = '🎲 Seed: ' + seed;
+      document.getElementById('seedInput').placeholder = '' + seed;
+
+      const all = DB_TOPONYM.byakuzhi;
+      const headPool = geoType === 'any'
+        ? all.filter(b => b.readings.length > 0)
+        : all.filter(b => b.cat === geoType && b.readings.length > 0);
+
+      if (!headPool.length) {
+        document.getElementById('resultsBox').innerHTML =
+          '<p class="notification is-warning">No byakuzhi found for this combination.</p>';
+        return;
+      }
+      const dirPool  = all.filter(b => b.cat === 'direction' && b.readings.length > 0);
+      const modPool  = all.filter(b => b.cat === 'modifier'  && b.readings.length > 0);
+      const descPool = all.filter(b =>
+        ['color','weather','season','relief','vegetation'].includes(b.cat) && b.readings.length > 0);
+
+      const results = [];
+      for (let i = 0; i < count; i++) {
+        const n = morphCount === 'random' ? (2 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
+        const morphemes = [];
+        if (modType === 'direction') morphemes.push(pick(dirPool, rand));
+        else if (modType === 'modifier') morphemes.push(pick(modPool, rand));
+        else if (modType === 'random' && rand() > 0.5)
+          morphemes.push(pick(rand() > 0.5 ? dirPool : modPool, rand));
+        const descSlots = Math.max(0, n - morphemes.length - 1);
+        for (let j = 0; j < descSlots; j++) morphemes.push(pick(descPool, rand));
+        morphemes.push(pick(headPool, rand));
+        const result = buildToponym(morphemes, rand);
+        if (result) results.push(result);
+      }
+      renderResults(results, 'resultsBox');
+    }
+
+    function buildRefTable(data, tbodyId, btnWrapId) {
+      const tbody = document.getElementById(tbodyId);
       const cats  = [...new Set(data.map(b => b.cat))].sort();
-      const btnWrap = document.getElementById('catFilterButtons');
+      const btnWrap = document.getElementById(btnWrapId);
       btnWrap.innerHTML =
-        '<button class="button is-small is-light" data-cat="all" style="margin:0.2rem">All</button>' +
+        '<button class="button is-small is-light" data-cat="all" style="margin:.2rem">All</button>' +
         cats.map(c =>
-          `<button class="button is-small" data-cat="${c}" style="margin:0.2rem;background:none;border:none;padding:0.1rem">
+          `<button class="button is-small" data-cat="${c}" style="margin:.2rem;background:none;border:none;padding:.1rem">
              <span class="tag-cat cat-${c}">${c}</span>
            </button>`
         ).join('');
-
-      let activeFilter = 'all';
-      function renderTable(filter) {
-        const rows = filter === 'all' ? data : data.filter(b => b.cat === filter);
-        tbody.innerHTML = rows.map(b => `
-          <tr>
+      let active = 'all';
+      function render(f) {
+        const rows = f === 'all' ? data : data.filter(b => b.cat === f);
+        tbody.innerHTML = rows.map(b =>
+          `<tr>
             <td class="char-cell">${b.char}</td>
             <td>${b.meaning}</td>
-            <td>${b.readings.slice(0, 4).join(' \u00b7 ')}</td>
+            <td>${b.readings.slice(0,4).join(' · ')}</td>
             <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
-          </tr>
-        `).join('');
+          </tr>`
+        ).join('');
       }
-
       btnWrap.querySelectorAll('[data-cat]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          activeFilter = btn.dataset.cat;
-          renderTable(activeFilter);
-        });
+        btn.addEventListener('click', () => { active = btn.dataset.cat; render(active); });
       });
-      renderTable('all');
+      render('all');
     }
 
     fetch('/izaki-dictionary/data/placename-byakuzhi.json')
       .then(r => r.json())
-      .then(data => {
-        DB = data;
-        buildRefTable(data.byakuzhi);
-      })
+      .then(data => { DB_TOPONYM = data; buildRefTable(data.byakuzhi, 'refTableBody', 'catFilterButtons'); })
       .catch(() => {
         document.getElementById('resultsBox').innerHTML =
-          '<p class="notification is-danger">Could not load byakuzhi database. Make sure <code>data/placename-byakuzhi.json</code> exists.</p>';
+          '<p class="notification is-danger">Could not load <code>data/placename-byakuzhi.json</code>.</p>';
       });
 
-    document.getElementById('generateBtn').addEventListener('click', generate);
+    document.getElementById('generateBtn').addEventListener('click', generateToponym);
     document.getElementById('seedInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') generate();
+      if (e.key === 'Enter') generateToponym();
     });
+
+
+    // ═══════════════════════════════════════════════════════════════
+    // TEMPLE LOGIC
+    // ═══════════════════════════════════════════════════════════════
+    function buildTempleName(bodyMorphemes, suffixMorph, rand) {
+      const allMorphemes = [...bodyMorphemes, suffixMorph];
+      const parts = allMorphemes.map(m => {
+        const pool = m.readings.filter(r => cleanReading(r).length > 0);
+        if (!pool.length) return null;
+        return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
+      }).filter(Boolean);
+      if (!parts.length) return null;
+
+      if (parts.length >= 2)
+        parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
+      for (let i = 0; i < parts.length - 1; i++) {
+        const [, nn] = applyJunctionSandhi(parts[i].read, parts[i+1].read);
+        parts[i+1].read = nn;
+      }
+      const surface = applyVowelHarmony(parts);
+      let latinRaw = '';
+      for (let i = 0; i < parts.length; i++) {
+        let r = surface[i];
+        if (parts[i].cat !== 'suffix') {
+          const prob = (i === 0) ? 0.50 : 0.30;
+          if (/ae$/i.test(r) && rand() < prob) r = r.slice(0,-1) + 'ke';
+        }
+        latinRaw += r;
+      }
+      const latin = cap(latinRaw);
+      const chars = parts.map(p => p.char).join('');
+      const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
+      const ask   = (typeof toAskaozaText === 'function') ? toAskaozaText(latin.toLowerCase()) : '';
+      return { latin, chars, ask, gloss, parts };
+    }
+
+    let DB_TEMPLE = null;
+
+    function generateTemple() {
+      if (!DB_TEMPLE) return;
+      const suffixType   = document.getElementById('t-suffixType').value;
+      const morphCount   = document.getElementById('t-morphCount').value;
+      const bodyCategory = document.getElementById('t-bodyCategory').value;
+      const count        = parseInt(document.getElementById('t-resultCount').value, 10);
+      const seedRaw      = document.getElementById('t-seedInput').value.trim();
+      const seed         = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
+      const rand         = mulberry32(seed);
+
+      document.getElementById('t-seedDisplay').textContent = '🎲 Seed: ' + seed;
+      document.getElementById('t-seedInput').placeholder = '' + seed;
+
+      const all = DB_TEMPLE.byakuzhi;
+      const suffixPool = all.filter(b => b.cat === 'suffix');
+      const bodyAll    = all.filter(b => b.cat !== 'suffix' && b.readings.length > 0);
+      const bodyPool   = bodyCategory === 'any' ? bodyAll : bodyAll.filter(b => b.cat === bodyCategory);
+
+      if (!bodyPool.length || !suffixPool.length) {
+        document.getElementById('t-resultsBox').innerHTML =
+          '<p class="notification is-warning">No byakuzhi found.</p>';
+        return;
+      }
+      const suffixFiltered = suffixType === 'any'
+        ? suffixPool
+        : suffixPool.filter(b => b.readings.includes(suffixType));
+      const usedSuffixPool = suffixFiltered.length ? suffixFiltered : suffixPool;
+
+      const results = [];
+      for (let i = 0; i < count; i++) {
+        const n = morphCount === 'random' ? (1 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
+        const body = [];
+        for (let j = 0; j < n; j++) body.push(pick(bodyPool, rand));
+        const suffix = pick(usedSuffixPool, rand);
+        const r = buildTempleName(body, suffix, rand);
+        if (r) results.push(r);
+      }
+      renderResults(results, 't-resultsBox');
+    }
+
+    fetch('/izaki-dictionary/data/temple-byakuzhi.json')
+      .then(r => r.json())
+      .then(data => { DB_TEMPLE = data; buildRefTable(data.byakuzhi, 't-refTableBody', 't-catFilterButtons'); })
+      .catch(() => {
+        document.getElementById('t-resultsBox').innerHTML =
+          '<p class="notification is-danger">Could not load <code>data/temple-byakuzhi.json</code>.</p>';
+      });
+
+    document.getElementById('t-generateBtn').addEventListener('click', generateTemple);
+    document.getElementById('t-seedInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') generateTemple();
+    });
+
   })();
   </script>
 </body>
