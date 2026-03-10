@@ -66,12 +66,6 @@
     }
 
     /* ── Hero with antique map watermark ───────────────────────────── */
-    /*
-      Map: "Imperii Sinarum nova descriptio", Joan Blaeu, 1655
-      Source: Wikimedia Commons (public domain)
-      Hotlink via Special:Redirect (canonical Wikimedia hotlink method)
-      https://commons.wikimedia.org/wiki/File:Imperii_Sinarum_nova_descriptio_-_btv1b53179352v_(1_of_2).jpg
-    */
     .hero.is-link.hero-map {
       background-image:
         linear-gradient(
@@ -124,7 +118,6 @@
       color: var(--tp-text);
       letter-spacing: 0.01em;
     }
-    /* Scripts row: byakuzhi + separator + askaoza side by side */
     .toponym-scripts {
       display: flex;
       align-items: baseline;
@@ -392,6 +385,8 @@
   <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
   <script>
   (function () {
+
+    // ── PRNG ────────────────────────────────────────────────────────
     function mulberry32(seed) {
       return function () {
         seed |= 0; seed = seed + 0x6D2B79F5 | 0;
@@ -407,11 +402,76 @@
     }
     function pick(arr, rand) { return arr[Math.floor(rand() * arr.length)]; }
 
+    // ── Helpers ─────────────────────────────────────────────────────
     function cleanReading(r) {
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
     function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
+    // ── Compound voicing sandhi ──────────────────────────────────────
+    // Voicing map: voiceless onset → voiced onset (romaji)
+    const VOICING = {
+      'ch': 'j',
+      'sh': 'zh',
+      'ts': 'dz',
+      'k':  'g',
+      'p':  'b',
+      's':  'z',
+      't':  'd',
+      'f':  'v',
+      'h':  'h'   // h has no voiced counterpart in the system; blocked
+    };
+    // Voiced onsets (used to check the 2nd consonant of the 1st byakuzhi)
+    const VOICED_ONSETS = new Set(['g','b','z','d','v','j','zh','dz','n','m','l','r']);
+
+    // Extract the onset of a CVCV syllable string (handles 3-char and 2-char digraphs)
+    function getOnset(s) {
+      if (s.startsWith('ch') || s.startsWith('sh') || s.startsWith('ts') ||
+          s.startsWith('dz') || s.startsWith('zh')) return s.slice(0, 2);
+      if (s.startsWith('cch')) return 'cch'; // geminate — won't match CVCV anyway
+      return s[0] || '';
+    }
+
+    // Check that a reading is strictly CVCV (2 CV syllables, no coda, no long vowels)
+    // Vowels: a e i o u ü  — long vowels (macron) excluded intentionally
+    const VOWEL = '[aeiouyü]';
+    const C_PAT = '(?:ch|sh|ts|dz|zh|[kgpbsztdfvhnmlrj])';
+    const CVCV_RE = new RegExp('^' + C_PAT + VOWEL + C_PAT + VOWEL + '$', 'i');
+
+    /**
+     * Given the reads of exactly 2 byakuzhi, applies compound voicing to
+     * the onset of the second element if:
+     *   1. Both readings match CVCV
+     *   2. The 2nd consonant (onset of 2nd syllable) of the 1st byakuzhi
+     *      is NOT already voiced
+     *   3. The onset of the 2nd byakuzhi has a voiced counterpart in VOICING
+     *      (and is not already voiced)
+     * Returns the (possibly modified) reading for the second byakuzhi.
+     */
+    function applyCompoundVoicing(read1, read2) {
+      const r1 = read1.toLowerCase();
+      const r2 = read2.toLowerCase();
+      if (!CVCV_RE.test(r1) || !CVCV_RE.test(r2)) return read2;
+
+      // Find the onset of the 2nd syllable of r1 (= consonant after the first vowel)
+      const firstVowelIdx1 = r1.search(/[aeiouyü]/i);
+      if (firstVowelIdx1 < 0) return read2;
+      const afterFirstVowel1 = r1.slice(firstVowelIdx1 + 1); // e.g. "ka" → "ta" remaining
+      const onset2ofR1 = getOnset(afterFirstVowel1);
+
+      // Block if that consonant is already voiced
+      if (VOICED_ONSETS.has(onset2ofR1)) return read2;
+
+      // Get onset of r2 and voice it if possible
+      const onsetR2 = getOnset(r2);
+      const voiced  = VOICING[onsetR2];
+      // Block if onset is already voiced, or no mapping exists, or mapping is same (h→h)
+      if (!voiced || voiced === onsetR2) return read2;
+
+      return voiced + r2.slice(onsetR2.length);
+    }
+
+    // ── Build toponym ────────────────────────────────────────────────
     function buildToponym(morphemes, rand) {
       const parts = morphemes.map(m => {
         const pool = m.readings.filter(r => cleanReading(r).length > 0);
@@ -419,16 +479,22 @@
         return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
       }).filter(Boolean);
       if (!parts.length) return null;
+
+      // Apply compound voicing sandhi when exactly 2 byakuzhi
+      if (parts.length === 2) {
+        parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
+      }
+
       const latin = cap(parts.map(p => p.read).join(''));
       const chars = parts.map(p => p.char).join('');
       const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
-      // Askaoza: feed the lowercase romaji form to the engine
-      const ask = (typeof toAskaozaText === 'function')
+      const ask   = (typeof toAskaozaText === 'function')
         ? toAskaozaText(latin.toLowerCase())
         : '';
       return { latin, chars, ask, gloss, parts };
     }
 
+    // ── Generate ─────────────────────────────────────────────────────
     let DB = null;
 
     function generate() {
@@ -480,6 +546,7 @@
       renderResults(results);
     }
 
+    // ── Render ───────────────────────────────────────────────────────
     function renderResults(results) {
       const box = document.getElementById('resultsBox');
       if (!results.length) {
@@ -519,6 +586,7 @@
       });
     }
 
+    // ── Reference table ──────────────────────────────────────────────
     function buildRefTable(data) {
       const tbody = document.getElementById('refTableBody');
       const cats  = [...new Set(data.map(b => b.cat))].sort();
