@@ -199,8 +199,21 @@
 
     const playBtn  = document.getElementById('playBtn');
     const statusEl = document.getElementById('status');
-    const SAMPLE_RATE = 44100;
+
+    // eSpeak-ng produce PCM Int16 Little-Endian mono.
+    // Usiamo Web Audio API per evitare di indovinare il sample rate:
+    // convertiamo Int16 -> Float32 e creiamo un AudioBuffer con il rate corretto.
+    // Il sample rate di questa build è 22050 Hz (standard per eSpeak-ng).
+    // Web Audio API accetta AudioBuffer con qualsiasi sampleRate e lo riproduce correttamente.
+    const ESPEAK_RATE = 22050;
     const END_TIMEOUT_MS = 300;
+
+    // AudioContext condiviso
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
 
     function mergeChunks(chunks) {
       const total = chunks.reduce((s, b) => s + b.byteLength, 0);
@@ -210,39 +223,27 @@
       return new Int16Array(merged.buffer);
     }
 
-    function pcmToWav(pcm, sampleRate) {
-      const dataSize = pcm.length * 2;
-      const buf = new ArrayBuffer(44 + dataSize);
-      const v = new DataView(buf);
-      const w = (o, s) => { for(let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); };
-      w(0,'RIFF'); v.setUint32(4, 36+dataSize, true);
-      w(8,'WAVE'); w(12,'fmt ');
-      v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
-      v.setUint32(24,sampleRate,true); v.setUint32(28,sampleRate*2,true);
-      v.setUint16(32,2,true); v.setUint16(34,16,true);
-      w(36,'data'); v.setUint32(40,dataSize,true);
-      new Int16Array(buf,44).set(pcm);
-      return new Blob([buf], {type:'audio/wav'});
-    }
-
-    function playBlob(blob) {
-      const url = URL.createObjectURL(blob);
-      const audio = new Audio(url);
-      audio.onended = () => {
-        URL.revokeObjectURL(url);
-        playBtn.disabled = false; playBtn.textContent = '🔊 Play';
+    // Converte Int16Array PCM in AudioBuffer Float32 e riproduce
+    function playPCM(pcmInt16, sampleRate) {
+      const ctx = getAudioCtx();
+      const numSamples = pcmInt16.length;
+      const audioBuf = ctx.createBuffer(1, numSamples, sampleRate);
+      const f32 = audioBuf.getChannelData(0);
+      // Int16 -> Float32 normalizzato [-1, 1]
+      for (let i = 0; i < numSamples; i++) {
+        f32[i] = pcmInt16[i] / 32768.0;
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = audioBuf;
+      src.connect(ctx.destination);
+      src.onended = () => {
+        playBtn.disabled = false;
+        playBtn.textContent = '🔊 Play';
         statusEl.textContent = '';
       };
-      audio.onerror = () => {
-        statusEl.textContent = '❌ Playback error';
-        playBtn.disabled = false; playBtn.textContent = '🔊 Play';
-      };
-      const p = audio.play();
-      if (p && p.catch) p.catch(e => {
-        dbg('play() rejected: ' + e);
-        statusEl.textContent = '❌ ' + e;
-        playBtn.disabled = false; playBtn.textContent = '🔊 Play';
-      });
+      src.start();
+      dbg('AudioContext playing ' + numSamples + ' samples @ ' + sampleRate + 'Hz = '
+        + (numSamples / sampleRate).toFixed(2) + 's');
     }
 
     let tts = null;
@@ -272,6 +273,10 @@
       const raw = inputEl.value.trim();
       if (!raw) return;
 
+      // Resume AudioContext se sospeso (policy browser)
+      const ctx = getAudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+
       const espText = toEspeak(raw);
       dbg('Synthesizing: ' + espText);
       playBtn.disabled = true;
@@ -290,14 +295,14 @@
               if (done) return;
               done = true;
               const totalBytes = chunks.reduce((s,b) => s+b.byteLength, 0);
-              const durationS  = (totalBytes / 2 / SAMPLE_RATE).toFixed(2);
-              dbg('Playing ' + chunks.length + ' chunks, ' + totalBytes + 'B → ' + durationS + 's @ ' + SAMPLE_RATE + 'Hz');
+              dbg('Stream end: ' + chunks.length + ' chunks, ' + totalBytes + ' bytes');
               if (chunks.length === 0) {
                 statusEl.textContent = '⚠️ No audio received';
                 playBtn.disabled = false; playBtn.textContent = '🔊 Play';
                 return;
               }
-              playBlob(pcmToWav(mergeChunks(chunks), SAMPLE_RATE));
+              const pcm = mergeChunks(chunks);
+              playPCM(pcm, ESPEAK_RATE);
             }
 
             tts.synthesize(espText, function(samples, events) {
