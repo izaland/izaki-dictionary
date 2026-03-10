@@ -87,14 +87,14 @@ const ASKAOZA_DIPH = {
 
 // Compound vowels (hiatus) - AS DIACRITICS
 const ASKAOZA_COMPOUND = {
-  'ai': '઩',      // ✅ DIACRITIC (not ૮઩)
-  'ae': '઩ૅ',
-  'ei': 'ૅ઩',
-  'eu': 'ૅ઩ે',
-  'oe': '૾઩ૅ',
-  'oi': '૾઩',
-  'ou': '૾઩ે',
-  'ui': 'ે઩'
+  'ai': '૩',       // ◌૩
+  'ae': '૩ૅ',      // ◌૩ૅ
+  'ei': 'ૅ૩',      // ◌ૅ૩
+  'eu': 'ૅ૩ે',     // ◌ૅ૩ે
+  'oe': '૾૩ૅ',     // ◌૾૩ૅ
+  'oi': '૾૩',      // ◌૾૩
+  'ou': '૾૩ે',     // ◌૾૩ે
+  'ui': 'ે૩'       // ◌ે૩
 };
 
 // Length mark
@@ -310,28 +310,34 @@ function parseWordToSyllables(word) {
         const finalCandidates = ['kk', 'n', 'l', 's', 'r', 'h'];
         const cand = finalCandidates.find(fc => look && look.startsWith(fc));
 
-        if (cand) {
-          const afterCodaIndex = i + cand.length;
-          
-          if (afterCodaIndex < group.length) {
-            const wouldFormDigraph = DIGRAPHS.some(dg => dg.startsWith(cand) && group.slice(i, i + dg.length) === dg);
-            
-            if (!wouldFormDigraph && !/[aeiouyü\u0101\u0113\u012b\u014d\u016b]/.test(group[afterCodaIndex])) {
-              coda = cand;
-              i = afterCodaIndex;
-            }
-          } else {
-            coda = cand;
-            i = afterCodaIndex;
-          }
-        }
-      } else if (!nucleus && onset) {
-        const finalCandidates = ['kk', 'n', 'l', 's', 'r', 'h'];
-        if (finalCandidates.includes(onset)) {
-          coda = onset;
-          onset = '';
-        }
-      }
+     if (cand) {
+  const afterCodaIndex = i + cand.length;
+  
+  if (afterCodaIndex < group.length) {
+    const nextChar = group[afterCodaIndex];
+    const wouldFormDigraph = DIGRAPHS.some(dg => dg.startsWith(cand) && group.slice(i, i + dg.length) === dg);
+    
+    // ✅ NUOVO: controlla se forma una geminata
+    const GEMINATES = ['ss', 'nn', 'll', 'kk', 'pp', 'tt', 'cch', 'ssh', 'tts'];
+    const doubleCandidate = group.slice(i, i + cand.length * 2);
+    const wouldFormGeminate = GEMINATES.includes(doubleCandidate);
+    
+    if (!wouldFormDigraph && !wouldFormGeminate && !/[aeiouyü\u0101\u0113\u012b\u014d\u016b]/.test(nextChar)) {
+      coda = cand;
+      i = afterCodaIndex;
+    }
+  } else {
+    coda = cand;
+    i = afterCodaIndex;
+  }
+} else if (!nucleus && onset) {
+  const finalCandidates = ['kk', 'n', 'l', 's', 'r', 'h'];
+  if (finalCandidates.includes(onset)) {
+    coda = onset;
+    onset = '';
+  }
+}
+
 
       if (!onset && !nucleus && !coda) {
         res.push({ onset: '', nucleus: group[i], coda: '' });
