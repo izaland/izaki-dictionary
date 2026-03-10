@@ -9,128 +9,184 @@
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
 
   <style>
+    /* ── Theme variables ───────────────────────────────────────────── */
+    html[data-theme="light"] {
+      --tp-card-bg:        #ffffff;
+      --tp-card-border:    #dee2e6;
+      --tp-controls-bg:    #ffffff;
+      --tp-ref-bg:         #f8f9fa;
+      --tp-text:           #1a1a1a;
+      --tp-text-sec:       #6c757d;
+      --tp-text-char:      #2a2a2a;
+      --tp-pill-bg:        #f0f0f0;
+      --tp-pill-border:    #d8d8d8;
+      --tp-copy-border:    #ccc;
+      --tp-copy-color:     #555;
+      --tp-copy-hover:     #e8e8e8;
+      --tp-seed-color:     #888;
+
+      /* category pill — light */
+      --cat-modifier-bg:   #eeeeee;  --cat-modifier-fg:   #444444;
+      --cat-direction-bg:  #fef3cd;  --cat-direction-fg:  #856404;
+      --cat-relief-bg:     #d4edda;  --cat-relief-fg:     #155724;
+      --cat-water-bg:      #cce5ff;  --cat-water-fg:      #004085;
+      --cat-vegetation-bg: #d4edda;  --cat-vegetation-fg: #155724;
+      --cat-settlement-bg: #f8d7da;  --cat-settlement-fg: #721c24;
+      --cat-sacred-bg:     #e2d9f3;  --cat-sacred-fg:     #4a235a;
+      --cat-color-bg:      #fff3cd;  --cat-color-fg:      #856404;
+      --cat-weather-bg:    #d6eaf8;  --cat-weather-fg:    #1a5276;
+      --cat-season-bg:     #fde8d8;  --cat-season-fg:     #784212;
+      --cat-fauna-bg:      #d5f5e3;  --cat-fauna-fg:      #1e8449;
+      --cat-land-bg:       #f9ebde;  --cat-land-fg:       #784212;
+    }
+    html[data-theme="dark"] {
+      --tp-card-bg:        #2a2a32;
+      --tp-card-border:    #3e3e4a;
+      --tp-controls-bg:    #2a2a32;
+      --tp-ref-bg:         #232328;
+      --tp-text:           #e5e7eb;
+      --tp-text-sec:       #9ca3af;
+      --tp-text-char:      #d1d5db;
+      --tp-pill-bg:        #383845;
+      --tp-pill-border:    #4a4a5a;
+      --tp-copy-border:    #4a4a5a;
+      --tp-copy-color:     #bbb;
+      --tp-copy-hover:     #3a3a48;
+      --tp-seed-color:     #9ca3af;
+
+      /* category pill — dark: muted tints, readable fg */
+      --cat-modifier-bg:   #3a3a3a;  --cat-modifier-fg:   #cccccc;
+      --cat-direction-bg:  #3d3318;  --cat-direction-fg:  #f5d97a;
+      --cat-relief-bg:     #1a2e1f;  --cat-relief-fg:     #6fcf8a;
+      --cat-water-bg:      #0f2340;  --cat-water-fg:      #7ec8f5;
+      --cat-vegetation-bg: #1a2e1f;  --cat-vegetation-fg: #6fcf8a;
+      --cat-settlement-bg: #2e1a1a;  --cat-settlement-fg: #f5a0a0;
+      --cat-sacred-bg:     #26173a;  --cat-sacred-fg:     #c8a8f0;
+      --cat-color-bg:      #3d3318;  --cat-color-fg:      #f5d97a;
+      --cat-weather-bg:    #112233;  --cat-weather-fg:    #90caf9;
+      --cat-season-bg:     #3a2010;  --cat-season-fg:     #f5b97a;
+      --cat-fauna-bg:      #0f2a1a;  --cat-fauna-fg:      #6fefaa;
+      --cat-land-bg:       #2a1a0f;  --cat-land-fg:       #e8b87a;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────────── */
     .hero .title { line-height: 1.2; margin-bottom: 0 !important; padding-bottom: 1.6rem; }
     .hero .title .subtitle-ja { display: block; margin-top: 0.65rem; font-size: 0.68em; opacity: 0.96; }
-    .hero .title + .subtitle { margin-top: 0 !important; line-height: 1.45; }
+    .hero .title + .subtitle  { margin-top: 0 !important; line-height: 1.45; }
     .hero .subtitle .subtitle-ja { display: block; margin-top: 0.35rem; }
 
+    /* ── Result card ───────────────────────────────────────────────── */
     .result-card {
-      border: 1px solid var(--border, #dee2e6);
+      border: 1px solid var(--tp-card-border);
       border-radius: 12px;
       padding: 1.25rem 1.5rem;
       margin-bottom: 0.85rem;
-      background: var(--panel, #fff);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      background: var(--tp-card-bg);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.3rem;
       position: relative;
     }
     .result-card .toponym-latin {
       font-size: 1.45rem;
       font-weight: 700;
-      color: var(--text-primary, #1a1a1a);
+      color: var(--tp-text);
       letter-spacing: 0.01em;
     }
     .result-card .toponym-char {
-      font-size: 1.25rem;
-      color: #4a4a4a;
-      letter-spacing: 0.1em;
+      font-size: 1.3rem;
+      color: var(--tp-text-char);
+      letter-spacing: 0.12em;
+      opacity: 0.9;
     }
     .result-card .toponym-gloss {
       font-size: 0.88rem;
-      color: var(--text-secondary, #6c757d);
-      margin-top: 0.15rem;
+      color: var(--tp-text-sec);
+      margin-top: 0.2rem;
     }
-    .result-card .toponym-type {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 0.15rem 0.55rem;
-      border-radius: 999px;
-      background: #e8f4fd;
-      color: #2a6ebb;
-      margin-top: 0.3rem;
-      align-self: flex-start;
-    }
+
+    /* ── Copy button ───────────────────────────────────────────────── */
     .copy-btn {
       position: absolute;
       top: 0.75rem;
       right: 0.75rem;
       background: none;
-      border: 1px solid #ddd;
+      border: 1px solid var(--tp-copy-border);
       border-radius: 6px;
       cursor: pointer;
       padding: 0.2rem 0.55rem;
       font-size: 0.78rem;
-      color: #666;
+      color: var(--tp-copy-color);
+      transition: background 0.15s;
     }
-    .copy-btn:hover { background: #f0f0f0; }
+    .copy-btn:hover { background: var(--tp-copy-hover); }
 
+    /* ── Controls & results boxes ──────────────────────────────────── */
     .controls-box {
       max-width: 760px;
       margin: 0 auto 2rem;
       padding: 1.5rem;
-      border: 1px solid var(--border, #dee2e6);
+      border: 1px solid var(--tp-card-border);
       border-radius: 12px;
-      background: var(--panel, #fff);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background: var(--tp-controls-bg);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-    .results-box {
-      max-width: 760px;
-      margin: 0 auto;
-    }
+    .results-box  { max-width: 760px; margin: 0 auto; }
     .seed-display {
       font-family: monospace;
       font-size: 0.82rem;
-      color: #888;
+      color: var(--tp-seed-color);
       margin-top: 0.5rem;
     }
+
+    /* ── Category pill ─────────────────────────────────────────────── */
     .tag-cat {
       display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.68rem;
+      font-weight: 700;
       text-transform: uppercase;
-      padding: 0.1rem 0.4rem;
+      letter-spacing: 0.05em;
+      padding: 0.1rem 0.45rem;
       border-radius: 4px;
-      margin-right: 0.2rem;
-      margin-bottom: 0.1rem;
     }
-    .cat-modifier  { background:#eee;    color:#555; }
-    .cat-direction { background:#fef3cd; color:#856404; }
-    .cat-relief    { background:#d4edda; color:#155724; }
-    .cat-water     { background:#cce5ff; color:#004085; }
-    .cat-vegetation{ background:#d4edda; color:#155724; }
-    .cat-settlement{ background:#f8d7da; color:#721c24; }
-    .cat-sacred    { background:#e2d9f3; color:#4a235a; }
-    .cat-color     { background:#fff3cd; color:#856404; }
-    .cat-weather   { background:#d6eaf8; color:#1a5276; }
-    .cat-season    { background:#fde8d8; color:#784212; }
-    .cat-fauna     { background:#d5f5e3; color:#1e8449; }
-    .cat-land      { background:#f9ebde; color:#784212; }
+    .cat-modifier   { background: var(--cat-modifier-bg);   color: var(--cat-modifier-fg); }
+    .cat-direction  { background: var(--cat-direction-bg);  color: var(--cat-direction-fg); }
+    .cat-relief     { background: var(--cat-relief-bg);     color: var(--cat-relief-fg); }
+    .cat-water      { background: var(--cat-water-bg);      color: var(--cat-water-fg); }
+    .cat-vegetation { background: var(--cat-vegetation-bg); color: var(--cat-vegetation-fg); }
+    .cat-settlement { background: var(--cat-settlement-bg); color: var(--cat-settlement-fg); }
+    .cat-sacred     { background: var(--cat-sacred-bg);     color: var(--cat-sacred-fg); }
+    .cat-color      { background: var(--cat-color-bg);      color: var(--cat-color-fg); }
+    .cat-weather    { background: var(--cat-weather-bg);    color: var(--cat-weather-fg); }
+    .cat-season     { background: var(--cat-season-bg);     color: var(--cat-season-fg); }
+    .cat-fauna      { background: var(--cat-fauna-bg);      color: var(--cat-fauna-fg); }
+    .cat-land       { background: var(--cat-land-bg);       color: var(--cat-land-fg); }
 
+    /* ── Morpheme pill ─────────────────────────────────────────────── */
     .morpheme-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      background: #f4f4f4;
-      border-radius: 6px;
-      padding: 0.2rem 0.6rem;
-      margin-right: 0.25rem;
+      gap: 0.35rem;
+      background: var(--tp-pill-bg);
+      border: 1px solid var(--tp-pill-border);
+      border-radius: 7px;
+      padding: 0.25rem 0.65rem;
+      margin-right: 0.3rem;
+      margin-bottom: 0.2rem;
       font-size: 0.9rem;
     }
-    .morpheme-pill .pill-char { font-size: 1.05rem; }
-    .morpheme-pill .pill-read { font-weight: 600; }
-    .morpheme-pill .pill-meaning { color: #888; font-size: 0.78rem; }
+    .morpheme-pill .pill-char    { font-size: 1.15rem; color: var(--tp-text); }
+    .morpheme-pill .pill-read    { font-weight: 600; color: var(--tp-text); }
+    .morpheme-pill .pill-meaning { color: var(--tp-text-sec); font-size: 0.78rem; }
 
+    /* ── Reference section ─────────────────────────────────────────── */
     details.reference-section {
-      border: 1px solid var(--border, #dee2e6);
+      border: 1px solid var(--tp-card-border);
       border-radius: 8px;
       padding: 0.75rem 1rem;
       margin-top: 1.5rem;
-      background: var(--panel-alt, #f8f9fa);
+      background: var(--tp-ref-bg);
       max-width: 960px;
       margin-left: auto;
       margin-right: auto;
@@ -138,11 +194,11 @@
     details.reference-section summary {
       cursor: pointer;
       font-weight: 600;
-      color: var(--text-primary, #1a1a1a);
+      color: var(--tp-text);
     }
     .ref-table-wrap { overflow-x: auto; margin-top: 1rem; }
     table.ref-table { font-size: 0.88rem; }
-    table.ref-table td, table.ref-table th { vertical-align: middle; }
+    table.ref-table td, table.ref-table th { vertical-align: middle; color: var(--tp-text); }
     table.ref-table .char-cell { font-size: 1.3rem; }
   </style>
 </head>
@@ -169,8 +225,8 @@
 
         <div class="column is-half">
           <div class="field">
-            <label class="label">Geographic type <span style="font-weight:400;color:#888">(head element)</br>
-            地理的種類 <span style="font-weight:400;color:#888">(冒頭字)</span></label>
+            <label class="label">Geographic type <span style="font-weight:400;color:var(--tp-text-sec)">(head element)</span><br>
+            地理的種類 <span style="font-weight:400;color:var(--tp-text-sec)">（冒頭字）</span></label>
             <div class="control">
               <div class="select is-fullwidth">
                 <select id="geoType">
@@ -240,7 +296,7 @@
 
         <div class="column is-full">
           <div class="field">
-            <label class="label">Seed <span style="font-weight:400;color:#888">(leave blank for random; paste a seed to reproduce a result)</span></label>
+            <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave blank for random; paste a seed to reproduce a result)</span></label>
             <div class="control">
               <input class="input" type="text" id="seedInput" placeholder="e.g. 48291">
             </div>
@@ -262,7 +318,7 @@
 
     <details class="reference-section" id="referenceSection">
       <summary>Byakuzhi reference table / 百字參考表</summary>
-      <p style="margin-top:0.75rem;font-size:0.9rem;color:#555">
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--tp-text-sec)">
         All byakuzhi in the database, grouped by semantic category. Click a category tag to filter the table.
       </p>
       <div style="margin-bottom:0.75rem" id="catFilterButtons"></div>
@@ -285,7 +341,6 @@
   <script src="/izaki-dictionary/scripts/script.js"></script>
   <script>
   (function () {
-    // ── Seeded PRNG (mulberry32) ──────────────────────────────────────────
     function mulberry32(seed) {
       return function () {
         seed |= 0; seed = seed + 0x6D2B79F5 | 0;
@@ -301,37 +356,28 @@
     }
     function pick(arr, rand) { return arr[Math.floor(rand() * arr.length)]; }
 
-    // ── Clean reading string ──────────────────────────────────────────────
     function cleanReading(r) {
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
-
-    // ── Capitalise first letter ───────────────────────────────────────────
     function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
-    // ── Build toponym from morpheme list ─────────────────────────────────
     function buildToponym(morphemes, rand) {
-      // Each morpheme: pick one reading randomly
       const parts = morphemes.map(m => {
         const pool = m.readings.filter(r => cleanReading(r).length > 0);
         if (!pool.length) return null;
         return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
       }).filter(Boolean);
-
       if (!parts.length) return null;
-
       const latin = cap(parts.map(p => p.read).join(''));
       const chars = parts.map(p => p.char).join('');
       const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
       return { latin, chars, gloss, parts };
     }
 
-    // ── Main generator ────────────────────────────────────────────────────
     let DB = null;
 
     function generate() {
       if (!DB) return;
-
       const geoType    = document.getElementById('geoType').value;
       const morphCount = document.getElementById('morphCount').value;
       const modType    = document.getElementById('modifierType').value;
@@ -340,7 +386,7 @@
       const seed       = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
       const rand       = mulberry32(seed);
 
-      document.getElementById('seedDisplay').textContent = '🎲 Seed: ' + seed;
+      document.getElementById('seedDisplay').textContent = '\uD83C\uDFB2 Seed: ' + seed;
       document.getElementById('seedInput').placeholder   = '' + seed;
 
       const all = DB.byakuzhi;
@@ -354,8 +400,8 @@
         return;
       }
 
-      const dirPool = all.filter(b => b.cat === 'direction' && b.readings.length > 0);
-      const modPool = all.filter(b => b.cat === 'modifier'  && b.readings.length > 0);
+      const dirPool  = all.filter(b => b.cat === 'direction' && b.readings.length > 0);
+      const modPool  = all.filter(b => b.cat === 'modifier'  && b.readings.length > 0);
       const descPool = all.filter(b =>
         ['color','weather','season','relief','vegetation'].includes(b.cat) && b.readings.length > 0);
 
@@ -363,8 +409,6 @@
       for (let i = 0; i < count; i++) {
         const n = morphCount === 'random' ? (2 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
         const morphemes = [];
-
-        // Optional prefix
         if (modType === 'direction') {
           morphemes.push(pick(dirPool, rand));
         } else if (modType === 'modifier') {
@@ -372,20 +416,12 @@
         } else if (modType === 'random' && rand() > 0.5) {
           morphemes.push(pick(rand() > 0.5 ? dirPool : modPool, rand));
         }
-
-        // Descriptor morphemes (fill up to n-1)
         const descSlots = Math.max(0, n - morphemes.length - 1);
-        for (let j = 0; j < descSlots; j++) {
-          morphemes.push(pick(descPool, rand));
-        }
-
-        // Head (geographic)
+        for (let j = 0; j < descSlots; j++) { morphemes.push(pick(descPool, rand)); }
         morphemes.push(pick(headPool, rand));
-
         const result = buildToponym(morphemes, rand);
         if (result) results.push(result);
       }
-
       renderResults(results);
     }
 
@@ -395,12 +431,12 @@
         box.innerHTML = '<p class="notification is-warning">No results generated.</p>';
         return;
       }
-      box.innerHTML = results.map((r, idx) => `
+      box.innerHTML = results.map(r => `
         <div class="result-card">
-          <button class="copy-btn" data-copy="${r.latin}" title="Copy toponym 地名ડ૾રાઃ">📋 Copy</button>
+          <button class="copy-btn" data-copy="${r.latin}" title="Copy toponym">📋 Copy</button>
           <div class="toponym-latin">${r.latin}</div>
           <div class="toponym-char">${r.chars}</div>
-          <div class="morpheme-breakdown">
+          <div class="morpheme-breakdown" style="margin-top:0.3rem;flex-wrap:wrap;display:flex;gap:0.1rem">
             ${r.parts.map(p =>
               `<span class="morpheme-pill">
                 <span class="pill-char">${p.char}</span>
@@ -414,28 +450,25 @@
         </div>
       `).join('');
 
-      // Copy buttons
       box.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           navigator.clipboard.writeText(btn.dataset.copy).then(() => {
             const orig = btn.textContent;
-            btn.textContent = '✅ Copied! ડ૾રાઃ済!';
+            btn.textContent = '\u2705 Copied!';
             setTimeout(() => { btn.textContent = orig; }, 1800);
           });
         });
       });
     }
 
-    // ── Reference table ───────────────────────────────────────────────────
     function buildRefTable(data) {
       const tbody = document.getElementById('refTableBody');
       const cats  = [...new Set(data.map(b => b.cat))].sort();
-
-      // Filter buttons
       const btnWrap = document.getElementById('catFilterButtons');
-      btnWrap.innerHTML = '<button class="button is-small is-light" data-cat="all" style="margin:0.2rem">All</button>' +
+      btnWrap.innerHTML =
+        '<button class="button is-small is-light" data-cat="all" style="margin:0.2rem">All</button>' +
         cats.map(c =>
-          `<button class="button is-small is-light" data-cat="${c}" style="margin:0.2rem">
+          `<button class="button is-small" data-cat="${c}" style="margin:0.2rem;background:none;border:none;padding:0.1rem">
              <span class="tag-cat cat-${c}">${c}</span>
            </button>`
         ).join('');
@@ -447,7 +480,7 @@
           <tr>
             <td class="char-cell">${b.char}</td>
             <td>${b.meaning}</td>
-            <td>${b.readings.slice(0,4).join(' · ')}</td>
+            <td>${b.readings.slice(0, 4).join(' \u00b7 ')}</td>
             <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
           </tr>
         `).join('');
@@ -459,11 +492,9 @@
           renderTable(activeFilter);
         });
       });
-
       renderTable('all');
     }
 
-    // ── Load DB and init ──────────────────────────────────────────────────
     fetch('/izaki-dictionary/data/placename-byakuzhi.json')
       .then(r => r.json())
       .then(data => {
@@ -476,8 +507,6 @@
       });
 
     document.getElementById('generateBtn').addEventListener('click', generate);
-
-    // Enter key in seed input triggers generation
     document.getElementById('seedInput').addEventListener('keydown', e => {
       if (e.key === 'Enter') generate();
     });
