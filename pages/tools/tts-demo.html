@@ -178,6 +178,9 @@
       return result;
     }
     function toIPA(t)    { return '/​' + applyMap(t, IPA_MAP) + '​/'; }
+    function toEspeak(t) { return '[[' + applyMap(t, ESP_eak) + ']]'; }
+
+    // --- fix: toEspeak usa ESP_MAP
     function toEspeak(t) { return '[[' + applyMap(t, ESP_MAP) + ']]'; }
 
     const inputEl = document.getElementById('inputText');
@@ -199,8 +202,9 @@
 
     const playBtn  = document.getElementById('playBtn');
     const statusEl = document.getElementById('status');
-    const SAMPLE_RATE = 22050;
-    // Tempo di silenzio dopo l'ultimo chunk prima di considerare lo stream finito
+
+    // eSpeak-ng WASM (questa versione) genera audio a 11025 Hz, mono, Int16 PCM
+    const SAMPLE_RATE = 11025;
     const END_TIMEOUT_MS = 300;
 
     function mergeChunks(chunks) {
@@ -290,31 +294,23 @@
             function finish() {
               if (done) return;
               done = true;
-              dbg('Stream end. chunks=' + chunks.length
-                + ' total=' + chunks.reduce((s,b) => s+b.byteLength, 0) + ' bytes');
+              const totalBytes = chunks.reduce((s,b) => s+b.byteLength, 0);
+              const durationS  = (totalBytes / 2 / SAMPLE_RATE).toFixed(2);
+              dbg('Playing ' + chunks.length + ' chunks, ' + totalBytes + 'B → ' + durationS + 's @ ' + SAMPLE_RATE + 'Hz');
               if (chunks.length === 0) {
                 statusEl.textContent = '⚠️ No audio received';
                 playBtn.disabled = false; playBtn.textContent = '🔊 Play';
                 return;
               }
-              const pcm = mergeChunks(chunks);
-              dbg('Playing ' + pcm.length + ' samples (' + (pcm.length/SAMPLE_RATE).toFixed(2) + 's)');
-              playBlob(pcmToWav(pcm, SAMPLE_RATE));
+              playBlob(pcmToWav(mergeChunks(chunks), SAMPLE_RATE));
             }
 
             tts.synthesize(espText, function(samples, events) {
               if (done) return;
-
-              // Segnale di fine esplicito
               if (samples == null) { clearTimeout(endTimer); finish(); return; }
-
-              // Chunk PCM valido
               if (samples instanceof ArrayBuffer && samples.byteLength > 0) {
                 chunks.push(samples);
-                dbg('chunk ' + chunks.length + ': ' + samples.byteLength + 'B');
               }
-
-              // Reset del timer di idle: se non arriva nulla per END_TIMEOUT_MS, consideriamo finito
               clearTimeout(endTimer);
               endTimer = setTimeout(finish, END_TIMEOUT_MS);
             });
