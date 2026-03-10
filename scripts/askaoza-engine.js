@@ -172,10 +172,7 @@ function applyInternalSandhi(word) {
     .replace(/hdz/gi, 'hts')
     .replace(/hzh/gi, 'hsh')
     .replace(/hh/gi, 'pp');
-  
-  // r + vocale → t + vocale (sandhi interno)
-  result = result.replace(/r([aeiouyü\u0101\u0113\u012b\u014d\u016b])/gi, (m, v) => 't' + v);
-  
+    
   return result;
 }
 
