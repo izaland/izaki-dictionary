@@ -411,44 +411,26 @@
     // ── Sandhi utilities ─────────────────────────────────────────────
 
     const VOICED_ONSETS = new Set(['g','b','z','d','v','j','zh','dz','n','m','l','r']);
+    const VOICING    = { 'ch':'j', 'sh':'zh', 'ts':'dz', 'k':'g', 'p':'b', 's':'z', 't':'d', 'f':'v' };
+    const S_DEVOICE  = { 'b':'p', 'v':'f', 'd':'t', 'g':'k', 'j':'ch', 'z':'s', 'dz':'ts', 'zh':'sh' };
+    const GEMINATORS = new Set(['n', 'l', 's']);
+    const LOGICAL_CATS = new Set(['direction', 'modifier']);
 
-    // Map: voiceless onset → voiced (for compound voicing)
-    const VOICING = { 'ch':'j', 'sh':'zh', 'ts':'dz', 'k':'g', 'p':'b', 's':'z', 't':'d', 'f':'v' };
-
-    // Map: s + voiced onset → devoiced onset  (mirror of applyInternalSandhi in the engine)
-    const S_DEVOICE = { 'b':'p', 'v':'f', 'd':'t', 'g':'k', 'j':'ch', 'z':'s', 'dz':'ts', 'zh':'sh' };
-
-    // Extract the onset cluster from the start of a string (handles digraphs)
     function getOnset(s) {
-      const s2 = s.slice(0, 3);
       if (['cch','ssh','tts'].some(d => s.startsWith(d))) return s.slice(0, 3);
       if (['ch','sh','ts','dz','zh'].some(d => s.startsWith(d))) return s.slice(0, 2);
       return s[0] || '';
     }
-
-    // Returns the last consonant letter(s) of a reading (the coda/final)
     function getFinal(s) {
       const m = s.match(/([^aeiouyüāēīōū]+)$/i);
       return m ? m[1].toLowerCase() : '';
     }
 
-    // Is a final consonant a vowel-trigger? (n, l, s end a byakuzhi and trigger gemination)
-    const GEMINATORS = new Set(['n', 'l', 's']);
-
-    // ── CVCV check (no coda, no long vowel, exactly 2 CV syllables) ────────
     const C_PAT  = '(?:ch|sh|ts|dz|zh|[kgpbsztdfvhnmlrj])';
     const V_PAT  = '[aeiouyü]';
     const CVCV_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
 
-    // ── Junction sandhi: operates on the boundary between two adjacent reads ──
-    //
-    // Rules applied in order:
-    //   1. Final n/l/s + vowel-initial next word → geminate (nn, ll, ss)
-    //      e.g. han + oi → han + noi → "hannoi"
-    //   2. Final s + voiced onset → devoice onset
-    //      e.g. kus + dōn → kus + tōn → "kustōn"
-    //
-    // Returns [new_tail_of_read1, new_read2] so the caller can splice them.
+    // ── Junction sandhi ──────────────────────────────────────────────
     function applyJunctionSandhi(read1, read2) {
       const r1 = read1.toLowerCase();
       const r2 = read2.toLowerCase();
@@ -456,38 +438,78 @@
       const onset2 = getOnset(r2);
       const r2StartsWithVowel = /^[aeiouyüāēīōū]/i.test(r2);
 
-      // Rule 1: gemination  (n/l/s + vowel)
-      if (GEMINATORS.has(fin) && r2StartsWithVowel) {
-        // Append the geminator to the start of read2 as its new onset consonant
-        return [read1, fin + read2];
-      }
-
-      // Rule 2: s-assimilation before voiced onset
+      if (GEMINATORS.has(fin) && r2StartsWithVowel) return [read1, fin + read2];
       if (fin === 's' && VOICED_ONSETS.has(onset2) && S_DEVOICE[onset2]) {
-        const devoiced = S_DEVOICE[onset2];
-        return [read1, devoiced + r2.slice(onset2.length)];
+        return [read1, S_DEVOICE[onset2] + r2.slice(onset2.length)];
       }
-
       return [read1, read2];
     }
 
-    // ── Compound voicing sandhi (CVCV + CVCV only) ────────────────────
+    // ── Compound voicing sandhi (CVCV + CVCV only) ───────────────────
     function applyCompoundVoicing(read1, read2) {
       const r1 = read1.toLowerCase();
       const r2 = read2.toLowerCase();
       if (!CVCV_RE.test(r1) || !CVCV_RE.test(r2)) return read2;
-
-      // Onset of 2nd syllable of r1
       const firstVowelIdx = r1.search(/[aeiouyü]/i);
       if (firstVowelIdx < 0) return read2;
       const onset2ofR1 = getOnset(r1.slice(firstVowelIdx + 1));
-      if (VOICED_ONSETS.has(onset2ofR1)) return read2; // already voiced → no sandhi
-
+      if (VOICED_ONSETS.has(onset2ofR1)) return read2;
       const onsetR2 = getOnset(r2);
       const voiced  = VOICING[onsetR2];
       if (!voiced) return read2;
-
       return voiced + r2.slice(onsetR2.length);
+    }
+
+    // ── K evanescente ────────────────────────────────────────────────
+    // Inserts 'k' between 'a' and 'e' at the end of a byakuzhi reading
+    // when: reading ends in (C)ae, byakuzhi is descriptive (not direction/modifier),
+    // and the PRNG roll passes (50% if position 0, 30% otherwise).
+    // Operates on the final concatenated latin string, not on parts.read.
+    //
+    // Returns the modified latin string.
+    function applyKEvanescente(latin, parts, rand) {
+      // We rebuild the latin position by position using original reads
+      // to know exactly where each boundary falls.
+      let result = '';
+      let cursor = 0;
+      for (let i = 0; i < parts.length; i++) {
+        const read = parts[i].read;
+        const prob = (i === 0) ? 0.50 : 0.30;
+        // Check: read ends in 'ae' (optionally preceded by a consonant cluster)
+        // and category is not logical
+        if (!LOGICAL_CATS.has(parts[i].cat) && /ae$/i.test(read) && rand() < prob) {
+          // insert 'k' before the trailing 'e'
+          result += read.slice(0, -1) + 'k' + 'e';
+        } else {
+          result += read;
+        }
+        cursor += read.length;
+      }
+      return cap(result);
+    }
+
+    // ── Armonia vocalica residua ─────────────────────────────────────
+    // (C)VCe + A-initial next byakuzhi → (C)VCa
+    // Fixed rule, no probability. Operates on parts.read[] before concatenation.
+    // Does NOT touch pill display (parts[i].read is already set for pills before
+    // buildToponym calls this; we apply it to a working copy).
+    //
+    // Returns a new array of surface reads (not mutating parts[i].read).
+    function applyVowelHarmony(parts) {
+      const surface = parts.map(p => p.read);
+      for (let i = 0; i < surface.length - 1; i++) {
+        const r1 = surface[i].toLowerCase();
+        const r2 = surface[i + 1].toLowerCase();
+        // r1 must end in (C)VCe  — i.e. consonant then vowel then consonant then e
+        // r2 first vowel must be 'a'
+        const endsInCVCe = /[aeiouyü][^aeiouyü]e$/i.test(r1);
+        const nextStartsWithA = /^[^aeiouyü]*a/i.test(r2); // first vowel in r2 is 'a'
+        if (endsInCVCe && nextStartsWithA) {
+          // replace trailing 'e' with 'a'
+          surface[i] = surface[i].slice(0, -1) + 'a';
+        }
+      }
+      return surface;
     }
 
     // ── Build toponym ────────────────────────────────────────────────
@@ -499,20 +521,35 @@
       }).filter(Boolean);
       if (!parts.length) return null;
 
-      // 1. Compound voicing sandhi (only for exactly 2 CVCV byakuzhi)
+      // 1. Compound voicing sandhi (CVCV + CVCV, exactly 2 byakuzhi)
       if (parts.length === 2) {
         parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
       }
 
-      // 2. Junction sandhi: apply pairwise at every byakuzhi boundary
-      //    Note: modifies the START of parts[i+1].read (not parts[i].read),
-      //    so pill displays stay consistent with the underlying form.
+      // 2. Junction sandhi pairwise (gemination, s-assimilation)
       for (let i = 0; i < parts.length - 1; i++) {
         const [, newNext] = applyJunctionSandhi(parts[i].read, parts[i + 1].read);
         parts[i + 1].read = newNext;
       }
 
-      const latin = cap(parts.map(p => p.read).join(''));
+      // --- From here we work on surface reads without touching pill reads ---
+
+      // 3. Armonia vocalica residua (CVCe + A → CVCa) — fixed rule
+      const surfaceReads = applyVowelHarmony(parts);
+
+      // 4. K evanescente (ae → ake, probabilistic) — uses original parts[i].read
+      //    We apply it on the surface reads array directly
+      let latinRaw = '';
+      for (let i = 0; i < parts.length; i++) {
+        let r = surfaceReads[i];
+        const prob = (i === 0) ? 0.50 : 0.30;
+        if (!LOGICAL_CATS.has(parts[i].cat) && /ae$/i.test(r) && rand() < prob) {
+          r = r.slice(0, -1) + 'ke';
+        }
+        latinRaw += r;
+      }
+
+      const latin = cap(latinRaw);
       const chars = parts.map(p => p.char).join('');
       const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
       const ask   = (typeof toAskaozaText === 'function')
