@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temple Name Generator - Izaki Dictionary</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
+  <style>
+    html[data-theme="light"] {
+      --tp-card-bg: #ffffff; --tp-card-border: #dee2e6;
+      --tp-controls-bg: #ffffff; --tp-ref-bg: #f8f9fa;
+      --tp-text: #1a1a1a; --tp-text-sec: #6c757d; --tp-text-char: #2a2a2a;
+      --tp-pill-bg: #f0f0f0; --tp-pill-border: #d8d8d8;
+      --tp-copy-border: #ccc; --tp-copy-color: #555; --tp-copy-hover: #e8e8e8;
+      --tp-seed-color: #888;
+      --cat-buddha-bg:  #e8d5f5; --cat-buddha-fg:  #4a235a;
+      --cat-virtue-bg:  #fef3cd; --cat-virtue-fg:  #7d5a00;
+      --cat-nature-bg:  #d4edda; --cat-nature-fg:  #155724;
+      --cat-cosmic-bg:  #cce5ff; --cat-cosmic-fg:  #004085;
+      --cat-suffix-bg:  #f8d7da; --cat-suffix-fg:  #721c24;
+    }
+    html[data-theme="dark"] {
+      --tp-card-bg: #2a2a32; --tp-card-border: #3e3e4a;
+      --tp-controls-bg: #2a2a32; --tp-ref-bg: #232328;
+      --tp-text: #e5e7eb; --tp-text-sec: #9ca3af; --tp-text-char: #d1d5db;
+      --tp-pill-bg: #383845; --tp-pill-border: #4a4a5a;
+      --tp-copy-border: #4a4a5a; --tp-copy-color: #bbb; --tp-copy-hover: #3a3a48;
+      --tp-seed-color: #9ca3af;
+      --cat-buddha-bg:  #26173a; --cat-buddha-fg:  #c8a8f0;
+      --cat-virtue-bg:  #3d3318; --cat-virtue-fg:  #f5d97a;
+      --cat-nature-bg:  #1a2e1f; --cat-nature-fg:  #6fcf8a;
+      --cat-cosmic-bg:  #0f2340; --cat-cosmic-fg:  #7ec8f5;
+      --cat-suffix-bg:  #2e1a1a; --cat-suffix-fg:  #f5a0a0;
+    }
+    .hero.is-link.hero-temple {
+      background-image:
+        linear-gradient(rgba(80,40,120,0.82), rgba(80,40,120,0.82)),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/640px-A_small_cup_of_coffee.JPG');
+      background-size: cover; background-position: center;
+    }
+    .hero.is-link.hero-temple .title,
+    .hero.is-link.hero-temple .subtitle { color:#fff !important; text-shadow:0 1px 6px rgba(0,0,0,.5); }
+    .hero.is-link.hero-temple { position:relative; }
+    .hero .title { line-height:1.2; margin-bottom:0 !important; padding-bottom:1.6rem; }
+    .hero .title .subtitle-ja { display:block; margin-top:.65rem; font-size:.68em; opacity:.96; }
+    .hero .title + .subtitle  { margin-top:0 !important; line-height:1.45; }
+    .hero .subtitle .subtitle-ja { display:block; margin-top:.35rem; }
+    .result-card {
+      border:1px solid var(--tp-card-border); border-radius:12px;
+      padding:1.25rem 1.5rem; margin-bottom:.85rem;
+      background:var(--tp-card-bg); box-shadow:0 2px 6px rgba(0,0,0,.08);
+      display:flex; flex-direction:column; gap:.3rem; position:relative;
+    }
+    .result-card .toponym-latin { font-size:1.45rem; font-weight:700; color:var(--tp-text); }
+    .toponym-scripts { display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap; }
+    .result-card .toponym-char { font-size:1.3rem; color:var(--tp-text-char); opacity:.9; }
+    .scripts-sep { color:var(--tp-text-sec); font-size:1rem; opacity:.5; user-select:none; }
+    .result-card .toponym-ask  { font-size:1.3rem; color:var(--tp-text-char); opacity:.9; }
+    .result-card .toponym-gloss { font-size:.88rem; color:var(--tp-text-sec); margin-top:.2rem; }
+    .copy-btn {
+      position:absolute; top:.75rem; right:.75rem; background:none;
+      border:1px solid var(--tp-copy-border); border-radius:6px;
+      cursor:pointer; padding:.2rem .55rem; font-size:.78rem;
+      color:var(--tp-copy-color); transition:background .15s;
+    }
+    .copy-btn:hover { background:var(--tp-copy-hover); }
+    .controls-box {
+      max-width:760px; margin:0 auto 2rem; padding:1.5rem;
+      border:1px solid var(--tp-card-border); border-radius:12px;
+      background:var(--tp-controls-bg); box-shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+    .results-box { max-width:760px; margin:0 auto; }
+    .seed-display { font-family:monospace; font-size:.82rem; color:var(--tp-seed-color); margin-top:.5rem; }
+    .tag-cat { display:inline-block; font-size:.68rem; font-weight:700; text-transform:uppercase;
+               letter-spacing:.05em; padding:.1rem .45rem; border-radius:4px; }
+    .cat-buddha { background:var(--cat-buddha-bg); color:var(--cat-buddha-fg); }
+    .cat-virtue { background:var(--cat-virtue-bg); color:var(--cat-virtue-fg); }
+    .cat-nature { background:var(--cat-nature-bg); color:var(--cat-nature-fg); }
+    .cat-cosmic { background:var(--cat-cosmic-bg); color:var(--cat-cosmic-fg); }
+    .cat-suffix { background:var(--cat-suffix-bg); color:var(--cat-suffix-fg); }
+    .morpheme-pill {
+      display:inline-flex; align-items:center; gap:.35rem;
+      background:var(--tp-pill-bg); border:1px solid var(--tp-pill-border);
+      border-radius:7px; padding:.25rem .65rem;
+      margin-right:.3rem; margin-bottom:.2rem; font-size:.9rem;
+    }
+    .morpheme-pill .pill-char    { font-size:1.15rem; color:var(--tp-text); }
+    .morpheme-pill .pill-read    { font-weight:600; color:var(--tp-text); }
+    .morpheme-pill .pill-meaning { color:var(--tp-text-sec); font-size:.78rem; }
+    details.reference-section {
+      border:1px solid var(--tp-card-border); border-radius:8px;
+      padding:.75rem 1rem; margin-top:1.5rem; background:var(--tp-ref-bg);
+      max-width:960px; margin-left:auto; margin-right:auto;
+    }
+    details.reference-section summary { cursor:pointer; font-weight:600; color:var(--tp-text); }
+    .ref-table-wrap { overflow-x:auto; margin-top:1rem; }
+    table.ref-table { font-size:.88rem; }
+    table.ref-table td, table.ref-table th { vertical-align:middle; color:var(--tp-text); }
+    table.ref-table .char-cell { font-size:1.3rem; }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero is-medium is-link hero-temple">
+    <div class="hero-body has-text-centered">
+      <p class="title">
+        Temple Name Generator
+        <span class="subtitle-ja">寺院名生成 &#x0AA0;&#x0AC7;&#x0A83;&#x0AA7;&#x0ACD;</span>
+      </p>
+      <p class="subtitle">
+        Generate Izaki Buddhist temple names from byakuzhi components
+        <span class="subtitle-ja">百字&#x0AEE;&#x0ABE;&#x0AA7;&#x0ACD; 寺院名&#x0AA0; 生成&#x0AA0;&#x0AC5;&#x0AA1;&#x0AC5;&#x0AA6;.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="controls-box">
+      <div class="columns is-multiline">
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Temple suffix 末尾字<br>
+            <span style="font-weight:400;color:var(--tp-text-sec)">寺 · 院 · 庵 · 堂 · 坊</span></label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="suffixType">
+                  <option value="any">Any (random)</option>
+                  <option value="ji">寺 ji — temple</option>
+                  <option value="in">院 in — cloister</option>
+                  <option value="an">庵 an — hermitage</option>
+                  <option value="do">堂 dō — hall</option>
+                  <option value="bo">坊 bō — monk quarter</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Number of body morphemes 本体形態素数<br>
+            <span style="font-weight:400;color:var(--tp-text-sec)">(excluding suffix)</span></label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="morphCount">
+                  <option value="1">1 byakuzhi</option>
+                  <option value="2" selected>2 byakuzhi</option>
+                  <option value="3">3 byakuzhi</option>
+                  <option value="random">Random (1–3)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Body category 本体種類</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="bodyCategory">
+                  <option value="any">Any mix</option>
+                  <option value="buddha">Buddha / Bodhisattva 佛</option>
+                  <option value="virtue">Virtue / Dharma 德</option>
+                  <option value="nature">Nature 自然</option>
+                  <option value="cosmic">Cosmic / Eternity 宇宙</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">How many results 結果件数</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="resultCount">
+                  <option value="5">5</option>
+                  <option value="10" selected>10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-full">
+          <div class="field">
+            <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave blank for random)</span></label>
+            <div class="control">
+              <input class="input" type="text" id="seedInput" placeholder="e.g. 12345">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:.5rem">
+        <div class="control">
+          <button class="button is-link is-medium" id="generateBtn">Generate temple names 寺院名生成</button>
+        </div>
+      </div>
+      <p class="seed-display" id="seedDisplay"></p>
+    </div>
+
+    <div class="results-box" id="resultsBox"></div>
+
+    <details class="reference-section">
+      <summary>Byakuzhi reference table / 百字參考表</summary>
+      <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
+        All temple byakuzhi in the database, grouped by semantic category.
+      </p>
+      <div style="margin-bottom:.75rem" id="catFilterButtons"></div>
+      <div class="ref-table-wrap">
+        <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
+          <thead><tr><th>Char</th><th>Meaning</th><th>Readings</th><th>Category</th></tr></thead>
+          <tbody id="refTableBody"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <script src="/izaki-dictionary/scripts/script.js"></script>
+  <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
+  <script>
+  (function(){
+
+    // ── PRNG ─────────────────────────────────────────────────────────
+    function mulberry32(seed){
+      return function(){
+        seed|=0; seed=seed+0x6D2B79F5|0;
+        var t=Math.imul(seed^seed>>>15,1|seed);
+        t=t+Math.imul(t^t>>>7,61|t)^t;
+        return ((t^t>>>14)>>>0)/4294967296;
+      };
+    }
+    function hashSeed(str){
+      let h=0;
+      for(let i=0;i<str.length;i++){h=Math.imul(31,h)+str.charCodeAt(i)|0;}
+      return Math.abs(h);
+    }
+    function pick(arr,rand){return arr[Math.floor(rand()*arr.length)];}
+    function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):s;}
+    function cleanReading(r){return r.replace(/\(.*?\)/g,'').replace(/[\s\/]+.*$/,'').trim();}
+
+    // ── Sandhi utilities ─────────────────────────────────────────────
+    const VOICED_ONSETS = new Set(['g','b','z','d','v','j','zh','dz','n','m','l','r']);
+    const VOICING    = {'ch':'j','sh':'zh','ts':'dz','k':'g','p':'b','s':'z','t':'d','f':'v'};
+    const S_DEVOICE  = {'b':'p','v':'f','d':'t','g':'k','j':'ch','z':'s','dz':'ts','zh':'sh'};
+    const GEMINATORS = new Set(['n','l','s']);
+
+    function getOnset(s){
+      if(['cch','ssh','tts'].some(d=>s.startsWith(d))) return s.slice(0,3);
+      if(['ch','sh','ts','dz','zh'].some(d=>s.startsWith(d))) return s.slice(0,2);
+      return s[0]||'';
+    }
+    function getFinal(s){
+      const m=s.match(/([^aeiouy\u00fc\u0101\u0113\u012b\u014d\u016b]+)$/i);
+      return m?m[1].toLowerCase():'';
+    }
+
+    const C_PAT='(?:ch|sh|ts|dz|zh|[kgpbsztdfvhnmlrj])';
+    const V_PAT='[aeiouy\u00fc]';
+    const CVCV_RE=new RegExp('^'+C_PAT+V_PAT+C_PAT+V_PAT+'$','i');
+
+    function applyJunctionSandhi(r1,r2){
+      const fin=getFinal(r1.toLowerCase());
+      const onset2=getOnset(r2.toLowerCase());
+      const r2V=/^[aeiouy\u00fc]/i.test(r2);
+      if(GEMINATORS.has(fin)&&r2V) return [r1,fin+r2];
+      if(fin==='s'&&VOICED_ONSETS.has(onset2)&&S_DEVOICE[onset2])
+        return [r1,S_DEVOICE[onset2]+r2.slice(onset2.length)];
+      return [r1,r2];
+    }
+    function applyCompoundVoicing(r1,r2){
+      if(!CVCV_RE.test(r1.toLowerCase())||!CVCV_RE.test(r2.toLowerCase())) return r2;
+      const idx=r1.toLowerCase().search(/[aeiouy\u00fc]/i);
+      if(idx<0) return r2;
+      const o2r1=getOnset(r1.toLowerCase().slice(idx+1));
+      if(VOICED_ONSETS.has(o2r1)) return r2;
+      const oR2=getOnset(r2.toLowerCase());
+      const v=VOICING[oR2];
+      if(!v) return r2;
+      return v+r2.slice(oR2.length);
+    }
+
+    function applyVowelHarmony(parts){
+      const surface=parts.map(p=>p.read);
+      for(let i=0;i<surface.length-1;i++){
+        const r1=surface[i].toLowerCase();
+        const r2=surface[i+1].toLowerCase();
+        if(/[aeiouy\u00fc][^aeiouy\u00fc]e$/i.test(r1)&&/^[^aeiouy\u00fc]*a/i.test(r2))
+          surface[i]=surface[i].slice(0,-1)+'a';
+      }
+      return surface;
+    }
+
+    // ── Build temple name ────────────────────────────────────────────
+    function buildTempleName(bodyMorphemes, suffixMorph, rand){
+      const allMorphemes=[...bodyMorphemes, suffixMorph];
+      const parts=allMorphemes.map(m=>{
+        const pool=m.readings.filter(r=>cleanReading(r).length>0);
+        if(!pool.length) return null;
+        return {read:cleanReading(pick(pool,rand)), char:m.char, meaning:m.meaning, cat:m.cat};
+      }).filter(Boolean);
+      if(!parts.length) return null;
+
+      // 1. Compound voicing (CVCV only, first 2 body morphemes)
+      if(parts.length>=2){
+        parts[1].read=applyCompoundVoicing(parts[0].read,parts[1].read);
+      }
+      // 2. Junction sandhi pairwise
+      for(let i=0;i<parts.length-1;i++){
+        const [,nn]=applyJunctionSandhi(parts[i].read,parts[i+1].read);
+        parts[i+1].read=nn;
+      }
+      // 3. Vowel harmony (CVCe + A → CVCa), fixed
+      const surface=applyVowelHarmony(parts);
+      // 4. K evanescente (ae → ake), 50% first, 30% others — skip suffix
+      let latinRaw='';
+      for(let i=0;i<parts.length;i++){
+        let r=surface[i];
+        if(parts[i].cat!=='suffix'){
+          const prob=(i===0)?0.50:0.30;
+          if(/ae$/i.test(r)&&rand()<prob) r=r.slice(0,-1)+'ke';
+        }
+        latinRaw+=r;
+      }
+      const latin=cap(latinRaw);
+      const chars=parts.map(p=>p.char).join('');
+      const gloss=parts.map(p=>'\u300c'+p.meaning+'\u300d').join(' + ');
+      const ask=(typeof toAskaozaText==='function')?toAskaozaText(latin.toLowerCase()):'';
+      return {latin,chars,ask,gloss,parts};
+    }
+
+    // ── Generate ─────────────────────────────────────────────────────
+    let DB=null;
+
+    function generate(){
+      if(!DB) return;
+      const suffixType   = document.getElementById('suffixType').value;
+      const morphCount   = document.getElementById('morphCount').value;
+      const bodyCategory = document.getElementById('bodyCategory').value;
+      const count        = parseInt(document.getElementById('resultCount').value,10);
+      const seedRaw      = document.getElementById('seedInput').value.trim();
+      const seed         = seedRaw?hashSeed(seedRaw):(Math.random()*0xFFFFFFFF|0);
+      const rand         = mulberry32(seed);
+      document.getElementById('seedDisplay').textContent='\uD83C\uDFB2 Seed: '+seed;
+      document.getElementById('seedInput').placeholder=''+seed;
+
+      const all=DB.byakuzhi;
+      const suffixPool=all.filter(b=>b.cat==='suffix');
+      const bodyAll=all.filter(b=>b.cat!=='suffix'&&b.readings.length>0);
+      const bodyPool=bodyCategory==='any'
+        ?bodyAll
+        :bodyAll.filter(b=>b.cat===bodyCategory);
+
+      if(!bodyPool.length||!suffixPool.length){
+        document.getElementById('resultsBox').innerHTML='<p class="notification is-warning">No byakuzhi found.</p>';
+        return;
+      }
+
+      // Filter suffix pool by chosen suffix
+      const suffixFiltered=suffixType==='any'
+        ?suffixPool
+        :suffixPool.filter(b=>b.readings.includes(suffixType));
+      const usedSuffixPool=suffixFiltered.length?suffixFiltered:suffixPool;
+
+      const results=[];
+      for(let i=0;i<count;i++){
+        const n=morphCount==='random'?(1+Math.floor(rand()*3)):parseInt(morphCount,10);
+        const body=[];
+        for(let j=0;j<n;j++) body.push(pick(bodyPool,rand));
+        const suffix=pick(usedSuffixPool,rand);
+        const r=buildTempleName(body,suffix,rand);
+        if(r) results.push(r);
+      }
+      renderResults(results);
+    }
+
+    // ── Render ───────────────────────────────────────────────────────
+    function renderResults(results){
+      const box=document.getElementById('resultsBox');
+      if(!results.length){
+        box.innerHTML='<p class="notification is-warning">No results.</p>';
+        return;
+      }
+      box.innerHTML=results.map(r=>`
+        <div class="result-card">
+          <button class="copy-btn" data-copy="${r.latin}" title="Copy">📋 Copy</button>
+          <div class="toponym-latin">${r.latin}</div>
+          <div class="toponym-scripts">
+            <span class="toponym-char">${r.chars}</span>
+            ${r.ask?`<span class="scripts-sep">/</span><span class="toponym-ask">${r.ask}</span>`:''}
+          </div>
+          <div class="morpheme-breakdown" style="margin-top:.3rem;flex-wrap:wrap;display:flex;gap:.1rem">
+            ${r.parts.map(p=>`
+              <span class="morpheme-pill">
+                <span class="pill-char">${p.char}</span>
+                <span class="pill-read">${p.read}</span>
+                <span class="pill-meaning">${p.meaning}</span>
+                <span class="tag-cat cat-${p.cat}">${p.cat}</span>
+              </span>`).join('')}
+          </div>
+          <div class="toponym-gloss">${r.gloss}</div>
+        </div>
+      `).join('');
+      box.querySelectorAll('.copy-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          navigator.clipboard.writeText(btn.dataset.copy).then(()=>{
+            const o=btn.textContent; btn.textContent='\u2705 Copied!';
+            setTimeout(()=>{btn.textContent=o;},1800);
+          });
+        });
+      });
+    }
+
+    // ── Reference table ──────────────────────────────────────────────
+    function buildRefTable(data){
+      const tbody=document.getElementById('refTableBody');
+      const cats=[...new Set(data.map(b=>b.cat))].sort();
+      const btnWrap=document.getElementById('catFilterButtons');
+      btnWrap.innerHTML='<button class="button is-small is-light" data-cat="all" style="margin:.2rem">All</button>'
+        +cats.map(c=>`<button class="button is-small" data-cat="${c}" style="margin:.2rem;background:none;border:none;padding:.1rem"><span class="tag-cat cat-${c}">${c}</span></button>`).join('');
+      let active='all';
+      function render(f){
+        const rows=f==='all'?data:data.filter(b=>b.cat===f);
+        tbody.innerHTML=rows.map(b=>`<tr><td class="char-cell">${b.char}</td><td>${b.meaning}</td><td>${b.readings.slice(0,4).join(' \u00b7 ')}</td><td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td></tr>`).join('');
+      }
+      btnWrap.querySelectorAll('[data-cat]').forEach(btn=>{
+        btn.addEventListener('click',()=>{active=btn.dataset.cat;render(active);});
+      });
+      render('all');
+    }
+
+    fetch('/izaki-dictionary/data/temple-byakuzhi.json')
+      .then(r=>r.json())
+      .then(data=>{DB=data; buildRefTable(data.byakuzhi);})
+      .catch(()=>{
+        document.getElementById('resultsBox').innerHTML=
+          '<p class="notification is-danger">Could not load <code>data/temple-byakuzhi.json</code>.</p>';
+      });
+
+    document.getElementById('generateBtn').addEventListener('click',generate);
+    document.getElementById('seedInput').addEventListener('keydown',e=>{if(e.key==='Enter')generate();});
+  })();
+  </script>
+</body>
+</html>
