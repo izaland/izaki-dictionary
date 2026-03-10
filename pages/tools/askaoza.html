@@ -9,18 +9,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600&display=block">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block&subset=gujarati">
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
 
   <style>
-    .askaoza-sample {
-      font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
-      font-size: 1.8rem;
-      line-height: 1.8;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-    }
+.askaoza-sample {
+  font-family: "Noto Sans Gujarati", "Anek Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
+  font-size: 1.8rem;
+  line-height: 2.2;          /* ← aumenta line-height per diacritici alti */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga" 1, "clig" 1, "calt" 1, "kern" 1;
+}
     .quick-table td.glyph, .quick-table th.glyph{
       font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", "Gujarati Sangam MN", system-ui, sans-serif;
       font-size: 2.25rem;
@@ -254,32 +255,34 @@
   <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
   <script src="/izaki-dictionary/scripts/script.js"></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const latinInput = document.getElementById('latinInput');
-      const clearLatin = document.getElementById('clearLatin');
-      const toAskaozaBtn = document.getElementById('toAskaozaBtn');
-      const askOut = document.getElementById('askaozaOutput');
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const latinInput = document.getElementById('latinInput');
+    const clearLatin = document.getElementById('clearLatin');
+    const askOut    = document.getElementById('askaozaOutput');
+    const askInput  = document.getElementById('askaozaInput');
+    const latOut    = document.getElementById('latinOutput');
 
-      const askInput = document.getElementById('askaozaInput');
-      const toLatBtn = document.getElementById('toLatinBtn');
-      const latOut = document.getElementById('latinOutput');
-
-      if (clearLatin && latinInput) {
-        clearLatin.addEventListener('click', function () {
-          latinInput.value = '';
-          if (toAskaozaBtn) toAskaozaBtn.click();
-        });
-      }
-
-      toAskaozaBtn.addEventListener('click', () => {
-        askOut.textContent = toAskaozaText(latinInput.value);
-      });
-
-      toLatBtn.addEventListener('click', () => {
-        latOut.textContent = askaozaToLatinText(askInput.value);
-      });
+    // Real-time Latin → Askaoza
+    latinInput.addEventListener('input', () => {
+      const converted = toAskaozaText(latinInput.value);
+      askOut.innerHTML = '<span lang="gu">' + converted + '</span>';
     });
-  </script>
+
+    // Real-time Askaoza → Latin
+    askInput.addEventListener('input', () => {
+      latOut.textContent = askaozaToLatinText(askInput.value);
+    });
+
+    // Clear button
+    if (clearLatin) {
+      clearLatin.addEventListener('click', () => {
+        latinInput.value = '';
+        askOut.innerHTML = '';
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
