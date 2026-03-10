@@ -24,8 +24,6 @@
       --tp-copy-color:     #555;
       --tp-copy-hover:     #e8e8e8;
       --tp-seed-color:     #888;
-
-      /* category pill — light */
       --cat-modifier-bg:   #eeeeee;  --cat-modifier-fg:   #444444;
       --cat-direction-bg:  #fef3cd;  --cat-direction-fg:  #856404;
       --cat-relief-bg:     #d4edda;  --cat-relief-fg:     #155724;
@@ -53,8 +51,6 @@
       --tp-copy-color:     #bbb;
       --tp-copy-hover:     #3a3a48;
       --tp-seed-color:     #9ca3af;
-
-      /* category pill — dark: muted tints, readable fg */
       --cat-modifier-bg:   #3a3a3a;  --cat-modifier-fg:   #cccccc;
       --cat-direction-bg:  #3d3318;  --cat-direction-fg:  #f5d97a;
       --cat-relief-bg:     #1a2e1f;  --cat-relief-fg:     #6fcf8a;
@@ -69,7 +65,40 @@
       --cat-land-bg:       #2a1a0f;  --cat-land-fg:       #e8b87a;
     }
 
-    /* ── Hero ──────────────────────────────────────────────────────── */
+    /* ── Hero with antique map watermark ───────────────────────────── */
+    /*
+      Map: "Imperii Sinarum nova descriptio", Joan Blaeu, 1655
+      Source: Wikimedia Commons (public domain)
+      https://commons.wikimedia.org/wiki/File:Imperii_Sinarum_nova_descriptio_-_btv1b53179352v_(1_of_2).jpg
+    */
+    .hero.is-link.hero-map {
+      background-image:
+        linear-gradient(
+          rgba(32, 86, 174, 0.80),
+          rgba(32, 86, 174, 0.80)
+        ),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Imperii_Sinarum_nova_descriptio_-_btv1b53179352v_%281_of_2%29.jpg/1280px-Imperii_Sinarum_nova_descriptio_-_btv1b53179352v_%281_of_2%29.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+    }
+    .hero.is-link.hero-map .title,
+    .hero.is-link.hero-map .subtitle {
+      color: #ffffff !important;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+    }
+    .map-credit {
+      position: absolute;
+      bottom: 0.4rem;
+      right: 0.75rem;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.55);
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+    .hero.is-link.hero-map { position: relative; }
+
+    /* ── Hero text ─────────────────────────────────────────────────── */
     .hero .title { line-height: 1.2; margin-bottom: 0 !important; padding-bottom: 1.6rem; }
     .hero .title .subtitle-ja { display: block; margin-top: 0.65rem; font-size: 0.68em; opacity: 0.96; }
     .hero .title + .subtitle  { margin-top: 0 !important; line-height: 1.45; }
@@ -206,7 +235,7 @@
 <body>
   <div id="navbar"></div>
 
-  <section class="hero is-medium is-link">
+  <section class="hero is-medium is-link hero-map">
     <div class="hero-body has-text-centered">
       <p class="title">
         Toponym Generator
@@ -217,6 +246,7 @@
         <span class="subtitle-ja">百字૮ાધ્ 華邦પ્ 地名ઠ 生成ઠૅડૅદ.</span>
       </p>
     </div>
+    <span class="map-credit">Map: <em>Imperii Sinarum nova descriptio</em>, Joan Blaeu, 1655 — Wikimedia Commons (public domain)</span>
   </section>
 
   <section class="section">
