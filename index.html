@@ -6,7 +6,6 @@
     <title>Izaki Dictionary - Home</title>
 
     <style>
-        /* Theme-aware variables for index page */
         html[data-theme="light"] {
             --index-section-bg: #f5f5f5;
             --index-box-bg: #ffffff;
@@ -126,16 +125,14 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <div id="navbar"></div>
 
-    <!-- Hero section -->
     <section class="hero is-link" style="height: 400px;">
         <div class="hero-body">
             <p class="title">
                 Welcome to Izaland 👋<br>
                 <br>
-                ૮િાઠ્ઠૅ ૮ેઠૃૅટૅડૅ 華邦:ટ્! 🫰
+                ຢິາຌ່າ ຢຳຌີທີຜີບີ 華邦:ຌ່! 🫰
             </p>
         </div>
     </section>
@@ -143,7 +140,6 @@
     <section class="section main-section">
     <div class="container content">
 
-        <!-- ABOUT SECTION -->
         <h1 class="title">About the Izaki Language Resource Site</h1>
 
         <p>
@@ -155,11 +151,11 @@
         <p>
             This platform offers a growing collection of tools, including a multilingual dictionary,
             writing-system references, and grammar resources, designed both for learners and for contributors
-            to Izaland's cultural and linguistic world.
+            to Izaland’s cultural and linguistic world.
         </p>
 
         <p>
-            Izaki is developed by Izaland's mapper <strong>ITC</strong>, shaped as an 
+            Izaki is developed by Izaland’s mapper <strong>ITC</strong>, shaped as an 
             <em>a priori</em> language with a structural blend of influences:
         </p>
 
@@ -173,7 +169,6 @@
             and cultural depth within the world of Izaland.
         </p>
 
-        <!-- SOCIOLINGUISTIC PROFILE -->
         <h2 class="subtitle">Sociolinguistic Profile</h2>
 
         <table class="table is-striped is-fullwidth">
@@ -207,18 +202,27 @@
     </div>
 </section>
 
-<!-- RELEASE LOG (tema aware) -->
 <section class="section release-log-section">
     <div class="container content">
 
         <h2 class="title">Project Release Log</h2>
 
         <div class="box">
+            <h3 class="subtitle">2026-03-12</h3>
+            <ul>
+                <li><strong>Native Izaki word list integrated</strong> — The dictionary now includes 1,120+ pure Izaki words sourced from a dedicated Google Sheets vocabulary list, alongside the existing byakuzhi-based entries.</li>
+                <li><strong>Google Sheets → GitHub sync pipeline</strong> — A new Apps Script button in the vocabulary spreadsheet allows one-click synchronisation: the sheet exports to CSV, commits to GitHub, and triggers an automatic rebuild of <code>dictionary.json</code>.</li>
+                <li><strong>Dictionary entry counter</strong> — The dictionary page now displays the total number of lemmas (native words + compounds) and the date of the last sync.</li>
+                <li><strong>TTS audio engine improved</strong> — Switched from WAV blob to Web Audio API (PCM Int16 → Float32) for cleaner eSpeak-ng playback without sample-rate artefacts.</li>
+            </ul>
+        </div>
+
+        <div class="box">
             <h3 class="subtitle">2026-03-10</h3>
             <ul>
                 <li><strong>Askaoza converter now works in real time</strong> — Live Latin → Askaoza rendering as you type.</li>
                 <li><strong>Copy buttons added</strong> — One-click copy for Askaoza output.</li>
-                <li><strong>Toponym Generator released</strong> — New tool for generating Izaki place names. <a href="/izaki-dictionary/pages/tools/toponym-generator.html">地名生成ઠેઃધ્ →</a></li>
+                <li><strong>Toponym Generator released</strong> — New tool for generating Izaki place names. <a href="/izaki-dictionary/pages/tools/toponym-generator.html">地名生成ຠຳລ່ →</a></li>
             </ul>
         </div>
 
@@ -283,22 +287,19 @@
     </div>
 </section>
 
-
-    <!-- Footer (tema aware) -->
     <footer class="theme-footer" style="padding:1rem; text-align:center; font-size:0.9rem;">
         <div>
             Izaki Dictionary – part of the <a href="https://www.opengeofiction.net/" target="_blank">Open Geo Fiction</a> project<br>
                 <br>
-            華邦辞典 – <a href="https://www.opengeofiction.net/" target="_blank">Open Geo Fiction</a> રેદોમૃૅઠ્ઠિપ્ 一部。
+            華邦辞典 – <a href="https://www.opengeofiction.net/" target="_blank">Open Geo Fiction</a> ຣຳຜໍມຜີຟ່ 一部。
         </div>
         <div>
             In cooperation with the National University of Sainðaul<br>
-            作安崎國立大學　外國語學部પ્ 協力
+            作安崎國立大學　外國語學部ຟ່ 協力
         </div>
         <div style="margin-top:0.5rem;">Made with ❤️ and ☕️ by <a href="https://opengeofiction.net/user/Izaland%20Terramorphing%20Committee" target="_blank">ITC</a> &amp; <a href="https://opengeofiction.net/user/ParrotMan" target="_blank">ParrotMan</a></div>
     </footer>
 
-    <!-- Script navbar -->
     <script src="/izaki-dictionary/scripts/script.js"></script>
 </body>
 </html>
