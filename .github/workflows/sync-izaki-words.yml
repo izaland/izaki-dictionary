@@ -1,0 +1,46 @@
+name: Sync Izaki Words from Google Sheets
+
+# Triggerato dallo script Google Apps Script via API GitHub
+on:
+  repository_dispatch:
+    types: [sync-izaki-words]
+  # Permette anche run manuale da GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Il CSV viene committato dallo script Apps Script prima di triggerare
+      # questo workflow. Lo step seguente verifica che esista.
+      - name: Verify izaki_words.csv exists
+        run: |
+          if [ ! -f data/izaki_words.csv ]; then
+            echo "::error::data/izaki_words.csv non trovato!"
+            exit 1
+          fi
+          echo "Righe nel CSV: $(wc -l < data/izaki_words.csv)"
+
+      - name: Run build_dictionary.py
+        run: python scripts/build_dictionary.py
+
+      - name: Commit dictionary.json aggiornato
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/dictionary.json
+          # Commit solo se ci sono modifiche
+          git diff --cached --quiet && echo "Nessuna modifica." || \
+            git commit -m "sync: update dictionary.json from Google Sheets [bot]"
+          git push
