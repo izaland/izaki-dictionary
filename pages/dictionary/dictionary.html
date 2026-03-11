@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
 
 <style>
-  /* Theme-aware variables */
   html[data-theme="light"] {
     --dict-bg: #f7ecd8;
     --dict-container: rgba(255, 250, 230, 0.95);
@@ -96,7 +95,6 @@
     text-align: center;
   }
 
-  /* Contatore lemmi */
   #dict-stats {
     text-align: center;
     margin-bottom: 1.75rem;
@@ -123,8 +121,7 @@
     font-size: 1rem;
   }
 
-  .input,
-  .select select {
+  .input, .select select {
     background-color: var(--dict-input-bg);
     border: 1px solid var(--dict-input-border);
     color: var(--dict-text);
@@ -136,15 +133,12 @@
     transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 
-  .input:focus,
-  .select select:focus {
+  .input:focus, .select select:focus {
     outline: none;
     border-color: var(--dict-btn-bg);
   }
 
-  .field {
-    margin-bottom: 1.5rem;
-  }
+  .field { margin-bottom: 1.5rem; }
 
   .entry {
     margin-bottom: 1.2rem;
@@ -157,23 +151,10 @@
     transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 
-  .headword {
-    margin-bottom: 0.3rem;
-  }
+  .headword { margin-bottom: 0.3rem; }
 
-  .lemma {
-    color: var(--dict-lemma);
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-
-  .byakuzhi {
-    margin-left: 0.4rem;
-    font-size: 1.4rem;
-    color: var(--dict-byakuzhi);
-    font-weight: 600;
-  }
-
+  .lemma { color: var(--dict-lemma); font-weight: bold; font-size: 1.2rem; }
+  .byakuzhi { margin-left: 0.4rem; font-size: 1.4rem; color: var(--dict-byakuzhi); font-weight: 600; }
   .askaoza {
     margin-left: 0.6rem;
     font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
@@ -182,37 +163,12 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-
-  .ipa {
-    margin-left: 0.6rem;
-    color: var(--dict-ipa);
-    font-style: italic;
-  }
-
-  .pos {
-    margin-left: 0.6rem;
-    color: var(--dict-pos);
-    font-style: italic;
-  }
-
-  .translations div {
-    margin-left: 1rem;
-  }
-
-  .english strong {
-    color: var(--dict-en);
-  }
-
-  .italian strong {
-    color: var(--dict-it);
-  }
-
-  .example {
-    margin-left: 1rem;
-    margin-top: 0.3rem;
-    color: var(--dict-example);
-    font-style: italic;
-  }
+  .ipa  { margin-left: 0.6rem; color: var(--dict-ipa); font-style: italic; }
+  .pos  { margin-left: 0.6rem; color: var(--dict-pos); font-style: italic; }
+  .translations div { margin-left: 1rem; }
+  .english strong { color: var(--dict-en); }
+  .italian strong { color: var(--dict-it); }
+  .example { margin-left: 1rem; margin-top: 0.3rem; color: var(--dict-example); font-style: italic; }
 
   .info-message {
     padding: 1rem;
@@ -235,10 +191,7 @@
     font-weight: bold;
     transition: background-color 0.2s;
   }
-
-  .decline-btn:hover {
-    background-color: var(--dict-btn-hover);
-  }
+  .decline-btn:hover { background-color: var(--dict-btn-hover); }
 
   .declension-table {
     margin-top: 1rem;
@@ -249,51 +202,33 @@
     font-size: 0.9rem;
     transition: background-color 0.2s ease;
   }
-
-  .declension-table.show {
-    display: block;
-  }
-
-  .declension-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .declension-table th,
-  .declension-table td {
+  .declension-table.show { display: block; }
+  .declension-table table { width: 100%; border-collapse: collapse; }
+  .declension-table th, .declension-table td {
     padding: 0.4rem 0.6rem;
     text-align: left;
     border-bottom: 1px solid var(--dict-table-border);
     color: var(--dict-text);
   }
-
-  .declension-table th {
-    background-color: var(--dict-table-header);
-    font-weight: bold;
-  }
-
-  .declension-table .askaoza {
-    font-size: 1.1rem;
-  }
+  .declension-table th { background-color: var(--dict-table-header); font-weight: bold; }
+  .declension-table .askaoza { font-size: 1.1rem; }
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <div id="navbar"></div>
 
 <div id="container">
   <h1 class="title">Izaki Dictionary 華邦語辞典</h1>
 
-  <!-- Contatore lemmi e data ultimo sync -->
   <div id="dict-stats">
-    <span>📖 <span class="count" id="stat-total">…</span> lemmi</span>
+    <span>📖 <span class="count" id="stat-total">…</span> entries</span>
     <span class="sep">|</span>
-    <span>🇯🇵 <span class="count" id="stat-native">…</span> parole native</span>
+    <span>🇯🇵 <span class="count" id="stat-native">…</span> native words</span>
     <span class="sep">|</span>
-    <span>字 <span class="count" id="stat-compound">…</span> composti</span>
+    <span>字 <span class="count" id="stat-compound">…</span> byakuzhi compounds</span>
     <span class="sep">|</span>
-    <span>🔄 aggiornato il <span id="stat-date">…</span></span>
+    <span>🔄 last sync: <span id="stat-date">…</span></span>
   </div>
 
   <div class="field">
@@ -333,88 +268,86 @@ function startsWithQuery(text, query) {
   const textLower = text.toLowerCase();
   const queryLower = query.toLowerCase();
   if (textLower.startsWith(queryLower)) return true;
-  const words = textLower.split(/\s+/);
-  return words.some(word => word.startsWith(queryLower));
+  return textLower.split(/\s+/).some(w => w.startsWith(queryLower));
 }
 
 function ipaToRomaji(ipa) {
   if (!ipa) return '';
-  let romaji = ipa;
+  let r = ipa;
   const map = [
-    [/aː/g, 'ā'], [/eː/g, 'ē'], [/iː/g, 'ī'], [/oː/g, 'ō'], [/uː/g, 'ū'],
-    [/a/g, 'a'], [/e/g, 'e'], [/i/g, 'i'], [/o/g, 'o'], [/u/g, 'u'],
-    [/y/g, 'y'], [/w/g, 'w'],
-    [/dz/g, 'Ð'], [/ts/g, 'TS'], [/ʒ/g, 'ZH'], [/dʒ/g, 'J'], [/f/g, 'F'], [/v/g, 'V'],
-    [/k/g, 'K'], [/ɡ/g, 'G'], [/h/g, 'H'], [/l/g, 'L'], [/m/g, 'M'], [/n/g, 'N'],
-    [/p/g, 'P'], [/b/g, 'B'], [/s/g, 'S'], [/t/g, 'T'], [/z/g, 'Z'], [/tɕ/g, 'CH'],
-    [/ʃ/g, 'SH'], [/ɾ/g, 'R'], [/r/g, 'R']
+    [/aː/g,'ā'],[/eː/g,'ē'],[/iː/g,'ī'],[/oː/g,'ō'],[/uː/g,'ū'],
+    [/a/g,'a'],[/e/g,'e'],[/i/g,'i'],[/o/g,'o'],[/u/g,'u'],
+    [/y/g,'y'],[/w/g,'w'],[/dz/g,'Ð'],[/ts/g,'TS'],[/ʒ/g,'ZH'],
+    [/dʒ/g,'J'],[/f/g,'F'],[/v/g,'V'],[/k/g,'K'],[/ɡ/g,'G'],
+    [/h/g,'H'],[/l/g,'L'],[/m/g,'M'],[/n/g,'N'],[/p/g,'P'],
+    [/b/g,'B'],[/s/g,'S'],[/t/g,'T'],[/z/g,'Z'],[/tɕ/g,'CH'],
+    [/ʃ/g,'SH'],[/ɾ/g,'R'],[/r/g,'R']
   ];
-  map.forEach(([regex, rep]) => { romaji = romaji.replace(regex, rep); });
-  return romaji;
+  map.forEach(([re, rep]) => { r = r.replace(re, rep); });
+  return r;
 }
 
 function isNoun(pos) {
   if (!pos) return false;
-  const posLower = pos.toLowerCase().trim();
-  return posLower.includes('n=') || posLower.includes('noun');
+  const p = pos.toLowerCase().trim();
+  return p.includes('n=') || p.includes('noun');
+}
+
+// Compound = ha notes==='compound' OPPURE ha byakuzhi non vuoto ma nessun lemma latino
+// La strategia più robusta: usa notes==='compound' come build_dictionary.py
+function isCompound(e) {
+  return e.notes === 'compound';
 }
 
 if (typeof toAskaozaText !== 'function') {
-  window.toAskaozaText = function(text) { return text; };
+  window.toAskaozaText = function(t) { return t; };
 }
 
 if (typeof declineNounSimple !== 'function') {
   window.declineNounSimple = function(lemma) {
+    const sfx = (s) => lemma + s;
     return {
-      singular: { nom: lemma, gen: lemma+'-gen', acc: lemma+'-acc', dat: lemma+'-dat', ess: lemma+'-ess', all: lemma+'-all', abl: lemma+'-abl', ins: lemma+'-ins' },
-      plural:   { nom: lemma+'-pl', gen: lemma+'-pl-gen', acc: lemma+'-pl-acc', dat: lemma+'-pl-dat', ess: lemma+'-pl-ess', all: lemma+'-pl-all', abl: lemma+'-pl-abl', ins: lemma+'-pl-ins' }
+      singular: { nom: lemma, gen: sfx('-gen'), acc: sfx('-acc'), dat: sfx('-dat'), ess: sfx('-ess'), all: sfx('-all'), abl: sfx('-abl'), ins: sfx('-ins') },
+      plural:   { nom: sfx('-pl'), gen: sfx('-pl-gen'), acc: sfx('-pl-acc'), dat: sfx('-pl-dat'), ess: sfx('-pl-ess'), all: sfx('-pl-all'), abl: sfx('-pl-abl'), ins: sfx('-pl-ins') }
     };
   };
 }
 
-function toggleDeclension(entryId) {
-  const table = document.getElementById(`decl-${entryId}`);
-  if (table) table.classList.toggle('show');
+function toggleDeclension(id) {
+  const t = document.getElementById('decl-' + id);
+  if (t) t.classList.toggle('show');
 }
 
-// Recupera la data dell'ultimo commit di dictionary.json tramite GitHub API
 function loadLastSyncDate() {
   fetch('https://api.github.com/repos/izaland/izaki-dictionary/commits?path=data/dictionary.json&per_page=1')
     .then(r => r.json())
     .then(commits => {
       if (commits && commits[0]) {
-        const iso = commits[0].commit.committer.date;
-        const d = new Date(iso);
-        const formatted = d.toLocaleDateString('it-IT', {
-          day: '2-digit', month: 'long', year: 'numeric',
-          timeZone: 'Asia/Tokyo'
+        const d = new Date(commits[0].commit.committer.date);
+        document.getElementById('stat-date').textContent = d.toLocaleDateString('en-GB', {
+          day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Tokyo'
         });
-        document.getElementById('stat-date').textContent = formatted;
       }
     })
-    .catch(() => {
-      document.getElementById('stat-date').textContent = 'n/d';
-    });
+    .catch(() => { document.getElementById('stat-date').textContent = 'n/a'; });
 }
 
 loadLastSyncDate();
 
 fetch('../../data/dictionary.json')
-  .then(response => response.json())
+  .then(r => r.json())
   .then(data => {
 
-    // Aggiorna contatori
-    const total    = data.length;
-    const compound = data.filter(e => e.notes === 'compound').length;
-    const native   = total - compound;
-    document.getElementById('stat-total').textContent    = total.toLocaleString('it-IT');
-    document.getElementById('stat-native').textContent   = native.toLocaleString('it-IT');
-    document.getElementById('stat-compound').textContent = compound.toLocaleString('it-IT');
+    const compound = data.filter(isCompound).length;
+    const native   = data.length - compound;
+    document.getElementById('stat-total').textContent    = data.length.toLocaleString('en');
+    document.getElementById('stat-native').textContent   = native.toLocaleString('en');
+    document.getElementById('stat-compound').textContent = compound.toLocaleString('en');
 
-    data.forEach((entry, index) => {
-      entry.ROMAJI   = ipaToRomaji(entry.ipa || '');
-      entry.ASKAOZA  = toAskaozaText(entry.lemma || entry.reading || '');
-      entry.INDEX    = index;
+    data.forEach((e, i) => {
+      e.ROMAJI  = ipaToRomaji(e.ipa || '');
+      e.ASKAOZA = toAskaozaText(e.lemma || e.reading || '');
+      e.INDEX   = i;
     });
 
     const searchInput = document.getElementById('search');
@@ -431,81 +364,70 @@ fetch('../../data/dictionary.json')
       }
 
       const filtered = data.filter(e => {
-        if (lang === "EN") {
-          return (e.english && e.english.some(w => startsWithQuery(w, query))) ||
-                 (e.word && startsWithQuery(e.word, query));
-        }
-        if (lang === "IT") {
-          return e.italian && e.italian.some(w => startsWithQuery(w, query));
-        }
-        if (lang === "IZ") {
-          return (
-            (e.lemma    && e.lemma.toLowerCase().includes(query)) ||
-            (e.reading  && e.reading.toLowerCase().includes(query)) ||
-            (e.byakuzhi && e.byakuzhi.includes(query)) ||
-            (e.ipa      && e.ipa.toLowerCase().includes(query)) ||
-            (e.ROMAJI   && e.ROMAJI.toLowerCase().includes(query)) ||
-            (e.ASKAOZA  && e.ASKAOZA.includes(query))
-          );
-        }
+        if (lang === 'EN') return (e.english && e.english.some(w => startsWithQuery(w, query))) || (e.word && startsWithQuery(e.word, query));
+        if (lang === 'IT') return e.italian && e.italian.some(w => startsWithQuery(w, query));
+        if (lang === 'IZ') return (
+          (e.lemma    && e.lemma.toLowerCase().includes(query)) ||
+          (e.reading  && e.reading.toLowerCase().includes(query)) ||
+          (e.byakuzhi && e.byakuzhi.includes(query)) ||
+          (e.ipa      && e.ipa.toLowerCase().includes(query)) ||
+          (e.ROMAJI   && e.ROMAJI.toLowerCase().includes(query)) ||
+          (e.ASKAOZA  && e.ASKAOZA.includes(query))
+        );
         return false;
       });
 
-      const limitedResults = filtered.slice(0, 100);
+      const shown = filtered.slice(0, 100);
 
-      if (limitedResults.length === 0) {
+      if (shown.length === 0) {
         resultsDiv.innerHTML = '<div class="info-message">❌ No results found / 検索結果無</div>';
         return;
       }
 
-      let warningHTML = '';
+      let warn = '';
       if (filtered.length > 100) {
-        warningHTML = `<div class="info-message">⚠️ Showing first 100 of ${filtered.length} results. Refine your search for better results.</div>`;
+        warn = `<div class="info-message">⚠️ Showing first 100 of ${filtered.length} results. Refine your search.</div>`;
       }
 
-      resultsDiv.innerHTML = warningHTML + limitedResults.map(e => {
-        const isNounEntry = isNoun(e.pos);
-        let declensionHTML = '';
-
-        if (isNounEntry) {
-          const declined = declineNounSimple(e.lemma || e.reading);
-          declensionHTML = `
+      resultsDiv.innerHTML = warn + shown.map(e => {
+        let declHTML = '';
+        if (isNoun(e.pos)) {
+          const d = declineNounSimple(e.lemma || e.reading);
+          const cases = ['nom','gen','acc','dat','ess','all','abl','ins'];
+          declHTML = `
             <button class="decline-btn" onclick="toggleDeclension(${e.INDEX})">📖 Show declensions / 曲用表示</button>
             <div id="decl-${e.INDEX}" class="declension-table">
               <table>
                 <thead><tr><th>Case</th><th>Singular</th><th>Askaoza</th><th>Plural</th><th>Askaoza</th></tr></thead>
-                <tbody>
-                  ${['nom','gen','acc','dat','ess','all','abl','ins'].map(c => `
+                <tbody>${cases.map(c => `
                   <tr>
-                    <td>${c.charAt(0).toUpperCase()+c.slice(1)}</td>
-                    <td>${declined.singular[c]}</td>
-                    <td class="askaoza">${toAskaozaText(declined.singular[c])}</td>
-                    <td>${declined.plural[c]}</td>
-                    <td class="askaoza">${toAskaozaText(declined.plural[c])}</td>
+                    <td>${c[0].toUpperCase()+c.slice(1)}</td>
+                    <td>${d.singular[c]}</td><td class="askaoza">${toAskaozaText(d.singular[c])}</td>
+                    <td>${d.plural[c]}</td><td class="askaoza">${toAskaozaText(d.plural[c])}</td>
                   </tr>`).join('')}
                 </tbody>
               </table>
             </div>`;
         }
 
-        const byakuzhiHTML = e.byakuzhi ? `<span class="byakuzhi">${e.byakuzhi}</span>` : '';
+        const bHTML = e.byakuzhi ? `<span class="byakuzhi">${e.byakuzhi}</span>` : '';
 
         return `
           <div class="entry">
             <div class="headword">
               <span class="lemma">${e.lemma || e.reading || e.word || '—'}</span>
-              ${byakuzhiHTML}
+              ${bHTML}
               <span class="askaoza">${e.ASKAOZA}</span>
               <span class="ipa">【${e.ipa || '—'}】</span>
               <span class="pos">&lt;${e.pos || e.type || '—'}&gt;</span>
             </div>
             <div class="translations">
-              ${e.english && e.english.length > 0 ? `<div class="english"><strong>EN:</strong> ${e.english.join(', ')}</div>` : ''}
+              ${e.english && e.english.length ? `<div class="english"><strong>EN:</strong> ${e.english.join(', ')}</div>` : ''}
               ${e.word ? `<div class="english"><strong>EN:</strong> ${e.word}</div>` : ''}
-              ${e.italian && e.italian.length > 0 ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(', ')}</div>` : ''}
+              ${e.italian && e.italian.length ? `<div class="italian"><strong>IT:</strong> ${e.italian.join(', ')}</div>` : ''}
             </div>
             ${e.example ? `<div class="example">EX: ${e.example}</div>` : ''}
-            ${declensionHTML}
+            ${declHTML}
           </div>`;
       }).join('');
     }
@@ -514,8 +436,8 @@ fetch('../../data/dictionary.json')
     langSelect.addEventListener('change', renderResults);
     renderResults();
   })
-  .catch(error => {
-    console.error('Error loading JSON:', error);
+  .catch(err => {
+    console.error('Error loading JSON:', err);
     document.getElementById('results').innerHTML = '<div class="info-message">❌ Error loading dictionary data.</div>';
   });
 </script>
