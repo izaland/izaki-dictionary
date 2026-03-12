@@ -75,7 +75,10 @@ def should_generate_ipa(current_ipa):
 # ---------------------------------------------------------------------------
 
 def read_dictionary_json(filepath):
-    """Legge il dictionary.json esistente."""
+    """Legge il dictionary.json esistente. Restituisce lista vuota se non esiste."""
+    if not filepath.exists():
+        print(f"  ℹ️  {filepath} non trovato — si parte da zero.")
+        return []
     with open(filepath, 'r', encoding='utf-8') as f:
         return json.load(f)
 
