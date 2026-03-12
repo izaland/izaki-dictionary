@@ -1,0 +1,46 @@
+name: Fix POS Tags
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-pos:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Pulisci tag POS nel dictionary.json
+      run: |
+        python3 << 'EOF'
+        import json, re
+
+        def normalize_pos(raw):
+            pos = raw.strip()
+            pos = re.sub(r'^:\s*', '', pos)
+            pos = re.sub(r'\s*=$', '', pos)
+            return pos.strip()
+
+        with open('data/dictionary.json', 'r', encoding='utf-8') as f:
+            entries = json.load(f)
+
+        changed = 0
+        for entry in entries:
+            old = entry.get('pos', '')
+            new = normalize_pos(old)
+            if old != new:
+                entry['pos'] = new
+                changed += 1
+
+        with open('data/dictionary.json', 'w', encoding='utf-8') as f:
+            json.dump(entries, f, ensure_ascii=False, indent=2)
+
+        print(f"Tag POS normalizzati: {changed} voci modificate")
+        EOF
+
+    - name: Commit
+      run: |
+        git config user.name  "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add data/dictionary.json
+        git diff --cached --quiet || git commit -m "🏷️ Fix POS tags: rimosso ': ' e ' =' da tutti i tag"
+        git push
