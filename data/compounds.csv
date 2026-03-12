@@ -187,7 +187,7 @@ Selling price,売価,maika
 prostitute,売官,maikan
 purchasing official,買官,maikan
 selling blood,売血,maikyes
-foreign country,売國,maikuku
+selling country,売國,maikuku
 viewing,陪觀,paikan
 self-promotion,売名,maimei
 selling writing,売文,maimun
@@ -298,9 +298,9 @@ faint light,微光,mikwō
 Memorandum,備忘,bimān
 Beautiful name,美名,mimei
 attention,耳目,jimoku
-Mifumi,美文,mimun
+Mibun,美文,mimun
 Mion,美音,mion
-low temperature,微温,mion
+Low temperature,微温,mion
 nasal,鼻音,pion
 Equipment,備品,bipin
 whitening,美白,mipaku
@@ -422,7 +422,7 @@ material things,物上,musði
 Buddhism,仏學,puskaku
 French-Japanese,仏和,pushwa
 French translation,仏訳,pusshyoki
-Materialistic desires,物欲,musshyoku
+material desires,物欲,musshyoku
 Buddhist paintings,仏画,puska
 Buddhism,仏教,puskyau
 French,仏語,pusko
@@ -479,7 +479,7 @@ troops,部隊,butai
 manager,部長,buchān
 Materials,部材,buzai
 crowd,部衆,buchūn
-general,部将,bushō
+General,部将,bushō
 Imposing,堂々,dān
 Hall,堂上,dānði
 Party dues,党費,tānhi
@@ -533,7 +533,7 @@ Compensatory leave,代休,hyu
 big call,大呼,daiho
 Substitute,代役,yoki
 Important Role,大役,daiyoki
-Great agreement,大約,daiyaku
+Great promise,大約,daiyaku
 Compendium,大要,daiyō
 ocean,大洋,daiyān
 greed,大欲,daiyoku
@@ -608,14 +608,14 @@ large number,大数,daisū
 Collection,大集,daisūs
 A deep breath,大息,daishiku
 grand jury,大審,daishin
-loaner car,代車,sha
+Loaner car,代車,sha
 amnesty,大赦,daishe
 Daisho,大商,daisān
 Great Death,大死,daishi
 ambassador,大使,daishi
 ambition,大志,daishi
 Daishi,大士,daishi
-Substitute examination,代診,shin
+Substitute medical examiner,代診,shin
 Substitute,代書,sho
 Osho,大所,daisho
 Large writing,大書,daisho
@@ -644,7 +644,7 @@ Great Prison,大獄,daikoku
 big thief,大賊,daizoku
 proxy,代人,zhin
 Minister,大臣,daijin
-Daeshu,大宗,daisau
+Great sect,大宗,daisau
 the masses,大衆,daichūn
 Big Brother,大兄,daihyō
 Great Circle,大円,daiyen
@@ -716,7 +716,7 @@ sterilization,断種,dantsu
 warm winter,暖冬,nantōn
 magazine,弾倉,tantsān
 Warm climate,暖地,nantsi
-Group,団体,dantai
+organization,団体,dantai
 decapitation,断頭,dantu
 hail of bullets,弾雨,tannu
 dangumo,断雲,dannun
@@ -806,7 +806,7 @@ Telegram,電文,dyenmun
 electric heating,電熱,dyennes
 radio waves,電波,dyempa
 telegram,電報,dyenhou
-Electric Power,電産,dyensan
+Densan,電産,dyensan
 Computer calculation,電算,dyensan
 Telecommunication,電送,dyensō
 Electrical,電装,dyensō
@@ -828,7 +828,7 @@ Same disease,同病,dōbyō
 same party,同党,dōtān
 Same university,同大,dōdai
 same,同断,dōdan
-Absolutely,道断,dōdan
+Disapproval,道断,dōdan
 conductive,導電,dōdyen
 Same road,同道,dōdō
 dojo,道場,dōjō
@@ -873,7 +873,7 @@ conduit,導管,dōkan
 route,道觀,dōkan
 The association,同会,dōkwi
 Hokkaido residents,道民,dōmin
-Same sentence,同文,dōmun
+Same sentence,同文,#ERROR!
 fellow student,同門,dōmun
 Hokkaido,道内,dōnae
 animal,動物,dōnmus
@@ -886,7 +886,7 @@ eastern studies,東學,dōnkaku
 Trends,動向,dōnhyān
 Toho,東邦,dōmpān
 Toyoko,東横,dōnhūn
-motive,動因,dōnnin
+motivating factor,動因,dōnnin
 same year,同年,dōnyen
 Orient,東洋,dōnnyān
 introduction,導入,dōnyun
@@ -945,7 +945,7 @@ The same domain,同藩,dōpan
 signpost,道標,dōpyō
 Same table,同表,dōpyō
 Same report,同報,dōhou
-litter,同腹,dōfuku
+Litter,同腹,dōfuku
 Hokkaido,道立,dōris
 Equal amount,同量,dōryān
 Tie,同率,dōryos
@@ -1007,7 +1007,7 @@ colleague,同僚,dōryo
 urinary catheterization,導尿,dōnyō
 The agency,同庁,dōchou
 Prefectural Government,道庁,dōchou
-roadbed,道床,dōtsān
+road bed,道床,dōtsān
 Same sorrow,同憂,dōyau
 same effect,同旨,dōshi
 fellow,同朋,dō
@@ -1055,7 +1055,7 @@ reverberation,残響,tsanhyān
 remainder,残欠,tsankes
 afterglow,残光,tsankwō
 Remaining amount,残量,tsanlyān
-remaining work,残務,tsanmu
+Remaining work,残務,tsanmu
 remnants,残片,tsanhen
 remaining snow,残雪,tsanshes
 Afterimage,残像,tsansān
@@ -1290,7 +1290,7 @@ title,題字,daizhi
 Title,題辞,daiji
 In China,在中,zaiju
 Residence,在住,zaichu
-Title,題号,daiho
+title,題号,daiho
 In-field,在野,zaiya
 Layman,在家,zaika
 Serving in government,在官,zaikan
@@ -1310,7 +1310,7 @@ Military service,在隊,zaitai
 Being in heaven,在天,zaityen
 Location,在地,zaitsi
 overseas,在外,zaiwai
-In hospital,在院,zaiwin
+Hospitalized,在院,zaiwin
 secular,在俗,zaizuku
 In office,在庁,zaichou
 Title label,題簽,dai
@@ -1436,7 +1436,7 @@ My temple,自坊,zhipān
 self-finance,自弁,zhibyen
 Buddha statue,持仏,zhipus
 own party,自党,zhitān
-Self-development,自大,zhidai
+self-improvement,自大,zhidai
 automatic,自動,zhidōn
 self-order,自序,zhijou
 Temple legend,寺伝,jiden
@@ -1468,7 +1468,7 @@ Your ship,自機,zhiki
 Self-reported,自記,zhiki
 own school,自校,zhikyo
 resignation,辞去,jikyo
-glyph,字形,zhikei
+glyph shape,字形,zhikei
 Self-manufactured,自工,zhikō
 My station,自局,zhikyuku
 lexical,字句,zhiku
@@ -1608,14 +1608,14 @@ Self-laughing,自笑,zhishō
 own rope,自縄,zhirein
 self-imprisonment,自縛,zhipaku
 Signature,自署,zhisho
-own book,自著,zhitso
+Self-authored,自著,zhitso
 Self-recommendation,自薦,zhizhen
 Compulsory automobile liability insurance,自賠責,zhipaicheke
 trace,字跡,zhiseku
 own residence,自邸,zhiche
 article,条,jō
 Help,助,jo
-love,情,jōn
+affection,情,jōn
 situation,情状,jōnzhān
 favoritism,情実,jōnshis
 mistress,情婦,jōnfu
@@ -1679,7 +1679,7 @@ Chudo,中堂,judān
 Nakadai,中台,jutai
 relay,中継,jukei
 middle row,中段,judan
-Receiving power,受電,shudyen
+Power receiving,受電,shudyen
 middle way,中道,judō
 passive,受動,shudōn
 Central Plenary Session,中全会,juðenkwi
@@ -1694,7 +1694,7 @@ suffering,受苦,shuku
 Junior high school,中學,jukaku
 Chuxing,中興,juhūn
 sap,樹液,shueki
-acceptance,受用,shuyō
+Acceptance,受用,shuyō
 Nakaari,中有,juyū
 Mediastinum,縦隔,sūnkyoku
 Loyalty,忠勇,zūnnyūn
@@ -1732,7 +1732,7 @@ suffering,受難,shunan
 Acceptance,受納,shunas
 preparation,準備,jumbi
 parade,巡行,zhunkō
-pilgrimage,巡拝,zhunhai
+Pilgrimage,巡拝,zhunhai
 Acceptance,受任,shunin
 Acceptance,受認,shurin
 Tolerance,受忍,shurin
@@ -1747,7 +1747,7 @@ Tour,巡覧,zhunlan
 tour history,巡歴,zhunleki
 Middle-aged man,中老,jurō
 middle farmer,中農,junōn
-Police officer,巡査,zhunsa
+police officer,巡査,zhunsa
 patrol,巡察,zhunsas
 rules,準則,junsoku
 Medium,中肉,junuku
@@ -1802,7 +1802,7 @@ midpoint,中点,juten
 Chuten,中天,jutyen
 Tree power,樹勢,shuse
 cancel,中止,jutsi
-middle school,中進,jushin
+mid-career,中進,jushin
 Chusan,中散,jusan
 Middle body,中体,jutai
 column formation,縦陣,sūnjin
@@ -2309,7 +2309,7 @@ military capital,軍都,gunto/tsu
 archipelago,群島,guntō
 colony,群体,guntai
 military formation,軍陣,gunjin
-desperate,苦肉,kunuku
+desperate measures,苦肉,kunuku
 war council,軍議,gunnwi
 military personnel,軍属,gunsuku
 military man,軍人,gunzhin
@@ -2408,7 +2408,7 @@ Original sound,原音,wennon
 Master,原盤,wempan
 original work,原作,wentsaku
 original domicile,原籍,wenswoku
-rough stone,原石,wenshaki
+raw stone,原石,wenshaki
 Original speed,原速,wensoku
 raw water,原水,wensui
 principle,原則,wensoku
@@ -2425,7 +2425,7 @@ original species,原種,wentsu
 Gentai,原隊,wentai
 wilderness,原地,wentsi
 Active ingredient,原体,wentai
-Original story,原話,wenhwa
+original story,原話,wenhwa
 Hara wi,原wi,wen
 original intention,原意,wennwi
 Original meaning,原義,wennwi
@@ -2452,7 +2452,7 @@ Acknowledgments,拝辞,haiji
 Characterization,解字,haizhi
 Dear affection,拝情,haijōn
 Received,拝受,haishu
-Dear,拝復,haifuku
+Replying to @,拝復,haifuku
 Face-to-face,拝顔,haigan
 worship fire,拝火,haihwa
 pseudonym of a haiku poet,俳号,haiho
@@ -2503,7 +2503,7 @@ Cancellation,解除,haitso
 knapsack,背嚢,hai
 haiku world,俳壇,haidan
 backstroke,背泳,haiyōn
-bowing,拝眉,haimi
+bow of eyebrows,拝眉,haimi
 audience,拝謁,haias
 Haiku score,俳譜,haifu
 Unlock,解錠,haijou
@@ -2597,7 +2597,7 @@ Rejected,廃案,paian
 Disbanded club,廃部,paibu
 Abolition of Buddhism,廃仏,paipus
 waste,廃物,paimus
-Discontinued sword,廃刀,paitau
+scrapped sword,廃刀,paitau
 waste residue,廃残,paitsan
 Abandoned temple,廃寺,paiji
 Obsolete word,廃語,paigo
@@ -2620,7 +2620,7 @@ military affairs,兵事,pīntsi
 soldier,兵士,pīnshi
 military style,兵式,pīnshiki
 book on military science,兵書,pīnsho
-military food,兵食,pīnshoku
+military rations,兵食,pīnshoku
 military type,兵種,pīntsu
 Corporal,兵長,pīnchān
 Private Sergeant,兵曹,pīnsō
@@ -2665,8 +2665,8 @@ polarization,偏光,henkwō
 return gift,返礼,panlei
 drift,偏流,henlyūn
 Return,返納,pannas
-reciprocation,返報,panhou
-Returned book,返本,panhon
+retaliation,返報,panhou
+Returned books,返本,panhon
 Westward,偏西,hensai
 Return,返送,pansō
 reply,返事,pantsi
@@ -2679,7 +2679,7 @@ Contract month,限月,kannwes
 deviation,偏位,hennwi
 bias,偏倚,hen
 Return,返戻,panlei
-narrow-minded,偏狭,henhyos
+narrow-mindedness,偏狭,henhyos
 eccentric,偏頗,hen
 Discontinued,廃盤,paipan
 Abolition of feudal domains,廃藩,paipan
@@ -2701,7 +2701,7 @@ disinheritance,廃嫡,paicheku
 abandoned house,廃屋,paioku
 extinction,廃滅,paimyes
 disability,廃疾,paichis
-Abandoned mines,廃鉱,paikwān
+Abandoned mine,廃鉱,paikwān
 Hit,被弾,pitan
 Amount of expenses,費額,higau
 clothing,被服,pifuku
@@ -2710,7 +2710,7 @@ cost,費用,hiyō
 employment,被用,piyō
 Subject,被官,pikan
 Subject,被検,pikon
-film,被膜,pimaku
+coating,被膜,pimaku
 Expense item,費目,himoku
 poverty,貧苦,binku
 poor farmer,貧農,binnōn
@@ -2753,7 +2753,7 @@ Annihilation,撃滅,gekimyes
 pulverizing,撃砕,gekiswai
 Fearfully,恐々,kō
 Water phobia,恐水,kōsui
-Horrifying wife,恐妻,kōsai
+Horrified wife,恐妻,kōsai
 panic,恐慌,kōhwān
 fear,恐懼,kō
 Closed,休場,hyujō
@@ -2868,7 +2868,7 @@ north side,北辺,hukuben
 North Wall,北壁,hukupeku
 north flow,北流,hukuryūn
 uniform,服制,fukusei
-Clothes color,服色,#ERROR!
+Clothes color,服色,fukuseku
 North run,北走,hukusau
 clothing,服装,fukusō
 northern sky,北天,hukutyen
@@ -2958,7 +2958,7 @@ rowing,回漕,hwi
 Roundworms,回虫,hwitsūn
 maintain,維持,yezhi
 drinking,飲用,yennyō
-Restoration,維新,yeshin
+Meiji Restoration,維新,yeshin
 move,移動,idōn
 East of,以東,idōn
 End,以上,iði
@@ -2972,7 +2972,7 @@ Further,以遠,iwen
 below,以下,ika
 relocation,移建,iken
 Relocation,移居,ikyo
-From then on,以後,ihou
+From now on,以後,ihou
 parental leave,育休,ikuhyu
 Development,育成,ikusei
 breeding,育種,ikutsu
@@ -3083,7 +3083,7 @@ Costume,衣装,isō
 Just in case,一応,isōn
 number one,一番,ispan
 half,一半,ishan
-General,一般,ispan
+general,一般,ispan
 gem,逸品,īspin
 A stroke,一筆,ispis
 Ippaku,一白,ispaku
@@ -3110,7 +3110,7 @@ One touch,一触,issoku
 kind of,一種,ittsu
 for a moment,一瞬,isshon
 One generation,一代,is
-One step,一段,istan
+One stage,一段,istan
 Short and short,一短,istwan
 One heaven,一天,istyen
 one time,一度,isto
@@ -3237,7 +3237,7 @@ Pharmaceutical Affairs,薬事,yakutsi
 government office,役所,yokisho
 drug type,薬種,yakutsu
 Government house,役宅,yokitaku
-Pharmacy,薬店,yakuten
+pharmacy,薬店,yakuten
 perks of the job,役得,yokituku
 Medicine King,薬王,yakuou
 Herb Garden,薬園,yakuwen
@@ -3276,7 +3276,7 @@ Bandit,野盗,yatō
 vegetables,野菜,yatsai
 night attack,夜襲,yatsūs
 Wild hobby,野趣,yaswi
-Yarou,夜郎,yarān
+Yaro,夜郎,yarān
 Teito Rapid Transit Authority,営団,eidan
 gate,営門,eimun
 Inside the barracks,営内,einae
@@ -3327,7 +3327,7 @@ farsightedness,遠視,wenshi
 far island,遠島,wentō
 courtier,廷臣,teijin
 bailiff,廷吏,teiri
-anniversary,遠忌,wenki
+Anniversary,遠忌,wenki
 refrain,遠慮,wenlyo
 distant relative,遠戚,wenseki
 consent,然諾,yennyaku
@@ -3429,7 +3429,7 @@ Premonition,予覚,yokaku
 Premonition,予感,yokan
 blessings,余慶,youkyōn
 Preview,予告,yokoku
-given condition,与件,yoken
+given matter,与件,yoken
 greed,欲,yoku
 prognosis,予後,yohou
 winged,翼状,īkuzhān
@@ -3472,7 +3472,7 @@ Prediction,予讃,yotsan
 fraternity,友愛,yūai
 Postal,郵便,yūbīn
 dielectric,誘電,yūdyen
-induction,誘導,yūdō
+Induction,誘導,yūdō
 wandering,遊動,yūdōn
 Games,遊技,yūgi
 playground equipment,遊具,yūgu
@@ -3493,7 +3493,7 @@ Yuna,勇名,yūnmei
 valor,勇武,yūnmu
 prostitute,遊女,yūnyo
 Hero,勇者,yūnsha
-brave man,勇士,yūnshi
+brave warrior,勇士,yūnshi
 bowing out,勇退,yūnchai
 brave fight,勇戦,yūnchen
 Brave figure,勇姿,yūnshi
@@ -3523,14 +3523,14 @@ debauchery,遊蕩,yū
 friendship,友誼,yū
 Ranked,有段,yūdan
 carelessness,油断,yudan
-sentient being,有情,yūjōn
+Sentient being,有情,yūjōn
 statement,有言,yūyon
 Paid leave,有休,yūhyu
 With stamp,有印,yūin
 Infusion,輸液,shueki
 winged,有翼,yūīku
 Feeling,有感,yūkan
-leisure time,有閑,yūkan
+Leisure,有閑,yūkan
 securities,有価証券,yūkashōkwen
 Fixed term,有期,yūki
 organic,有機,yūki
@@ -3548,7 +3548,7 @@ Announcement,有報,yūhou
 Ario,有夫,yūfu
 oil,油分,yupun
 Origin,由来,yū/yurai
-Gorgeous,優麗,yaurei
+elegant,優麗,yaurei
 rational,有理,yūri
 property,有産,yūsan
 propertied class,有産階級,yūsankaikyus
@@ -3568,13 +3568,13 @@ transportation,輸送,shusō
 barbed,有刺,yūtsi
 Yuji,有司,yūtsi
 oil paper,油紙,yuzhi
-heartfelt,有心,yūshin
+sincere,有心,yūshin
 God,有神,yūshin/jin
 oil disease,油症,yushēn
 oil type,油種,yutsu
 import,輸ʃus,shu
 export,輸出,shushus
-Import/Export,輸出入,shushusnyun
+Import and Export,輸出入,shushusnyun
 toxic,有毒,yūtoku
 superiority,優勢,yause
 Victory,優勝,yaushūn
@@ -3641,7 +3641,7 @@ plywood,合板,kāpan
 Pass/Fail,合否,kāfu
 Synthetic leather,合皮,kāhi
 Joint review,合評,kāpyōn
-combined book,合本,kāhon
+Combined edition,合本,kāhon
 rationality,合理,kāri
 resultant force,合力,kāriki
 rational,合理的,kāricheke
@@ -3655,7 +3655,7 @@ United States,合衆,kāchūn
 match,合わせる,kā
 merger,合併,kāpei
 ensemble,合奏,kāsau
-Nemu,合歓,kāhan
+Nemuro,合歓,kāhan
 Synthetic fibers,合繊,kāsōn
 Pressurization,加圧,kaas
 dismounting,下馬,kama
@@ -3741,7 +3741,7 @@ concept,概念,kainen
 intervention,介入,kainyun
 sea ​​waves,海波,kaipa
 open,開放,kaipān
-revised edition,改版,kaipan
+Revised edition,改版,kaipan
 Opening,開板,kaipan
 Develop,開発する,kaipas
 Kaihei,開平,kaipei
@@ -3753,7 +3753,7 @@ Laparotomy,開腹,kaifuku
 ocean basin,海盆,kaibun
 Ticket gate,改札,kaisas
 Bid opening,開札,kaisas
-land and sea,海陸,kairyuku
+sea ​​and land,海陸,kairyuku
 Improvements,改良,kairyān
 Overview,概略,kairyaku
 Overview,概論,kairon
@@ -3770,7 +3770,7 @@ Kaesong,開城,kaichō
 re-election,改選,kaisen
 boundary line,界線,kaisen
 Opening,開設,kaises
-ocean phase,海相,kaisān
+sea ​​phase,海相,kaisān
 Average loss,海損,kaison
 Opening of the village,開村,kaison
 Approximate number,概数,kaisū
@@ -3816,7 +3816,7 @@ Admiral,海将,kaishō
 captain,海尉,kaii
 Opening the door,開扉,kaihi
 care,介抱,kaipō
-Demotion,改易,kaiīki
+elimination,改易,kaiīki
 calendar change,改暦,kaireki
 Opening,開栓,kaitsen
 stairs,階梯,kai
@@ -3992,7 +3992,7 @@ family,家門,kamun
 Poetry text,歌文,kamun
 feeling,感,kan
 between,間,kan
-simple,簡,kan
+Simple,簡,kan
 Quiet,閑,kan
 Wife,家内,kanae
 stern,艦尾,kambi
@@ -4008,7 +4008,7 @@ Impressed,感動,kandōn
 Government property,官財,kanzai
 Certificate of Appreciation,感状,kanzhān
 government temple,官寺,kanji
-emotion,感情,kanjōn
+emotions,感情,kanjōn
 in the cold,寒中,kanju
 Ship silhouette,艦影,kannei
 Publication,刊行,kankō
@@ -4026,7 +4026,7 @@ simplified,簡約,kannyaku
 government-run,官営,kannei
 Absolutely,間然,kannyen
 Flammable,可燃,kanyen
-Government owned,官有,kannyū
+Government-owned,官有,kannyū
 Join,加入,kanyun
 government,官界,kankai
 feelings,感覚,kankaku
@@ -4150,9 +4150,9 @@ subscript,下付,kafu
 Downwind,下風,kapūn
 family tradition,家風,kapūn
 style of song,歌風,kapūn
-servant,家来,karai
+Servant,家来,karai
 bottom column,下欄,karan
-subordinate order,下令,karei
+decree,下令,karei
 steward,家令,karei
 fine,科料,karyo
 Lower edge,下縁,kaen
@@ -4187,13 +4187,13 @@ collection of houses,家集,kasūs
 sewage,下水,kasui
 Addition of water,加水,kasui
 sewer,下水道,kasuidō
-living person,活人,kwasshin
+live person,活人,kwasshin
 Action,活劇,kwaskuku
 Active,活躍,kwasshyaku
 housework,家事,katsi
 Asphyxiation,仮死,kashi
 head of house,家司,katsi
-words,賀詞,kashi
+words of praise,賀詞,kashi
 retainer,家士,kashi
 Below formula,下式,kashiki
 Humidification,加湿,kashūs
@@ -4295,7 +4295,7 @@ Kenji,健児,kenzhi
 Healthy,健啖,ken
 Fortunately,幸甚,kēnshen
 Healthy stomach,健胃,kenni
-Economics,経,kei
+Temperament,経,kei
 Light,軽,kei
 baton,警棒,keihūn
 Fire and Prevention,警防,keibān
@@ -4362,7 +4362,7 @@ criminal law,刑法,keihō
 lucky direction,恵方,keipān
 Kyoto style,京風,kyōpūn
 Total column,計欄,keiran
-chicken eggs,鶏卵,keiran
+Chicken eggs,鶏卵,keiran
 accounting,経理,keiri
 accounting,計理,keiri
 Scheme,計略,keiryaku
@@ -4370,7 +4370,7 @@ Strategy,経略,keiryaku
 series,系列,keiryes
 Sutras,経論,keiron
 calculation,計算,keisan
-childbearing,経産,keisan
+maternity,経産,keisan
 police,警察,keisas
 Economics,経世,keise
 Police life,警世,keise
@@ -4470,7 +4470,7 @@ Appearance,見参,kensan
 wisdom,賢察,hyensas
 insight,見性,kensei
 search,検索,konsaku
-Confinement,検束,konsuku
+Inspection,検束,konsuku
 apprentice,見習,kensēi
 Vehicle inspection,検車,konsha
 kennel,犬舎,kensha
@@ -4569,7 +4569,7 @@ Auspicious weather,吉相,kissān
 Good fortune,吉事,kittsi
 77th birthday,喜寿,kiju
 be happy,喜ぶ,ki
-Auspicious omen,吉兆,kicchō
+Good omen,吉兆,kicchō
 Good or bad luck,吉凶,kiskyūn
 comedy,喜劇,kiguku
 flag,旗幟,ki
@@ -4803,7 +4803,7 @@ Return to domain,帰藩,kwipan
 Basic development,基発,kipas
 Already published,既発,kipas
 Arrival and Departure,着発,chakupas
-Original writing,起筆,kibis
+Author,起筆,kibis
 yellow white,黄白,hōmpaku
 Already reported,既報,kihou
 basic,基本,kihon
@@ -4844,7 +4844,7 @@ Return to the village,帰村,kwison
 Temperament,気節,kisos
 radix,基数,kisū
 Number of aircraft,機数,kisū
-numeration,記数,#ERROR!
+numeration,記数,kisū
 odd number,奇数,kisū
 Previously learned,既習,kisēi
 base layer,基層,kisūn
@@ -4919,7 +4919,7 @@ Sword attachment,着剣,chakkken
 dust,黄塵,hōn
 base,基壇,kidan
 strange,奇妙な,kimyō
-mood,機嫌,#ERROR!
+mood,機嫌,kiken
 stomata,気孔,kikōn
 Returning to the dormitory,帰寮,kwiryo
 Homecoming,帰巣,kwizau
@@ -4993,8 +4993,8 @@ Customer,客,kyeku
 Reception hall,客殿,kyekuden
 Customers,客気,kyekkki
 customer goods,客貨,kyekkkwa
-Guest viewing,客觀,kyekkkan
-customer portion,客分,kyekupun
+customer viewing,客觀,kyekkkan
+guest portion,客分,kyekupun
 Customer,客先,kyekusen
 Customer base,客層,kyekusūn
 passenger car,客車,kyekusha
@@ -5074,7 +5074,7 @@ winning bid,競落,kyōnaku
 doctrine,教理,kyauri
 Drill,教練,kyauren
 doctrine,教論,kyauron
-competition,競作,kyōtsaku
+Competition,競作,kyōtsaku
 Teaching Line,教線,kyausen
 Doctrine,教説,kyauses
 race,競走,kyōsau
@@ -5151,7 +5151,7 @@ giant star,巨星,kosei
 students,校生,kyosei
 megalith,巨石,koshaki
 huge ship,巨船,kosen
-colossus,巨像,kosān
+Colossus,巨像,kosān
 Macroscopic,巨視,koshi
 wedding ceremony,挙式,kyoshiki
 fish trust,魚信,yoshin
@@ -5181,7 +5181,7 @@ Kyoho grapes,巨峰,kopōn
 behavior,挙措,kyoso
 giant,巨漢,kokan
 Giant Beast,巨獣,koshau
-Expectorant,去痰,kyo
+expectorant,去痰,kyo
 School emblem,校章,kyotsūn
 fishing net,魚網,yomān
 school notes,校註,kyo
@@ -5328,7 +5328,7 @@ cow dung,牛糞,gu
 old book,旧著,kutso
 Historic sites,旧跡,kuseku
 Former residence,旧邸,kuche
-Ox Taurus,牛飼座,gutsijwa
+Taurus,牛飼座,gutsijwa
 koan,公案,kouan
 public auction,公売,koumai
 Red plum,紅梅,koumai
@@ -5352,7 +5352,7 @@ Prince's Palace,公宮,koukūn
 red army,紅軍,kougun
 engineering,工學,kōkaku
 Construction costs,工費,kōhi
-Public holiday,公休,kouhyu
+public holiday,公休,kouhyu
 official seal,公印,kouin
 Only red one,紅一点,kouisten
 public service,公役,kouyoki
@@ -5400,7 +5400,7 @@ Princess,公女,kounyo
 factory girl,工女,kōnyo
 Engineering and agriculture,工農,kōnōn
 navigation,航法,hānhō
-sailing,航走,hānsau
+Sailing,航走,hānsau
 cruising,航続,hānsoku
 Itinerary,航程,hāntsīn
 navigation,航戦,hānchen
@@ -5437,7 +5437,7 @@ Public election,公選,kousen
 engineering ship,工船,kōsen
 Public facility,公設,kouses
 prosecution,公訴,kousou
-"Ministry of Health, Labour and Welfare",厚相,kausān
+"Minister of Health, Labour and Welfare",厚相,kausān
 Man-hours,工数,kōsū
 industry and commerce,工商,kōsān
 public bonds,公社債,koushazai
@@ -5516,7 +5516,7 @@ old temple,古寺,koji
 persistence,固持,kozhi
 Firmly refuse,固辞,koji
 historical facts,故実,koshis
-Stage,高座,kōjwa
+Takasei,高座,kōjwa
 Confession,告解,kokuhai
 solitary shadow,孤影,koei
 Confession,告文,kokumun
@@ -5539,10 +5539,10 @@ old song,古歌,koka
 height and fall,高下,kōka
 expensive,高価,kōka
 Takaie,高家,kōka
-old grade,古格,kokaku
+Old grade,古格,kokaku
 High angle,高角,kōkaku
 High Examination,高検,kōkon
-antiques,古器,koki
+Antiques,古器,koki
 ancient records,古記,koki
 Sticking,固着,kochaku
 Takakias,高気ās,kōki
@@ -5552,7 +5552,7 @@ Chinese fiddle,胡弓,kūn
 high tide,高潮,kōtsō
 Solitary,孤高,kokō
 High engineering,高工,kōkō
-station,局,kyuku
+Bureau,局,kyuku
 high altitude,高空,kōkūn
 Area code,局番,kyukupan
 limited,局限,kyukkkan
@@ -5666,7 +5666,7 @@ loneliness,孤独,kotoku
 Solo Exhibition,個展,kotin
 hometown,故地,kotsi
 High fat,高脂,kōchi
-fixed,固定,kotei/jōn
+Fixed,固定,kotei/jōn
 fixed capital,固定資本,kotei/jōntsahon
 Fixed assets,固定資産,kotei/jōntsasan
 head of household,戸長,hochān
@@ -5701,7 +5701,7 @@ high step,高踏,kōtas
 Takasono,高邁,kō
 hometown,故郷,kokyōn
 solid state,固陋,ko
-elderly,高齢,kōrēn
+Elderly,高齢,kōrēn
 Ward,区,ku
 clause,句,ku
 reserve,後備,houbi
@@ -5791,7 +5791,7 @@ Posted later,後掲,houkei
 Later chapter,後章,houtsūn
 descendant,後胤,hou
 hind chest,後胸,houhyūn
-rear guard,後衛,houwei
+rearguard,後衛,houwei
 descendants,後裔,hou
 latter section,後項,houhān
 successor request,後願,houyan
@@ -5835,7 +5835,7 @@ Kuniyasu,國安,kukuan
 national university,國大,kukudai
 National train,國電,kukudyen
 international,國際,kukuchai
-national character,國字,kukuzhi
+Japanese character,國字,kukuzhi
 national situation,國情,kukujōn
 national skill,國技,kukugi
 national army,國軍,kukugun
@@ -5860,7 +5860,7 @@ Kunimoto,國本,kukuhon
 Kunitomi,國富,kukufu/pu
 national style,國風,kukupūn
 Japanese music,國楽,kukuraku
-national,國立,kukuris
+National,國立,kukuris
 national theory,國論,kukuron
 national system,國制,kukusei
 national election,國選,kukusen
@@ -5989,7 +5989,7 @@ Wide-angle,広角,kōkaku
 broad gauge,広軌,kōki
 advertisement,広告,kōkoku
 Wide-eyed,広目,kōmoku
-Hiromasa,広益,kōiki
+Hiroprofit,広益,kōiki
 public relations,広報,kōhou
 Hiroso,広壮,kōsō
 broad sense,広義,kōwi
@@ -6144,7 +6144,7 @@ relative clauses,関係詞,kwankeishi
 theater,觀劇,kanguku
 metonymy,換喩,hwannyu
 Qiankon,乾坤,kon
-orchestra,管弦,kangen
+Orchestra,管弦,kangen
 Orchestra,管弦楽,kangenlaku
 in charge,管掌,kanzhō
 Cherry blossom viewing,觀桜,kanōn
@@ -6538,7 +6538,7 @@ civil law,民法,minhō
 Minpo,民報,minhou
 popular election,民選,minsen
 civil lawsuits,民訴,minsou
-folk collection,民集,minsūs
+Folk collection,民集,minsūs
 public sentiment,民心,minshin
 democracy,民主,minshu
 democracy,民主主義,minshushuwi
@@ -6598,7 +6598,7 @@ imperative,命法,meihō
 instruction,命令,meirei
 surface,面,myen
 side part,面部,myembu
-on the face,面上,myenði
+on the surface,面上,myenði
 obedience,面従,myenjū
 Menkin,面皮,myenhi
 wall,面壁,myempeku
@@ -6671,11 +6671,11 @@ unpaid,無給,mukes
 Woodenware,木器,mokkki
 Wood,木気,mokkki
 Dream revelation,夢告,mūnkoku
-Rootless,無根,mukon
+rootless,無根,mukon
 Unauthorized,無権,mukwon
 rugged,無骨,mukos
 eye,目,moku
-Sighting,目撃,mokugeki
+sighting,目撃,mokugeki
 silent agreement,黙約,mukuyaku
 Thursday,木曜,mokuyō
 Thursday,木曜日,mokuyōnis
@@ -6733,7 +6733,7 @@ Literary dictionary,文辞,munji
 String,文字列,munzhiryes
 family,門中,munju
 Bungata,文雅,munga
-literary giant,文豪,munhou
+literary great,文豪,munhou
 Literary language,文語,mungo
 literature,文學,munkaku
 curfew,門限,munkan
@@ -6770,10 +6770,10 @@ gate god,門神,munshin/jin
 medical interview,問診,munshin
 document,文書,munsho
 Literature,文典,muntyun
-Monji,門地,muntsi
+Monchi,門地,muntsi
 incisor,門歯,munchi
 blame,問責,muncheke
-Responsible for the text,文責,muncheke
+Responsibility,文責,muncheke
 Bunso,文草,muntsō
 Java sparrow,文鳥,munchō
 beginning of sentence,文頭,muntu
@@ -6917,7 +6917,7 @@ Inner layer,内層,naesūn
 inscribed,内接,naeses
 pelvic examination,内診,naeshin
 inner room,内室,naeshis
-internal information,内証,naeshō
+internal secrets,内証,naeshō
 Eating out,内食,naeshoku
 Domestic food,内鮮,naesen
 Inner belt,内帯,naetai
@@ -6938,7 +6938,7 @@ internal worries,内憂,naeyau
 School report,内申,naeshin
 Inner cylinder,内筒,naetsūn
 lumen,内腔,nae
-Inside meal,内膳,naesen
+Internal meal,内膳,naesen
 internal discord,内訌,nae
 informal consent,内諾,naenyaku
 domestic demand,内需,naeju
@@ -6946,7 +6946,7 @@ Dairy,酪,naku
 dairy,酪農,nakunōn
 butyric acid,酪酸,nakusan
 difficulty,難,nan
-Nanbo,南坊,nampān
+Nanbou,南坊,nampān
 loose stools,軟便,ryambīn
 incurable disease,難病,nambyō
 southern,南部,nambu
@@ -6984,7 +6984,7 @@ southern sky,南天,nantyen
 Nanto,南都,nanto/tsu
 Difficult to read,難読,nandoku
 Heading South,南進,nanshin
-soft-bodied,軟体,ryantai
+Soft-bodied,軟体,ryantai
 south garden,南庭,nantei
 incurable,難治,nanchi
 hearing loss,難聴,nantyō
@@ -7011,12 +7011,12 @@ Erhu,二胡,ni
 2nd generation,二化,nikwa
 two sentences,二文,nimun
 resignation,忍従,rinjū
-patience,忍苦,rinku
+Patience,忍苦,rinku
 Appointment,任用,ninnyō
 Acceptance,認容,rinnyōn
 Appointment,任官,ninkan
 approval,認許,rinhyo
-country of responsibility,任國,ninkuku
+Country of responsibility,任國,ninkuku
 Appointment and dismissal,任免,ninmyen
 appointment,任命,ninmei
 mission,任務,ninmu
@@ -7087,7 +7087,7 @@ Year number,年番,nyempan
 era,年代,nyen
 year,年度,nyendo
 Annual fee,年額,nyengau
-term,年限,nyenkan
+Term,年限,nyenkan
 annual leave,年休,nyenhyu
 fuel,燃油,nyennyu
 yearbook,年画,nyenka
@@ -7226,7 +7226,7 @@ agricultural use,農用,nōnnyō
 farmer,農家,nōnka
 Agriculture and leisure,農閑,nōnkan
 Agriculture and industry,農工業,nōnkōwya
-Agricultural association,農会,nōnkwi
+agricultural association,農会,nōnkwi
 farmers,農民,nōnmin
 Agriculture,農務,nōnmu
 Noh,能,nōn
@@ -7254,7 +7254,7 @@ agriculture,農業,nōnnwya
 serf,農奴,nōnno
 Agriculture and livestock,農牧,nōnmuku
 old disease,老病,rōbyō
-Remains of old age,老残,rōtsan
+old man left behind,老残,rōtsan
 old tree,老樹,rōshu
 women's school,女學,nyokaku
 female criminal,女犯,nyopon
@@ -7265,7 +7265,7 @@ old friend,老友,rōyū
 female monster,女怪,nyokwai
 Nursing care facility,老健,rōken
 female lineage,女系,nyokei
-old dog,老犬,rōken
+Old dog,老犬,rōken
 old age,老境,rōkyō
 female salary,女給,nyokes
 Girls' high school,女高,nyokō
@@ -7524,7 +7524,7 @@ Hiroso,博捜,pakesau
 knowledgeable,博識,pakeshiki
 edition,版,pan
 half,半,han
-Sales,販,pan
+sales,販,pan
 general,般,pan
 Domain,藩,pan
 Within the sect,派内,panae
@@ -7608,7 +7608,7 @@ Counter attack,反攻,pankō
 feudal system,藩制,pansei
 Cut in half,半切,hansos
 counterclaim,反訴,pansou
-Founder of the domain,藩祖,panso
+Founder,藩祖,panso
 introspection,反省,panshōn
 Half,半数,hansū
 semi-transparent,半透,hantou
@@ -7664,7 +7664,7 @@ octagon,八角,paskaku
 Takeoff,発艦,paskan
 Eight views,八景,paskei
 discovery,発見,pasken
-eight rises,八起,paski
+Eight rises,八起,paski
 Banned,発禁,paskin
 issue,発行,paskō
 Speech,発語,pasko
@@ -7701,7 +7701,7 @@ Sending and receiving,発受,passhu
 Initiative,発意,passwi
 proposal,発議,passwi
 Eight states,八州,passhū
-Bagua,八卦,pas
+Eight trigrams,八卦,pas
 be inspired,発憤,pasfun
 Launch,発揚,passhyān
 sweating,発汗,pashan
@@ -7710,7 +7710,7 @@ rash,発疹,pas
 Eight corners of the world,八紘,pas
 germination,発芽,paska
 Vow,発願,passhyan
-dispatch,派出,pashus
+Dispatch,派出,pashus
 Wave,波勢,pase
 development,発展,pastin
 waves,波浪,parān
@@ -7828,7 +7828,7 @@ non-nuclear,非核,hikaiku
 winter protection,避寒,hikan
 sadness and joy,悲喜,hiki
 tragicomedy,悲喜劇,hikiguku
-non-metal,非金属,hikinsuku
+nonmetal,非金属,hikinsuku
 esoteric religion,秘教,pikyau
 Unexplored region,秘境,pikyō
 tragedy,悲境,hikyō
@@ -7862,7 +7862,7 @@ lightning rod,避雷針,hirwaichin
 rudeness,非礼,hirei
 proportional,比例,hirei
 Secret Records,秘録,piruku
-ratio,比率,hiryos
+ratio,比率,#ERROR!
 Pen pressure,筆圧,bissas
 untalented,非才,hisai
 Brush cultivation,筆耕,biskyōn
@@ -7921,7 +7921,7 @@ Miserable,悲惨,hisan
 pathetic,悲愴,hi
 Grief and indignation,悲憤,hifun
 Hiage,飛揚,piyān
-Sad tears,悲泣,hikyus
+sad tears,悲泣,hikyus
 Secret hot springs,秘湯,pitān
 disaster prevention,避災,hisai
 Hien,飛燕,pi
@@ -7958,7 +7958,7 @@ White Paper,白書,pakusho
 white spot,白点,pakuten
 Shirato,白土,pakuto
 Hakuju,白寿,pakuju
-White,白丁,pakutīn
+White Ding,白丁,pakutīn
 Cygnus,白鳥座,pakuchōjwa
 broad daylight,白昼,pakuchū
 Baekdu,白頭,pakutu
@@ -7986,7 +7986,7 @@ white tiger,白虎,pakuho
 white wax,白蝋,pakuras
 white bronze,白銅,pakudō
 White keys,白鍵,pakkken
-white beard,白髯,paku
+White beard,白髯,paku
 Hakuho,白鳳,paku
 White Seagull,白鴎,paku
 table,表,pyō
@@ -8012,7 +8012,7 @@ phonetic,表音,pyōon
 epidermis,表皮,pyōhi
 front white,表白,pyōpaku
 specimen,標本,pyōhon
-criticism,評論,pyōnlon
+Criticism,評論,pyōnlon
 marker stone,標石,pyōshaki
 mounting,表装,pyōsō
 Reviewer,評者,pyōnsha
@@ -8098,7 +8098,7 @@ law wheel,法輪,hōryun
 law,法律,hōris
 strategy,方略,pānlyaku
 legal theory,法論,hōron
-Reward,報償,houshān
+reward,報償,houshān
 Takarazan,宝山,housan
 gunfire,砲声,hōshei
 minister of justice,法相,hōsān
@@ -8125,7 +8125,7 @@ artillery battle,砲戦,hōchen
 rule of law,法治,hōchi
 square,方陣,pānjin
 Sermon,法話,hōhwa
-Treasure king,宝王,houou
+Treasure King,宝王,houou
 source of law,法源,hōwen
 legal intention,法意,hōwi
 Forensic doctor,法医,hōwi
@@ -8158,7 +8158,7 @@ retention,保持,pozhi
 protection,保護,poho
 childcare,保育,poiku
 Holdings,保有,poyū
-Conservative,保革,pokyoku
+Conservative/Progressive,保革,pokyoku
 health,保健,poken
 insurance,保険,pokon
 Catching,捕球,pogyu
@@ -8181,7 +8181,7 @@ Authentic,本格,honkaku
 Hon.,本官,honkan
 This volume,本巻,honkwen
 Main ship,本艦,honkan
-This prefecture,本県,honken
+Our prefecture,本県,honken
 Seriously,本気,honki
 This machine,本機,honki
 Honki,本紀,honki
@@ -8274,7 +8274,7 @@ Wind pressure,風圧,pūnnas
 Windproof,風防,pūmbān
 hearsay,風聞,pūnmun
 before the wind,風前,pūnðen
-elegance,風雅,pūnga
+Elegance,風雅,pūnga
 Wind direction,風向,pūnhyān
 wind damage,風害,pūnkoi
 wind rhyme,風韻,pūnnwin
@@ -8313,7 +8313,7 @@ rubella,風疹,pūn
 scenery,風致,pūnchi
 sky burial,風葬,pūnsō
 style,風采,pūnsai
-wind chimes,風鈴,pūnlyōn
+wind chime,風鈴,pūnlyōn
 Appendix,付図,futu
 attendant,付従,fujū
 couple,夫婦,fufu
@@ -8321,7 +8321,7 @@ rich and strong,富強,fu/pukān
 blindly following others,付和,fuhwa
 Fuyu,富有,fu/puyū
 Toya,富家,fu/puka
-Association,付合,fukā
+Dating,付合,fukā
 paternal line,父系,fukei
 Adhesion,付着,fuchaku
 Fuki,富貴,fu/puki
@@ -8409,7 +8409,7 @@ Diversion,分流,punlyūn
 Jet,噴流,funlyūn
 classification,分類,punloi
 cardia,噴門,funmun
-Partial delivery,分納,punnas
+Partial payment,分納,punnas
 Funo,富農,fu/punōn
 sect,分派,pumpa
 distribution,分配,punhai
@@ -8507,7 +8507,7 @@ lightning,雷光,rwaikwō
 next year,来年,rainyen
 history,来歴,raireki
 Next attack,来攻,raikō
-Kimura,来村,raison
+Kuramura,来村,raison
 Visit our company,来社,raisha
 visitor,来者,raisha
 Visit,来診,raishin
@@ -8572,7 +8572,7 @@ Decoration,落飾,nakushiku
 column,欄,ran
 disorder,乱,ran
 List,覧,ran
-Dutch,蘭語,#ERROR!
+Dutch,蘭語,rango
 riot army,乱軍,rangun
 disorderly spending,乱費,ranhi
 egg yolk,卵黄,ranhōn
@@ -8599,7 +8599,7 @@ melee,乱戦,ranchen
 turbulent clouds,乱雲,rannun
 margin,欄外,rannwai
 orchid doctor,蘭医,rannwi
-unruly servant,乱臣,ranjin
+arrogant servant,乱臣,ranjin
 Random production,乱造,ranzou
 disorderly drinking,乱酒,ranshu
 reckless deforestation,乱伐,rambos
@@ -8619,7 +8619,7 @@ sacred place,霊場,ryōnjō
 before the deceased,霊前,ryōnðen
 Spiritual messages,霊言,ryōnnyon
 spirituality,霊學,ryōnkaku
-Elixir,霊薬,ryōnnyaku
+elixir,霊薬,ryōnnyaku
 Miracle,霊験,ryōnken
 Reiki,霊気,ryōnki
 Spiritualization,霊化,ryōnkwa
@@ -8649,7 +8649,7 @@ mausoleum,霊廟,ryōn
 casket,霊柩,ryōn
 Reitaku,麗澤,rei
 spirit cat,霊猫,ryōmbyō
-Sacred Beast,霊獣,ryōnshau
+Sacred beast,霊獣,ryōnshau
 Seal,霊璽,ryōntsi
 Calendar year,歴年,rekinyen
 History Museum,歴博,rekipake
@@ -8674,7 +8674,7 @@ leaving the party,離党,ritān
 Financial management,理財,rizai
 agony of separation,離苦,riku
 understanding,理解,rihai
-interests,利害,rikoi
+interest,利害,rikoi
 use,利用,riyō
 Barber,理容,riyōn
 Greed,利欲,riyoku
@@ -8824,7 +8824,7 @@ out of order,令外,reiwai
 command of a prince,令旨,reishi
 good idea,良案,ryānnan
 Good horse,良馬,ryānma
-Good medicine,良薬,#ERROR!
+Good medicine,良薬,ryānnyaku
 good friend,良友,ryānnyū
 good house,良家,ryānka
 good port,良港,ryānkō
@@ -8870,7 +8870,7 @@ Both domains,両藩,ryāmpan
 Both sides,両辺,ryāmben
 both,両方,ryāmpān
 Both laws,両法,ryānhō
-Both husbands,両夫,ryānfu
+both husbands,両夫,ryānfu
 Both,両分,ryāmpun
 Both mountains,両山,ryānsan
 Both castles,両城,ryānchō
@@ -8955,7 +8955,7 @@ Union,連合,ryenkā
 Consecutive,連記,ryenki
 alignment,連携,ryenkei
 couplet,連句,ryenku
-chain of links,連環,ryenhwan
+chain of link,連環,ryenhwan
 condensed milk,練乳,rennyun
 Consecutive years,連年,ryennyen
 continuous sound,連音,ryennon
@@ -9085,7 +9085,7 @@ drift away,流離,ryūnli
 continuous flow,流連,ryūnlyen
 flow rate,流量,ryūnlyān
 flow path,流路,ryūnlo
-driftwood,流木,ryūnmoku
+Driftwood,流木,ryūnmoku
 quicksand,流砂,ryūnsa
 meteor,流星,ryūnsei
 streamline,流線,ryūnsen
@@ -9205,7 +9205,7 @@ funeral hall,斎場,saijō
 festival hall,祭場,saijō
 ritual implements,祭具,saigu
 vestments,祭服,saifuku
-Uniformity,斉一,seiis
+Uniform,斉一,seiis
 Recruitment,採用,chaiyō
 Approval,裁可,chaika
 Sai family,斉家,seika
@@ -9325,7 +9325,7 @@ mountains and seas,山海,sankai
 Three worlds,三界,sankai
 triangle,三角形,sankakkkei
 triangle,三角,sankaku
-three cold weather,三寒,sankan
+three cold,三寒,sankan
 Industry-government,産官,sankan
 participate,参加する,sanka
 mountain range,山系,sankei
@@ -9342,7 +9342,7 @@ Attendance,参会,sankwi
 mountain spirit,山霊,sanlyōn
 Sanri,三里,sanli
 Sanryaku,三略,sanlyaku
-acids,酸類,sanloi
+Acids,酸類,sanloi
 mountain people,山民,sanmin
 Shamisen,三味線,sanmisen
 mountain range,山脈,sanmyaku
@@ -9396,7 +9396,7 @@ Three Businesses,三業,sannwya
 Zen meditation,参禅,sanzen
 mountain monk,山僧,sansūn
 mountain man,山人,sanzhin
-Sanbuku,三伏,sanfuku
+Sanbushi,三伏,sanfuku
 newborn,産児,sanzhi
 Three Empresses,三后,sankō
 Three chants,三唱,sanshōn
@@ -9579,7 +9579,7 @@ Precision Machinery,精機,cheiki
 Nishiki,西紀,saiki
 diligence,精勤,cheikin
 political guest,政客,seikyeku
-Western suburbs,西郊,saikou
+western suburbs,西郊,saikou
 Adult fish,成魚,seiyo
 raw fish,生魚,seiyo
 holy religion,聖教,seikyau
@@ -9605,7 +9605,7 @@ Accuracy,精確,cheikwaku
 castle,城館,chōkan
 Vas deferens,精管,cheikan
 Calm contemplation,静觀,cheikan
-A grand party,盛会,seikwi
+A grand meeting,盛会,seikwi
 Saibo,西望,saimān
 reputation,声望,sheimān
 Rice polishing,精米,cheimai
@@ -9714,7 +9714,7 @@ nature,性質,seishis
 Voice quality,声質,sheishis
 Bible,聖書,seisho
 written book,成書,seisho
-Qing's first,清初,cheitso
+The beginning of the Qing Dynasty,清初,cheitso
 oath,誓書,seisho
 raw food,生食,seishoku
 fresh,生鮮,seisen
@@ -9730,7 +9730,7 @@ ecology,生態學,seitaikaku
 West end,西端,saitan
 political enemy,政敵,seitoki
 Scripture,聖典,seityun
-Holy God,聖天,seityen
+Heavenly King,聖天,seityen
 western sky,西天,saityen
 blue sky,青天,cheityen
 student,生徒,seito
@@ -9741,7 +9741,7 @@ Moritoku,盛徳,seitoku
 Close reading,精読,cheidoku
 Holy virtue,聖徳,seitoku
 policy,政策,seitseku
-Leveling the ground,整地,seitsi
+Land leveling,整地,seitsi
 Castle area,城地,chōtsi
 westward,西進,saishin
 Kiyokatsu,清勝,cheishūn
@@ -9810,7 +9810,7 @@ Seiro,青楼,cheirau
 holy tabernacle,聖櫃,sei
 lifetime,生涯,seike
 Birth and extinction,生滅,seimyes
-Clear,清澄,cheitō
+Clarification,清澄,cheitō
 good and evil,清濁,cheitaku
 adult cat,成猫,seibyō
 blue tiles,青瓦,cheiga
@@ -9852,7 +9852,7 @@ precipitation,析出,sekishus
 color vision,色覚,sekkkaku
 seat,席,seku
 cable,索,saku
-color road,色道,sekudō
+color path,色道,sekudō
 cableway,索道,sakudō
 lust,色情,sekujōn
 Ishinaka,石中,shakiju
@@ -9914,7 +9914,7 @@ eyewash,洗眼,sengan
 Leading,先行,senkō
 Specialist,専行,sēnkō
 declaration,宣言,sennyon
-precedent,先學,senkaku
+Preschool,先學,senkaku
 shallow learning,浅學,chankaku
 tyranny,専横,sēnhūn
 Last time,先回,senhwi
@@ -10098,11 +10098,11 @@ ticket,切符,sosfu
 exhortation,説諭,sesshyu
 revenge,雪辱,shesshoku
 earnest desire,切願,sosshyan
-Crown Prince,世子,setsi
-worldly affairs,世事,setsi
+crown prince,世子,setsi
+world affairs,世事,setsi
 Blessed One,世尊,setson
 household,世帯,setai
-incisors,切歯,socchi
+incisor,切歯,socchi
 setting,設定,sestei/jōn
 World wisdom,世知,sechi
 care,世話,sehwa
@@ -10126,7 +10126,7 @@ grand speech,壮語,sōgo
 Orthotics,装具,sōgu
 complementary,相補,sāmpo
 mutual agreement,相合,sānkā
-cover illustration,装画,sōka
+Cover illustration,装画,sōka
 Ship operation,操艦,soukan
 strong health,壮健,sōken
 hasty decision,早計,sōkei
@@ -10188,7 +10188,7 @@ conflict,争乱,tsōran
 labor saving,省力,shōnliki
 neighbor,相隣,sānlin
 omission,省略,shōnlyaku
-Drill,操練,souren
+drill,操練,souren
 controversy,争論,tsōron
 mutual argument,相論,sānlon
 operation,操作,soutsaku
@@ -10204,7 +10204,7 @@ Graduation thesis,卒論,soslon
 inheritance,相続,sānsoku
 fainting,卒倒,sostou
 stroke,卒中,socchu
-Mutual inheritance,相承,sānshīn
+Mutual succession,相承,sānshīn
 water supply,送水,sōsui
 precocious,早熟,sōshuku
 Immediately,相即,sānseiku
@@ -10218,8 +10218,8 @@ Attire,装身,sōshin
 Early departure,早出,sōshus
 sending out,送出,sōshus
 relative,相対,sāntai
-Delivery,送達,sōtas
-Manipulation,操典,soutyun
+delivery,送達,sōtas
+Manipulation Code,操典,soutyun
 provincial capital,省都,shōnto/tsu
 equality,相等,sāntūn
 Leaving early,早退,sōchai
@@ -10293,7 +10293,7 @@ Muraari,村有,sonnyū
 Loss,損気,sonki
 Loss,損金,sonkin
 Village,村立,sonlis
-loss charge,損料,sonlyo
+loss fee,損料,sonlyo
 Village name,村名,sonmei
 Non-life insurance,損保,sompo
 Village administration,村政,sonsei
@@ -10326,7 +10326,7 @@ water saving,節水,sossui
 frugality,節食,sosshoku
 node,節点,sosten
 Power saving,節電,sostyen
-Setsugi,節義,sosswi
+nobility,節義,sosswi
 sobriety,節酒,sosshu
 runner,走者,sausha
 founder,祖師,soshi
@@ -10371,7 +10371,7 @@ Collection,集録,sūsluku
 study,習作,sēitsaku
 water collection,集水,sūssui
 Collection and distribution,集散,sūssan
-Concentration,集諦,sūstei
+concentration,集諦,sūstei
 Shuji,集治,sūcchi
 collection of meanings,集義,sūsswi
 collection of orders,集注,sūcchu
@@ -10412,7 +10412,7 @@ land and water,水陸,suiryuku
 Mizuren,水練,suiren
 water cooling,水冷,suirēn
 water theory,水論,suiron
-hydroxy acid,水酸,suisan
+Hydroxic acid,水酸,suisan
 aquatic rock,水成岩,suiseigan
 dialysis,透析,touseki
 Suiseki,水石,suishaki
@@ -10428,7 +10428,7 @@ Water master,水師,suishi
 water god,水神,suishin/jin
 water calligraphy,水書,suisho
 hydrogen,水素,suiso
-transparent,透徹,touches
+Transparent,透徹,touches
 head of water,水頭,suitu
 water transport,水運,suiun
 Suigetsu,水月,suiwes
@@ -10496,7 +10496,7 @@ Shredding,寸断,sundan
 order,順序,junjou
 small statement,寸言,sunnyon
 leisure,寸暇,sunka
-Forward and reverse,順逆,jungyoku
+Forward/reverse,順逆,jungyoku
 favorable circumstances,順境,junkyō
 Comment,寸評,sumpyōn
 fair wind,順風,jumpūn
@@ -10910,7 +10910,7 @@ heart clothes,心服,shinfuku
 affinity liki,親和liki,#REF!
 Divine clothing,神衣,shin/jinni
 psychological cause,心因,shinnin
-True cause,真因,shinnin
+real cause,真因,shinnin
 Shen Yun,神韻,shin/jinnwin
 Visibility,視認,shirin
 late night,深夜,shinnya
@@ -11010,7 +11010,7 @@ A new breeze,新風,shimpūn
 heartfelt,心腹,shinfuku
 status,身分,shimpun
 New banknotes,新札,shinsas
-Dark green,深緑,shinlyuku
+dark green,深緑,shinlyuku
 Hard work,辛労,shinlō
 examination,審査,shinsa
 new tea,新茶,shincha
@@ -11138,9 +11138,9 @@ Divine power,神威,shin/jinni
 divine general,神将,shin/jinshō
 nave,身廊,shinlān
 parent expedition,親征,shinsei
-New patients,新患,shinhwan
+New Patients,新患,shinhwan
 heart palpitations,心悸,shin
-divine consideration,神慮,shin/jinlyo
+Divine consideration,神慮,shin/jinlyo
 deep consideration,深慮,shinlyo
 Trembling,震憾,jinkan
 relatives,親戚,shinseki
@@ -11235,10 +11235,10 @@ Stabbing to death,刺殺,tsisas
 Surgery,執刀,shistau
 wet field,湿田,shūstyen
 poetry,詩性,shisei
-City system,市制,shisei
+city ​​system,市制,shisei
 Sub-castle,支城,shichō
 Last name,氏姓,shisei
-administration,施政,shisei
+Administration,施政,shisei
 life and death,死生,shisei
 tattoo,刺青,tsichei
 illegitimate,私生,shisei
@@ -11270,7 +11270,7 @@ Indoor,室内,shisnae
 Forgetfulness,失念,shisnen
 death phase,死相,shisān
 Shisou,志操,shisou
-graduate,士卒,shisos
+bachelor's degree,士卒,shisos
 four-legged,四足,tsisuku
 verse,詩節,shisos
 failure,失敗,shishai
@@ -11373,7 +11373,7 @@ messenger,使人,shizhin
 private person,私人,shizhin
 envoy,使臣,shijin
 samurai,士人,shizhin
-Dead weight,死重,shichōn
+dead weight,死重,shichōn
 personal note,私注,shichu
 Treatment,施術,shichus
 think,思う,shi
@@ -11423,12 +11423,12 @@ nematocyst,刺胞,tsipō
 The smell of death,死臭,shishū
 word of mouth,詞藻,shitsau
 sincerity,至誠,chisei
-poetry collection,詩賦,shipu
+Poetry edition,詩賦,shipu
 vestige,事跡,tsiseku
 private residence,私邸,shiche
 Test drilling,試錐,shizhwi
 locking,施錠,shijou
-matter,事項,tsihān
+matters,事項,tsihān
 Segaki,施餓鬼,shiokwi
 spirit of spirit,士魂,shihon
 Decision,審決,shinkes
@@ -11516,7 +11516,7 @@ Seifusa,正房,seibān
 small plate,小板,shōpan
 small domain,小藩,shōpan
 small piece,小片,shōhen
-Short story,小編,shōhen
+short story,小編,shōhen
 Main edition,正編,seihen
 Right or wrong,正否,seifu
 small item,小品,shōpin
@@ -11524,7 +11524,7 @@ square,正方,seipān
 correct law,正法,seihō
 Detailed report,詳報,sōhou
 original,正本,seihon
-proof copy,証本,shōhon
+proof book,証本,shōhon
 positive and negative,正負,seifu
 Masakaze,正風,seipūn
 principal and vice,正副,seifuku
@@ -11616,7 +11616,7 @@ sine,正弦,seigen
 Small diameter,小径,shōkei
 Evidence,証憑,shō
 evidence,証拠,shōkyo
-Invitation,招提,chōtei
+invitation,招提,chōtei
 Depressed,消沈,shōchin
 Swamp,沼沢,chōtaku
 Defoaming,消泡,shōpō
@@ -11653,7 +11653,7 @@ Initial response,初動,tsodōn
 Location,所在,shozai
 Tradition,所伝,shoden
 various temples,諸寺,sheji
-In book,書中,shoju
+Currently in writing,書中,shoju
 Premiere,初演,tsoein
 various lines,諸行,shekō
 First Word,初語,tsogo
@@ -11745,7 +11745,7 @@ book title,書目,shomoku
 First sentence,初文,tsomun
 sight gate,照門,shoumun
 Inside the facility,所内,shonae
-Honorable face,尊顔,tsongan
+Honorable Face,尊顔,tsongan
 dignity,尊厳,tsonkon
 First appointment,初任,tsonin
 respect,尊敬,tsonkei
@@ -11894,7 +11894,7 @@ bishop,主教,shukyau
 old guard,守旧,shuku
 main tide,主潮,shutsō
 Collection,収公,shoukou
-hand-to-hand,手交,shukyo
+Hand delivery,手交,shukyo
 handiwork,手工,shukō
 handicraft,手工業,shukōwya
 Chief class,首級,shukyus
@@ -11903,7 +11903,7 @@ Postage,宿便,shukubīn
 Innate goodness,宿善,shukusen
 Post town,宿場,shukujō
 homework,宿題,shukudai
-Camp,宿営,shukuei
+Camping,宿営,shukuei
 Inn station,宿駅,shukuyeku
 Desire,宿望,shukumān
 Shuro,宿老,shukurō
@@ -11936,11 +11936,11 @@ income,収入,shounyun
 Spring Song,春歌,tsunka
 Shunga,春画,tsunka
 moment,瞬間,shonkan
-seasonal issue,旬刊,chunkan
+seasonal publication,旬刊,chunkan
 Net total,純計,junkei
 Shunkei,春慶,tsunkyōn
 Autumn view,秋景,shūkei
-purebred,純血,junkyes
+pure-blooded,純血,junkyes
 spring season,春季,tsunki
 Spring,春期,tsunki
 autumn season,秋季,shūki
@@ -12004,7 +12004,7 @@ bleeding,出血,shuskyes
 Withdrawal,出金,shuskin
 attendance at work,出勤,shuskin
 Attendance,出欠,shuskes
-Attending school,出校,shuskyo
+Attend school,出校,shuskyo
 Issue,出庫,shusko
 Exit,出口,shusku
 Appearance,出現,shushyen
@@ -12049,7 +12049,7 @@ Exhibition,出陳,shucchin
 Referee,主審,shushin
 letter,手紙,shuzhi
 History,修史,shaushi
-main god,主神,shushin/jin
+main deity,主神,shushin/jin
 handwriting,手書,shusho
 Fixes,修正,shausei
 staple food,主食,shushoku
@@ -12089,7 +12089,7 @@ hand towel,手巾,shuken
 Collection,収授,shoushu
 grasping,収攬,shou
 seed wisdom,種智,tsuchi
-main pillar,主柱,shuchu
+Main pillar,主柱,shuchu
 grenade,手榴,shu
 grenades,手榴弾,shutan
 Onanism,手淫,shuyen
@@ -12119,7 +12119,7 @@ Tower-shaped,塔状,taisshān
 This temple,当寺,tōnji
 Our bank,当行,tōnkō
 That night,当夜,tōnnya
-Purpose,当用,tōnnyō
+Purpose of use,当用,tōnnyō
 Chinese painting,唐画,tānka
 Nowadays,当今,tōnkēn
 Current period,当期,tōnki
@@ -12144,7 +12144,7 @@ sugar content,糖分,tāmpun
 Winners,当落,tōnnaku
 sugars,糖類,tānloi
 This mountain,当山,tōnsan
-This festival,当節,tōnsos
+This season,当節,tōnsos
 The matter in question,当事,tōntsi
 Our city,当市,tōnshi
 Tang poetry,唐詩,tānshi
@@ -12240,7 +12240,7 @@ Against Britain,対英,taiei
 Antipodes,対蹠,tai
 Against South Korea,対韓,taihan
 sun lamp,太陽灯,tayāntēn
-multinucleated,多核,takaiku
+multinucleate,多核,takaiku
 Sensitivity,多感,takan
 Happiness,多幸,takēn
 other view,他見,taken
@@ -12278,12 +12278,12 @@ expedition,探検,tankon
 exploration,探見,tanken
 Short temper,短気,twanki
 Single unit,単機,tanki
-light yellow,淡黄,tanhōn
+pale yellow,淡黄,tanhōn
 short term,短期,twanki
 short bow,短弓,twankūn
 Tanko,淡交,tankyo
 bile duct,胆管,tankan
-Light and clear,淡麗,tanlei
+Light and refreshing,淡麗,tanlei
 Beautiful,端麗,tanlei
 simple interest,単利,tanli
 Isolation,単離,tanli
@@ -12340,7 +12340,7 @@ detective,探偵,tantei
 Tango,端午,tanno
 gall bladder,胆嚢,tan
 Tang and evening,旦夕,tanseku
-Light color,淡彩,tansai
+Light colors,淡彩,tansai
 Short diameter,短径,twankei
 carelessness,短慮,twanlyo
 Tango,旦暮,tambo
@@ -12361,10 +12361,10 @@ Peaceful,太平楽,tapeiraku
 On the other hand,他方,tapān
 Taho,多宝,tahou
 Other power,他力,tariki
-heteronomous,他律,taris
+heteronomy,他律,taris
 other territory,他領,taryōn
 Other style,他流,taryūn
-Thick and thin,太細,tase
+thick and thin,太細,tase
 Versatility,多才,tasai
 prolific,多作,tatsaku
 Bad work,駄作,tatsaku
@@ -12392,7 +12392,7 @@ multi-minded,多心,tashin
 polytheism,多神,tashin/jin
 other room,他室,tashis
 High humidity,多湿,tashūs
-Other places,他所,tasho
+elsewhere,他所,tasho
 Other books,他書,tasho
 Heavy eating,多食,tashoku
 High yield,多収,tashou
@@ -12576,7 +12576,7 @@ extraordinary,等外,tūnnwai
 isochronous,等時,tūnzhi
 winter melon,冬瓜,tōnkwa
 ceramics,陶磁,tōchi
-Moved to France,渡仏,topus
+Moving to France,渡仏,topus
 Toden Tram,都電,to/tsudyen
 Under the ground,土中,toju
 indigenous people,土豪,tohou
@@ -12589,7 +12589,7 @@ Leaving school,退校,chaikyo
 receding tide,退潮,chaitsō
 Leaving the building,退館,chaikan
 Cancellation,退会,chaikwi
-Evacuate,退避,chaihi
+Evacuation,退避,chaihi
 Regression,退歩,chaipo
 retreat,退路,chairo
 Leave,退席,chaiseku
@@ -12615,7 +12615,7 @@ crossing the sea,渡海,tokai
 imprisonment,徒刑,tokei
 Civil engineering,土建,token
 Virtue,徳化,tokkkwa
-earthworks,土工,tokō
+earthwork,土工,tokō
 profit,得,tuku
 Miyako Ward,都区,to/tsuku
 poison,毒,toku
@@ -12669,7 +12669,7 @@ poisonous hand,毒手,tokushu
 comma,読点,dokuten
 poisonous tongue,毒舌,tokuzes
 toxin,毒素,tokuso
-poisonous plant,毒草,tokutsō
+poisonous weed,毒草,tokutsō
 Story reading,読話,dokuhwa
 good at,得意,tukuwi
 moral virtue,徳義,tokuwi
@@ -12717,7 +12717,7 @@ earthenware,土製,totsei
 Outside the island,島外,tōwai
 City banks,都銀,to/tsukēn
 Tokyo Metropolitan Assembly Member,都議,to/tsuwi
-metropolitan tax,都税,to/tsuzei
+Metropolitan tax,都税,to/tsuzei
 folk customs,土俗,tozuku
 Natives,土人,tozhin
 Tokyo people,都人,to/tsuzhin
@@ -12782,7 +12782,7 @@ reentrant,再入,sainyun
 reprint,再版,saipan
 Resale,再販,saipan
 reproduction,再生,saisei
-Re-election,再選,saisen
+re-election,再選,saisen
 retelling,再説,saises
 Resend,再送,saisō
 Fastest,最速,tsaisoku
@@ -13092,7 +13092,7 @@ the last stop,終点,tsōnten
 End of the war,終戦,tsōnchen
 Fixed,定置,tei/jōnchi
 definition,定義,tei/jōnnwi
-Fixed draft,定稿,tei/jōnko
+fixed draft,定稿,tei/jōnko
 Final Chapter,終章,tsōntsūn
 Determined status,定聚,tei/jōn
 Draft,素案,soan
@@ -13148,7 +13148,7 @@ rhyme,押韻,āsswin
 Press,押下,āska
 lifespan,寿命,jumei
 circulation,循環,tsonhwan
-Seize,押領,āslyōn
+Seizure,押領,āslyōn
 Life expectancy,寿量,juryān
 push,押送,āssō
 water extraction,抽水,tsausui
@@ -13220,7 +13220,7 @@ Long Thoughts,長考,chānkō
 long life,長久,chānku
 long drive,長駆,chānku
 Nagahiro,長広,chānkō
-long tube,長管,chānkan
+long pipe,長管,chānkan
 tension,張力,chānliki
 long flow,長流,chānlyūn
 long life,長命,chānmei
@@ -13445,7 +13445,7 @@ gun,鉄砲,cheshō
 iron materials,鉄材,chettsai
 iron fence,鉄柵,checcheku
 iron mine,鉄山,chessan
-iron and stone,鉄石,chesshaki
+Iron and stone,鉄石,chesshaki
 iron wire,鉄線,chessen
 iron ship,鉄船,chessen
 steel tower,鉄塔,chestais
@@ -13506,7 +13506,7 @@ most recent,直近,chikikin
 Orthogonal,直交,chikikyo
 direct sailing,直航,chikihān
 taproot,直根,chikikon
-Straight Ball,直球,chikigyu
+Straight ball,直球,chikigyu
 Immediately after,直後,chikihou
 facing,直面,chikimyen
 direct gate,直門,chikimun
@@ -13526,7 +13526,7 @@ fix,直す,chiki
 simile,直喩,chikiyu
 diameter,直径,chikikei
 Naoto,直登,chikitō/dūn
-direct remonstrance,直諫,chiki
+direct admonition,直諫,chiki
 Direct servant,直隷,chikirei
 metallurgy,冶金,yakin
 pubic bone,恥骨,tsikos
@@ -13576,7 +13576,7 @@ Knowledge and virtue,知徳,chitoku
 designation,指定,chitei/jōn
 nitrogen,窒素,tsisso
 inversion,倒置,touchi
-extraterritorial,治外,chiwai
+Extraterritorial,治外,chiwai
 extraterritoriality,治外法権,chiwaihōkwon
 instructions,指示,chishi
 acquaintance,知人,chizhin
@@ -13593,7 +13593,7 @@ pond,池塘,tsi
 wise general,知将,chishō
 Wisdom,知悉,chi
 pointing out,指摘,chitoki
-Pondside,池畔,tsiban
+Pond shore,池畔,tsiban
 treatment,治療,chiryō
 achievements,治績,chicheke
 intelligence,知謀,chibō
@@ -13631,10 +13631,10 @@ Town history,町誌,chōshi
 Hearing and seeing,聴視,tyōshi
 Outside the town,町外,chōwai
 Town council member,町議,chōwi
-extravagant,超俗,chōzuku
+ultra-vulgar,超俗,chōzuku
 hearing of charges,聴罪,tyōzoi
 Grass,草々,tsō
-Asado,朝堂,chōdān
+Chodo,朝堂,chōdān
 Kusodo,草堂,tsōdān
 key signature,調号,chōho
 Perfumery,調香,chōkyān
@@ -13697,7 +13697,7 @@ lap,周回,shūhwi
 Excursion,周遊,shūyū
 Weekly,週刊,shūkan
 Parking,駐機,chuki
-weekly wage,週給,shūkes
+Weekly wage,週給,shūkes
 circumnavigation,周航,shūhān
 Port construction,築港,chukukō
 After construction,築後,chukuhou
@@ -13728,7 +13728,7 @@ Fight,闘,tō
 Fighting illness,闘病,tōbyō
 fighting,闘技,tōgi
 cockfighting,闘鶏,tōkei
-fighting dogs,闘犬,tōken
+dog fighting,闘犬,tōken
 bullfighting,闘牛,tōgu
 Tea fighting,闘茶,tōcha
 struggle,闘争,tōtsō
@@ -13793,14 +13793,14 @@ stone throwing,投石,tushaki
 throw,投足,tusuku
 projection,投射,tusha
 investment trusts,投信,tushin
-Throwing,投身,tushin
+throw,投身,tushin
 Head to body ratio,頭身,tushin
 pitcher,投手,tushu
 head,頭首,tushu
 lodging,投宿,tushuku
 head end,頭端,tutan
 land dumping,投地,tutsi
-headnote,頭注,tuchu
+Headnote,頭注,tuchu
 throw,投げる,tu
 Throwing a fan,投扇,tusen
 Throwing,投擲,tu
@@ -13834,7 +13834,7 @@ Clouds,雲気,unki
 Operation,運航,unhān
 destiny,運命,unmei
 mica,雲母,unmo
-calligraphy,運筆,umbis
+Brush strokes,運筆,umbis
 Cloud amount,雲量,unlyān
 Unsai,雲斎,unsai
 Unzan,雲山,unsan
@@ -13899,7 +13899,7 @@ Geku,外宮,waikūn
 extroversion,外向,waihyān
 extraversion,外向性,waihyānsei
 external cause,外因,waiin
-External appearance,外容,waiyōn
+External content,外容,waiyōn
 External use,外用,waiyō
 outer leaf,外葉,waiīs
 open ocean,外洋,waiyān
@@ -13930,7 +13930,7 @@ exocrine,外分泌,waipunhi
 external force,外力,wairiki
 outer ring,外輪,wairyun
 outer edge,外縁,waien
-externality,外性,waisei
+extrinsic,外性,waisei
 outer castle,外城,waichō
 foreign affairs,外政,waisei
 exogenous,外生,waisei
@@ -13956,7 +13956,7 @@ Outer diameter,外径,waikei
 external illness,外患,waihwan
 maternal relative,外戚,waiseki
 extrapolation,外挿,waisās
-Outer soft,外柔,waizhūn
+outer soft,外柔,waizhūn
 outer shell,外殻,waikaiku
 outdoor lights,外灯,waitēn
 outer cylinder,外筒,waitsūn
@@ -14198,7 +14198,7 @@ righteous indignation,義憤,wifun
 Donations,義捐,wi
 omission,遺漏,winū
 Giretsu,義烈,wiryes
-Sacrifice,犠牲,hīsei
+sacrifice,犠牲,hīsei
 Gisho,義疏,wi
 medical care,医療,wiryō
 Alternative name,異称,ītsīn
@@ -14213,7 +14213,7 @@ request,依頼,iroi
 Request,依願,iyan
 hair of deceased,遺髪,wipas
 incurable disease,業病,wyabyō
-karma,業苦,wyaku
+Karma,業苦,wyaku
 Hellfire,業火,wyahwa
 Business scope,業容,wyayōn
 industry,業界,wyakai
@@ -14245,7 +14245,7 @@ typographical errors,誤記,koki
 five opposites,五逆,yogyoku
 Five teachings,五教,yokyau
 Prison gate,獄門,kokumun
-prison graduate,獄卒,kokusos
+prisoner,獄卒,kokusos
 prison,獄舎,kokusha
 Death in prison,獄死,kokushi
 Prison window,獄窓,kokusoin
@@ -14423,7 +14423,7 @@ Exclusion,除斥,tsotsoki
 Disaster prevention,除災,tsosai
 Deodorization,除臭,tsoshū
 Disinfection,除菌,tsokin
-Removal,除虫,tsotsūn
+insect removal,除虫,tsotsūn
 era,時代,zhi
 vision,示現,shihyen
 seasonal clothes,時服,zhifuku
@@ -14476,7 +14476,7 @@ human being,人士,zhinshi
 Hitogami,人神,zhinshin/jin
 Race,人種,zhintsu
 Virtue,人徳,zhintoku
-human place,人地,zhintsi
+human land,人地,zhintsi
 person determination,人定,zhintei/jōn
 human knowledge,人知,zhinchi
 human head,人頭,zhintu
@@ -14561,7 +14561,7 @@ believer,宗徒,sauto
 Sosei,宗勢,sause
 landscaping,造園,zouwen
 Muneyoshi,宗義,sauwi
-tribe,宗族,sauzuku
+sect,宗族,sauzuku
 Sake brewing,造酒,zoushu
 Master,宗匠,sauchān
 Jongmyo Shrine,宗廟,sau
@@ -14581,7 +14581,7 @@ critical condition,重態,chōntai
 emphasis,重点,chōnten
 important position,重職,chōnchiku
 heavy responsibility,重責,chōncheke
-Heavy tax,重税,chōnzei
+heavy tax,重税,chōnzei
 heavy,重い,chōn
 close siege,重囲,chōnnwi
 ensemble,重奏,chōnsau
@@ -14592,7 +14592,7 @@ Jusho,重祚,chōn
 serious,重篤,chōntuku
 felony,重罪,chōnzoi
 Wood storage,貯木,zhomoku
-storage,貯留,zhoryū
+Storage,貯留,zhoryū
 savings,貯蓄,zhotsuku
 storage,貯蔵,zhozō
 Note,注,chu
@@ -14646,7 +14646,7 @@ injection,注射,chusha
 sake god,酒神,shushin/jin
 food and drink,酒食,shushoku
 alcoholism,酒毒,shutoku
-tactics,術策,chuttseku
+strategy,術策,chuttseku
 Sake Pond,酒池,shutsi
 Note,注意,chuwi
 Alcoholic drinks,酒剤,shuche
@@ -14666,7 +14666,7 @@ Joroku,丈六,ðānnuku
 Genin,下人,kazhin
 unbenevolent,不仁,fuzhin
 Sagittarius,且座,chajwa
-hill top,丘上,kuði
+hilltop,丘上,kuði
 hilly,丘状,kuzhān
 Hei species,丙種,peitsu
 Heichin,丙辰,pei
@@ -14790,7 +14790,7 @@ investigating,偵知,teichi
 coincidence,偶然,gauyen
 even number,偶数,gausū
 idol,偶像,gausān
-false evil,偽悪,wiaku
+Falsehood,偽悪,wiaku
 fraudulent scheme,偽計,wikei
 forgery,偽作,witsaku
 forged book,偽書,wisho
@@ -14911,7 +14911,7 @@ frozen ground,凍土,tōnto
 condensation,凝結,kwōkes
 tuff,凝灰,kwōhwi
 common person,凡愚,pannyu
-Ordinary person,凡夫,panfu
+Ordinary man,凡夫,panfu
 Legend,凡例,panlei
 mediocre work,凡作,pantsaku
 mediocre ability,凡手,panshu
@@ -15016,7 +15016,7 @@ Recommendation,勧奨,kwanchān
 Isamu,勲,kun
 medal of honor,勲記,kunki
 Isao et al.,勲等,kuntūn
-Order of honor,勲位,kunnwi
+Order of Merit,勲位,kunnwi
 Merit,勲功,kunkou
 draw,勾引,kuin
 column,勾欄,kuran
@@ -15093,7 +15093,7 @@ beating,叩打,da
 Koutou,叩頭,tu
 scream,叫声,kyoshei
 scream,叫喚,kyohwan
-Summoning,召見,chōken
+summons,召見,chōken
 calling,召命,chōmei
 Summon,召還,chōkwan
 scolding,叱声,chisshei
@@ -15135,7 +15135,7 @@ smoking,吸煙,kyunnyen
 Wind instrument,吹奏,suisau
 blowing sound,吹鳴,suimīn
 presentation,呈上,teiði
-Coloration,呈色,teiseku
+Coloring,呈色,teiseku
 Presentation,呈出,teishus
 Go-on,呉音,koon
 Wu and Yue,呉越,koyos
@@ -15164,7 +15164,7 @@ condolence,哀悼,aitō
 grief,哀惜,aiseku
 melancholy,哀愁,aishū
 compassion,哀憐,ai
-Joy and sorrow,哀歓,aihan
+Sorrows and joys,哀歓,aihan
 Patrol,哨戒,kai
 dumb,唖,
 beautiful,唯美,yuimi
@@ -15335,10 +15335,10 @@ dedication,奉呈,hūntei
 Shrine of worship,奉奠,hūn
 reverential acceptance,奉戴,hūntai
 consecration,奉献,hūnhen
-worship service,奉祀,hūn
+worship,奉祀,hūn
 celebration,奉祝,hūnchuku
 playing style,奏法,sauhō
-Musical Instrument,奏楽,sauraku
+Musical Instruments,奏楽,sauraku
 appeal,奏請,sauchei
 Success,奏功,saukou
 Response,奏効,saukyo
@@ -15379,7 +15379,7 @@ Good pitching,好投,kōtu
 Good feeling,好意,kōwi
 nice person,好人,kōzhin
 fashion,好尚,kōshān
-good guy,好漢,kōkan
+good man,好漢,kōkan
 good book,好著,kōtso
 goodwill,好誼,kō
 Nyojo,如上,ruði
@@ -15407,7 +15407,7 @@ Myo,妙,myō
 brilliant idea,妙案,myōan
 virtuosity,妙技,myōgi
 miracle cure,妙薬,myōyaku
-Wonderful insight,妙覚,myōkaku
+ingenious,妙覚,myōkaku
 Myoken,妙見,myōken
 Deliciousness,妙味,myōmi
 Myoshin,妙心,myōshin
@@ -15450,7 +15450,7 @@ abomination,嫌忌,kenki
 Anti-smoking,嫌煙,kennyen
 Main line,嫡流,chekuryūn
 legitimate,嫡出,chekushus
-legitimate grandchild,嫡孫,chekuson
+legitimate grandson,嫡孫,chekuson
 Miss,嬢,nyou
 sharp,嬰,
 Kong Meng,孔孟,kōn
@@ -15621,7 +15621,7 @@ young child,幼童,yōtūn
 spirit world,幽界,yaukai
 hermitage,幽居,yaukyo
 Ghost,幽鬼,yaukwi
-Yumei,幽明,yaumei
+ghostly light,幽明,yaumei
 pylorus,幽門,yaumun
 ghost,幽冥,yaumyōn
 prisoner,幽囚,yautsau
@@ -15654,7 +15654,7 @@ mausoleum,廟堂,dān
 factory,廠舎,sha
 Our company,弊,hei
 shabby clothes,弊衣,heii
-Bad tactics,弊風,heipūn
+Bad tide,弊風,heipūn
 misrule,弊政,heisei
 Our company,弊社,heisha
 disgrace,弑逆,gyoku
@@ -15686,7 +15686,7 @@ Saturation,彩度,saido
 Aya painting,彩画,saika
 Saibun,彩文,saimun
 Saiun,彩雲,saiun
-Goldsmith,彫金,choukin
+Engraving,彫金,choukin
 sculpture,彫塑,chouso
 carving,彫琢,chou
 They and I,彼我,hika
@@ -15768,7 +15768,7 @@ Agony,悶絶,tses
 die in agony,悶死,shi
 Farewell,惜別,sekubyes
 narrow loss,惜敗,sekuhai
-Koreshami,惟神,shin/jin
+Korekami,惟神,shin/jin
 Sodai,惣代,
 Misery,惨苦,sanku
 disaster,惨害,sankoi
@@ -15903,7 +15903,7 @@ palm print,掌紋,zhōmun
 in the palm of your hand,掌中,zhōju
 due to negligence,掌故,zhōko
 palm version,掌編,zhōhen
-management,掌理,zhōri
+control,掌理,zhōri
 Anti-Buddha,排仏,haipus
 Exclusion,排中,haiju
 Excretion,排行,haikō
@@ -15944,7 +15944,7 @@ shaking,揺曳,yō
 Cradle,揺籃,yō
 milking,搾乳,sakunyun
 Sekke,摂家,sūska
-Healthy Living,摂生,sūssei
+diet,摂生,sūssei
 Affiliated shrines,摂社,sūssha
 Celsius,摂氏,sūsshi
 feeding,摂食,sūsshoku
@@ -15966,7 +15966,7 @@ Water repellent,撥水,sui
 Fumin,撫民,min
 selection,撰述,chus
 Selection summary,撰要,yō
-selected text,撰文,mun
+Selected text,撰文,mun
 selector,撰者,sha
 selection and editing,撰修,shau
 bludgeoning to death,撲殺,pokusas
@@ -16137,7 +16137,7 @@ vertebrae,椎骨,tswikos
 vertebral body,椎体,tswitai
 Tsubaki incident,椿事,tsi
 Yangliu,楊柳,ryau
-sorcery,楚歌,ka
+courtship,楚歌,ka
 tower stand,楼台,rautai
 Tower,楼閣,raukaku
 Tower gate,楼門,raumun
@@ -16162,7 +16162,7 @@ cheers,歓呼,hanho
 Sending off,歓送,hansō
 Pleasure,歓心,hanshin
 This shore,此岸,tsayan
-This soil,此土,tsato
+this soil,此土,tsato
 age,歳,se
 Annual salary,歳費,sehi
 Year-end,歳末,semus
@@ -16170,7 +16170,7 @@ Precession,歳差,setsa
 Annual events,歳事,setsi
 annual festival,歳旦,setan
 Years,歳時,sezhi
-Martyrdom,殉國,chunkuku
+Martyrdom of the country,殉國,chunkuku
 martyrdom,殉難,chunnan
 martyrdom,殉死,chunshi
 Marty in the line of duty,殉職,chunchiku
@@ -16246,7 +16246,7 @@ bathing,沐浴,yuku
 alluvial,沖積,jucheke
 Decision,沙汰,sata
 Lost in self,没我,poska
-abandonment,没却,poskyaku
+immersion,没却,poskyaku
 Year of death,没年,posnyen
 Immersion,没入,posnyun
 death,没義,posswi
@@ -16283,7 +16283,7 @@ enema,浣腸,chān
 Hiroaki,浩瀚,
 Rakugo,浪曲,rānkuku
 For bathing,浴用,yukuyō
-Infiltration,浸入,tsinnyun
+infiltration,浸入,tsinnyun
 Baptism,浸礼,tsinlei
 penetration,浸透,tsintou
 erosion,浸食,tsinshoku
@@ -16304,7 +16304,7 @@ lady,淑女,sukunyo
 Virtue,淑徳,sukutoku
 prostitute,淫売,yenmai
 prostitute,淫婦,yenfu
-sexual misconduct,淫行,yenkō
+fornication,淫行,yenkō
 lewd sheep,淫羊,yennyān
 lewd,淫乱,yenlan
 Lewd water,淫水,yensui
@@ -16403,7 +16403,7 @@ Han army,漢軍,kangun
 Kanwa,漢和,kanhwa
 Chinese translation,漢訳,kannyoki
 Chinese name,漢名,kanmei
-Kanyin,漢音,kannon
+Kanyon,漢音,kannon
 Chinese talent,漢才,kansai
 Chinese classics,漢籍,kanswoku
 Chinese soil,漢土,kanto
@@ -16431,9 +16431,9 @@ rout,潰走,kwisau
 ulcer,潰瘍,kwiyān
 Clear light,澄明,tōmei
 澗,澗,
-harsh words,激語,gekigo
+harsh language,激語,gekigo
 exhausting work,激務,gekimu
-fierce faction,激派,gekipa
+Extreme faction,激派,gekipa
 Outburst,激発,gekipas
 torrent,激流,gekiryūn
 heated debate,激論,gekiron
@@ -16505,12 +16505,12 @@ smoke,煙霧,yenmu
 Smoke glass,煙硝,yensu
 boiling,煮沸,shopus
 light,燈,
-Rinhara,燎原,wen
+Rinbara,燎原,wen
 Phosphorus fire,燐火,hwa
 phosphorescent,燐光,kwō
-Swallowtail,燕尾,bi
+Swallow tail,燕尾,bi
 tailcoat,燕尾服,bifuku
-Swallow,燕子,tsi
+swallow,燕子,tsi
 Swallow fat,燕脂,chi
 Swallow King,燕王,ou
 candle,燭,
@@ -16535,7 +16535,7 @@ Mare,牝馬,ma
 Aries,牡羊座,yānjwa
 Taurus,牡牛座,gujwa
 prison,牢固,ko
-death in prison,牢死,shi
+Death in prison,牢死,shi
 prisoner,牢人,zhin
 Makino,牧野,mukuya
 sheep farming,牧羊,mukuyān
@@ -16629,7 +16629,7 @@ Rarity,珍奇,tsinki
 rare visitor,珍客,tsinkyeku
 rare fruit,珍果,tsinka
 delicacy,珍味,tsinmi
-rare item,珍品,tsimpin
+Rare item,珍品,tsimpin
 rare book,珍本,tsinhon
 Strange story,珍説,tsinses
 Strange incident,珍事,tsintsi
@@ -16670,7 +16670,7 @@ sweet tea,甜茶,cha
 Sugar beet,甜菜,tsai
 Instep,甲,kas
 Thyroid,甲状,kasshān
-Armored soldier,甲兵,kaspīn
+armor,甲兵,kaspīn
 Kogo,甲号,kasho
 oracle bone,甲骨,kaskos
 Theory A,甲論,kaslon
@@ -16705,7 +16705,7 @@ pain,疼痛,tsōn
 Dash,疾駆,chisku
 hemorrhoids,痔疾,chis
 pox scar,痘痕,tukon
-Pain and suffering,痛苦,tsōnku
+pain and suffering,痛苦,tsōnku
 Painful Blow,痛撃,tsōngeki
 heavy drinking,痛飲,tsōnnyen
 pain sensation,痛覚,tsōnkaku
@@ -16715,7 +16715,7 @@ it hurts,痛い,tsōn
 bitter regret,痛恨,tsōnkon
 strong indignation,痛憤,tsōnfun
 Itching,痛痒,tsōn
-Excuse me,痛罵,tsōnma
+cursing,痛罵,tsōnma
 Slimming,痩身,saushin
 foolishness,痴愚,chiyu
 Lewd behavior,痴態,chitai
@@ -16758,7 +16758,7 @@ whooping cough,百日咳,pyakuniskai
 all kinds,百般,pyakupan
 hundred thunderclaps,百雷,pyakurwai
 peasant,百姓,pyakusei
-One hundred thousand,百千,pyakusen
+"100,000",百千,pyakusen
 100 out of 100,百出,pyakushus
 A hundred battles,百戦,pyakuchen
 Kaiden,皆伝,kaiden
@@ -16789,7 +16789,7 @@ Crown Prince,皇嗣,kōnshi
 empress,皇妃,kōnhi
 Imperial sister,皇妹,kōnmai
 imperial power,皇威,kōnni
-imperial grandson,皇孫,kōnson
+imperial grandchild,皇孫,kōnson
 imperial family,皇祚,kōn
 thief,盗犯,tōpon
 plagiarism,盗用,tōyō
@@ -16869,7 +16869,7 @@ Go board,碁盤,kepan
 insulator,碍子,tsi
 monument,碑面,pimyen
 epitaph,碑銘,pimei
-Ao,碧,
+Aoi,碧,
 blue sea,碧海,kai
 blue sky,碧空,kūn
 jasper,碧玉,kyoku
@@ -16885,7 +16885,7 @@ magnetic needle,磁針,chichin
 rock solid,磐石,shaki
 Banetsu,磐越,yos
 year of prayer,祈年,kinyen
-Assistant writer,祐筆,bis
+Assistant,祐筆,bis
 congratulatory telegram,祝電,chukudyen
 Congratulatory speech,祝辞,chukuji
 wedding,祝言,chukuyon
@@ -17021,7 +17021,7 @@ granular,粒状,ryusshān
 Grain food,粒食,ryusshoku
 Granules,粒剤,ryucche
 particle size,粒径,ryuskei
-gross,粗大,sodai
+coarse,粗大,sodai
 sackcloth,粗布,sopu
 coarse clothes,粗衣,soi
 shabby,粗末,somus
@@ -17146,7 +17146,7 @@ age thirty,而立,ðiris
 pressure resistance,耐圧,nwias
 Disease resistance,耐病,nwibyō
 fireproof,耐火,nwihwa
-cold resistance,耐寒,nwikan
+Cold resistance,耐寒,nwikan
 Wind resistance,耐風,nwipūn
 Acid resistance,耐酸,nwisan
 Water resistant,耐水,nwisui
@@ -17334,7 +17334,7 @@ bacterial body,菌体,kintai
 mycelium,菌糸,kinshi
 iris,菖蒲,
 Nane root,菜根,tsaikon
-Saikan,菜館,#ERROR!
+Saikan,菜館,tsaikan
 vegetarian,菜食,tsaishoku
 decay,萎靡,wi
 Kayakusa,萱草,tsō
@@ -17418,7 +17418,7 @@ prisoner,虜囚,routsau
 Insect damage,虫害,tsūnkoi
 appendix,虫垂,tsūnsui
 iris,虹彩,hōnsai
-silkworm food,蚕食,chanshoku
+Silkworm food,蚕食,chanshoku
 sericulture,蚕業,channwya
 silkworm thread,蚕糸,chanshi
 egg white,卵白,rampaku
@@ -17456,7 +17456,7 @@ Guard,衛戍,wei
 opposition,衝,tsūn
 impulse,衝動,tsūndōn
 impact,衝撃,tsūngeki
-Shocking,衝激,tsūngeki
+shocking,衝激,tsūngeki
 collision,衝突,tsūntos
 balance,衡,hēn
 equity,衡平,hēmpei
@@ -17482,7 +17482,7 @@ Award,褒章,hōtsūn
 attack,襲用,tsūsshyō
 succession,襲名,tsūsmei
 succession,襲職,tsūcchiku
-bezel,覆輪,fauryun
+ring,覆輪,fauryun
 Covering with water,覆水,fausui
 Covering with soil,覆土,fauto
 Overturn,覆滅,faumyes
@@ -17591,7 +17591,7 @@ forwarding,逓送,cheisō
 Postal and Telecommunications,逓信,cheishin
 In progress,途上,toði
 in the middle,途中,toju
-In progress,途次,totsa
+On the way,途次,totsa
 crawling,這回,hwi
 passing away,逝去,seikyo
 meeting,逢着,chaku
@@ -17764,7 +17764,7 @@ dressing table,鏡台,kyōtai
 mirror surface,鏡面,kyōmyen
 mirror image,鏡像,kyōsān
 bell tower,鐘塔,chōtais
-bell tower,鐘楼,chōrau
+Bell Tower,鐘楼,chōrau
 bell inscription,鐘銘,chōmei
 mirror,鑑,kan
 Identification,鑑別,kambyes
@@ -17828,7 +17828,7 @@ ligaments,靭帯,zhintai
 saddle,鞍部,bu
 Jockey,鞍上,ði
 Korea-Japan,韓日,hannis
-Korean wave,韓流,hanlyūn
+Korean Wave,韓流,hanlyūn
 Korean,韓人,hanzhin
 top,頂部,tīmbu
 top gate,頂門,tīnmun
@@ -18030,9 +18030,9 @@ Reduced skin thickness,肌肉減,kinukkkan
 Smoke removal,煙垢落,yennaku
 腠り郄,腠理郄,ri
 The mood is cheerful,則陽気満,sokuyānkiman
-unresolved regret,故目不瞑矣,komokufu
+No regrets,故目不瞑矣,komokufu
 Noriyin Kimori,則陰気盛,sokuwinkisei
-Meat decomposition,分肉解利,punnukuhairi
+Decomposition of meat,分肉解利,punnukuhairi
 bone nutrition,而養骨節,ðiyānkossos
 Tsuneki Yukiari,行有経紀,kōyūkeiki
 Decreased mood due to illness,疾則気減,chissokkkikan
