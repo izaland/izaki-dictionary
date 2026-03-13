@@ -17,6 +17,7 @@
     --accent: #d4b87c; --table-head: #f0e8d0; --table-bg: rgba(255,255,255,0.55);
     --shadow: rgba(0,0,0,0.10); --kango-bg: #e8f0ff; --kango-text: #2a3f8f;
     --kango-border: #afc0e8; --new-case-bg: rgba(120,200,120,0.13);
+    --ref-bg: rgba(255,252,240,0.97); --ref-border: #c9a85c;
   }
   html[data-theme="dark"] {
     --bg: #16120d; --panel: rgba(30,25,20,0.96); --panel-2: rgba(40,35,28,0.85);
@@ -25,6 +26,7 @@
     --accent: #5a4a32; --table-head: #3a302a; --table-bg: rgba(35,30,25,0.6);
     --shadow: rgba(0,0,0,0.35); --kango-bg: #1a2240; --kango-text: #8aabee;
     --kango-border: #3a4a7a; --new-case-bg: rgba(60,120,60,0.15);
+    --ref-bg: rgba(28,23,18,0.97); --ref-border: #5a4a32;
   }
   body { background:var(--bg); font-family:"Merriweather",Georgia,serif; margin:0; color:var(--text); }
   #container { width:min(1100px,92%); margin:2rem auto; padding:2rem 2.4rem 2.6rem;
@@ -83,9 +85,39 @@
   .empty-state { text-align:center; color:var(--muted); background:var(--panel-2);
     border:1px dashed var(--border); border-radius:10px; padding:2.4rem 1rem;
     margin-top:1.1rem; font-size:.98rem; }
+
+  /* ── Grammar Reference Panel ────────────────────────────── */
+  .ref-panel { margin-top:2.8rem; border:1px solid var(--ref-border);
+    border-radius:12px; overflow:hidden; }
+  .ref-summary { display:flex; align-items:center; gap:.7rem;
+    padding:1rem 1.3rem; background:var(--table-head); cursor:pointer;
+    user-select:none; list-style:none; font-weight:bold; font-size:1.05rem;
+    color:var(--text); border:none; }
+  .ref-summary::-webkit-details-marker { display:none; }
+  .ref-summary::before { content:'▶'; font-size:.8rem; transition:transform .2s; display:inline-block; }
+  details[open] .ref-summary::before { transform:rotate(90deg); }
+  .ref-body { padding:1.5rem 1.6rem 2rem; background:var(--ref-bg);
+    font-size:.97rem; line-height:1.75; }
+  .ref-body h2 { font-size:1.18rem; border-bottom:1px solid var(--ref-border);
+    padding-bottom:.3rem; margin:1.8rem 0 .8rem; color:var(--text); }
+  .ref-body h2:first-child { margin-top:0; }
+  .ref-body h3 { font-size:1rem; margin:1.2rem 0 .4rem; color:var(--lemma); }
+  .ref-body p { margin:.5rem 0 .9rem; }
+  .ref-body code { background:var(--table-head); border:1px solid var(--border);
+    border-radius:4px; padding:.05rem .35rem; font-family:monospace; font-size:.93em; }
+  .ref-body table { width:100%; border-collapse:collapse; margin:.6rem 0 1rem; font-size:.92rem; }
+  .ref-body th { background:var(--table-head); padding:.5rem .6rem; text-align:left; }
+  .ref-body td { padding:.45rem .6rem; border-bottom:1px solid rgba(212,184,124,.3); }
+  .ref-body tr:last-child td { border-bottom:none; }
+  .ref-body .hl { font-weight:bold; color:var(--lemma); }
+  .ref-body .new { color:#3a7a3a; font-size:.8rem; font-weight:bold;
+    background:var(--new-case-bg); border-radius:3px; padding:0 .3rem; }
+  .ref-body .byak { color:var(--kango-text); font-size:.8rem; font-weight:bold;
+    background:var(--kango-bg); border-radius:3px; padding:0 .3rem; }
   @media (max-width:720px) {
     #container { padding:1.35rem 1rem 1.5rem; } h1.title { font-size:1.75rem; }
     th, td { padding:.6rem .5rem; font-size:.91rem; } .td-case { width:105px; }
+    .ref-body { padding:1rem .9rem 1.4rem; }
   }
 </style>
 </head>
@@ -109,7 +141,228 @@
   <div id="selected-output">
     <div class="empty-state">Type at least 3 letters above to search for a noun.</div>
   </div>
-</div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       GRAMMAR REFERENCE  —  collapsible
+       ══════════════════════════════════════════════════════════ -->
+  <details class="ref-panel">
+    <summary class="ref-summary">§ Grammar Reference 文法参照 — Noun Declension 名詞曲用</summary>
+    <div class="ref-body">
+
+      <h2>1. Overview 概要</h2>
+      <p>
+        Izaki nouns inflect for <strong>eleven cases</strong> and two numbers
+        (singular and plural). The declension system distinguishes two principal
+        classes of nouns:
+      </p>
+      <ul>
+        <li><strong>Native words</strong> (<em>origin: native</em>) — subject to the full
+          system of stem-internal alternations described in §3.</li>
+        <li><strong>Byakuzhi words</strong> <span class="byak">白語</span>
+          (<em>origin: byakuzhi</em>) — Sino-Izaki loanwords with an <em>immutable</em>
+          root; cases are formed analytically by suffix addition, with no
+          sonorisation or vowel lowering (§5).</li>
+      </ul>
+
+      <h2>2. The Eleven Cases 十一格</h2>
+      <table>
+        <thead><tr><th>Abbr.</th><th>Name 格名</th><th>Hanja</th><th>Core semantic function</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NOM</strong></td><td>Nominative</td><td>主格</td><td>Subject of a predication; dictionary (citation) form.</td></tr>
+          <tr><td><strong>GEN</strong></td><td>Genitive</td><td>属格</td><td>Possession, association, partitive complement.</td></tr>
+          <tr><td><strong>ACC</strong></td><td>Accusative</td><td>対格</td><td>Direct object of a transitive verb.</td></tr>
+          <tr><td><strong>DAT</strong></td><td>Dative</td><td>与格</td><td>Indirect object; recipient or addressee.</td></tr>
+          <tr><td><strong>ESS</strong></td><td>Essive</td><td>処格</td><td>Location, state, or circumstance (<em>at, in, as</em>).</td></tr>
+          <tr><td><strong>ALL</strong></td><td>Allative</td><td>辺格</td><td>Direction of movement towards a goal (<em>to, towards</em>).</td></tr>
+          <tr><td><strong>ABL</strong></td><td>Ablative</td><td>出格</td><td>Origin or separation from a source (<em>from, out of</em>).</td></tr>
+          <tr><td><strong>INS</strong></td><td>Instrumental</td><td>具格</td><td>Means, instrument, or manner (<em>with, by means of</em>).</td></tr>
+          <tr><td><strong>PRO</strong> <span class="new">new</span></td><td>Prolative</td><td>経格</td><td>Path or medium through which motion occurs (<em>through, along, via</em>).</td></tr>
+          <tr><td><strong>TER</strong> <span class="new">new</span></td><td>Terminative</td><td>止格</td><td>Limit or endpoint of a process or extent (<em>up to, as far as, until</em>).</td></tr>
+          <tr><td><strong>BEN</strong> <span class="new">new</span></td><td>Benefactive</td><td>為格</td><td>Beneficiary of an action (<em>for the sake of, on behalf of</em>).</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.88rem;color:var(--muted)">Cases marked <span class="new">new</span> are an extension of the classical eight-case system.</p>
+
+      <h2>3. Stem Alternations in Native Words 固有語幹交替</h2>
+      <p>
+        In native Izaki nouns, the oblique cases GEN, ESS, ALL, and ABL are built
+        not on the citation form but on a derived <em>strong stem</em>, produced
+        by the following ordered rules. The remaining cases — NOM, ACC, DAT, INS,
+        PRO, TER, BEN — use the <em>weak stem</em> (= citation form).
+      </p>
+
+      <h3>Rule R4 — Evanescent velar insertion</h3>
+      <p>
+        Citation forms ending in <code>-ae</code> or <code>-oe</code> insert an
+        epenthetic <code>k</code> before the final vowel in the strong stem:
+        <span class="hl">tae</span> → <span class="hl">take-</span>,
+        <span class="hl">koe</span> → <span class="hl">koke-</span>.
+        R4 takes priority over all subsequent rules.
+      </p>
+
+      <h3>Rule R2 — Degemination</h3>
+      <p>
+        A geminate consonant immediately preceding the final vowel (or at the
+        end of a consonant-final stem) is reduced to its singleton:
+        <code>kk→k</code>, <code>tt→t</code>, <code>pp→p</code>,
+        <code>ss→s</code>, <code>cch→ch</code>, <code>tts→ts</code>,
+        <code>ssh→sh</code>, <code>ll→l</code>, <code>nn→n</code>.
+      </p>
+      <table>
+        <thead><tr><th>Citation form</th><th>Strong stem</th><th>Rule fired</th></tr></thead>
+        <tbody>
+          <tr><td><em>akko</em> 'stone'</td><td><em>ako-</em></td><td>R2: <code>kk→k</code></td></tr>
+          <tr><td><em>attei</em> 'river'</td><td><em>ate-</em></td><td>R2 + R3</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Rule R3 — Vowel lowering <code>i → e</code></h3>
+      <p>
+        In <strong>bisyllabic</strong> native words whose final vowel (weak stem)
+        is <code>-i</code> or <code>-ī</code>, the strong stem lowers that vowel
+        to <code>-e</code>. When R3 is triggered <em>after</em> R2 has already
+        fired (degemination chain), Rule R1 is blocked.
+      </p>
+      <table>
+        <thead><tr><th>Citation form</th><th>Strong stem</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><em>saki</em> 'feather'</td><td><em>sake-</em></td><td>R3 only; R1 applies → <em>sage-</em>… wait — see R1 below</td></tr>
+          <tr><td><em>attei</em></td><td><em>ate-</em></td><td>R2 then R3; R1 blocked</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Rule R1 — Sonorisation</h3>
+      <p>
+        The final obstruent of the consonant body is voiced when preceded by a
+        vowel, <code>n</code>, or <code>l</code>. Multi-character digraphs
+        (<code>ch</code>, <code>ts</code>, <code>sh</code>) take precedence over
+        single-character matches. R1 is <em>blocked</em> when the R2+R3 chain
+        has already fired.
+      </p>
+      <table>
+        <thead><tr><th>Consonant</th><th>Voiced form</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>k</code></td><td><code>g</code></td><td><em>kato</em> → strong stem <em>kado-</em></td></tr>
+          <tr><td><code>t</code></td><td><code>d</code></td><td><em>neta</em> → <em>neda-</em></td></tr>
+          <tr><td><code>p</code></td><td><code>b</code></td><td><em>ipe</em> → <em>ibe-</em></td></tr>
+          <tr><td><code>s</code></td><td><code>z</code></td><td><em>tosa</em> → <em>toza-</em></td></tr>
+          <tr><td><code>ch</code></td><td><code>j</code></td><td><em>kachi</em> → <em>kaje-</em> (R3+R1)</td></tr>
+          <tr><td><code>ts</code></td><td><code>dz</code></td><td><em>matsu</em> → <em>madzu-</em> (R1 only)</td></tr>
+          <tr><td><code>sh</code></td><td><code>zh</code></td><td><em>oshi</em> → <em>ozhe-</em> (R3+R1)</td></tr>
+          <tr><td><code>f</code></td><td><code>v</code></td><td><em>tofa</em> → <em>tova-</em></td></tr>
+        </tbody>
+      </table>
+
+      <h2>4. Number Formation 数の形成</h2>
+
+      <h3>4.1 Plural Nominative 複数主格</h3>
+      <p>
+        The plural nominative is formed by <strong>replacing</strong> (not
+        appending) the final short vowel with its long counterpart, followed
+        by <code>-n</code>:
+      </p>
+      <table>
+        <thead><tr><th>Citation form</th><th>Plural NOM</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td><em>kato</em></td><td><em>katōn</em></td><td>final <code>o</code> → <code>ō</code> + <code>n</code></td></tr>
+          <tr><td><em>saki</em></td><td><em>sakīn</em></td><td>final <code>i</code> → <code>ī</code> + <code>n</code></td></tr>
+          <tr><td><em>nēra</em></td><td><em>nērāhin</em></td><td>long-vowel final → + <code>hin</code></td></tr>
+          <tr><td><em>tonak</em></td><td><em>tonakin</em></td><td>consonant-final (<code>s</code>-final: <code>s→sh</code>) + <code>in</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>4.2 Plural Oblique Cases 複数斜格</h3>
+      <p>
+        All plural oblique cases (GEN through BEN, excluding NOM) are built
+        directly on the <strong>singular nominative stem</strong> (citation
+        form), <em>not</em> on the plural nominative. For vowel-final nouns the
+        suffix is attached directly; for consonant-final nouns an epenthetic
+        <code>-e-</code> is inserted first.
+      </p>
+      <table>
+        <thead><tr><th>Case</th><th>Vowel-final suffix</th><th>Consonant-final suffix</th><th><em>kato</em></th><th><em>tonak</em></th></tr></thead>
+        <tbody>
+          <tr><td>GEN pl</td><td><code>-in</code></td><td><code>-en</code></td><td><em>katoin</em></td><td><em>tonaken</em></td></tr>
+          <tr><td>ACC pl</td><td><code>-ita</code></td><td><code>-eta</code></td><td><em>katoita</em></td><td><em>tonaketa</em></td></tr>
+          <tr><td>DAT pl</td><td><code>-hi</code></td><td><code>-ehi</code></td><td><em>katohi</em></td><td><em>tonakehi</em></td></tr>
+          <tr><td>ESS pl</td><td><code>-is</code></td><td><code>-es</code></td><td><em>katois</em></td><td><em>tonakes</em></td></tr>
+          <tr><td>ALL pl</td><td><code>-ir</code></td><td><code>-er</code></td><td><em>katoir</em></td><td><em>tonaker</em></td></tr>
+          <tr><td>ABL pl</td><td><code>-il</code></td><td><code>-el</code></td><td><em>katoil</em></td><td><em>tonakel</em></td></tr>
+          <tr><td>INS pl</td><td colspan="2">singular INS + <code>-i</code></td><td><em>katui</em></td><td>—</td></tr>
+          <tr><td>PRO pl</td><td><code>-de</code></td><td><code>-ede</code></td><td><em>katode</em></td><td><em>tonakede</em></td></tr>
+          <tr><td>TER pl</td><td><code>-rai</code></td><td><code>-erai</code></td><td><em>katorai</em></td><td><em>tonakerai</em></td></tr>
+          <tr><td>BEN pl</td><td colspan="2">stem + long(V) + <code>-inba</code></td><td><em>katōinba</em></td><td><em>tonakeinba</em></td></tr>
+        </tbody>
+      </table>
+
+      <h2>5. Byakuzhi (白語) Analytic Declension</h2>
+      <p>
+        Nouns of Byakuzhi (Sino-Izaki) origin — marked <code>origin: byakuzhi</code>
+        in the lexicon — follow a simplified, <em>agglutinative</em> paradigm.
+        The root never undergoes internal mutation. The plural is formed
+        uniformly with the suffix <code>-ta</code>; oblique plurals use the
+        <code>-(k)i-</code> base (with <code>k</code>-insertion after
+        <code>-i</code> finals).
+      </p>
+      <table>
+        <thead><tr><th>Case</th><th>Sg. vowel-final</th><th>Sg. consonant-final</th><th>Pl. base</th></tr></thead>
+        <tbody>
+          <tr><td>NOM</td><td>root</td><td>root</td><td>root + <code>ta</code></td></tr>
+          <tr><td>GEN</td><td>root + <code>n</code></td><td>root + <code>un</code></td><td>(k)i + <code>in</code></td></tr>
+          <tr><td>ACC</td><td>root</td><td>root + <code>u</code></td><td>root + <code>ta</code></td></tr>
+          <tr><td>DAT</td><td>root + <code>i</code></td><td>root + <code>uni</code></td><td>—</td></tr>
+          <tr><td>ESS</td><td>root + <code>s</code></td><td>root + <code>us</code></td><td>(k)i + <code>is</code></td></tr>
+          <tr><td>ALL</td><td>root + <code>r</code></td><td>root + <code>ur</code></td><td>(k)i + <code>ir</code></td></tr>
+          <tr><td>ABL</td><td>root + <code>l</code></td><td>root + <code>ul</code></td><td>(k)i + <code>il</code></td></tr>
+          <tr><td>INS</td><td colspan="2">— (not applicable)</td><td>—</td></tr>
+          <tr><td>PRO</td><td>root + <code>de</code></td><td>root + <code>ude</code></td><td>—</td></tr>
+          <tr><td>TER</td><td>root + <code>rai</code></td><td>root + <code>urai</code></td><td>—</td></tr>
+          <tr><td>BEN</td><td colspan="2">— (not applicable)</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <h2>6. Selected Paradigms 例示曲用表</h2>
+
+      <h3><em>kato</em> — 'cat' (native, bisyllabic, vowel-final <code>-o</code>)</h3>
+      <table>
+        <thead><tr><th>Case</th><th>Singular</th><th>Plural</th></tr></thead>
+        <tbody>
+          <tr><td>NOM</td><td><em>kato</em></td><td><em>katōn</em></td></tr>
+          <tr><td>GEN</td><td><em>kadon</em> <small>(R1: t→d)</small></td><td><em>katoin</em></td></tr>
+          <tr><td>ACC</td><td><em>katō</em></td><td><em>katoita</em></td></tr>
+          <tr><td>DAT</td><td><em>katoi</em></td><td><em>katohi</em></td></tr>
+          <tr><td>ESS</td><td><em>kados</em></td><td><em>katois</em></td></tr>
+          <tr><td>ALL</td><td><em>kador</em></td><td><em>katoir</em></td></tr>
+          <tr><td>ABL</td><td><em>kadol</em></td><td><em>katoil</em></td></tr>
+          <tr><td>INS</td><td><em>katu</em></td><td><em>katui</em></td></tr>
+          <tr><td>PRO</td><td><em>katode</em></td><td><em>katode</em></td></tr>
+          <tr><td>TER</td><td><em>katorai</em></td><td><em>katorai</em></td></tr>
+          <tr><td>BEN</td><td><em>katōnba</em></td><td><em>katōinba</em></td></tr>
+        </tbody>
+      </table>
+
+      <h3><em>saki</em> — 'feather' (native, bisyllabic, vowel-final <code>-i</code>; R3 applies)</h3>
+      <table>
+        <thead><tr><th>Case</th><th>Singular</th><th>Plural</th></tr></thead>
+        <tbody>
+          <tr><td>NOM</td><td><em>saki</em></td><td><em>sakīn</em></td></tr>
+          <tr><td>GEN</td><td><em>saken</em> <small>(R3: i→e)</small></td><td><em>sakiin</em></td></tr>
+          <tr><td>ACC</td><td><em>sakī</em></td><td><em>sakiita</em></td></tr>
+          <tr><td>DAT</td><td><em>sakii</em></td><td><em>sakihi</em></td></tr>
+          <tr><td>ESS</td><td><em>sakes</em></td><td><em>sakiis</em></td></tr>
+          <tr><td>ALL</td><td><em>saker</em></td><td><em>sakiir</em></td></tr>
+          <tr><td>ABL</td><td><em>sakel</em></td><td><em>sakiil</em></td></tr>
+          <tr><td>INS</td><td><em>sakyo</em></td><td><em>sakyoi</em></td></tr>
+          <tr><td>PRO</td><td><em>sakide</em></td><td><em>sakide</em></td></tr>
+          <tr><td>TER</td><td><em>sakirai</em></td><td><em>sakirai</em></td></tr>
+          <tr><td>BEN</td><td><em>sakīnba</em></td><td><em>sakīinba</em></td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /ref-body -->
+  </details>
+
+</div><!-- /container -->
 
 <script src="../../scripts/askaoza-engine.js"></script>
 <script src="declensor-logic.js"></script>
