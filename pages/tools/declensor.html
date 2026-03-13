@@ -158,7 +158,7 @@
       <ul>
         <li><strong>Native words</strong> (<em>origin: native</em>) — subject to the full
           system of stem-internal alternations described in §3.</li>
-        <li><strong>Byakuzhi words</strong> <span class="byak">白語</span>
+        <li><strong>Byakuzhi words</strong> <span class="byak">百語</span>
           (<em>origin: byakuzhi</em>) — Sino-Izaki loanwords with an <em>immutable</em>
           root; cases are formed analytically by suffix addition, with no
           sonorisation or vowel lowering (§5).</li>
@@ -253,7 +253,7 @@
         </tbody>
       </table>
 
-      <h2>4. Number Formation 数の形成</h2>
+      <h2>4. Number Formation 数之形成</h2>
 
       <h3>4.1 Plural Nominative 複数主格</h3>
       <p>
@@ -295,7 +295,7 @@
         </tbody>
       </table>
 
-      <h2>5. Byakuzhi (白語) Analytic Declension</h2>
+      <h2>5. Byakugo (百語) Analytic Declension</h2>
       <p>
         Nouns of Byakuzhi (Sino-Izaki) origin — marked <code>origin: byakuzhi</code>
         in the lexicon — follow a simplified, <em>agglutinative</em> paradigm.
@@ -424,8 +424,8 @@ function showEntry(e){
   const en=(e.english||[]).join(', ');
   const it=(e.italian||[]).join(', ');
 
-  const badge=kango?`<span class="badge-kango">白語 Byakuzhi</span>`:'';
-  const note=kango?`<div class="kango-note">⚠️ <strong>Byakuzhi (白語)</strong> word of Bai/Chinese origin. Root is immutable — no sonorisation or vowel lowering. Cases are added analytically. Instrumental and Benefactive are not applicable.</div>`:'';
+  const badge=kango?`<span class="badge-kango">百語 Byakuzhi</span>`:'';
+  const note=kango?`<div class="kango-note">⚠️ <strong>Byakuzhi (百語)</strong> word of Bai/Chinese origin. Root is immutable — no sonorisation or vowel lowering. Cases are added analytically. Instrumental and Benefactive are not applicable.</div>`:'';
 
   const rows=CASES.map(([key,label,hanja,abbr,isNew])=>{
     const sg=(f.singular&&f.singular[key])||'—';
@@ -466,7 +466,7 @@ function showSuggs(items){
     suggBox.classList.add('show');return;
   }
   suggBox.innerHTML=items.map((e,i)=>{
-    const km=(typeof isKango==='function'&&isKango(e))?' <span style="font-size:.75rem;color:var(--kango-text)">白語</span>':'';
+    const km=(typeof isKango==='function'&&isKango(e))?' <span style="font-size:.75rem;color:var(--kango-text)">百語</span>':'';
     return `<div class="suggestion" data-i="${i}">
       <div class="suggestion-lemma">${e.lemma||'—'}${km}</div>
       <div class="suggestion-meta">${e.ipa||'—'} · ${(e.english||[]).slice(0,2).join(', ')}
