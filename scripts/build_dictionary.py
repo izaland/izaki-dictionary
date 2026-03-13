@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
 """
-Build complete dictionary.json from three sources (in order of priority):
+Build complete dictionary.json from two authoritative CSV sources:
 
   1. data/izaki_words.csv   ← Google Sheets export (parole native izaki)
-  2. data/dictionary.json   ← voci native già presenti
-  3. data/compounds.csv     ← byakuzhi / composti
+  2. data/compounds.csv     ← byakuzhi / composti
+
+⚠️  dictionary.json è SOLO output — non viene mai usato come fonte.
+    Ogni build riparte dai CSV. Questo evita duplicazioni e inquinamento
+    da dati storici corrotti.
 """
 
 import csv
 import json
 import re
 import sys
-import urllib.request
 from pathlib import Path
-
-SHEET_CSV_URL = (
-    "https://docs.google.com/spreadsheets/d/"
-    "16X5QlpYoW5aToM6LoJlEZ8K0XvmlasJArD0vYzFOZ3Y"
-    "/export?format=csv&gid=966419572"
-)
 
 # ---------------------------------------------------------------------------
 # IPA
@@ -53,14 +49,9 @@ def should_generate_ipa(current_ipa):
 # ---------------------------------------------------------------------------
 
 def normalize_pos(raw):
-    """
-    Pulisce il tag POS dal formato del foglio Google.
-    Es: ': n =' -> 'n'  |  ': adj =' -> 'adj'  |  'n' -> 'n'
-    """
     if not raw:
         return ''
     pos = raw.strip()
-    # Rimuove ': ' iniziale e ' =' finale (con eventuali spazi extra)
     pos = re.sub(r'^:\s*', '', pos)
     pos = re.sub(r'\s*=$', '', pos)
     return pos.strip()
@@ -74,19 +65,11 @@ def is_error_cell(value):
     if not value:
         return False
     v = value.strip()
-    return v.startswith('#') and (v.endswith('!') or '/' in v)
-    # Copre: #ERROR!, #REF!, #N/A, #VALUE!, #DIV/0!, ecc.
+    return v.startswith('#') and (v.endswith('!') or '/' in v or v == '#N/A')
 
 # ---------------------------------------------------------------------------
 # Lettura sorgenti
 # ---------------------------------------------------------------------------
-
-def read_dictionary_json(filepath):
-    if not filepath.exists():
-        print(f"  ℹ️  {filepath} non trovato — si parte da zero.")
-        return []
-    with open(filepath, 'r', encoding='utf-8') as f:
-        return json.load(f)
 
 def _split_translations(raw):
     if not raw or not raw.strip():
@@ -94,6 +77,7 @@ def _split_translations(raw):
     return [p.strip() for p in raw.split(';') if p.strip()]
 
 def read_izaki_sheet_csv(filepath):
+    """Legge le parole native izaki dal CSV. Fonte autoritativa."""
     entries = {}
     if not filepath.exists():
         print(f"  ⚠️  {filepath} non trovato — saltato.")
@@ -129,8 +113,13 @@ def read_izaki_sheet_csv(filepath):
     return entries
 
 def read_compounds_csv(filepath):
+    """Legge i compounds byakuzhi dal CSV. Fonte autoritativa."""
     entries = []
     skipped = 0
+    if not filepath.exists():
+        print(f"  ⚠️  {filepath} non trovato — saltato.")
+        return entries
+
     with open(filepath, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -138,12 +127,20 @@ def read_compounds_csv(filepath):
             compound      = row.get('Compound', '').strip()
             izaki_reading = row.get('Izaki Reading\n(sandhi applied)', '').strip()
 
-            # Salta righe vuote o con errori di formula Google Sheets
-            if not compound or not izaki_reading:
+            # Salta righe senza kanji
+            if not compound:
                 continue
-            if is_error_cell(izaki_reading) or is_error_cell(english) or is_error_cell(compound):
+            # Salta righe con errori di formula
+            if is_error_cell(izaki_reading) or is_error_cell(compound):
                 skipped += 1
                 continue
+            # Salta righe senza lettura izaki
+            if not izaki_reading:
+                skipped += 1
+                continue
+            # La traduzione inglese può mancare o avere #ERROR! — la trattiamo come stringa vuota
+            if is_error_cell(english):
+                english = ''
 
             entries.append({
                 "lemma":    izaki_reading,
@@ -157,32 +154,19 @@ def read_compounds_csv(filepath):
                 "example":  "",
             })
     if skipped:
-        print(f"  ⚠️  {skipped} compound saltati per celle #ERROR! nel CSV")
+        print(f"  ⚠️  {skipped} compound saltati (cella vuota o #ERROR!)")
     return entries
 
 # ---------------------------------------------------------------------------
-# Merge
+# Merge: CSV nativi + compounds — senza toccare dictionary.json come fonte
 # ---------------------------------------------------------------------------
 
-def merge_entries(json_entries, sheet_entries, compounds):
-    base = {}
-    for entry in json_entries:
-        if entry.get('notes') == 'compound':
-            continue
-        key = entry.get('lemma', '').lower()
-        if key:
-            # Normalizza anche le voci già nel JSON
-            entry['pos'] = normalize_pos(entry.get('pos', ''))
-            base[key] = entry
-
-    for key, entry in sheet_entries.items():
-        if key in base:
-            print(f"  🔄 Override: '{entry['lemma']}' (foglio > JSON)")
-        else:
-            print(f"  ➕ Nuovo: '{entry['lemma']}' (dal foglio)")
-        base[key] = entry
-
-    native = sorted(base.values(), key=lambda e: e.get('lemma', '').lower())
+def build_all_entries(sheet_entries, compounds):
+    """
+    Combina voci native (dal CSV) e compounds (dal CSV).
+    Il dictionary.json NON viene letto come fonte — è solo output.
+    """
+    native = sorted(sheet_entries.values(), key=lambda e: e.get('lemma', '').lower())
     return native + compounds
 
 def generate_missing_ipa(entries):
@@ -196,50 +180,25 @@ def generate_missing_ipa(entries):
     return count
 
 # ---------------------------------------------------------------------------
-# Download opzionale
-# ---------------------------------------------------------------------------
-
-def download_sheet_csv(dest_path):
-    print(f"  🌐 Download da Google Sheets...")
-    try:
-        urllib.request.urlretrieve(SHEET_CSV_URL, dest_path)
-        print(f"  ✅ Salvato in {dest_path}")
-        return True
-    except Exception as e:
-        print(f"  ❌ Download fallito: {e}")
-        return False
-
-# ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
 
 def main():
-    data_dir        = Path('data')
-    dictionary_json = data_dir / 'dictionary.json'
-    izaki_csv       = data_dir / 'izaki_words.csv'
-    compounds_csv   = data_dir / 'compounds.csv'
-    output_json     = data_dir / 'dictionary.json'
-
-    if '--download' in sys.argv:
-        print("📥 Modalità --download attiva")
-        if not download_sheet_csv(izaki_csv):
-            sys.exit(1)
-
-    print(f"\n📖 Leggo {dictionary_json}...")
-    json_entries = read_dictionary_json(dictionary_json)
-    json_native  = [e for e in json_entries if e.get('notes') != 'compound']
-    print(f"   {len(json_native)} voci native nel JSON")
+    data_dir      = Path('data')
+    izaki_csv     = data_dir / 'izaki_words.csv'
+    compounds_csv = data_dir / 'compounds.csv'
+    output_json   = data_dir / 'dictionary.json'
 
     print(f"\n📋 Leggo {izaki_csv}...")
     sheet_entries = read_izaki_sheet_csv(izaki_csv)
-    print(f"   {len(sheet_entries)} voci dal foglio Google")
+    print(f"   {len(sheet_entries)} voci native dal CSV")
 
     print(f"\n📋 Leggo {compounds_csv}...")
     compounds = read_compounds_csv(compounds_csv)
     print(f"   {len(compounds)} compound (byakuzhi)")
 
-    print(f"\n🔀 Merge in corso...")
-    all_entries = merge_entries(json_native, sheet_entries, compounds)
+    print(f"\n🔀 Costruzione dizionario...")
+    all_entries = build_all_entries(sheet_entries, compounds)
 
     ipa_count = generate_missing_ipa(all_entries)
     if ipa_count:
