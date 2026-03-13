@@ -14,11 +14,9 @@
     '\u0101':'e', '\u0113':'i', '\u012b':'o', '\u014d':'u', '\u016b':'a'
   };
 
-  // R1 sonorisation map — keys sorted length-desc for multi-char matching
   const SONOR = { k:'g', t:'d', p:'b', s:'z', ch:'j', ts:'dz', f:'v', sh:'zh' };
   const SONOR_KEYS = Object.keys(SONOR).sort((a,b) => b.length - a.length);
 
-  // R2 degemination map — keys sorted length-desc
   const DEGEM = { kk:'k', tt:'t', pp:'p', ss:'s', cch:'ch', tts:'ts', ssh:'sh', ll:'l', nn:'n' };
   const DEGEM_KEYS = Object.keys(DEGEM).sort((a,b) => b.length - a.length);
 
@@ -41,12 +39,6 @@
     return null;
   }
 
-  // Returns the final consonant cluster (everything after the last vowel)
-  // e.g. "kato" → "t" (consonant before final vowel... no, the stem for R1
-  // is built differently for vowel-final words: strip final vowel, then apply
-  // rules on the resulting consonant-final string, then re-attach the vowel.
-  // For consonant-final words the stem IS the word.
-
   // ── Kango / Byakuzhi detection ──────────────────────────────
   function isKango(entry) {
     if (!entry) return false;
@@ -57,38 +49,21 @@
   }
 
   // ── Strong stem (R4 → R2 → R3 → R1) ────────────────────────
-  //
-  // For vowel-final words (e.g. kato):
-  //   1. Strip final vowel → "kat"
-  //   2. Apply R4/R2/R3 on the consonant-final substring
-  //   3. Apply R1 on the consonant-final substring
-  //   4. Re-attach the (possibly modified) final vowel
-  //
-  // For consonant-final words the logic is the same but no stripping needed.
-
+  // For vowel-final words: strip final vowel, apply rules on consonant body,
+  // then re-attach the (possibly mutated) final vowel.
   function buildStrongStem(word) {
     const lc = word.slice(-1);
     const vowelFinal = isVowel(lc);
-
-    // Split: base = everything up to (and including) the vowel-before-last-consonant(s)
-    // For vowel-final: workStr = word without final vowel, suffix = final vowel
-    // For consonant-final: workStr = word, suffix = ''
-    let workStr = vowelFinal ? word.slice(0, -1) : word;
+    let workStr    = vowelFinal ? word.slice(0, -1) : word;
     const finalVowel = vowelFinal ? lc : '';
-
     let rule1Blocked = false;
 
-    // R4: workStr ends in -ae or -oe (rare, but apply before stripping)
-    // Actually R4 targets the full form — recheck on full word
+    // R4: -ae / -oe → insert evanescent -k-
     if (word.endsWith('ae') || word.endsWith('oe')) {
-      // insert k before final e: koe → koke, tae → take
-      // workStr here already has final vowel stripped if vowelFinal
-      // so workStr ends in 'a' or 'o', finalVowel = 'e'
-      // Insert 'k' between workStr and finalVowel
       return { stem: workStr + 'k' + finalVowel, rule1Blocked: false };
     }
 
-    // R2: degemination on workStr
+    // R2: degemination
     let degApplied = false;
     for (const gem of DEGEM_KEYS) {
       if (workStr.endsWith(gem)) {
@@ -98,14 +73,13 @@
       }
     }
 
-    // R3: i→e lowering — applies when workStr (vowel-final stripped) ends in 'i'
-    // and the full word is bisyllabic
+    // R3: i→e lowering (bisyllabic, workStr ends in -i)
     if (syllableCount(word) === 2 && workStr.endsWith('i')) {
       workStr = workStr.slice(0, -1) + 'e';
       if (degApplied) rule1Blocked = true;
     }
 
-    // R1: sonorisation on the final consonant(s) of workStr
+    // R1: sonorisation on consonant body
     if (!rule1Blocked && syllableCount(word) > 1) {
       for (const key of SONOR_KEYS) {
         if (workStr.endsWith(key)) {
@@ -122,7 +96,7 @@
     return { stem: workStr + finalVowel, rule1Blocked };
   }
 
-  // ── Instrumental (vowel progression on weak stem) ────────────
+  // ── Instrumental ───────────────────────────────────────────
   function buildInstrumental(word) {
     const lc = word.slice(-1);
     if (isVowel(lc)) {
@@ -136,7 +110,7 @@
     return next === 'a' ? word + 'wa' : word + next;
   }
 
-  // ── New cases (weak stem) ────────────────────────────────────
+  // ── New cases ── singular (weak stem) ─────────────────────────
   function buildProlative(word) {
     const lc = word.slice(-1);
     if (isVowel(lc)) return word + 'de';
@@ -151,31 +125,44 @@
     return word + (lv ? VOW_PROG[lv.char] : 'u') + 'rai';
   }
 
-  function buildBenefactive(word) {
+  function buildBenefactiveSg(word) {
+    // Singular: word + long(finalV) + nba
+    // e.g. kato → kato + ō + nba = katoōnba
+    // consonant-final: word + VOW_PROG(lastV) + VOW_PROG(lastV) + ba
     const lc = word.slice(-1);
     if (isVowel(lc)) {
-      const longV = LENGTHEN[lc];
-      if (!longV) return word + lc + 'nba'; // fallback
-      return word + longV + 'nba';
+      return word + (LENGTHEN[lc] || lc) + 'nba';
     }
     const lv = lastVowelInfo(word);
     const v = lv ? VOW_PROG[lv.char] : 'u';
     return word + v + v + 'ba';
   }
 
+  function buildBenefactivePl(word) {
+    // Plural: word (strip final vowel) + long(finalV) + i + nba
+    // e.g. kato → kat + ō + i + nba = katōinba
+    // consonant-final: word + epentV + i + nba
+    const lc = word.slice(-1);
+    if (isVowel(lc)) {
+      const stem = word.slice(0, -1);           // kat
+      const longV = LENGTHEN[lc] || lc;         // ō
+      return stem + longV + 'inba';              // katōinba
+    }
+    const lv = lastVowelInfo(word);
+    const v = lv ? VOW_PROG[lv.char] : 'u';
+    return word + v + 'inba';
+  }
+
   // ── Plural nominative ────────────────────────────────────────
-  // Vowel-final: replace final vowel with its long form + n
-  //   kato → kat + ō + n = katōn  (NOT kato + ō + n)
+  // Vowel-final: replace final vowel with long form + n  (kato → katōn)
   // Long-vowel-final: + hin
-  // Consonant-final: palatalise if needed + i + n
+  // Consonant-final: palatalise s→sh + in
   function buildPluralNom(word) {
     const lc = word.slice(-1);
     if (isVowel(lc)) {
       if (isLongVowel(lc)) return word + 'hin';
-      // replace final short vowel with long version
       return word.slice(0, -1) + LENGTHEN[lc] + 'n';
     }
-    // consonant-final: palatalise s→sh, then +in
     let base = word;
     if (lc === 's') base = word.slice(0,-1) + 'sh';
     return base + 'in';
@@ -189,7 +176,7 @@
     const forms = { singular: {}, plural: {}, isKango: false };
     if (!word) return forms;
 
-    // ── Byakuzhi: analytic, no mutations ──
+    // ── Byakuzhi: analytic, no mutations
     if (isKango(entry)) {
       forms.isKango = true;
       const lc  = word.slice(-1);
@@ -224,7 +211,7 @@
       return forms;
     }
 
-    // ── Native word ──
+    // ── Native word
     const lc   = word.slice(-1);
     const isV  = isVowel(lc);
     const isLV = isLongVowel(lc);
@@ -244,32 +231,22 @@
     forms.singular.ins = buildInstrumental(word);
     forms.singular.pro = buildProlative(word);
     forms.singular.ter = buildTerminative(word);
-    forms.singular.ben = buildBenefactive(word);
+    forms.singular.ben = buildBenefactiveSg(word);
 
-    // Plural nominative (special construction)
+    // Plural nominative
     forms.plural.nom = buildPluralNom(word);
 
-    // Plural oblique: all built on the SINGULAR nominative stem (= word)
-    // (not on the plural nominative)
-    forms.plural.gen = word + (isV ? 'in' : 'en');
+    // Plural oblique: all on singular nominative stem
+    forms.plural.gen = word + (isV ? 'in'  : 'en');
     forms.plural.acc = word + (isV ? 'ita' : 'eta');
-    forms.plural.dat = word + (isV ? 'hi' : 'ehi');
-    forms.plural.ess = word + (isV ? 'is' : 'es');
-    forms.plural.all = word + (isV ? 'ir' : 'er');
-    forms.plural.abl = word + (isV ? 'il' : 'el');
+    forms.plural.dat = word + (isV ? 'hi'  : 'ehi');
+    forms.plural.ess = word + (isV ? 'is'  : 'es');
+    forms.plural.all = word + (isV ? 'ir'  : 'er');
+    forms.plural.abl = word + (isV ? 'il'  : 'el');
     forms.plural.ins = forms.singular.ins + 'i';
-    forms.plural.pro = word + (isV ? 'de' : 'ede');
+    forms.plural.pro = word + (isV ? 'de'  : 'ede');
     forms.plural.ter = word + (isV ? 'rai' : 'erai');
-    // Benefactive plural: lengthen final vowel of word + nba
-    // (consonant-final: add epenthetic vowel first)
-    if (isV) {
-      const longV = LENGTHEN[lc] || lc;
-      forms.plural.ben = word + longV + 'nba';
-    } else {
-      const lv = lastVowelInfo(word);
-      const v  = lv ? VOW_PROG[lv.char] : 'u';
-      forms.plural.ben = word + v + v + 'ba';
-    }
+    forms.plural.ben = buildBenefactivePl(word);
 
     return forms;
   }
