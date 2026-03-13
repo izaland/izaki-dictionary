@@ -49,13 +49,20 @@
   }
 
   // ── Strong stem (R4 → R2 → R3 → R1) ────────────────────────
-  // For vowel-final words: strip final vowel, apply rules on consonant body,
-  // then re-attach the (possibly mutated) final vowel.
+  //
+  // Strategy for vowel-final words:
+  //   1. Strip final vowel → workStr (consonant body) + finalVowel
+  //   2. R4 on full word
+  //   3. R2 on workStr
+  //   4. R3: if bisyllabic AND finalVowel === 'i' → lower to 'e', block R1
+  //          OR if workStr ends in 'i' (consonant-final path)
+  //   5. R1 on workStr (if not blocked)
+  //   6. Reassemble workStr + finalVowel
   function buildStrongStem(word) {
     const lc = word.slice(-1);
     const vowelFinal = isVowel(lc);
     let workStr    = vowelFinal ? word.slice(0, -1) : word;
-    const finalVowel = vowelFinal ? lc : '';
+    let finalVowel = vowelFinal ? lc : '';
     let rule1Blocked = false;
 
     // R4: -ae / -oe → insert evanescent -k-
@@ -63,7 +70,7 @@
       return { stem: workStr + 'k' + finalVowel, rule1Blocked: false };
     }
 
-    // R2: degemination
+    // R2: degemination on consonant body
     let degApplied = false;
     for (const gem of DEGEM_KEYS) {
       if (workStr.endsWith(gem)) {
@@ -73,13 +80,21 @@
       }
     }
 
-    // R3: i→e lowering (bisyllabic, workStr ends in -i)
-    if (syllableCount(word) === 2 && workStr.endsWith('i')) {
+    // R3: i→e lowering
+    //   Case A: vowel-final bisyllabic, finalVowel === 'i'  (e.g. saki → sake)
+    //   Case B: consonant-final bisyllabic, workStr ends in 'i'  (e.g. sakis→ sakis... N/A here)
+    const bisyllabic = syllableCount(word) === 2;
+    if (bisyllabic && finalVowel === 'i') {
+      // Lower the final vowel i → e
+      finalVowel = 'e';
+      if (degApplied) rule1Blocked = true;
+    } else if (bisyllabic && workStr.endsWith('i')) {
+      // consonant-final path (R3 on workStr)
       workStr = workStr.slice(0, -1) + 'e';
       if (degApplied) rule1Blocked = true;
     }
 
-    // R1: sonorisation on consonant body
+    // R1: sonorisation on consonant body (not blocked, polysyllabic)
     if (!rule1Blocked && syllableCount(word) > 1) {
       for (const key of SONOR_KEYS) {
         if (workStr.endsWith(key)) {
@@ -126,27 +141,19 @@
   }
 
   function buildBenefactiveSg(word) {
-    // Singular: word + long(finalV) + nba
-    // e.g. kato → kato + ō + nba = katoōnba
-    // consonant-final: word + VOW_PROG(lastV) + VOW_PROG(lastV) + ba
     const lc = word.slice(-1);
-    if (isVowel(lc)) {
-      return word + (LENGTHEN[lc] || lc) + 'nba';
-    }
+    if (isVowel(lc)) return word + (LENGTHEN[lc] || lc) + 'nba';
     const lv = lastVowelInfo(word);
     const v = lv ? VOW_PROG[lv.char] : 'u';
     return word + v + v + 'ba';
   }
 
   function buildBenefactivePl(word) {
-    // Plural: word (strip final vowel) + long(finalV) + i + nba
-    // e.g. kato → kat + ō + i + nba = katōinba
-    // consonant-final: word + epentV + i + nba
+    // stem (strip final vowel) + long(V) + i + nba  →  katōinba
+    // consonant-final: word + epentV + inba
     const lc = word.slice(-1);
     if (isVowel(lc)) {
-      const stem = word.slice(0, -1);           // kat
-      const longV = LENGTHEN[lc] || lc;         // ō
-      return stem + longV + 'inba';              // katōinba
+      return word.slice(0, -1) + (LENGTHEN[lc] || lc) + 'inba';
     }
     const lv = lastVowelInfo(word);
     const v = lv ? VOW_PROG[lv.char] : 'u';
@@ -154,9 +161,6 @@
   }
 
   // ── Plural nominative ────────────────────────────────────────
-  // Vowel-final: replace final vowel with long form + n  (kato → katōn)
-  // Long-vowel-final: + hin
-  // Consonant-final: palatalise s→sh + in
   function buildPluralNom(word) {
     const lc = word.slice(-1);
     if (isVowel(lc)) {
@@ -216,7 +220,6 @@
     const isV  = isVowel(lc);
     const isLV = isLongVowel(lc);
 
-    // Singular
     forms.singular.nom = word;
 
     const { stem: strong } = buildStrongStem(word);
@@ -233,7 +236,6 @@
     forms.singular.ter = buildTerminative(word);
     forms.singular.ben = buildBenefactiveSg(word);
 
-    // Plural nominative
     forms.plural.nom = buildPluralNom(word);
 
     // Plural oblique: all on singular nominative stem
@@ -255,7 +257,7 @@
     return declineNoun(lemma, null);
   }
 
-  // ── Export ───────────────────────────────────────────────────
+  // ── Export
   window.declineNoun       = declineNoun;
   window.declineNounSimple = declineNounSimple;
   window.isKango           = isKango;
