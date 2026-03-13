@@ -27,6 +27,10 @@
     --table-head: #f0e8d0;
     --table-bg: rgba(255,255,255,0.55);
     --shadow: rgba(0,0,0,0.10);
+    --kango-bg: #e8f0ff;
+    --kango-text: #2a3f8f;
+    --kango-border: #afc0e8;
+    --new-case-bg: rgba(180,220,180,0.18);
   }
   html[data-theme="dark"] {
     --bg: #16120d;
@@ -45,6 +49,10 @@
     --table-head: #3a302a;
     --table-bg: rgba(35,30,25,0.6);
     --shadow: rgba(0,0,0,0.35);
+    --kango-bg: #1a2240;
+    --kango-text: #8aabee;
+    --kango-border: #3a4a7a;
+    --new-case-bg: rgba(80,140,80,0.12);
   }
   body {
     background: var(--bg);
@@ -136,7 +144,6 @@
     color: var(--muted);
     font-size: .88rem;
   }
-  /* Hero card shown after selection */
   .hero-card {
     background: var(--panel-2);
     border: 1px solid var(--border);
@@ -175,7 +182,30 @@
     color: var(--text-2);
     font-size: .97rem;
   }
-  /* Declension table */
+  /* Kango badge */
+  .badge-kango {
+    display: inline-block;
+    background: var(--kango-bg);
+    color: var(--kango-text);
+    border: 1px solid var(--kango-border);
+    border-radius: 6px;
+    padding: .18rem .6rem;
+    font-size: .82rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    letter-spacing: .04em;
+    vertical-align: middle;
+    margin-left: .5rem;
+  }
+  .kango-note {
+    margin-top: .5rem;
+    font-size: .88rem;
+    color: var(--kango-text);
+    background: var(--kango-bg);
+    border: 1px solid var(--kango-border);
+    border-radius: 8px;
+    padding: .45rem .8rem;
+  }
   .section-title {
     margin: 1.5rem 0 .75rem;
     font-size: 1.08rem;
@@ -211,7 +241,28 @@
     font-weight: bold;
     color: var(--text);
     white-space: nowrap;
-    width: 130px;
+    width: 155px;
+  }
+  .td-case .case-hanja {
+    display: block;
+    font-size: .78rem;
+    color: var(--muted);
+    font-weight: normal;
+    letter-spacing: .03em;
+  }
+  .td-case .case-abbr {
+    display: inline-block;
+    font-size: .72rem;
+    background: var(--table-head);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0 .35rem;
+    margin-left: .3rem;
+    vertical-align: middle;
+    color: var(--muted);
+  }
+  tr.new-case td {
+    background: var(--new-case-bg);
   }
   .form-latin {
     font-weight: bold;
@@ -224,7 +275,6 @@
     font-size: 1.1rem;
     font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
   }
-  /* Empty / error state */
   .empty-state {
     text-align: center;
     color: var(--muted);
@@ -240,7 +290,7 @@
     h1.title { font-size: 1.75rem; }
     .hl-lemma { font-size: 1.45rem; }
     th, td { padding: .6rem .5rem; font-size: .91rem; }
-    .td-case { width: 100px; }
+    .td-case { width: 110px; }
   }
 </style>
 </head>
@@ -269,6 +319,7 @@
 </div>
 
 <script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
+<script src="/izaki-dictionary/pages/tools/declensor-logic.js"></script>
 <script>
 /* ── helpers ─────────────────────────────────────────────────────────── */
 function norm(s) {
@@ -305,72 +356,21 @@ if (typeof toAskaozaText !== 'function') {
   window.toAskaozaText = t => t || '';
 }
 
-/* ── declension engine ───────────────────────────────────────────────── */
-const VOWELS = 'aeiouāēīōū';
-const LONG   = 'āēīōū';
-
-function analyze(lemma) {
-  const clean = (lemma || '').replace(/[^a-zāēīōū]/gi, '').toLowerCase();
-  const last  = clean.slice(-1);
-  const vowelMatches = clean.match(/[aeiouāēīōū]/g) || [];
-  const lastVowel = vowelMatches.length ? vowelMatches[vowelMatches.length - 1] : null;
-  const isV = VOWELS.includes(last);
-  return {
-    clean, last, lastVowel,
-    isV, isLong: LONG.includes(last), isC: clean ? !isV : false
-  };
-}
-
-function instrumental(lemma) {
-  const a = analyze(lemma);
-  const b = a.clean;
-  if (!b) return '';
-  if (b.endsWith('ai'))  return b + 'yo';
-  if (b.endsWith('au'))  return b.slice(0,-1) + 'wa';
-  if (b.endsWith('ea'))  return b + 'e';
-  const lv = a.lastVowel;
-  if (a.isV) {
-    if (lv==='a'||lv==='ā') return b + 'e';
-    if (lv==='e'||lv==='ē') return b + 'i';
-    if (lv==='i'||lv==='ī') return b.slice(0,-1) + 'yo';
-    if (lv==='o'||lv==='ō') return b + 'u';
-    if (lv==='u'||lv==='ū') return b.slice(0,-1) + 'wa';
-  }
-  const prog = {a:'e',e:'i',i:'o',o:'u',u:'a',ā:'e',ē:'i',ī:'o',ō:'u',ū:'a'};
-  if (a.isC && lv && prog[lv]) return b + prog[lv];
-  return b + 'e';
-}
-
-function decline(lemma) {
-  const a = analyze(lemma);
-  const b = a.clean;
-  if (!b) return { singular:{}, plural:{} };
-  const S = {};
-  S.nom = b;
-  S.gen = a.isV ? b + (a.isLong ? 'hun' : 'n') : b + 'un';
-  if (a.isV && !a.isLong) {
-    const vm = {a:'ā',e:'ē',i:'ī',o:'ō',u:'ū'};
-    S.acc = b.slice(0,-1) + (vm[a.last] || a.last);
-  } else S.acc = b;
-  S.dat = b + 'i';
-  S.ess = a.isV ? b + (a.isLong ? 'hus' : 's') : b + 'us';
-  S.all = a.isV ? b + (a.isLong ? 'hur' : 'r') : b + 'ur';
-  S.abl = a.isV ? b + (a.isLong ? 'hul' : 'l') : b + 'ul';
-  S.ins = instrumental(b);
-
-  const P = {};
-  if (a.isC)        P.nom = b + b.slice(-1);
-  else if (a.isLong) P.nom = b + 'hin';
-  else               P.nom = b + a.last + 'n';
-  P.gen = b + (a.isC ? 'en' : 'in');
-  P.acc = b + (a.isC ? 'ta' : 'ita');
-  P.dat = b + 'hi';
-  P.ess = b + (a.isC ? 'es' : 'is');
-  P.all = b + (a.isC ? 'er' : 'ir');
-  P.abl = b + (a.isC ? 'el' : 'il');
-  P.ins = S.ins + 'i';
-  return { singular: S, plural: P };
-}
+/* ── Case definitions ────────────────────────────────────────────────── */
+// [key, English label, Hanja, abbreviation, isNew]
+const CASES = [
+  ['nom', 'Nominative',   '主格', 'NOM', false],
+  ['gen', 'Genitive',     '属格', 'GEN', false],
+  ['acc', 'Accusative',   '対格', 'ACC', false],
+  ['dat', 'Dative',       '与格', 'DAT', false],
+  ['ess', 'Essive',       '処格', 'ESS', false],
+  ['all', 'Allative',     '辺格', 'ALL', false],
+  ['abl', 'Ablative',     '出格', 'ABL', false],
+  ['ins', 'Instrumental', '具格', 'INS', false],
+  ['pro', 'Prolative',    '経格', 'PRO', true],
+  ['ter', 'Terminative',  '止格', 'TER', true],
+  ['ben', 'Benefactive',  '為格', 'BEN', true],
+];
 
 /* ── UI state ────────────────────────────────────────────────────────── */
 const searchEl = document.getElementById('search');
@@ -390,21 +390,46 @@ function pick(entry) {
   showEntry(entry);
 }
 
+function renderForm(form) {
+  if (!form || form === '—') return '<span class="form-latin">—</span>';
+  return `<span class="form-latin">${form}</span><div class="form-ask">${toAskaozaText(form)}</div>`;
+}
+
 function showEntry(e) {
-  const f    = decline(e.lemma || '');
+  // Use the full declineNoun from declensor-logic.js, passing entry for Kango detection
+  const f    = (typeof declineNoun === 'function') ? declineNoun(e.lemma || '', e) : declineNounSimple(e.lemma || '');
   const ask  = toAskaozaText(e.lemma || '');
   const en   = (e.english || []).join(', ');
   const it   = (e.italian  || []).join(', ');
   const rom  = ipaToRomaji(e.ipa || '');
-  const CASES = [
-    ['Nominative','nom'],['Genitive','gen'],['Accusative','acc'],
-    ['Dative','dat'],['Essive','ess'],['Allative','all'],
-    ['Ablative','abl'],['Instrumental','ins']
-  ];
+  const kango = f.isKango || false;
+
+  const kangoBadge = kango
+    ? `<span class="badge-kango">白語 Kango</span>`
+    : '';
+  const kangoNote = kango
+    ? `<div class="kango-note">⚠️ This is a <strong>Kango (白語)</strong> word of Bai/Chinese origin. Its root is immutable: no internal mutations apply. Case endings are added analytically without sonorisation or vowel lowering. Instrumental and Benefactive forms are not applicable.</div>`
+    : '';
+
+  const tableRows = CASES.map(([key, label, hanja, abbr, isNew]) => {
+    const sg = (f.singular && f.singular[key]) || '—';
+    const pl = (f.plural   && f.plural[key])   || '—';
+    const rowClass = isNew ? ' class="new-case"' : '';
+    return `<tr${rowClass}>
+      <td class="td-case">
+        ${label}<span class="case-abbr">${abbr}</span>
+        <span class="case-hanja">${hanja}</span>
+      </td>
+      <td>${renderForm(sg)}</td>
+      <td>${renderForm(pl)}</td>
+    </tr>`;
+  }).join('');
+
   output.innerHTML = `
     <div class="hero-card">
       <div class="hero-main">
         <span class="hl-lemma">${e.lemma || '—'}</span>
+        ${kangoBadge}
         <span class="hl-askaoza">${ask}</span>
         <span class="hl-ipa">${e.ipa || ''}</span>
       </div>
@@ -414,37 +439,24 @@ function showEntry(e) {
       <div class="hero-glosses">
         ${en ? `<strong>EN:</strong> ${en}` : ''}${en && it ? ' &nbsp;·&nbsp; ' : ''}${it ? `<strong>IT:</strong> ${it}` : ''}
       </div>
+      ${kangoNote}
     </div>
 
-    <div class="section-title">Declension 曲用表</div>
+    <div class="section-title">Declension 曲用表${kango ? ' <small style="font-weight:normal;color:var(--muted)">(Kango analytic system)</small>' : ''}</div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Case</th>
-            <th>Singular</th>
-            <th>Plural</th>
+            <th>Case 格</th>
+            <th>Singular 単数</th>
+            <th>Plural 複数</th>
           </tr>
         </thead>
-        <tbody>
-          ${CASES.map(([label, key]) => {
-            const sg = f.singular[key] || '—';
-            const pl = f.plural[key]   || '—';
-            return `<tr>
-              <td class="td-case">${label}</td>
-              <td>
-                <span class="form-latin">${sg}</span>
-                <div class="form-ask">${sg !== '—' ? toAskaozaText(sg) : ''}</div>
-              </td>
-              <td>
-                <span class="form-latin">${pl}</span>
-                <div class="form-ask">${pl !== '—' ? toAskaozaText(pl) : ''}</div>
-              </td>
-            </tr>`;
-          }).join('')}
-        </tbody>
+        <tbody>${tableRows}</tbody>
       </table>
-    </div>`;
+    </div>
+    ${ !kango ? '<p style="margin-top:.6rem;font-size:.82rem;color:var(--muted)">Highlighted rows (🟢) = new cases: Prolative 経格, Terminative 止格, Benefactive 為格.</p>' : '' }
+  `;
 }
 
 function showSuggs(items) {
@@ -454,11 +466,13 @@ function showSuggs(items) {
     suggBox.classList.add('show');
     return;
   }
-  suggBox.innerHTML = items.map((e,i) => `
-    <div class="suggestion" data-i="${i}">
-      <div class="suggestion-lemma">${e.lemma || '—'}</div>
+  suggBox.innerHTML = items.map((e,i) => {
+    const kangoMark = isKango && isKango(e) ? ' <span style="font-size:.75rem;color:var(--kango-text)">白語</span>' : '';
+    return `<div class="suggestion" data-i="${i}">
+      <div class="suggestion-lemma">${e.lemma || '—'}${kangoMark}</div>
       <div class="suggestion-meta">${e.ipa || '—'} · ${(e.english||[]).slice(0,2).join(', ')}${(e.italian||[]).length ? ' · '+(e.italian||[]).slice(0,2).join(', ') : ''}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   suggBox.classList.add('show');
   suggBox.querySelectorAll('.suggestion').forEach(el => {
     el.addEventListener('click', () => pick(suggs[+el.dataset.i]));
