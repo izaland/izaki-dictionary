@@ -48,16 +48,7 @@
     return false;
   }
 
-  // ── Strong stem (R4 → R2 → R3 → R1) ────────────────────────
-  //
-  // Strategy for vowel-final words:
-  //   1. Strip final vowel → workStr (consonant body) + finalVowel
-  //   2. R4 on full word
-  //   3. R2 on workStr
-  //   4. R3: if bisyllabic AND finalVowel === 'i' → lower to 'e', block R1
-  //          OR if workStr ends in 'i' (consonant-final path)
-  //   5. R1 on workStr (if not blocked)
-  //   6. Reassemble workStr + finalVowel
+  // ── Strong stem (R4 → R2 → R3 → R1) ──────────────────
   function buildStrongStem(word) {
     const lc = word.slice(-1);
     const vowelFinal = isVowel(lc);
@@ -65,12 +56,10 @@
     let finalVowel = vowelFinal ? lc : '';
     let rule1Blocked = false;
 
-    // R4: -ae / -oe → insert evanescent -k-
     if (word.endsWith('ae') || word.endsWith('oe')) {
       return { stem: workStr + 'k' + finalVowel, rule1Blocked: false };
     }
 
-    // R2: degemination on consonant body
     let degApplied = false;
     for (const gem of DEGEM_KEYS) {
       if (workStr.endsWith(gem)) {
@@ -80,21 +69,15 @@
       }
     }
 
-    // R3: i→e lowering
-    //   Case A: vowel-final bisyllabic, finalVowel === 'i'  (e.g. saki → sake)
-    //   Case B: consonant-final bisyllabic, workStr ends in 'i'  (e.g. sakis→ sakis... N/A here)
     const bisyllabic = syllableCount(word) === 2;
     if (bisyllabic && finalVowel === 'i') {
-      // Lower the final vowel i → e
       finalVowel = 'e';
       if (degApplied) rule1Blocked = true;
     } else if (bisyllabic && workStr.endsWith('i')) {
-      // consonant-final path (R3 on workStr)
       workStr = workStr.slice(0, -1) + 'e';
       if (degApplied) rule1Blocked = true;
     }
 
-    // R1: sonorisation on consonant body (not blocked, polysyllabic)
     if (!rule1Blocked && syllableCount(word) > 1) {
       for (const key of SONOR_KEYS) {
         if (workStr.endsWith(key)) {
@@ -111,7 +94,7 @@
     return { stem: workStr + finalVowel, rule1Blocked };
   }
 
-  // ── Instrumental ───────────────────────────────────────────
+  // ── Instrumental (native) ────────────────────────────
   function buildInstrumental(word) {
     const lc = word.slice(-1);
     if (isVowel(lc)) {
@@ -125,7 +108,7 @@
     return next === 'a' ? word + 'wa' : word + next;
   }
 
-  // ── New cases ── singular (weak stem) ─────────────────────────
+  // ── New cases ─ native, singular weak stem ────────────────
   function buildProlative(word) {
     const lc = word.slice(-1);
     if (isVowel(lc)) return word + 'de';
@@ -149,8 +132,6 @@
   }
 
   function buildBenefactivePl(word) {
-    // stem (strip final vowel) + long(V) + i + nba  →  katōinba
-    // consonant-final: word + epentV + inba
     const lc = word.slice(-1);
     if (isVowel(lc)) {
       return word.slice(0, -1) + (LENGTHEN[lc] || lc) + 'inba';
@@ -160,7 +141,7 @@
     return word + v + 'inba';
   }
 
-  // ── Plural nominative ────────────────────────────────────────
+  // ── Plural nominative (native) ────────────────────────
   function buildPluralNom(word) {
     const lc = word.slice(-1);
     if (isVowel(lc)) {
@@ -172,7 +153,52 @@
     return base + 'in';
   }
 
-  // ── Main declension function ─────────────────────────────────
+  // ============================================================
+  //  BYAKUZHI helpers
+  // ============================================================
+
+  // Last vowel char (short or long) in the word for INS epenthesis
+  function lastVowelChar(word) {
+    const info = lastVowelInfo(word);
+    return info ? info.char : 'u';
+  }
+
+  // Byakuzhi INS singular:
+  //   vowel-final  → word + i
+  //   cons-final   → word + lastVowel + i
+  function byakInsSg(word) {
+    const lc = word.slice(-1);
+    if (isVowel(lc)) return word + 'i';
+    return word + lastVowelChar(word) + 'i';
+  }
+
+  // Byakuzhi INS plural: word + ei
+  function byakInsPl(word) {
+    return word + 'ei';
+  }
+
+  // Byakuzhi PRO: word + ide (both endings)
+  //   exception: -s final → ede
+  function byakPro(word) {
+    const lc = word.slice(-1);
+    return word + (lc === 's' ? 'ede' : 'ide');
+  }
+
+  // Byakuzhi BEN:
+  //   vowel-final  → word + nba
+  //   cons-final   → word + inba (exception: -s → enba)
+  function byakBenSg(word) {
+    const lc = word.slice(-1);
+    if (isVowel(lc)) return word + 'nba';
+    return word + (lc === 's' ? 'enba' : 'inba');
+  }
+
+  // Byakuzhi BEN plural: same rule as singular
+  function byakBenPl(word) {
+    return byakBenSg(word);
+  }
+
+  // ── Main declension function ────────────────────────────
   function declineNoun(lemma, entry) {
     const word = (lemma || '')
       .replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]/gi, '')
@@ -180,42 +206,45 @@
     const forms = { singular: {}, plural: {}, isKango: false };
     if (!word) return forms;
 
-    // ── Byakuzhi: analytic, no mutations
+    // ── BYAKUZHI ────────────────────────────────────
     if (isKango(entry)) {
       forms.isKango = true;
       const lc  = word.slice(-1);
       const isV = isVowel(lc);
-      const app = isV ? '' : 'u';
+      const ep  = isV ? '' : 'u';           // epenthetic vowel for cons-final
+      // ki-base: insert k before oblique -i suffix when root ends in -i
       const ki  = (lc === 'i') ? word + 'k' : word;
 
+      // ── Singular
       forms.singular.nom = word;
-      forms.singular.gen = word + app + 'n';
-      forms.singular.acc = word + app;
-      forms.singular.dat = word + app + (isV ? 'i' : 'ni');
-      forms.singular.ess = word + app + 's';
-      forms.singular.all = word + app + 'r';
-      forms.singular.abl = word + app + 'l';
-      forms.singular.ins = '\u2014';
-      forms.singular.pro = word + (isV ? '' : app) + 'de';
-      forms.singular.ter = word + (isV ? '' : app) + 'rai';
-      forms.singular.ben = '\u2014';
+      forms.singular.gen = word + ep + 'n';
+      forms.singular.acc = isV ? word : word + 'u';
+      forms.singular.dat = word + ep + (isV ? 'i' : 'ni');
+      forms.singular.ess = word + ep + 's';
+      forms.singular.all = word + ep + 'r';
+      forms.singular.abl = word + ep + 'l';
+      forms.singular.ins = byakInsSg(word);
+      forms.singular.pro = byakPro(word);
+      forms.singular.ter = word + ep + 'rai';
+      forms.singular.ben = byakBenSg(word);
 
+      // ── Plural
       forms.plural.nom = word + 'ta';
       forms.plural.gen = ki + 'in';
       forms.plural.acc = word + 'ta';
-      forms.plural.dat = '\u2014';
+      forms.plural.dat = word + 'hi';
       forms.plural.ess = ki + 'is';
       forms.plural.all = ki + 'ir';
       forms.plural.abl = ki + 'il';
-      forms.plural.ins = '\u2014';
-      forms.plural.pro = '\u2014';
-      forms.plural.ter = '\u2014';
-      forms.plural.ben = '\u2014';
+      forms.plural.ins = byakInsPl(word);
+      forms.plural.pro = byakPro(word);     // same as singular
+      forms.plural.ter = word + ep + 'rai'; // same as singular
+      forms.plural.ben = byakBenPl(word);
 
       return forms;
     }
 
-    // ── Native word
+    // ── NATIVE ──────────────────────────────────────
     const lc   = word.slice(-1);
     const isV  = isVowel(lc);
     const isLV = isLongVowel(lc);
@@ -238,7 +267,6 @@
 
     forms.plural.nom = buildPluralNom(word);
 
-    // Plural oblique: all on singular nominative stem
     forms.plural.gen = word + (isV ? 'in'  : 'en');
     forms.plural.acc = word + (isV ? 'ita' : 'eta');
     forms.plural.dat = word + (isV ? 'hi'  : 'ehi');
