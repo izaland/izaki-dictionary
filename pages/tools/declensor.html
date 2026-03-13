@@ -11,522 +11,267 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&display=block">
 <style>
   html[data-theme="light"] {
-    --bg: #f7ecd8;
-    --panel: rgba(255, 250, 230, 0.96);
-    --panel-2: rgba(255, 250, 230, 0.82);
-    --input: #fff8e0;
-    --border: #d4b87c;
-    --text: #4b3b2a;
-    --text-2: #3e2f1c;
-    --lemma: #4b2f1e;
-    --ask: #8b6f47;
-    --ipa: #7a5e3a;
-    --muted: #6b5a45;
-    --accent: #d4b87c;
-    --accent-hover: #c4a86c;
-    --table-head: #f0e8d0;
-    --table-bg: rgba(255,255,255,0.55);
-    --shadow: rgba(0,0,0,0.10);
-    --kango-bg: #e8f0ff;
-    --kango-text: #2a3f8f;
-    --kango-border: #afc0e8;
-    --new-case-bg: rgba(180,220,180,0.18);
+    --bg: #f7ecd8; --panel: rgba(255,250,230,0.96); --panel-2: rgba(255,250,230,0.82);
+    --input: #fff8e0; --border: #d4b87c; --text: #4b3b2a; --text-2: #3e2f1c;
+    --lemma: #4b2f1e; --ask: #8b6f47; --ipa: #7a5e3a; --muted: #6b5a45;
+    --accent: #d4b87c; --table-head: #f0e8d0; --table-bg: rgba(255,255,255,0.55);
+    --shadow: rgba(0,0,0,0.10); --kango-bg: #e8f0ff; --kango-text: #2a3f8f;
+    --kango-border: #afc0e8; --new-case-bg: rgba(120,200,120,0.13);
   }
   html[data-theme="dark"] {
-    --bg: #16120d;
-    --panel: rgba(30, 25, 20, 0.96);
-    --panel-2: rgba(40, 35, 28, 0.85);
-    --input: #2a2218;
-    --border: #5a4a32;
-    --text: #eadbc4;
-    --text-2: #d8c7ac;
-    --lemma: #f5e0c0;
-    --ask: #d4b87c;
-    --ipa: #c0a87a;
-    --muted: #b5a389;
-    --accent: #5a4a32;
-    --accent-hover: #6a5a42;
-    --table-head: #3a302a;
-    --table-bg: rgba(35,30,25,0.6);
-    --shadow: rgba(0,0,0,0.35);
-    --kango-bg: #1a2240;
-    --kango-text: #8aabee;
-    --kango-border: #3a4a7a;
-    --new-case-bg: rgba(80,140,80,0.12);
+    --bg: #16120d; --panel: rgba(30,25,20,0.96); --panel-2: rgba(40,35,28,0.85);
+    --input: #2a2218; --border: #5a4a32; --text: #eadbc4; --text-2: #d8c7ac;
+    --lemma: #f5e0c0; --ask: #d4b87c; --ipa: #c0a87a; --muted: #b5a389;
+    --accent: #5a4a32; --table-head: #3a302a; --table-bg: rgba(35,30,25,0.6);
+    --shadow: rgba(0,0,0,0.35); --kango-bg: #1a2240; --kango-text: #8aabee;
+    --kango-border: #3a4a7a; --new-case-bg: rgba(60,120,60,0.15);
   }
-  body {
-    background: var(--bg);
-    font-family: "Merriweather", Georgia, serif;
-    margin: 0;
-    color: var(--text);
-    transition: background-color .2s ease, color .2s ease;
-  }
-  #container {
-    width: min(1100px, 92%);
-    margin: 2rem auto;
-    padding: 2rem 2.4rem 2.6rem;
-    background: var(--panel);
-    border-radius: 12px;
-    box-shadow: 0 5px 20px var(--shadow);
-  }
-  h1.title {
-    text-align: center;
-    color: var(--text);
-    margin-bottom: .5rem;
-    font-size: 2.2rem;
-  }
-  .subtitle-note {
-    text-align: center;
-    color: var(--muted);
-    margin: 0 auto 1.6rem;
-    max-width: 780px;
-    font-size: .98rem;
-  }
-  .search-wrap {
-    position: relative;
-    margin-bottom: 1.2rem;
-  }
-  .input {
-    background: var(--input);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 8px;
-    padding: .65rem .9rem;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 48px;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color .2s ease;
-  }
-  .input:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(212,184,124,.18);
-  }
-  .search-hint {
-    color: var(--muted);
-    margin-top: .55rem;
-    font-size: .92rem;
-  }
-  .suggestions {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0;
-    right: 0;
-    z-index: 20;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    box-shadow: 0 10px 24px var(--shadow);
-    overflow: hidden;
-    display: none;
-    max-height: 360px;
-    overflow-y: auto;
-  }
-  .suggestions.show { display: block; }
-  .suggestion {
-    padding: .8rem .95rem;
-    border-bottom: 1px solid rgba(212,184,124,.35);
-    cursor: pointer;
-    background: transparent;
-    transition: background .12s ease;
-  }
-  .suggestion:last-child { border-bottom: none; }
-  .suggestion:hover, .suggestion.active { background: var(--panel-2); }
-  .suggestion-lemma {
-    font-weight: bold;
-    color: var(--lemma);
-    font-size: 1.03rem;
-  }
-  .suggestion-meta {
-    margin-top: .18rem;
-    color: var(--muted);
-    font-size: .88rem;
-  }
-  .hero-card {
-    background: var(--panel-2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.1rem 1.2rem;
-    margin: 1.2rem 0 1rem;
-  }
-  .hero-main {
-    display: flex;
-    gap: .8rem;
-    flex-wrap: wrap;
-    align-items: baseline;
-  }
-  .hl-lemma {
-    font-size: 1.75rem;
-    font-weight: bold;
-    color: var(--lemma);
-  }
-  .hl-askaoza {
-    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
-    font-size: 1.5rem;
-    color: var(--ask);
-  }
-  .hl-ipa {
-    color: var(--ipa);
-    font-style: italic;
-    font-size: 1rem;
-  }
-  .hero-meta {
-    margin-top: .45rem;
-    color: var(--text-2);
-    font-size: .97rem;
-  }
-  .hero-glosses {
-    margin-top: .3rem;
-    color: var(--text-2);
-    font-size: .97rem;
-  }
-  /* Kango badge */
-  .badge-kango {
-    display: inline-block;
-    background: var(--kango-bg);
-    color: var(--kango-text);
-    border: 1px solid var(--kango-border);
-    border-radius: 6px;
-    padding: .18rem .6rem;
-    font-size: .82rem;
-    font-family: sans-serif;
-    font-weight: bold;
-    letter-spacing: .04em;
-    vertical-align: middle;
-    margin-left: .5rem;
-  }
-  .kango-note {
-    margin-top: .5rem;
-    font-size: .88rem;
-    color: var(--kango-text);
-    background: var(--kango-bg);
-    border: 1px solid var(--kango-border);
-    border-radius: 8px;
-    padding: .45rem .8rem;
-  }
-  .section-title {
-    margin: 1.5rem 0 .75rem;
-    font-size: 1.08rem;
-    font-weight: bold;
-    color: var(--text);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: .35rem;
-  }
-  .table-wrap {
-    background: var(--table-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow-x: auto;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: .72rem .75rem;
-    border-bottom: 1px solid rgba(212,184,124,.35);
-    text-align: left;
-    vertical-align: top;
-  }
-  th {
-    background: var(--table-head);
-    color: var(--text);
-    font-size: .9rem;
-    font-weight: bold;
-  }
-  tbody tr:last-child td { border-bottom: none; }
-  .td-case {
-    font-weight: bold;
-    color: var(--text);
-    white-space: nowrap;
-    width: 155px;
-  }
-  .td-case .case-hanja {
-    display: block;
-    font-size: .78rem;
-    color: var(--muted);
-    font-weight: normal;
-    letter-spacing: .03em;
-  }
-  .td-case .case-abbr {
-    display: inline-block;
-    font-size: .72rem;
-    background: var(--table-head);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0 .35rem;
-    margin-left: .3rem;
-    vertical-align: middle;
-    color: var(--muted);
-  }
-  tr.new-case td {
-    background: var(--new-case-bg);
-  }
-  .form-latin {
-    font-weight: bold;
-    color: var(--lemma);
-    display: block;
-  }
-  .form-ask {
-    margin-top: .16rem;
-    color: var(--ask);
-    font-size: 1.1rem;
-    font-family: "Anek Gujarati", "Noto Sans Gujarati", "Shruti", system-ui, sans-serif;
-  }
-  .empty-state {
-    text-align: center;
-    color: var(--muted);
-    background: var(--panel-2);
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-    padding: 2.4rem 1rem;
-    margin-top: 1.1rem;
-    font-size: .98rem;
-  }
-  @media (max-width: 720px) {
-    #container { padding: 1.35rem 1rem 1.5rem; }
-    h1.title { font-size: 1.75rem; }
-    .hl-lemma { font-size: 1.45rem; }
-    th, td { padding: .6rem .5rem; font-size: .91rem; }
-    .td-case { width: 110px; }
+  body { background:var(--bg); font-family:"Merriweather",Georgia,serif; margin:0; color:var(--text); }
+  #container { width:min(1100px,92%); margin:2rem auto; padding:2rem 2.4rem 2.6rem;
+    background:var(--panel); border-radius:12px; box-shadow:0 5px 20px var(--shadow); }
+  h1.title { text-align:center; color:var(--text); margin-bottom:.5rem; font-size:2.2rem; }
+  .subtitle-note { text-align:center; color:var(--muted); margin:0 auto 1.6rem;
+    max-width:780px; font-size:.98rem; }
+  .search-wrap { position:relative; margin-bottom:1.2rem; }
+  .input { background:var(--input); border:1px solid var(--border); color:var(--text);
+    border-radius:8px; padding:.65rem .9rem; width:100%; box-sizing:border-box;
+    min-height:48px; font-size:1rem; font-family:inherit; }
+  .input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(212,184,124,.18); }
+  .search-hint { color:var(--muted); margin-top:.55rem; font-size:.92rem; }
+  .suggestions { position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:20;
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    box-shadow:0 10px 24px var(--shadow); display:none;
+    max-height:360px; overflow-y:auto; }
+  .suggestions.show { display:block; }
+  .suggestion { padding:.8rem .95rem; border-bottom:1px solid rgba(212,184,124,.35);
+    cursor:pointer; background:transparent; }
+  .suggestion:last-child { border-bottom:none; }
+  .suggestion:hover, .suggestion.active { background:var(--panel-2); }
+  .suggestion-lemma { font-weight:bold; color:var(--lemma); font-size:1.03rem; }
+  .suggestion-meta { margin-top:.18rem; color:var(--muted); font-size:.88rem; }
+  .hero-card { background:var(--panel-2); border:1px solid var(--border); border-radius:10px;
+    padding:1.1rem 1.2rem; margin:1.2rem 0 1rem; }
+  .hero-main { display:flex; gap:.8rem; flex-wrap:wrap; align-items:baseline; }
+  .hl-lemma { font-size:1.75rem; font-weight:bold; color:var(--lemma); }
+  .hl-askaoza { font-family:"Anek Gujarati","Noto Sans Gujarati",system-ui,sans-serif;
+    font-size:1.5rem; color:var(--ask); }
+  .hl-ipa { color:var(--ipa); font-style:italic; font-size:1rem; }
+  .hero-meta, .hero-glosses { margin-top:.35rem; color:var(--text-2); font-size:.97rem; }
+  .badge-kango { display:inline-block; background:var(--kango-bg); color:var(--kango-text);
+    border:1px solid var(--kango-border); border-radius:6px; padding:.15rem .55rem;
+    font-size:.8rem; font-family:sans-serif; font-weight:bold; vertical-align:middle; margin-left:.5rem; }
+  .kango-note { margin-top:.5rem; font-size:.88rem; color:var(--kango-text);
+    background:var(--kango-bg); border:1px solid var(--kango-border);
+    border-radius:8px; padding:.45rem .8rem; }
+  .section-title { margin:1.5rem 0 .75rem; font-size:1.08rem; font-weight:bold;
+    color:var(--text); border-bottom:1px solid var(--border); padding-bottom:.35rem; }
+  .table-wrap { background:var(--table-bg); border:1px solid var(--border);
+    border-radius:10px; overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; }
+  th, td { padding:.72rem .75rem; border-bottom:1px solid rgba(212,184,124,.35);
+    text-align:left; vertical-align:top; }
+  th { background:var(--table-head); color:var(--text); font-size:.9rem; font-weight:bold; }
+  tbody tr:last-child td { border-bottom:none; }
+  .td-case { font-weight:bold; color:var(--text); white-space:nowrap; width:155px; }
+  .td-case .case-hanja { display:block; font-size:.78rem; color:var(--muted); font-weight:normal; }
+  .td-case .case-abbr { font-size:.72rem; background:var(--table-head); border:1px solid var(--border);
+    border-radius:4px; padding:0 .3rem; margin-left:.3rem; color:var(--muted); }
+  tr.new-case td { background:var(--new-case-bg); }
+  .form-latin { font-weight:bold; color:var(--lemma); display:block; }
+  .form-ask { margin-top:.15rem; color:var(--ask); font-size:1.1rem;
+    font-family:"Anek Gujarati","Noto Sans Gujarati",system-ui,sans-serif; }
+  .empty-state { text-align:center; color:var(--muted); background:var(--panel-2);
+    border:1px dashed var(--border); border-radius:10px; padding:2.4rem 1rem;
+    margin-top:1.1rem; font-size:.98rem; }
+  @media (max-width:720px) {
+    #container { padding:1.35rem 1rem 1.5rem; } h1.title { font-size:1.75rem; }
+    th, td { padding:.6rem .5rem; font-size:.91rem; } .td-case { width:105px; }
   }
 </style>
 </head>
 <body>
 
 <div id="navbar"></div>
-<script src="/izaki-dictionary/scripts/script.js"></script>
+<script src="../../scripts/script.js"></script>
 
 <div id="container">
   <h1 class="title">Izaki Noun Declensor 華邦語名詞曲用表</h1>
   <p class="subtitle-note">
     Search for an Izaki noun by lemma, English gloss, or Italian gloss.
-    Results appear after 3 characters — select one to see the full declension table.
+    Select a result to see the full declension table.
   </p>
-
   <div class="search-wrap">
     <input class="input" type="text" id="search" autocomplete="off"
            placeholder="🔎 Search lemma or translation…">
     <div id="suggestions" class="suggestions"></div>
     <div class="search-hint">Keyboard: ↑ ↓ to navigate, Enter to select, Esc to close.</div>
   </div>
-
   <div id="selected-output">
     <div class="empty-state">Type at least 3 letters above to search for a noun.</div>
   </div>
 </div>
 
-<script src="/izaki-dictionary/scripts/askaoza-engine.js"></script>
-<script src="/izaki-dictionary/pages/tools/declensor-logic.js"></script>
+<script src="../../scripts/askaoza-engine.js"></script>
+<script src="declensor-logic.js"></script>
 <script>
-/* ── helpers ─────────────────────────────────────────────────────────── */
+// ── helpers
 function norm(s) {
-  return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 }
-function startsWith(text, q) {
-  if (!text || !q) return false;
-  const t = norm(text);
-  if (t.startsWith(q)) return true;
-  return t.split(/\s+/).some(w => w.startsWith(q));
+function startsWith(text,q){
+  if(!text||!q) return false;
+  const t=norm(text);
+  return t.startsWith(q)||t.split(/\s+/).some(w=>w.startsWith(q));
 }
-function contains(text, q) {
-  return text ? norm(text).includes(q) : false;
+function contains(text,q){ return text?norm(text).includes(q):false; }
+function isNoun(pos){
+  if(!pos) return false;
+  const p=pos.toLowerCase().trim();
+  return p==='n'||p.startsWith('n=')||p.includes('noun');
 }
-function isNoun(pos) {
-  if (!pos) return false;
-  const p = pos.toLowerCase().trim();
-  return p === 'n' || p.startsWith('n=') || p.includes('noun');
-}
-function ipaToRomaji(ipa) {
-  if (!ipa) return '';
-  let r = ipa;
-  [[/aː/g,'ā'],[/eː/g,'ē'],[/iː/g,'ī'],[/oː/g,'ō'],[/uː/g,'ū'],
-   [/a/g,'a'],[/e/g,'e'],[/i/g,'i'],[/o/g,'o'],[/u/g,'u'],
-   [/y/g,'y'],[/w/g,'w'],[/dz/g,'Ð'],[/ts/g,'TS'],[/ʒ/g,'ZH'],
-   [/dʒ/g,'J'],[/f/g,'F'],[/v/g,'V'],[/k/g,'K'],[/ɡ/g,'G'],
-   [/h/g,'H'],[/l/g,'L'],[/m/g,'M'],[/n/g,'N'],[/p/g,'P'],
-   [/b/g,'B'],[/s/g,'S'],[/t/g,'T'],[/z/g,'Z'],[/tɕ/g,'CH'],
-   [/ʃ/g,'SH'],[/ɾ/g,'R'],[/r/g,'R']
-  ].forEach(([re,rep]) => { r = r.replace(re, rep); });
-  return r;
-}
-if (typeof toAskaozaText !== 'function') {
-  window.toAskaozaText = t => t || '';
-}
+if(typeof toAskaozaText!=='function') window.toAskaozaText=t=>t||'';
 
-/* ── Case definitions ────────────────────────────────────────────────── */
-// [key, English label, Hanja, abbreviation, isNew]
-const CASES = [
-  ['nom', 'Nominative',   '主格', 'NOM', false],
-  ['gen', 'Genitive',     '属格', 'GEN', false],
-  ['acc', 'Accusative',   '対格', 'ACC', false],
-  ['dat', 'Dative',       '与格', 'DAT', false],
-  ['ess', 'Essive',       '処格', 'ESS', false],
-  ['all', 'Allative',     '辺格', 'ALL', false],
-  ['abl', 'Ablative',     '出格', 'ABL', false],
-  ['ins', 'Instrumental', '具格', 'INS', false],
-  ['pro', 'Prolative',    '経格', 'PRO', true],
-  ['ter', 'Terminative',  '止格', 'TER', true],
-  ['ben', 'Benefactive',  '為格', 'BEN', true],
+// ── Case definitions [key, label, hanja, abbr, isNew]
+const CASES=[
+  ['nom','Nominative',  '主格','NOM',false],
+  ['gen','Genitive',    '属格','GEN',false],
+  ['acc','Accusative',  '対格','ACC',false],
+  ['dat','Dative',      '与格','DAT',false],
+  ['ess','Essive',      '処格','ESS',false],
+  ['all','Allative',    '辺格','ALL',false],
+  ['abl','Ablative',    '出格','ABL',false],
+  ['ins','Instrumental','具格','INS',false],
+  ['pro','Prolative',   '経格','PRO',true],
+  ['ter','Terminative', '止格','TER',true],
+  ['ben','Benefactive', '為格','BEN',true],
 ];
 
-/* ── UI state ────────────────────────────────────────────────────────── */
-const searchEl = document.getElementById('search');
-const suggBox  = document.getElementById('suggestions');
-const output   = document.getElementById('selected-output');
-let nouns = [], suggs = [], activeIdx = -1;
+// ── UI state
+const searchEl=document.getElementById('search');
+const suggBox=document.getElementById('suggestions');
+const output=document.getElementById('selected-output');
+let nouns=[],suggs=[],activeIdx=-1;
 
-function hideSugg() {
+function hideSugg(){
   suggBox.classList.remove('show');
-  suggBox.innerHTML = '';
-  suggs = []; activeIdx = -1;
+  suggBox.innerHTML='';
+  suggs=[];activeIdx=-1;
+}
+function pick(entry){ searchEl.value=entry.lemma||''; hideSugg(); showEntry(entry); }
+
+function renderForm(f){
+  if(!f||f==='—') return '<span class="form-latin">—</span>';
+  return `<span class="form-latin">${f}</span><div class="form-ask">${toAskaozaText(f)}</div>`;
 }
 
-function pick(entry) {
-  searchEl.value = entry.lemma || '';
-  hideSugg();
-  showEntry(entry);
-}
+function showEntry(e){
+  const f=(typeof declineNoun==='function')?declineNoun(e.lemma||'',e):declineNounSimple(e.lemma||'');
+  const kango=f.isKango||false;
+  const ask=toAskaozaText(e.lemma||'');
+  const en=(e.english||[]).join(', ');
+  const it=(e.italian||[]).join(', ');
 
-function renderForm(form) {
-  if (!form || form === '—') return '<span class="form-latin">—</span>';
-  return `<span class="form-latin">${form}</span><div class="form-ask">${toAskaozaText(form)}</div>`;
-}
+  const badge=kango?`<span class="badge-kango">白語 Byakuzhi</span>`:'';
+  const note=kango?`<div class="kango-note">⚠️ <strong>Byakuzhi (白語)</strong> word of Bai/Chinese origin. Root is immutable — no sonorisation or vowel lowering. Cases are added analytically. Instrumental and Benefactive are not applicable.</div>`:'';
 
-function showEntry(e) {
-  // Use the full declineNoun from declensor-logic.js, passing entry for Kango detection
-  const f    = (typeof declineNoun === 'function') ? declineNoun(e.lemma || '', e) : declineNounSimple(e.lemma || '');
-  const ask  = toAskaozaText(e.lemma || '');
-  const en   = (e.english || []).join(', ');
-  const it   = (e.italian  || []).join(', ');
-  const rom  = ipaToRomaji(e.ipa || '');
-  const kango = f.isKango || false;
-
-  const kangoBadge = kango
-    ? `<span class="badge-kango">白語 Kango</span>`
-    : '';
-  const kangoNote = kango
-    ? `<div class="kango-note">⚠️ This is a <strong>Kango (白語)</strong> word of Bai/Chinese origin. Its root is immutable: no internal mutations apply. Case endings are added analytically without sonorisation or vowel lowering. Instrumental and Benefactive forms are not applicable.</div>`
-    : '';
-
-  const tableRows = CASES.map(([key, label, hanja, abbr, isNew]) => {
-    const sg = (f.singular && f.singular[key]) || '—';
-    const pl = (f.plural   && f.plural[key])   || '—';
-    const rowClass = isNew ? ' class="new-case"' : '';
-    return `<tr${rowClass}>
-      <td class="td-case">
-        ${label}<span class="case-abbr">${abbr}</span>
-        <span class="case-hanja">${hanja}</span>
-      </td>
-      <td>${renderForm(sg)}</td>
-      <td>${renderForm(pl)}</td>
-    </tr>`;
+  const rows=CASES.map(([key,label,hanja,abbr,isNew])=>{
+    const sg=(f.singular&&f.singular[key])||'—';
+    const pl=(f.plural  &&f.plural[key]  )||'—';
+    return `<tr${isNew?' class="new-case"':''}>` +
+      `<td class="td-case">${label}<span class="case-abbr">${abbr}</span><span class="case-hanja">${hanja}</span></td>` +
+      `<td>${renderForm(sg)}</td><td>${renderForm(pl)}</td></tr>`;
   }).join('');
 
-  output.innerHTML = `
+  output.innerHTML=`
     <div class="hero-card">
       <div class="hero-main">
-        <span class="hl-lemma">${e.lemma || '—'}</span>
-        ${kangoBadge}
+        <span class="hl-lemma">${e.lemma||'—'}</span>${badge}
         <span class="hl-askaoza">${ask}</span>
-        <span class="hl-ipa">${e.ipa || ''}</span>
+        <span class="hl-ipa">${e.ipa||''}</span>
       </div>
-      <div class="hero-meta">
-        <strong>POS:</strong> ${e.pos || '—'}${rom ? ` &nbsp;·&nbsp; <strong>Romaji:</strong> ${rom}` : ''}
-      </div>
+      <div class="hero-meta"><strong>POS:</strong> ${e.pos||'—'}</div>
       <div class="hero-glosses">
-        ${en ? `<strong>EN:</strong> ${en}` : ''}${en && it ? ' &nbsp;·&nbsp; ' : ''}${it ? `<strong>IT:</strong> ${it}` : ''}
-      </div>
-      ${kangoNote}
+        ${en?`<strong>EN:</strong> ${en}`:''}${en&&it?' &nbsp;·&nbsp; ':''}
+        ${it?`<strong>IT:</strong> ${it}`:''}
+      </div>${note}
     </div>
-
-    <div class="section-title">Declension 曲用表${kango ? ' <small style="font-weight:normal;color:var(--muted)">(Kango analytic system)</small>' : ''}</div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Case 格</th>
-            <th>Singular 単数</th>
-            <th>Plural 複数</th>
-          </tr>
-        </thead>
-        <tbody>${tableRows}</tbody>
-      </table>
+    <div class="section-title">Declension 曲用表
+      ${kango?'<small style="font-weight:normal;color:var(--muted)"> (Byakuzhi analytic system)</small>':''}
     </div>
-    ${ !kango ? '<p style="margin-top:.6rem;font-size:.82rem;color:var(--muted)">Highlighted rows (🟢) = new cases: Prolative 経格, Terminative 止格, Benefactive 為格.</p>' : '' }
+    <div class="table-wrap"><table>
+      <thead><tr><th>Case 格</th><th>Singular 単数</th><th>Plural 複数</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    ${!kango?'<p style="margin-top:.6rem;font-size:.82rem;color:var(--muted)">Green rows = new cases: Prolative 経格 &nbsp;·&nbsp; Terminative 止格 &nbsp;·&nbsp; Benefactive 為格</p>':''}
   `;
 }
 
-function showSuggs(items) {
-  suggs = items; activeIdx = -1;
-  if (!items.length) {
-    suggBox.innerHTML = '<div class="suggestion"><div class="suggestion-lemma">No matches</div><div class="suggestion-meta">Try a different lemma or gloss.</div></div>';
-    suggBox.classList.add('show');
-    return;
+function showSuggs(items){
+  suggs=items;activeIdx=-1;
+  if(!items.length){
+    suggBox.innerHTML='<div class="suggestion"><div class="suggestion-lemma">No matches</div><div class="suggestion-meta">Try a different search.</div></div>';
+    suggBox.classList.add('show');return;
   }
-  suggBox.innerHTML = items.map((e,i) => {
-    const kangoMark = isKango && isKango(e) ? ' <span style="font-size:.75rem;color:var(--kango-text)">白語</span>' : '';
+  suggBox.innerHTML=items.map((e,i)=>{
+    const km=(typeof isKango==='function'&&isKango(e))?' <span style="font-size:.75rem;color:var(--kango-text)">白語</span>':'';
     return `<div class="suggestion" data-i="${i}">
-      <div class="suggestion-lemma">${e.lemma || '—'}${kangoMark}</div>
-      <div class="suggestion-meta">${e.ipa || '—'} · ${(e.english||[]).slice(0,2).join(', ')}${(e.italian||[]).length ? ' · '+(e.italian||[]).slice(0,2).join(', ') : ''}</div>
+      <div class="suggestion-lemma">${e.lemma||'—'}${km}</div>
+      <div class="suggestion-meta">${e.ipa||'—'} · ${(e.english||[]).slice(0,2).join(', ')}
+      ${(e.italian||[]).length?' · '+(e.italian||[]).slice(0,2).join(', '):''}</div>
     </div>`;
   }).join('');
   suggBox.classList.add('show');
-  suggBox.querySelectorAll('.suggestion').forEach(el => {
-    el.addEventListener('click', () => pick(suggs[+el.dataset.i]));
+  suggBox.querySelectorAll('.suggestion').forEach(el=>{
+    el.addEventListener('click',()=>pick(suggs[+el.dataset.i]));
   });
 }
 
-function getMatches(q) {
-  if (q.length < 3) return [];
-  const pre = [], mid = [];
-  nouns.forEach(e => {
-    const en = e.english || [], it = e.italian || [];
-    const hit = startsWith(e.lemma,q) || en.some(w=>startsWith(w,q)) || it.some(w=>startsWith(w,q));
-    if (hit) pre.push(e);
-    else if (contains(e.lemma,q) || en.some(w=>contains(w,q)) || it.some(w=>contains(w,q))) mid.push(e);
+function getMatches(q){
+  if(q.length<3) return [];
+  const pre=[],mid=[];
+  nouns.forEach(e=>{
+    const en=e.english||[],it=e.italian||[];
+    const hit=startsWith(e.lemma,q)||en.some(w=>startsWith(w,q))||it.some(w=>startsWith(w,q));
+    if(hit) pre.push(e);
+    else if(contains(e.lemma,q)||en.some(w=>contains(w,q))||it.some(w=>contains(w,q))) mid.push(e);
   });
   return pre.concat(mid).sort((a,b)=>(a.lemma||'').localeCompare(b.lemma||'')).slice(0,14);
 }
 
-searchEl.addEventListener('input', () => {
-  const q = norm(searchEl.value.trim());
-  if (q.length < 3) {
+searchEl.addEventListener('input',()=>{
+  const q=norm(searchEl.value.trim());
+  if(q.length<3){
     hideSugg();
-    output.innerHTML = '<div class="empty-state">Type at least 3 letters above to search for a noun.</div>';
+    output.innerHTML='<div class="empty-state">Type at least 3 letters above to search for a noun.</div>';
     return;
   }
   showSuggs(getMatches(q));
 });
 
-searchEl.addEventListener('keydown', ev => {
-  if (!suggs.length) return;
-  if (ev.key === 'ArrowDown') { ev.preventDefault(); activeIdx = (activeIdx+1) % suggs.length; }
-  else if (ev.key === 'ArrowUp') { ev.preventDefault(); activeIdx = (activeIdx-1+suggs.length) % suggs.length; }
-  else if (ev.key === 'Enter') { if (activeIdx >= 0) { ev.preventDefault(); pick(suggs[activeIdx]); } return; }
-  else if (ev.key === 'Escape') { hideSugg(); return; }
+searchEl.addEventListener('keydown',ev=>{
+  if(!suggs.length) return;
+  if(ev.key==='ArrowDown'){ev.preventDefault();activeIdx=(activeIdx+1)%suggs.length;}
+  else if(ev.key==='ArrowUp'){ev.preventDefault();activeIdx=(activeIdx-1+suggs.length)%suggs.length;}
+  else if(ev.key==='Enter'){if(activeIdx>=0){ev.preventDefault();pick(suggs[activeIdx]);}return;}
+  else if(ev.key==='Escape'){hideSugg();return;}
   else return;
-  [...suggBox.querySelectorAll('.suggestion')].forEach((el,i) => el.classList.toggle('active', i===activeIdx));
+  [...suggBox.querySelectorAll('.suggestion')].forEach((el,i)=>el.classList.toggle('active',i===activeIdx));
 });
 
-document.addEventListener('click', ev => {
-  if (!suggBox.contains(ev.target) && ev.target !== searchEl) hideSugg();
+document.addEventListener('click',ev=>{
+  if(!suggBox.contains(ev.target)&&ev.target!==searchEl) hideSugg();
 });
 
-/* ── load data ───────────────────────────────────────────────────────── */
+// ── Load dictionary
 fetch('../../data/dictionary.json')
-  .then(r => r.json())
-  .then(data => {
-    nouns = data
-      .filter(e => isNoun(e.pos) && e.lemma)
-      .sort((a,b) => (a.lemma||'').localeCompare(b.lemma||''));
+  .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data=>{
+    nouns=data.filter(e=>isNoun(e.pos)&&e.lemma)
+              .sort((a,b)=>(a.lemma||'').localeCompare(b.lemma||''));
   })
-  .catch(() => {
-    output.innerHTML = '<div class="empty-state">⚠️ Error loading dictionary data. Please try refreshing the page.</div>';
+  .catch(err=>{
+    output.innerHTML=`<div class="empty-state">⚠️ Error loading dictionary: ${err.message}. Try refreshing.</div>`;
   });
 </script>
-
 </body>
 </html>
