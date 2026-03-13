@@ -66,6 +66,18 @@ def normalize_pos(raw):
     return pos.strip()
 
 # ---------------------------------------------------------------------------
+# Helper: rilevamento celle con errore da Google Sheets
+# ---------------------------------------------------------------------------
+
+def is_error_cell(value):
+    """Restituisce True se il valore è un errore di formula di Google Sheets."""
+    if not value:
+        return False
+    v = value.strip()
+    return v.startswith('#') and (v.endswith('!') or '/' in v)
+    # Copre: #ERROR!, #REF!, #N/A, #VALUE!, #DIV/0!, ecc.
+
+# ---------------------------------------------------------------------------
 # Lettura sorgenti
 # ---------------------------------------------------------------------------
 
@@ -91,7 +103,7 @@ def read_izaki_sheet_csv(filepath):
         reader = csv.DictReader(f)
         for i, row in enumerate(reader, start=2):
             lemma = row.get('lemma', '').strip()
-            if not lemma:
+            if not lemma or is_error_cell(lemma):
                 continue
 
             ipa_raw = row.get('ipa', '').strip()
@@ -118,14 +130,21 @@ def read_izaki_sheet_csv(filepath):
 
 def read_compounds_csv(filepath):
     entries = []
+    skipped = 0
     with open(filepath, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
             english       = row.get('English', '').strip()
             compound      = row.get('Compound', '').strip()
-            izaki_reading = row.get('Izaki Reading', '').strip()
+            izaki_reading = row.get('Izaki Reading\n(sandhi applied)', '').strip()
+
+            # Salta righe vuote o con errori di formula Google Sheets
             if not compound or not izaki_reading:
                 continue
+            if is_error_cell(izaki_reading) or is_error_cell(english) or is_error_cell(compound):
+                skipped += 1
+                continue
+
             entries.append({
                 "lemma":    izaki_reading,
                 "ipa":      lemma_to_ipa(izaki_reading),
@@ -137,6 +156,8 @@ def read_compounds_csv(filepath):
                 "notes":    "compound",
                 "example":  "",
             })
+    if skipped:
+        print(f"  ⚠️  {skipped} compound saltati per celle #ERROR! nel CSV")
     return entries
 
 # ---------------------------------------------------------------------------
