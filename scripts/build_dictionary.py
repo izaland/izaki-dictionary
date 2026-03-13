@@ -8,6 +8,10 @@ Build complete dictionary.json from two authoritative CSV sources:
 ⚠️  dictionary.json è SOLO output — non viene mai usato come fonte.
     Ogni build riparte dai CSV. Questo evita duplicazioni e inquinamento
     da dati storici corrotti.
+
+Campo 'origin':
+  "native"   ← parola izaki pura (da izaki_words.csv)
+  "byakuzhi" ← composto sino-izaki (da compounds.csv)
 """
 
 import csv
@@ -97,6 +101,7 @@ def read_izaki_sheet_csv(filepath):
                 "lemma":    lemma,
                 "ipa":      ipa,
                 "pos":      normalize_pos(row.get('POS', '')),
+                "origin":   "native",
                 "english":  _split_translations(row.get('english', '').strip()),
                 "italian":  _split_translations(row.get('italian', '').strip()),
                 "byakuzhi": row.get('byakuzhi', '').strip(),
@@ -127,18 +132,14 @@ def read_compounds_csv(filepath):
             compound      = row.get('Compound', '').strip()
             izaki_reading = row.get('Izaki Reading\n(sandhi applied)', '').strip()
 
-            # Salta righe senza kanji
             if not compound:
                 continue
-            # Salta righe con errori di formula
             if is_error_cell(izaki_reading) or is_error_cell(compound):
                 skipped += 1
                 continue
-            # Salta righe senza lettura izaki
             if not izaki_reading:
                 skipped += 1
                 continue
-            # La traduzione inglese può mancare o avere #ERROR! — la trattiamo come stringa vuota
             if is_error_cell(english):
                 english = ''
 
@@ -146,6 +147,7 @@ def read_compounds_csv(filepath):
                 "lemma":    izaki_reading,
                 "ipa":      lemma_to_ipa(izaki_reading),
                 "pos":      "n",
+                "origin":   "byakuzhi",
                 "english":  [english] if english else [],
                 "italian":  [],
                 "byakuzhi": compound,
@@ -172,7 +174,7 @@ def build_all_entries(sheet_entries, compounds):
 def generate_missing_ipa(entries):
     count = 0
     for entry in entries:
-        if entry.get('notes') == 'compound':
+        if entry.get('origin') == 'byakuzhi':
             continue
         if should_generate_ipa(entry.get('ipa', '')) and entry.get('lemma'):
             entry['ipa'] = lemma_to_ipa(entry['lemma'])
@@ -208,8 +210,8 @@ def main():
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(all_entries, f, ensure_ascii=False, indent=2)
 
-    native_count   = sum(1 for e in all_entries if e.get('notes') != 'compound')
-    compound_count = sum(1 for e in all_entries if e.get('notes') == 'compound')
+    native_count   = sum(1 for e in all_entries if e.get('origin') == 'native')
+    compound_count = sum(1 for e in all_entries if e.get('origin') == 'byakuzhi')
     print(f"\n✅ Fatto!")
     print(f"   Voci native:   {native_count}")
     print(f"   Compound:      {compound_count}")
