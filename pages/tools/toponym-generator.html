@@ -450,12 +450,27 @@
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
 
+    // ── Weighted pick: readings array may contain duplicates as weight tokens ──
+    // (e.g. ["ra","ra","ra","ra","ra","ra","ra","ra","ra","dyen"] = 90/10)
+    // This is already handled by pick() since duplicates raise probability.
+    // The helper below deduplicates for display purposes only.
+    function uniqueReadings(arr) {
+      return [...new Set(arr)];
+    }
+
     // ── Sandhi utilities (shared) ──────────────────────────────────────
+    const VOWELS_RE   = /[aeiouy\u0101\u0113\u012b\u014d\u016b]/i;
     const VOICED_ONSETS = new Set(['g','b','z','d','v','j','zh','dz','n','m','l','r']);
     const VOICING    = { 'ch':'j','sh':'zh','ts':'dz','k':'g','p':'b','s':'z','t':'d','f':'v' };
     const S_DEVOICE  = { 'b':'p','v':'f','d':'t','g':'k','j':'ch','z':'s','dz':'ts','zh':'sh' };
     const GEMINATORS = new Set(['n','l','s']);
     const LOGICAL_CATS = new Set(['direction','modifier']);
+
+    // Pattern: strict CVCVCV (exactly 3 CV syllables, all consonants single)
+    const C_PAT  = '(?:ch|sh|ts|dz|zh|[kgpbsztdfvhnmlrj])';
+    const V_PAT  = '[aeiouy\u0101\u0113\u012b\u014d\u016b]';
+    const CVCVCV_FULL_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
+    const CVCV_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
 
     function getOnset(s) {
       if (['cch','ssh','tts'].some(d => s.startsWith(d))) return s.slice(0,3);
@@ -463,17 +478,23 @@
       return s[0] || '';
     }
     function getFinal(s) {
-      const m = s.match(/([^aeiouyüāēīōū]+)$/i);
+      const m = s.match(/([^aeiouy\u0101\u0113\u012b\u014d\u016b]+)$/i);
       return m ? m[1].toLowerCase() : '';
     }
-    const C_PAT  = '(?:ch|sh|ts|dz|zh|[kgpbsztdfvhnmlrj])';
-    const V_PAT  = '[aeiouyü]';
-    const CVCV_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
+
+    // Drop last CV syllable from a CVCVCV word → CVCV
+    function dropLastSyllable(word) {
+      // Match last CV pair at end of string
+      const m = word.match(/^(.+?)([kgpbsztdfvhnmlrj]|ch|sh|ts|dz|zh)([aeiouy\u0101\u0113\u012b\u014d\u016b])$/i);
+      if (m) return m[1] + m[2]; // drop the final vowel, keep the consonant as coda
+      // Fallback: remove last 2 chars
+      return word.slice(0, -2);
+    }
 
     function applyJunctionSandhi(r1, r2) {
       const fin = getFinal(r1.toLowerCase());
       const onset2 = getOnset(r2.toLowerCase());
-      const r2V = /^[aeiouyüāēīōū]/i.test(r2);
+      const r2V = VOWELS_RE.test(r2[0]);
       if (GEMINATORS.has(fin) && r2V) return [r1, fin + r2];
       if (fin === 's' && VOICED_ONSETS.has(onset2) && S_DEVOICE[onset2])
         return [r1, S_DEVOICE[onset2] + r2.slice(onset2.length)];
@@ -481,7 +502,7 @@
     }
     function applyCompoundVoicing(r1, r2) {
       if (!CVCV_RE.test(r1.toLowerCase()) || !CVCV_RE.test(r2.toLowerCase())) return r2;
-      const idx = r1.toLowerCase().search(/[aeiouyü]/i);
+      const idx = r1.toLowerCase().search(VOWELS_RE);
       if (idx < 0) return r2;
       const o2r1 = getOnset(r1.toLowerCase().slice(idx + 1));
       if (VOICED_ONSETS.has(o2r1)) return r2;
@@ -494,10 +515,20 @@
       const surface = parts.map(p => p.read);
       for (let i = 0; i < surface.length - 1; i++) {
         const r1 = surface[i].toLowerCase(), r2 = surface[i+1].toLowerCase();
-        if (/[aeiouyü][^aeiouyü]e$/i.test(r1) && /^[^aeiouyü]*a/i.test(r2))
+        if (/[aeiouy][^aeiouy]e$/i.test(r1) && /^[^aeiouy]*a/i.test(r2))
           surface[i] = surface[i].slice(0,-1) + 'a';
       }
       return surface;
+    }
+
+    // ── Fix pp/tt/kk-initial readings when word is at position 0 ──────
+    // A word cannot begin with a geminate. Replace with single consonant.
+    const DEGEM_ONSET = { 'pp':'p','tt':'t','kk':'k','ss':'s','cch':'ch','ssh':'sh','tts':'ts' };
+    function fixWordInitialGeminate(r) {
+      for (const [gem, single] of Object.entries(DEGEM_ONSET)) {
+        if (r.toLowerCase().startsWith(gem)) return single + r.slice(gem.length);
+      }
+      return r;
     }
 
     // ── Shared render ───────────────────────────────────────────────
@@ -532,7 +563,7 @@
         btn.addEventListener('click', () => {
           navigator.clipboard.writeText(btn.dataset.copy).then(() => {
             const orig = btn.textContent;
-            btn.textContent = '✅ Copied!';
+            btn.textContent = '\u2705 Copied!';
             setTimeout(() => { btn.textContent = orig; }, 1800);
           });
         });
@@ -557,7 +588,7 @@
           `<tr>
             <td class="char-cell">${b.char}</td>
             <td>${b.meaning}</td>
-            <td>${b.readings.slice(0,4).join(' · ')}</td>
+            <td>${uniqueReadings(b.readings).slice(0,4).join(' \u00b7 ')}</td>
             <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
           </tr>`
         ).join('');
@@ -572,12 +603,22 @@
     // TOPONYM LOGIC
     // ══════════════════════════════════════════════════════════════
     function buildToponym(morphemes, rand) {
-      const parts = morphemes.map(m => {
+      const parts = morphemes.map((m, idx) => {
         const pool = m.readings.filter(r => cleanReading(r).length > 0);
         if (!pool.length) return null;
-        return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
+        let read = cleanReading(pick(pool, rand));
+        // Rule: word-initial geminate onset is forbidden
+        if (idx === 0) read = fixWordInitialGeminate(read);
+        return { read, char: m.char, meaning: m.meaning, cat: m.cat };
       }).filter(Boolean);
       if (!parts.length) return null;
+
+      // CVCVCV drop rule: non-final morphemes that are CVCVCV drop last syllable ~40%
+      for (let i = 0; i < parts.length - 1; i++) {
+        if (CVCVCV_FULL_RE.test(parts[i].read) && rand() < 0.40) {
+          parts[i].read = dropLastSyllable(parts[i].read);
+        }
+      }
 
       if (parts.length === 2)
         parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
@@ -613,7 +654,7 @@
       const seed       = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
       const rand       = mulberry32(seed);
 
-      document.getElementById('seedDisplay').textContent = '🎲 Seed: ' + seed;
+      document.getElementById('seedDisplay').textContent = '\uD83C\uDFB2 Seed: ' + seed;
       document.getElementById('seedInput').placeholder = '' + seed;
 
       const all = DB_TOPONYM.byakuzhi;
@@ -666,12 +707,21 @@
     // ══════════════════════════════════════════════════════════════
     function buildTempleName(bodyMorphemes, suffixMorph, rand) {
       const allMorphemes = [...bodyMorphemes, suffixMorph];
-      const parts = allMorphemes.map(m => {
+      const parts = allMorphemes.map((m, idx) => {
         const pool = m.readings.filter(r => cleanReading(r).length > 0);
         if (!pool.length) return null;
-        return { read: cleanReading(pick(pool, rand)), char: m.char, meaning: m.meaning, cat: m.cat };
+        let read = cleanReading(pick(pool, rand));
+        if (idx === 0) read = fixWordInitialGeminate(read);
+        return { read, char: m.char, meaning: m.meaning, cat: m.cat };
       }).filter(Boolean);
       if (!parts.length) return null;
+
+      // CVCVCV drop rule: non-final, non-suffix morphemes
+      for (let i = 0; i < parts.length - 1; i++) {
+        if (parts[i].cat !== 'suffix' && CVCVCV_FULL_RE.test(parts[i].read) && rand() < 0.40) {
+          parts[i].read = dropLastSyllable(parts[i].read);
+        }
+      }
 
       if (parts.length >= 2)
         parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
@@ -708,7 +758,7 @@
       const seed         = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
       const rand         = mulberry32(seed);
 
-      document.getElementById('t-seedDisplay').textContent = '🎲 Seed: ' + seed;
+      document.getElementById('t-seedDisplay').textContent = '\uD83C\uDFB2 Seed: ' + seed;
       document.getElementById('t-seedInput').placeholder = '' + seed;
 
       const all = DB_TEMPLE.byakuzhi;
