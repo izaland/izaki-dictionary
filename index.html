@@ -151,11 +151,11 @@
         <p>
             This platform offers a growing collection of tools, including a multilingual dictionary,
             writing-system references, and grammar resources, designed both for learners and for contributors
-            to Izaland’s cultural and linguistic world.
+            to Izaland's cultural and linguistic world.
         </p>
 
         <p>
-            Izaki is developed by Izaland’s mapper <strong>ITC</strong>, shaped as an 
+            Izaki is developed by Izaland's mapper <strong>ITC</strong>, shaped as an 
             <em>a priori</em> language with a structural blend of influences:
         </p>
 
@@ -206,6 +206,16 @@
     <div class="container content">
 
         <h2 class="title">Project Release Log</h2>
+
+        <div class="box">
+            <h3 class="subtitle">2026-03-15</h3>
+            <ul>
+                <li><strong>Placename byakuzhi v1.2</strong> — Added <code>phonetic</code> flag and <code>position</code> field (word-initial / medial / word-final) to the placename byakuzhi database; 18 new phonetic byakuzhi added (伊, 阿, 王, 見, 名, 品, 生, 稲, 粕, 足, 殿, 縞, 先, 包, 盛, 形, 飯, 須).</li>
+                <li><strong>Toponym generator — phonology improvements</strong> — Added CVCVCV final-syllable drop rule (40 % probability on non-final morphemes), weighted reading selection (e.g. 田 <em>ra</em> 90 % / <em>dyen</em> 10 %), and fix for geminate-initial readings at word start (<em>pp-, tt-, kk-</em> → single onset).</li>
+                <li><strong>Reading lookup tool</strong> — New <em>🔍 Reading lookup 照合</em> tab in the <a href="/izaki-dictionary/pages/tools/toponym-generator.html">Toponym &amp; Temple Generator</a>. Enter a Latin-script fragment (e.g. <code>noira</code>, <code>teh-ra-samo</code>) to reverse-search the byakuzhi database: results are grouped by token, match type (exact / prefix / suffix / substring) is shown with highlighted readings, and the source database (place names, temple names, or both) can be selected freely.</li>
+                <li><strong>Dictionary bug fix</strong> — Fixed <code>isKango</code> detection for static <code>dictionary.json</code> entries that use <code>notes === 'compound'</code> as a fallback origin marker.</li>
+            </ul>
+        </div>
 
         <div class="box">
             <h3 class="subtitle">2026-03-12</h3>
