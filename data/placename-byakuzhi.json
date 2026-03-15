@@ -1,7 +1,7 @@
 {
   "meta": {
     "description": "Byakuzhi used in Izaki placenames, with readings and semantic category",
-    "version": "1.0",
+    "version": "1.1",
     "source": "Izaland Terramorphing Committee – placenames.pdf + extended list"
   },
   "byakuzhi": [
@@ -115,7 +115,7 @@
     {"char":"桃","meaning":"peach","readings":["mochana","mochi"],"cat":"vegetation"},
     {"char":"柳","meaning":"willow","readings":["koika","ryūn"],"cat":"vegetation"},
     {"char":"杉","meaning":"cedar","readings":["kusu","kus"],"cat":"vegetation"},
-    {"char":"楠","meaning":"camphor","readings":["hari","ppari"],"cat":"vegetation"},
+    {"char":"楠","meaning":"camphor","readings":["hari"],"cat":"vegetation"},
     {"char":"桐","meaning":"paulownia","readings":["baji","paji"],"cat":"vegetation"},
     {"char":"桑","meaning":"mulberry","readings":["raya"],"cat":"vegetation"},
     {"char":"栗","meaning":"chestnut","readings":["kiro","rwis"],"cat":"vegetation"},
@@ -135,7 +135,7 @@
     {"char":"芝","meaning":"lawn","readings":["natsu"],"cat":"vegetation"},
     {"char":"荒","meaning":"rough","readings":["shiru"],"cat":"vegetation"},
     {"char":"槻","meaning":"zelkova","readings":["koppe","kobe"],"cat":"vegetation"},
-    {"char":"榎","meaning":"enoki","readings":["harari","pparari"],"cat":"vegetation"},
+    {"char":"榎","meaning":"enoki","readings":["harari"],"cat":"vegetation"},
     {"char":"椋","meaning":"muku","readings":["chasta"],"cat":"vegetation"},
     {"char":"梧","meaning":"paulownia","readings":["iko","igo"],"cat":"vegetation"},
     {"char":"枳","meaning":"bitter orange","readings":["chawi","jawi"],"cat":"vegetation"},
@@ -230,7 +230,7 @@
     {"char":"狛","meaning":"guardian lion","readings":["tori","tol"],"cat":"fauna"},
     {"char":"牧","meaning":"pasture","readings":["kuro","muku"],"cat":"fauna"},
     {"char":"羊","meaning":"sheep","readings":["holso","yān"],"cat":"fauna"},
-    {"char":"田","meaning":"field","readings":["ra","dyen"],"cat":"land"},
+    {"char":"田","meaning":"field","readings":["ra","ra","ra","ra","ra","ra","ra","ra","ra","dyen"],"cat":"land"},
     {"char":"畑","meaning":"farmland","readings":["naki","nagi"],"cat":"land"},
     {"char":"野","meaning":"field","readings":["najue","ya"],"cat":"land"},
     {"char":"土","meaning":"soil","readings":["da","doke"],"cat":"land"},
