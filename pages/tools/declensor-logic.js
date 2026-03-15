@@ -40,11 +40,17 @@
   }
 
   // ── Kango / Byakuzhi detection ──────────────────────────────
+  //  Priority order:
+  //  1. entry.origin === 'byakuzhi'           (build_dictionary.py output)
+  //  2. entry.notes  === 'compound'           (static dictionary.json fallback)
+  //  3. entry.kango  === true / 'true'        (legacy field)
+  //  4. ZWNJ (\u200C) in lemma               (encoding signal)
   function isKango(entry) {
     if (!entry) return false;
     if (entry.origin === 'byakuzhi') return true;
-    if (entry.kango === true || entry.kango === 'true') return true;
-    if (entry.lemma && entry.lemma.includes('\u200C')) return true;
+    if (entry.notes  === 'compound') return true;
+    if (entry.kango  === true || entry.kango === 'true') return true;
+    if (entry.lemma  && entry.lemma.includes('\u200C')) return true;
     return false;
   }
 
