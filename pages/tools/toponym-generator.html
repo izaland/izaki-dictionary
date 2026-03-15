@@ -23,6 +23,8 @@
       --tp-copy-color:     #555;
       --tp-copy-hover:     #e8e8e8;
       --tp-seed-color:     #888;
+      --tp-highlight:      #fff176;
+      --tp-highlight-fg:   #333;
       --cat-modifier-bg:   #eeeeee;  --cat-modifier-fg:   #444444;
       --cat-direction-bg:  #fef3cd;  --cat-direction-fg:  #856404;
       --cat-relief-bg:     #d4edda;  --cat-relief-fg:     #155724;
@@ -55,6 +57,8 @@
       --tp-copy-color:     #bbb;
       --tp-copy-hover:     #3a3a48;
       --tp-seed-color:     #9ca3af;
+      --tp-highlight:      #5c4d00;
+      --tp-highlight-fg:   #ffe57a;
       --cat-modifier-bg:   #3a3a3a;  --cat-modifier-fg:   #cccccc;
       --cat-direction-bg:  #3d3318;  --cat-direction-fg:  #f5d97a;
       --cat-relief-bg:     #1a2e1f;  --cat-relief-fg:     #6fcf8a;
@@ -95,7 +99,7 @@
     .hero .title + .subtitle  { margin-top:0 !important; line-height:1.45; }
     .hero .subtitle .subtitle-ja { display:block; margin-top:0.35rem; }
 
-    .generator-tabs { max-width:760px; margin:0 auto 1.5rem; }
+    .generator-tabs { max-width:860px; margin:0 auto 1.5rem; }
     .generator-tabs .tabs { margin-bottom:0; }
 
     .result-card {
@@ -173,6 +177,72 @@
 
     .tab-panel { display:none; }
     .tab-panel.is-active { display:block; }
+
+    /* ── Lookup tab styles ── */
+    .lookup-box {
+      max-width:860px; margin:0 auto 2rem; padding:1.5rem;
+      border:1px solid var(--tp-card-border); border-radius:12px;
+      background:var(--tp-controls-bg); box-shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+    .lookup-token {
+      display:inline-flex; align-items:center; gap:.3rem;
+      background:var(--tp-pill-bg); border:1px solid var(--tp-pill-border);
+      border-radius:20px; padding:.2rem .7rem; margin:.2rem;
+      font-size:.85rem; cursor:pointer; user-select:none; transition:opacity .15s;
+    }
+    .lookup-token:hover { opacity:.75; }
+    .lookup-token .tok-x { color:var(--tp-text-sec); font-size:.8rem; margin-left:.2rem; }
+    .lookup-results-box { max-width:860px; margin:0 auto; }
+    .lookup-section { margin-bottom:1.5rem; }
+    .lookup-section h3 {
+      font-size:.8rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; color:var(--tp-text-sec);
+      border-bottom:1px solid var(--tp-card-border);
+      padding-bottom:.3rem; margin-bottom:.7rem;
+    }
+    .lookup-card {
+      display:flex; align-items:flex-start; gap:1rem;
+      border:1px solid var(--tp-card-border); border-radius:10px;
+      padding:.8rem 1rem; margin-bottom:.5rem;
+      background:var(--tp-card-bg); box-shadow:0 1px 4px rgba(0,0,0,.06);
+      flex-wrap:wrap;
+    }
+    .lookup-card .lk-char { font-size:2rem; line-height:1; min-width:2.4rem; text-align:center; }
+    .lookup-card .lk-body { flex:1; min-width:160px; }
+    .lookup-card .lk-meaning { font-size:.95rem; font-weight:600; color:var(--tp-text); }
+    .lookup-card .lk-readings { font-size:.88rem; color:var(--tp-text-sec); margin-top:.15rem; line-height:1.7; }
+    .lookup-card .lk-readings .r-match {
+      display:inline-block;
+      background:var(--tp-highlight); color:var(--tp-highlight-fg);
+      border-radius:3px; padding:0 .25rem; font-weight:700;
+    }
+    .lookup-card .lk-meta { display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; margin-top:.35rem; }
+    .lk-pos-badge {
+      font-size:.7rem; font-weight:700; text-transform:uppercase;
+      padding:.1rem .4rem; border-radius:4px; letter-spacing:.04em;
+      background:#e0e0e0; color:#444;
+    }
+    .lk-pos-badge.pos-exact   { background:#c8f7c5; color:#1a5c1a; }
+    .lk-pos-badge.pos-prefix  { background:#cce5ff; color:#004085; }
+    .lk-pos-badge.pos-suffix  { background:#fde8d8; color:#784212; }
+    .lk-pos-badge.pos-infix   { background:#e2d9f3; color:#4a235a; }
+    .lk-pos-badge.pos-partial { background:#f0f0f0; color:#666; }
+    .lk-phonetic-badge {
+      font-size:.7rem; padding:.1rem .4rem; border-radius:4px;
+      background:#fff3cd; color:#856404; font-weight:600;
+    }
+    .lk-position-badge {
+      font-size:.7rem; padding:.1rem .4rem; border-radius:4px;
+      background:#d6eaf8; color:#1a5276; font-weight:600;
+    }
+    .lookup-empty {
+      text-align:center; padding:2rem; color:var(--tp-text-sec);
+      font-size:1rem;
+    }
+    .lookup-stats {
+      font-size:.82rem; color:var(--tp-text-sec); margin-bottom:1rem;
+    }
+    mark.hl { background:var(--tp-highlight); color:var(--tp-highlight-fg); border-radius:2px; }
   </style>
 </head>
 
@@ -203,6 +273,9 @@
           </li>
           <li id="tab-temple">
             <a><span class="icon">🏯</span><span>Temple names 寺院名</span></a>
+          </li>
+          <li id="tab-lookup">
+            <a><span class="icon">🔍</span><span>Reading lookup 照合</span></a>
           </li>
         </ul>
       </div>
@@ -413,6 +486,85 @@
       </details>
     </div><!-- /panel-temple -->
 
+
+    <!-- TAB 3: LOOKUP -->
+    <div class="tab-panel" id="panel-lookup">
+      <div class="lookup-box">
+        <p style="font-size:.92rem;color:var(--tp-text-sec);margin-bottom:1rem">
+          Enter a toponym (or part of one) in Latin script. The tool splits it into tokens
+          separated by spaces or <code>-</code> and finds all byakuzhi whose readings
+          match each token exactly, as a prefix, suffix, or substring.
+          <br><em>Example: <strong>noira</strong> → searches <em>noi</em> + <em>ra</em> · or try <strong>saari-ul</strong></em>
+        </p>
+
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input is-medium" type="text" id="lk-input"
+              placeholder="e.g.  noisaari   or   teh-ra-samo   or   ruika">
+          </div>
+          <div class="control">
+            <button class="button is-link is-medium" id="lk-searchBtn">Search 照合</button>
+          </div>
+        </div>
+
+        <!-- token chips shown after first search -->
+        <div id="lk-tokens" style="margin-top:.6rem;min-height:1.8rem"></div>
+
+        <div style="margin-top:1rem">
+          <label class="label" style="font-size:.85rem;margin-bottom:.3rem">Source database</label>
+          <div class="field is-grouped">
+            <div class="control">
+              <label class="radio" style="font-size:.9rem">
+                <input type="radio" name="lk-db" value="placename" checked> Place names 地名
+              </label>
+            </div>
+            <div class="control">
+              <label class="radio" style="font-size:.9rem">
+                <input type="radio" name="lk-db" value="temple"> Temple names 寺院名
+              </label>
+            </div>
+            <div class="control">
+              <label class="radio" style="font-size:.9rem">
+                <input type="radio" name="lk-db" value="both"> Both
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:.8rem">
+          <label class="label" style="font-size:.85rem;margin-bottom:.3rem">Match type</label>
+          <div class="field is-grouped is-grouped-multiline">
+            <div class="control">
+              <label class="checkbox" style="font-size:.9rem">
+                <input type="checkbox" id="lk-exact" checked> Exact
+              </label>
+            </div>
+            <div class="control">
+              <label class="checkbox" style="font-size:.9rem">
+                <input type="checkbox" id="lk-prefix" checked> Prefix
+              </label>
+            </div>
+            <div class="control">
+              <label class="checkbox" style="font-size:.9rem">
+                <input type="checkbox" id="lk-suffix" checked> Suffix
+              </label>
+            </div>
+            <div class="control">
+              <label class="checkbox" style="font-size:.9rem">
+                <input type="checkbox" id="lk-partial"> Substring (any position)
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lookup-results-box" id="lk-resultsBox">
+        <p class="lookup-empty" style="color:var(--tp-text-sec);padding:2rem;text-align:center">
+          ↑ Enter a reading above to begin.
+        </p>
+      </div>
+    </div><!-- /panel-lookup -->
+
   </section>
 
   <script src="/izaki-dictionary/scripts/script.js"></script>
@@ -420,17 +572,19 @@
   <script>
   (function () {
 
-    // ── Tab switching ────────────────────────────────────────────────
-    ['toponym','temple'].forEach(id => {
+    const TABS = ['toponym','temple','lookup'];
+
+    // ── Tab switching ─────────────────────────────────────────────
+    TABS.forEach(id => {
       document.getElementById('tab-' + id).addEventListener('click', () => {
-        ['toponym','temple'].forEach(t => {
+        TABS.forEach(t => {
           document.getElementById('tab-' + t).classList.toggle('is-active', t === id);
           document.getElementById('panel-' + t).classList.toggle('is-active', t === id);
         });
       });
     });
 
-    // ── PRNG ───────────────────────────────────────────────────────
+    // ── PRNG ──────────────────────────────────────────────────────
     function mulberry32(seed) {
       return function () {
         seed |= 0; seed = seed + 0x6D2B79F5 | 0;
@@ -449,24 +603,16 @@
     function cleanReading(r) {
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
+    function uniqueReadings(arr) { return [...new Set(arr)]; }
 
-    // ── Weighted pick: readings array may contain duplicates as weight tokens ──
-    // (e.g. ["ra","ra","ra","ra","ra","ra","ra","ra","ra","dyen"] = 90/10)
-    // This is already handled by pick() since duplicates raise probability.
-    // The helper below deduplicates for display purposes only.
-    function uniqueReadings(arr) {
-      return [...new Set(arr)];
-    }
-
-    // ── Sandhi utilities (shared) ──────────────────────────────────────
-    const VOWELS_RE   = /[aeiouy\u0101\u0113\u012b\u014d\u016b]/i;
+    // ── Sandhi utilities ─────────────────────────────────────────
+    const VOWELS_RE    = /[aeiouy\u0101\u0113\u012b\u014d\u016b]/i;
     const VOICED_ONSETS = new Set(['g','b','z','d','v','j','zh','dz','n','m','l','r']);
-    const VOICING    = { 'ch':'j','sh':'zh','ts':'dz','k':'g','p':'b','s':'z','t':'d','f':'v' };
-    const S_DEVOICE  = { 'b':'p','v':'f','d':'t','g':'k','j':'ch','z':'s','dz':'ts','zh':'sh' };
-    const GEMINATORS = new Set(['n','l','s']);
+    const VOICING      = { 'ch':'j','sh':'zh','ts':'dz','k':'g','p':'b','s':'z','t':'d','f':'v' };
+    const S_DEVOICE    = { 'b':'p','v':'f','d':'t','g':'k','j':'ch','z':'s','dz':'ts','zh':'sh' };
+    const GEMINATORS   = new Set(['n','l','s']);
     const LOGICAL_CATS = new Set(['direction','modifier']);
 
-    // Pattern: strict CVCVCV (exactly 3 CV syllables, all consonants single)
     const C_PAT  = '(?:ch|sh|ts|dz|zh|[kgpbsztdfvhnmlrj])';
     const V_PAT  = '[aeiouy\u0101\u0113\u012b\u014d\u016b]';
     const CVCVCV_FULL_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
@@ -481,21 +627,15 @@
       const m = s.match(/([^aeiouy\u0101\u0113\u012b\u014d\u016b]+)$/i);
       return m ? m[1].toLowerCase() : '';
     }
-
-    // Drop last CV syllable from a CVCVCV word → CVCV
     function dropLastSyllable(word) {
-      // Match last CV pair at end of string
       const m = word.match(/^(.+?)([kgpbsztdfvhnmlrj]|ch|sh|ts|dz|zh)([aeiouy\u0101\u0113\u012b\u014d\u016b])$/i);
-      if (m) return m[1] + m[2]; // drop the final vowel, keep the consonant as coda
-      // Fallback: remove last 2 chars
+      if (m) return m[1] + m[2];
       return word.slice(0, -2);
     }
-
     function applyJunctionSandhi(r1, r2) {
       const fin = getFinal(r1.toLowerCase());
       const onset2 = getOnset(r2.toLowerCase());
-      const r2V = VOWELS_RE.test(r2[0]);
-      if (GEMINATORS.has(fin) && r2V) return [r1, fin + r2];
+      if (GEMINATORS.has(fin) && VOWELS_RE.test(r2[0])) return [r1, fin + r2];
       if (fin === 's' && VOICED_ONSETS.has(onset2) && S_DEVOICE[onset2])
         return [r1, S_DEVOICE[onset2] + r2.slice(onset2.length)];
       return [r1, r2];
@@ -520,9 +660,6 @@
       }
       return surface;
     }
-
-    // ── Fix pp/tt/kk-initial readings when word is at position 0 ──────
-    // A word cannot begin with a geminate. Replace with single consonant.
     const DEGEM_ONSET = { 'pp':'p','tt':'t','kk':'k','ss':'s','cch':'ch','ssh':'sh','tts':'ts' };
     function fixWordInitialGeminate(r) {
       for (const [gem, single] of Object.entries(DEGEM_ONSET)) {
@@ -531,7 +668,7 @@
       return r;
     }
 
-    // ── Shared render ───────────────────────────────────────────────
+    // ── Shared render (generator results) ───────────────────────
     function renderResults(results, boxId) {
       const box = document.getElementById(boxId);
       if (!results.length) {
@@ -607,19 +744,15 @@
         const pool = m.readings.filter(r => cleanReading(r).length > 0);
         if (!pool.length) return null;
         let read = cleanReading(pick(pool, rand));
-        // Rule: word-initial geminate onset is forbidden
         if (idx === 0) read = fixWordInitialGeminate(read);
         return { read, char: m.char, meaning: m.meaning, cat: m.cat };
       }).filter(Boolean);
       if (!parts.length) return null;
 
-      // CVCVCV drop rule: non-final morphemes that are CVCVCV drop last syllable ~40%
       for (let i = 0; i < parts.length - 1; i++) {
-        if (CVCVCV_FULL_RE.test(parts[i].read) && rand() < 0.40) {
+        if (CVCVCV_FULL_RE.test(parts[i].read) && rand() < 0.40)
           parts[i].read = dropLastSyllable(parts[i].read);
-        }
       }
-
       if (parts.length === 2)
         parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
       for (let i = 0; i < parts.length - 1; i++) {
@@ -697,9 +830,7 @@
       });
 
     document.getElementById('generateBtn').addEventListener('click', generateToponym);
-    document.getElementById('seedInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') generateToponym();
-    });
+    document.getElementById('seedInput').addEventListener('keydown', e => { if (e.key === 'Enter') generateToponym(); });
 
 
     // ══════════════════════════════════════════════════════════════
@@ -716,13 +847,10 @@
       }).filter(Boolean);
       if (!parts.length) return null;
 
-      // CVCVCV drop rule: non-final, non-suffix morphemes
       for (let i = 0; i < parts.length - 1; i++) {
-        if (parts[i].cat !== 'suffix' && CVCVCV_FULL_RE.test(parts[i].read) && rand() < 0.40) {
+        if (parts[i].cat !== 'suffix' && CVCVCV_FULL_RE.test(parts[i].read) && rand() < 0.40)
           parts[i].read = dropLastSyllable(parts[i].read);
-        }
       }
-
       if (parts.length >= 2)
         parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
       for (let i = 0; i < parts.length - 1; i++) {
@@ -797,9 +925,167 @@
       });
 
     document.getElementById('t-generateBtn').addEventListener('click', generateTemple);
-    document.getElementById('t-seedInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') generateTemple();
-    });
+    document.getElementById('t-seedInput').addEventListener('keydown', e => { if (e.key === 'Enter') generateTemple(); });
+
+
+    // ══════════════════════════════════════════════════════════════
+    // LOOKUP LOGIC
+    // ══════════════════════════════════════════════════════════════
+
+    // Highlight a match inside a reading string
+    function hlReading(reading, token) {
+      const idx = reading.toLowerCase().indexOf(token.toLowerCase());
+      if (idx < 0) return reading;
+      return reading.slice(0, idx)
+        + '<mark class="hl">' + reading.slice(idx, idx + token.length) + '</mark>'
+        + reading.slice(idx + token.length);
+    }
+
+    // Classify match type for a single (reading, token) pair
+    function matchType(reading, token) {
+      const r = reading.toLowerCase(), t = token.toLowerCase();
+      if (r === t)             return 'exact';
+      if (r.startsWith(t))    return 'prefix';
+      if (r.endsWith(t))      return 'suffix';
+      if (r.includes(t))      return 'partial';
+      return null;
+    }
+
+    // Sort priority: exact > prefix > suffix > partial
+    const SORT_ORDER = { exact:0, prefix:1, suffix:2, infix:3, partial:4 };
+
+    // Tokenise input: split on spaces, hyphens, underscores; lowercase; dedupe empty
+    function tokenise(raw) {
+      return raw.toLowerCase()
+        .split(/[\s\-_]+/)
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+    }
+
+    // Search all entries in a db array against one token
+    // Returns array of { entry, matchedReading, type }
+    function searchToken(db, token, opts) {
+      const results = [];
+      const seen = new Set();
+      for (const entry of db) {
+        const uniq = uniqueReadings(entry.readings);
+        for (const raw of uniq) {
+          const r = cleanReading(raw);
+          if (!r) continue;
+          const t = matchType(r, token);
+          if (!t) continue;
+          if (t === 'exact'   && !opts.exact)   continue;
+          if (t === 'prefix'  && !opts.prefix)  continue;
+          if (t === 'suffix'  && !opts.suffix)  continue;
+          if (t === 'partial' && !opts.partial) continue;
+          const key = entry.char + '|' + r;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          results.push({ entry, matchedReading: r, type: t });
+          break; // one result per entry per token
+        }
+      }
+      results.sort((a, b) => (SORT_ORDER[a.type] || 9) - (SORT_ORDER[b.type] || 9));
+      return results;
+    }
+
+    function positionLabel(entry) {
+      if (!entry.position || entry.position === 'any') return null;
+      const labels = { initial:'word-initial', medial:'medial', final:'word-final' };
+      return labels[entry.position] || entry.position;
+    }
+
+    function renderLookupCard(hit, token) {
+      const e   = hit.entry;
+      const pos = positionLabel(e);
+      const uniqR = uniqueReadings(e.readings).map(r => {
+        const rc = cleanReading(r);
+        return rc.toLowerCase().includes(token.toLowerCase())
+          ? hlReading(rc, token)
+          : `<span style="opacity:.7">${rc}</span>`;
+      }).join(' &nbsp;·&nbsp; ');
+
+      const typeBadge = `<span class="lk-pos-badge pos-${hit.type}">${hit.type}</span>`;
+      const phonBadge = e.phonetic ? `<span class="lk-phonetic-badge">📣 phonetic</span>` : '';
+      const posBadge  = pos ? `<span class="lk-position-badge">${pos}</span>` : '';
+
+      return `
+        <div class="lookup-card">
+          <div class="lk-char">${e.char}</div>
+          <div class="lk-body">
+            <div class="lk-meaning">${e.meaning}</div>
+            <div class="lk-readings">${uniqR}</div>
+            <div class="lk-meta">
+              <span class="tag-cat cat-${e.cat}">${e.cat}</span>
+              ${typeBadge}${phonBadge}${posBadge}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function runLookup() {
+      const raw    = document.getElementById('lk-input').value.trim();
+      if (!raw) return;
+      const tokens = tokenise(raw);
+      const opts = {
+        exact:   document.getElementById('lk-exact').checked,
+        prefix:  document.getElementById('lk-prefix').checked,
+        suffix:  document.getElementById('lk-suffix').checked,
+        partial: document.getElementById('lk-partial').checked,
+      };
+      const dbSel  = document.querySelector('input[name="lk-db"]:checked').value;
+
+      // Build combined DB
+      let combined = [];
+      if ((dbSel === 'placename' || dbSel === 'both') && DB_TOPONYM)
+        combined = combined.concat(DB_TOPONYM.byakuzhi.map(e => ({ ...e, _src: 'place' })));
+      if ((dbSel === 'temple'    || dbSel === 'both') && DB_TEMPLE)
+        combined = combined.concat(DB_TEMPLE.byakuzhi.map(e => ({ ...e, _src: 'temple' })));
+
+      if (!combined.length) {
+        document.getElementById('lk-resultsBox').innerHTML =
+          '<p class="notification is-warning">Database not loaded yet. Try again in a moment.</p>';
+        return;
+      }
+
+      // Render token chips
+      document.getElementById('lk-tokens').innerHTML = tokens.map(t =>
+        `<span class="lookup-token">🔤 ${t}</span>`
+      ).join('');
+
+      // Search per token, render one section each
+      const box = document.getElementById('lk-resultsBox');
+      if (!tokens.length) { box.innerHTML = ''; return; }
+
+      let html = '';
+      let totalHits = 0;
+
+      for (const token of tokens) {
+        const hits = searchToken(combined, token, opts);
+        totalHits += hits.length;
+        const sectionTitle = tokens.length > 1
+          ? `Token: <strong>${token}</strong> — ${hits.length} result${hits.length !== 1 ? 's' : ''}`
+          : `${hits.length} result${hits.length !== 1 ? 's' : ''} for <strong>${token}</strong>`;
+
+        html += `<div class="lookup-section">`;
+        html += `<h3>${sectionTitle}</h3>`;
+        if (!hits.length) {
+          html += `<p class="lookup-empty" style="padding:.8rem">No byakuzhi found matching <em>${token}</em> with current settings.</p>`;
+        } else {
+          html += hits.map(h => renderLookupCard(h, token)).join('');
+        }
+        html += `</div>`;
+      }
+
+      if (tokens.length > 1) {
+        html = `<p class="lookup-stats">🔍 <strong>${tokens.length}</strong> tokens · <strong>${totalHits}</strong> total matches</p>` + html;
+      }
+
+      box.innerHTML = html;
+    }
+
+    document.getElementById('lk-searchBtn').addEventListener('click', runLookup);
+    document.getElementById('lk-input').addEventListener('keydown', e => { if (e.key === 'Enter') runLookup(); });
 
   })();
   </script>
