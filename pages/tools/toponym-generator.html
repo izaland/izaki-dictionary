@@ -25,6 +25,12 @@
       --tp-seed-color:     #888;
       --tp-highlight:      #fff176;
       --tp-highlight-fg:   #333;
+      --tp-stratum-native-bg:  #e8f4fd;
+      --tp-stratum-native-fg:  #1a5276;
+      --tp-stratum-sino-bg:    #fde8f4;
+      --tp-stratum-sino-fg:    #5a1a4a;
+      --tp-stratum-hybrid-bg:  #edf7e8;
+      --tp-stratum-hybrid-fg:  #1a4a1a;
       --cat-modifier-bg:   #eeeeee;  --cat-modifier-fg:   #444444;
       --cat-direction-bg:  #fef3cd;  --cat-direction-fg:  #856404;
       --cat-relief-bg:     #d4edda;  --cat-relief-fg:     #155724;
@@ -59,6 +65,12 @@
       --tp-seed-color:     #9ca3af;
       --tp-highlight:      #5c4d00;
       --tp-highlight-fg:   #ffe57a;
+      --tp-stratum-native-bg:  #0f2a40;
+      --tp-stratum-native-fg:  #7ec8f5;
+      --tp-stratum-sino-bg:    #2e0f2a;
+      --tp-stratum-sino-fg:    #e8a8d5;
+      --tp-stratum-hybrid-bg:  #0f2a15;
+      --tp-stratum-hybrid-fg:  #7ef5a0;
       --cat-modifier-bg:   #3a3a3a;  --cat-modifier-fg:   #cccccc;
       --cat-direction-bg:  #3d3318;  --cat-direction-fg:  #f5d97a;
       --cat-relief-bg:     #1a2e1f;  --cat-relief-fg:     #6fcf8a;
@@ -163,6 +175,32 @@
     .morpheme-pill .pill-char    { font-size:1.15rem; color:var(--tp-text); }
     .morpheme-pill .pill-read    { font-weight:600; color:var(--tp-text); }
     .morpheme-pill .pill-meaning { color:var(--tp-text-sec); font-size:.78rem; }
+
+    /* ── Stratum badge on morpheme pill ── */
+    .pill-stratum {
+      font-size:.62rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.06em; padding:.1rem .35rem; border-radius:3px;
+    }
+    .pill-stratum.s-native  { background:var(--tp-stratum-native-bg);  color:var(--tp-stratum-native-fg); }
+    .pill-stratum.s-sino    { background:var(--tp-stratum-sino-bg);    color:var(--tp-stratum-sino-fg); }
+
+    /* ── Stratum selector ── */
+    .stratum-selector {
+      display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.25rem;
+    }
+    .stratum-selector label {
+      display:flex; align-items:center; gap:.4rem;
+      padding:.45rem .9rem; border-radius:8px; cursor:pointer;
+      border:2px solid transparent; font-size:.9rem; font-weight:500;
+      transition: border-color .15s, background .15s;
+      user-select:none;
+    }
+    .stratum-selector input[type="radio"] { display:none; }
+    .stratum-selector label.s-native  { background:var(--tp-stratum-native-bg);  color:var(--tp-stratum-native-fg); }
+    .stratum-selector label.s-sino    { background:var(--tp-stratum-sino-bg);    color:var(--tp-stratum-sino-fg); }
+    .stratum-selector label.s-hybrid  { background:var(--tp-stratum-hybrid-bg);  color:var(--tp-stratum-hybrid-fg); }
+    .stratum-selector input[type="radio"]:checked + span { font-weight:700; }
+    .stratum-selector label:has(input:checked) { border-color: currentColor; box-shadow: 0 0 0 1px currentColor; }
 
     details.reference-section {
       border:1px solid var(--tp-card-border); border-radius:8px;
@@ -349,6 +387,34 @@
             </div>
           </div>
 
+          <!-- ══ LEXICAL STRATUM SELECTOR ══ -->
+          <div class="column is-full">
+            <div class="field">
+              <label class="label">
+                Lexical stratum 語層
+                <span style="font-weight:400;color:var(--tp-text-sec)"> — which reading pool to draw from</span>
+              </label>
+              <div class="stratum-selector">
+                <label class="s-native">
+                  <input type="radio" name="stratum" value="native" checked>
+                  <span>🏔️ Native Izaki 固有語</span>
+                </label>
+                <label class="s-sino">
+                  <input type="radio" name="stratum" value="sino">
+                  <span>🏯 Sino-Izaki 漢語系</span>
+                </label>
+                <label class="s-hybrid">
+                  <input type="radio" name="stratum" value="hybrid">
+                  <span>🔀 Hybrid / Random 混合</span>
+                </label>
+              </div>
+              <p class="help" id="stratumHelp" style="margin-top:.5rem">
+                Uses <strong>readings_native</strong> — pure Izaki word stratum. Falls back to <code>readings[]</code> if the native pool is empty.
+              </p>
+            </div>
+          </div>
+          <!-- ══ END STRATUM SELECTOR ══ -->
+
           <div class="column is-full">
             <div class="field">
               <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave blank for random; paste a seed to reproduce a result)</span></label>
@@ -377,7 +443,7 @@
         <div style="margin-bottom:.75rem" id="catFilterButtons"></div>
         <div class="ref-table-wrap">
           <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
-            <thead><tr><th>Char</th><th>Meaning</th><th>Readings</th><th>Category</th></tr></thead>
+            <thead><tr><th>Char</th><th>Meaning</th><th>Native readings</th><th>Sino readings</th><th>Category</th></tr></thead>
             <tbody id="refTableBody"></tbody>
           </table>
         </div>
@@ -584,6 +650,18 @@
       });
     });
 
+    // ── Stratum help text ─────────────────────────────────────────
+    const STRATUM_HELP = {
+      native:  'Uses <strong>readings_native</strong> — pure Izaki word stratum. Falls back to <code>readings[]</code> if the native pool is empty.',
+      sino:    'Uses <strong>readings_sino</strong> — Sino-Izaki (on-reading) stratum. Falls back to <code>readings[]</code> if the sino pool is empty.',
+      hybrid:  'Each morpheme independently draws from its <strong>native</strong> or <strong>sino</strong> pool at random (50/50), falling back to <code>readings[]</code> when a pool is empty. The stratum badge on each pill shows which was chosen.'
+    };
+    document.querySelectorAll('input[name="stratum"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.getElementById('stratumHelp').innerHTML = STRATUM_HELP[radio.value];
+      });
+    });
+
     // ── PRNG ──────────────────────────────────────────────────────
     function mulberry32(seed) {
       return function () {
@@ -604,6 +682,36 @@
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
     function uniqueReadings(arr) { return [...new Set(arr)]; }
+
+    // ── Reading pool selector (stratum-aware) ─────────────────────
+    /**
+     * Returns { pool: string[], stratum: 'native'|'sino' }
+     * for a given morpheme under the current stratum setting.
+     *
+     * - native  → readings_native (fallback: readings[])
+     * - sino    → readings_sino   (fallback: readings[])
+     * - hybrid  → 50/50 coin flip per morpheme (rand required)
+     */
+    function getReadingPool(morpheme, stratum, rand) {
+      const native = (morpheme.readings_native || []).filter(r => cleanReading(r).length > 0);
+      const sino   = (morpheme.readings_sino   || []).filter(r => cleanReading(r).length > 0);
+      const all    = (morpheme.readings        || []).filter(r => cleanReading(r).length > 0);
+
+      if (stratum === 'native') {
+        return { pool: native.length ? native : all, stratum: 'native' };
+      }
+      if (stratum === 'sino') {
+        return { pool: sino.length ? sino : all, stratum: 'sino' };
+      }
+      // hybrid: random choice per morpheme
+      const useSino = rand() < 0.5;
+      if (useSino && sino.length)   return { pool: sino,   stratum: 'sino'   };
+      if (!useSino && native.length) return { pool: native, stratum: 'native' };
+      // fallback if chosen pool is empty
+      if (sino.length)   return { pool: sino,   stratum: 'sino'   };
+      if (native.length) return { pool: native, stratum: 'native' };
+      return { pool: all, stratum: 'native' };
+    }
 
     // ── Sandhi utilities ─────────────────────────────────────────
     const VOWELS_RE    = /[aeiouy\u0101\u0113\u012b\u014d\u016b]/i;
@@ -684,14 +792,18 @@
             ${r.ask ? `<span class="scripts-sep">/</span><span class="toponym-ask">${r.ask}</span>` : ''}
           </div>
           <div class="morpheme-breakdown" style="margin-top:.3rem;flex-wrap:wrap;display:flex;gap:.1rem">
-            ${r.parts.map(p =>
-              `<span class="morpheme-pill">
+            ${r.parts.map(p => {
+              const stratumBadge = p.stratum
+                ? `<span class="pill-stratum s-${p.stratum}">${p.stratum === 'native' ? '固' : '漢'}</span>`
+                : '';
+              return `<span class="morpheme-pill">
                 <span class="pill-char">${p.char}</span>
                 <span class="pill-read">${p.read}</span>
                 <span class="pill-meaning">${p.meaning}</span>
                 <span class="tag-cat cat-${p.cat}">${p.cat}</span>
-              </span>`
-            ).join('')}
+                ${stratumBadge}
+              </span>`;
+            }).join('')}
           </div>
           <div class="toponym-gloss">${r.gloss}</div>
         </div>
@@ -707,7 +819,7 @@
       });
     }
 
-    function buildRefTable(data, tbodyId, btnWrapId) {
+    function buildRefTable(data, tbodyId, btnWrapId, showStratumCols) {
       const tbody = document.getElementById(tbodyId);
       const cats  = [...new Set(data.map(b => b.cat))].sort();
       const btnWrap = document.getElementById(btnWrapId);
@@ -721,14 +833,28 @@
       let active = 'all';
       function render(f) {
         const rows = f === 'all' ? data : data.filter(b => b.cat === f);
-        tbody.innerHTML = rows.map(b =>
-          `<tr>
-            <td class="char-cell">${b.char}</td>
-            <td>${b.meaning}</td>
-            <td>${uniqueReadings(b.readings).slice(0,4).join(' \u00b7 ')}</td>
-            <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
-          </tr>`
-        ).join('');
+        if (showStratumCols) {
+          tbody.innerHTML = rows.map(b => {
+            const nat = uniqueReadings(b.readings_native || []).slice(0,4).join(' · ') || '<span style="opacity:.4">—</span>';
+            const sino = uniqueReadings(b.readings_sino || []).slice(0,4).join(' · ') || '<span style="opacity:.4">—</span>';
+            return `<tr>
+              <td class="char-cell">${b.char}</td>
+              <td>${b.meaning}</td>
+              <td>${nat}</td>
+              <td>${sino}</td>
+              <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
+            </tr>`;
+          }).join('');
+        } else {
+          tbody.innerHTML = rows.map(b =>
+            `<tr>
+              <td class="char-cell">${b.char}</td>
+              <td>${b.meaning}</td>
+              <td>${uniqueReadings(b.readings).slice(0,4).join(' \u00b7 ')}</td>
+              <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
+            </tr>`
+          ).join('');
+        }
       }
       btnWrap.querySelectorAll('[data-cat]').forEach(btn => {
         btn.addEventListener('click', () => { active = btn.dataset.cat; render(active); });
@@ -739,13 +865,13 @@
     // ══════════════════════════════════════════════════════════════
     // TOPONYM LOGIC
     // ══════════════════════════════════════════════════════════════
-    function buildToponym(morphemes, rand) {
+    function buildToponym(morphemes, rand, stratum) {
       const parts = morphemes.map((m, idx) => {
-        const pool = m.readings.filter(r => cleanReading(r).length > 0);
+        const { pool, stratum: chosenStratum } = getReadingPool(m, stratum, rand);
         if (!pool.length) return null;
         let read = cleanReading(pick(pool, rand));
         if (idx === 0) read = fixWordInitialGeminate(read);
-        return { read, char: m.char, meaning: m.meaning, cat: m.cat };
+        return { read, char: m.char, meaning: m.meaning, cat: m.cat, stratum: chosenStratum };
       }).filter(Boolean);
       if (!parts.length) return null;
 
@@ -786,6 +912,7 @@
       const seedRaw    = document.getElementById('seedInput').value.trim();
       const seed       = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
       const rand       = mulberry32(seed);
+      const stratum    = document.querySelector('input[name="stratum"]:checked').value;
 
       document.getElementById('seedDisplay').textContent = '\uD83C\uDFB2 Seed: ' + seed;
       document.getElementById('seedInput').placeholder = '' + seed;
@@ -815,7 +942,7 @@
         const descSlots = Math.max(0, n - morphemes.length - 1);
         for (let j = 0; j < descSlots; j++) morphemes.push(pick(descPool, rand));
         morphemes.push(pick(headPool, rand));
-        const result = buildToponym(morphemes, rand);
+        const result = buildToponym(morphemes, rand, stratum);
         if (result) results.push(result);
       }
       renderResults(results, 'resultsBox');
@@ -823,7 +950,7 @@
 
     fetch('/izaki-dictionary/data/placename-byakuzhi.json')
       .then(r => r.json())
-      .then(data => { DB_TOPONYM = data; buildRefTable(data.byakuzhi, 'refTableBody', 'catFilterButtons'); })
+      .then(data => { DB_TOPONYM = data; buildRefTable(data.byakuzhi, 'refTableBody', 'catFilterButtons', true); })
       .catch(() => {
         document.getElementById('resultsBox').innerHTML =
           '<p class="notification is-danger">Could not load <code>data/placename-byakuzhi.json</code>.</p>';
@@ -918,7 +1045,7 @@
 
     fetch('/izaki-dictionary/data/temple-byakuzhi.json')
       .then(r => r.json())
-      .then(data => { DB_TEMPLE = data; buildRefTable(data.byakuzhi, 't-refTableBody', 't-catFilterButtons'); })
+      .then(data => { DB_TEMPLE = data; buildRefTable(data.byakuzhi, 't-refTableBody', 't-catFilterButtons', false); })
       .catch(() => {
         document.getElementById('t-resultsBox').innerHTML =
           '<p class="notification is-danger">Could not load <code>data/temple-byakuzhi.json</code>.</p>';
