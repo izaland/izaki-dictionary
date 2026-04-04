@@ -409,7 +409,7 @@
                 </label>
               </div>
               <p class="help" id="stratumHelp" style="margin-top:.5rem">
-                Uses <strong>readings_native</strong> — pure Izaki word stratum. Falls back to <code>readings[]</code> if the native pool is empty.
+                Uses <strong>readings_native</strong> — pure Izaki word stratum. Only byakuzhi that have native readings are selected; those without are excluded from the pool.
               </p>
             </div>
           </div>
@@ -652,9 +652,9 @@
 
     // ── Stratum help text ─────────────────────────────────────────
     const STRATUM_HELP = {
-      native:  'Uses <strong>readings_native</strong> — pure Izaki word stratum. Falls back to <code>readings[]</code> if the native pool is empty.',
-      sino:    'Uses <strong>readings_sino</strong> — Sino-Izaki (on-reading) stratum. Falls back to <code>readings[]</code> if the sino pool is empty.',
-      hybrid:  'Each morpheme independently draws from its <strong>native</strong> or <strong>sino</strong> pool at random (50/50), falling back to <code>readings[]</code> when a pool is empty. The stratum badge on each pill shows which was chosen.'
+      native:  'Uses <strong>readings_native</strong> — pure Izaki word stratum. Only byakuzhi that have native readings are selected; those without are excluded from the pool.',
+      sino:    'Uses <strong>readings_sino</strong> — Sino-Izaki (on-reading) stratum. Only byakuzhi that have sino readings are prioritised; those without fall back to native readings (badge shows 固).',
+      hybrid:  'Each morpheme independently draws from its <strong>native</strong> or <strong>sino</strong> pool at random (50/50). The stratum badge on each pill shows which was chosen for that morpheme.'
     };
     document.querySelectorAll('input[name="stratum"]').forEach(radio => {
       radio.addEventListener('change', () => {
@@ -683,13 +683,33 @@
     }
     function uniqueReadings(arr) { return [...new Set(arr)]; }
 
+    // ── Stratum-aware availability check ─────────────────────────
+    /**
+     * Returns true if byakuzhi b has at least one usable reading
+     * for the given stratum setting.
+     *
+     * - native  → needs readings_native (fallback: readings[])
+     * - sino    → needs readings_sino OR readings[] (sino preferred,
+     *             native accepted as fallback so pool isn't too sparse)
+     * - hybrid  → needs readings_native OR readings_sino OR readings[]
+     */
+    function hasReadingForStratum(b, stratum) {
+      const native = (b.readings_native || []).filter(r => cleanReading(r).length > 0);
+      const sino   = (b.readings_sino   || []).filter(r => cleanReading(r).length > 0);
+      const all    = (b.readings        || []).filter(r => cleanReading(r).length > 0);
+      if (stratum === 'native') return native.length > 0 || all.length > 0;
+      if (stratum === 'sino')   return sino.length > 0 || native.length > 0 || all.length > 0;
+      return all.length > 0 || native.length > 0 || sino.length > 0;
+    }
+
     // ── Reading pool selector (stratum-aware) ─────────────────────
     /**
      * Returns { pool: string[], stratum: 'native'|'sino' }
      * for a given morpheme under the current stratum setting.
      *
      * - native  → readings_native (fallback: readings[])
-     * - sino    → readings_sino   (fallback: readings[])
+     * - sino    → readings_sino   (fallback: readings_native or readings[],
+     *             but badge reflects actual stratum used)
      * - hybrid  → 50/50 coin flip per morpheme (rand required)
      */
     function getReadingPool(morpheme, stratum, rand) {
@@ -701,11 +721,14 @@
         return { pool: native.length ? native : all, stratum: 'native' };
       }
       if (stratum === 'sino') {
-        return { pool: sino.length ? sino : all, stratum: 'sino' };
+        // Use sino if available — otherwise fall back to native (badge reflects true source)
+        if (sino.length)   return { pool: sino,   stratum: 'sino'   };
+        if (native.length) return { pool: native, stratum: 'native' };
+        return { pool: all, stratum: 'native' };
       }
       // hybrid: random choice per morpheme
       const useSino = rand() < 0.5;
-      if (useSino && sino.length)   return { pool: sino,   stratum: 'sino'   };
+      if (useSino && sino.length)    return { pool: sino,   stratum: 'sino'   };
       if (!useSino && native.length) return { pool: native, stratum: 'native' };
       // fallback if chosen pool is empty
       if (sino.length)   return { pool: sino,   stratum: 'sino'   };
@@ -918,18 +941,23 @@
       document.getElementById('seedInput').placeholder = '' + seed;
 
       const all = DB_TOPONYM.byakuzhi;
+
+      // ── FIXED: filter pools using stratum-aware check ──────────
       const headPool = geoType === 'any'
-        ? all.filter(b => b.readings.length > 0)
-        : all.filter(b => b.cat === geoType && b.readings.length > 0);
+        ? all.filter(b => hasReadingForStratum(b, stratum))
+        : all.filter(b => b.cat === geoType && hasReadingForStratum(b, stratum));
+
       if (!headPool.length) {
         document.getElementById('resultsBox').innerHTML =
           '<p class="notification is-warning">No byakuzhi found for this combination.</p>';
         return;
       }
-      const dirPool  = all.filter(b => b.cat === 'direction' && b.readings.length > 0);
-      const modPool  = all.filter(b => b.cat === 'modifier'  && b.readings.length > 0);
+      const dirPool  = all.filter(b => b.cat === 'direction' && hasReadingForStratum(b, stratum));
+      const modPool  = all.filter(b => b.cat === 'modifier'  && hasReadingForStratum(b, stratum));
       const descPool = all.filter(b =>
-        ['color','weather','season','relief','vegetation'].includes(b.cat) && b.readings.length > 0);
+        ['color','weather','season','relief','vegetation'].includes(b.cat) &&
+        hasReadingForStratum(b, stratum));
+      // ── END FIX ────────────────────────────────────────────────
 
       const results = [];
       for (let i = 0; i < count; i++) {
