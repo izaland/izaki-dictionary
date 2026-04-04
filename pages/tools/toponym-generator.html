@@ -684,15 +684,6 @@
     function uniqueReadings(arr) { return [...new Set(arr)]; }
 
     // ── Stratum-aware availability check ─────────────────────────
-    /**
-     * Returns true if byakuzhi b has at least one usable reading
-     * for the given stratum setting.
-     *
-     * - native  → needs readings_native (fallback: readings[])
-     * - sino    → needs readings_sino OR readings[] (sino preferred,
-     *             native accepted as fallback so pool isn't too sparse)
-     * - hybrid  → needs readings_native OR readings_sino OR readings[]
-     */
     function hasReadingForStratum(b, stratum) {
       const native = (b.readings_native || []).filter(r => cleanReading(r).length > 0);
       const sino   = (b.readings_sino   || []).filter(r => cleanReading(r).length > 0);
@@ -703,15 +694,6 @@
     }
 
     // ── Reading pool selector (stratum-aware) ─────────────────────
-    /**
-     * Returns { pool: string[], stratum: 'native'|'sino' }
-     * for a given morpheme under the current stratum setting.
-     *
-     * - native  → readings_native (fallback: readings[])
-     * - sino    → readings_sino   (fallback: readings_native or readings[],
-     *             but badge reflects actual stratum used)
-     * - hybrid  → 50/50 coin flip per morpheme (rand required)
-     */
     function getReadingPool(morpheme, stratum, rand) {
       const native = (morpheme.readings_native || []).filter(r => cleanReading(r).length > 0);
       const sino   = (morpheme.readings_sino   || []).filter(r => cleanReading(r).length > 0);
@@ -721,7 +703,6 @@
         return { pool: native.length ? native : all, stratum: 'native' };
       }
       if (stratum === 'sino') {
-        // Use sino if available — otherwise fall back to native (badge reflects true source)
         if (sino.length)   return { pool: sino,   stratum: 'sino'   };
         if (native.length) return { pool: native, stratum: 'native' };
         return { pool: all, stratum: 'native' };
@@ -730,7 +711,6 @@
       const useSino = rand() < 0.5;
       if (useSino && sino.length)    return { pool: sino,   stratum: 'sino'   };
       if (!useSino && native.length) return { pool: native, stratum: 'native' };
-      // fallback if chosen pool is empty
       if (sino.length)   return { pool: sino,   stratum: 'sino'   };
       if (native.length) return { pool: native, stratum: 'native' };
       return { pool: all, stratum: 'native' };
@@ -942,7 +922,6 @@
 
       const all = DB_TOPONYM.byakuzhi;
 
-      // ── FIXED: filter pools using stratum-aware check ──────────
       const headPool = geoType === 'any'
         ? all.filter(b => hasReadingForStratum(b, stratum))
         : all.filter(b => b.cat === geoType && hasReadingForStratum(b, stratum));
@@ -957,10 +936,14 @@
       const descPool = all.filter(b =>
         ['color','weather','season','relief','vegetation'].includes(b.cat) &&
         hasReadingForStratum(b, stratum));
-      // ── END FIX ────────────────────────────────────────────────
 
       const results = [];
-      for (let i = 0; i < count; i++) {
+      const seenLatins = new Set();           // ── deduplication set
+      const maxAttempts = count * 3;          // ── max retries: 3× the requested count
+      let attempts = 0;
+
+      while (results.length < count && attempts < maxAttempts) {
+        attempts++;
         const n = morphCount === 'random' ? (2 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
         const morphemes = [];
         if (modType === 'direction') morphemes.push(pick(dirPool, rand));
@@ -971,8 +954,12 @@
         for (let j = 0; j < descSlots; j++) morphemes.push(pick(descPool, rand));
         morphemes.push(pick(headPool, rand));
         const result = buildToponym(morphemes, rand, stratum);
-        if (result) results.push(result);
+        if (result && !seenLatins.has(result.latin)) {   // ── skip duplicates
+          seenLatins.add(result.latin);
+          results.push(result);
+        }
       }
+
       renderResults(results, 'resultsBox');
     }
 
@@ -1060,14 +1047,23 @@
       const usedSuffixPool = suffixFiltered.length ? suffixFiltered : suffixPool;
 
       const results = [];
-      for (let i = 0; i < count; i++) {
+      const seenLatins = new Set();           // ── deduplication set
+      const maxAttempts = count * 3;          // ── max retries: 3× the requested count
+      let attempts = 0;
+
+      while (results.length < count && attempts < maxAttempts) {
+        attempts++;
         const n = morphCount === 'random' ? (1 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
         const body = [];
         for (let j = 0; j < n; j++) body.push(pick(bodyPool, rand));
         const suffix = pick(usedSuffixPool, rand);
         const r = buildTempleName(body, suffix, rand);
-        if (r) results.push(r);
+        if (r && !seenLatins.has(r.latin)) {             // ── skip duplicates
+          seenLatins.add(r.latin);
+          results.push(r);
+        }
       }
+
       renderResults(results, 't-resultsBox');
     }
 
@@ -1087,7 +1083,6 @@
     // LOOKUP LOGIC
     // ══════════════════════════════════════════════════════════════
 
-    // Highlight a match inside a reading string
     function hlReading(reading, token) {
       const idx = reading.toLowerCase().indexOf(token.toLowerCase());
       if (idx < 0) return reading;
@@ -1096,7 +1091,6 @@
         + reading.slice(idx + token.length);
     }
 
-    // Classify match type for a single (reading, token) pair
     function matchType(reading, token) {
       const r = reading.toLowerCase(), t = token.toLowerCase();
       if (r === t)             return 'exact';
@@ -1106,10 +1100,8 @@
       return null;
     }
 
-    // Sort priority: exact > prefix > suffix > partial
     const SORT_ORDER = { exact:0, prefix:1, suffix:2, infix:3, partial:4 };
 
-    // Tokenise input: split on spaces, hyphens, underscores; lowercase; dedupe empty
     function tokenise(raw) {
       return raw.toLowerCase()
         .split(/[\s\-_]+/)
@@ -1117,8 +1109,6 @@
         .filter(s => s.length > 0);
     }
 
-    // Search all entries in a db array against one token
-    // Returns array of { entry, matchedReading, type }
     function searchToken(db, token, opts) {
       const results = [];
       const seen = new Set();
@@ -1137,7 +1127,7 @@
           if (seen.has(key)) continue;
           seen.add(key);
           results.push({ entry, matchedReading: r, type: t });
-          break; // one result per entry per token
+          break;
         }
       }
       results.sort((a, b) => (SORT_ORDER[a.type] || 9) - (SORT_ORDER[b.type] || 9));
@@ -1190,7 +1180,6 @@
       };
       const dbSel  = document.querySelector('input[name="lk-db"]:checked').value;
 
-      // Build combined DB
       let combined = [];
       if ((dbSel === 'placename' || dbSel === 'both') && DB_TOPONYM)
         combined = combined.concat(DB_TOPONYM.byakuzhi.map(e => ({ ...e, _src: 'place' })));
@@ -1203,12 +1192,10 @@
         return;
       }
 
-      // Render token chips
       document.getElementById('lk-tokens').innerHTML = tokens.map(t =>
         `<span class="lookup-token">🔤 ${t}</span>`
       ).join('');
 
-      // Search per token, render one section each
       const box = document.getElementById('lk-resultsBox');
       if (!tokens.length) { box.innerHTML = ''; return; }
 
