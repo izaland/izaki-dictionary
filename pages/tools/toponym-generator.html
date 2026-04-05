@@ -691,9 +691,42 @@
       return Math.abs(h);
     }
     function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+    // ── cleanReading: strips ALL parenthetical content + variant suffixes.
+    //    Used in the Lookup tab and wherever only the bare base form is needed.
     function cleanReading(r) {
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
+
+    // ── parseReading: separates a raw reading into { base, optCV }.
+    //    Handles the XXX(CV) notation where (CV) is an optional linking syllable.
+    //    Examples:
+    //      "noippashe(ro)"  → { base: "noippashe", optCV: "ro" }
+    //      "saari"          → { base: "saari",     optCV: null }
+    //      "teh(ra) / teh"  → { base: "teh",       optCV: "ra" }  (variant stripped first)
+    function parseReading(r) {
+      // Strip variant suffixes (everything after space or slash) before parsing
+      const stripped = r.replace(/[\s\/]+.*$/, '').trim();
+      const m = stripped.match(/^(.+?)\(([^)]+)\)$/);
+      if (m) return { base: m[1], optCV: m[2] };
+      return { base: stripped, optCV: null };
+    }
+
+    // ── resolveReading: picks the correct surface form given the next morpheme.
+    //    Rules:
+    //      1. If reading has no optional (CV): return base as-is.
+    //      2. If next morpheme is monosyllabic (MONO_RE): inhibit → return base (short form).
+    //      3. Otherwise (final position, bisyllabic/trisyllabic next): return base + optCV (long form).
+    //    nextRead: the already-resolved reading string of the following morpheme,
+    //              or null if this is the last morpheme in the compound.
+    function resolveReading(parsed, nextRead) {
+      if (!parsed.optCV) return parsed.base;
+      // Inhibit (short form) only when next morpheme is monosyllabic
+      if (nextRead !== null && MONO_RE.test(nextRead.toLowerCase())) return parsed.base;
+      // Default: use long form (base + optCV)
+      return parsed.base + parsed.optCV;
+    }
+
     function uniqueReadings(arr) { return [...new Set(arr)]; }
 
     // ── Frequency weights (based on Japanese toponym analogy) ─────
@@ -939,40 +972,52 @@
     // TOPONYM LOGIC
     // ══════════════════════════════════════════════════════════════
     function buildToponym(morphemes, rand, stratum) {
+      // ── Phase 1: pick raw readings from pool, parse optional (CV) ──
       const parts = morphemes.map((m, idx) => {
         const { pool, stratum: chosenStratum } = getReadingPool(m, stratum, rand);
         if (!pool.length) return null;
-        let read = cleanReading(pool[Math.floor(rand() * pool.length)]);
-        if (idx === 0) read = fixWordInitialGeminate(read);
-        return { read, char: m.char, meaning: m.meaning, cat: m.cat, stratum: chosenStratum };
+        const rawPicked = pool[Math.floor(rand() * pool.length)];
+        const parsed = parseReading(rawPicked);
+        // Store both base and optCV; resolveReading() applied in Phase 2
+        return { parsed, char: m.char, meaning: m.meaning, cat: m.cat, stratum: chosenStratum };
       }).filter(Boolean);
       if (!parts.length) return null;
+
+      // ── Phase 2: resolve optional (CV) based on next morpheme ──
+      // We need a preliminary base read for each part to test MONO_RE on the next one.
+      // Use base only as a lookahead for monosyllable detection.
+      const resolved = parts.map((p, idx) => {
+        const nextBase = idx < parts.length - 1 ? parts[idx + 1].parsed.base : null;
+        let read = resolveReading(p.parsed, nextBase);
+        if (idx === 0) read = fixWordInitialGeminate(read);
+        return { ...p, read };
+      });
 
       // ── Syllable elision (dropLastSyllable) ─────────────────────
       // Rule 1 (deterministic): CVCVCV morpheme immediately before a monosyllabic
       //   morpheme loses its last syllable unconditionally → 4-syllable output.
       // Rule 2 (probabilistic 40%): CVCVCV in any other non-final position.
-      for (let i = 0; i < parts.length - 1; i++) {
-        if (CVCVCV_FULL_RE.test(parts[i].read)) {
-          const nextIsMono = MONO_RE.test(parts[i + 1].read);
+      for (let i = 0; i < resolved.length - 1; i++) {
+        if (CVCVCV_FULL_RE.test(resolved[i].read)) {
+          const nextIsMono = MONO_RE.test(resolved[i + 1].read);
           if (nextIsMono || rand() < 0.40) {
-            parts[i].read = dropLastSyllable(parts[i].read);
+            resolved[i].read = dropLastSyllable(resolved[i].read);
           }
         }
       }
 
-      if (parts.length === 2)
-        parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
-      for (let i = 0; i < parts.length - 1; i++) {
-        const [, nn] = applyJunctionSandhi(parts[i].read, parts[i+1].read);
-        parts[i+1].read = nn;
+      if (resolved.length === 2)
+        resolved[1].read = applyCompoundVoicing(resolved[0].read, resolved[1].read);
+      for (let i = 0; i < resolved.length - 1; i++) {
+        const [, nn] = applyJunctionSandhi(resolved[i].read, resolved[i+1].read);
+        resolved[i+1].read = nn;
       }
-      const surfaceReads = applyVowelHarmony(parts);
+      const surfaceReads = applyVowelHarmony(resolved);
       let latinRaw = '';
-      for (let i = 0; i < parts.length; i++) {
+      for (let i = 0; i < resolved.length; i++) {
         let r = surfaceReads[i];
         const prob = (i === 0) ? 0.50 : 0.30;
-        if (!LOGICAL_CATS.has(parts[i].cat) && /ae$/i.test(r) && rand() < prob)
+        if (!LOGICAL_CATS.has(resolved[i].cat) && /ae$/i.test(r) && rand() < prob)
           r = r.slice(0,-1) + 'ke';
         latinRaw += r;
       }
@@ -986,10 +1031,10 @@
       }
 
       const latin = cap(latinRaw);
-      const chars = parts.map(p => p.char).join('');
-      const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
+      const chars = resolved.map(p => p.char).join('');
+      const gloss = resolved.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
       const ask   = (typeof toAskaozaText === 'function') ? toAskaozaText(latin.toLowerCase()) : '';
-      return { latin, chars, ask, gloss, parts };
+      return { latin, chars, ask, gloss, parts: resolved };
     }
 
     let DB_TOPONYM = null;
@@ -1071,7 +1116,13 @@
       const parts = allMorphemes.map((m, idx) => {
         const pool = m.readings.filter(r => cleanReading(r).length > 0);
         if (!pool.length) return null;
-        let read = cleanReading(pool[Math.floor(rand() * pool.length)]);
+        const rawPicked = pool[Math.floor(rand() * pool.length)];
+        const parsed = parseReading(rawPicked);
+        // For temple names, resolve (CV) using the same monosyllable rule
+        const nextBase = idx < allMorphemes.length - 1
+          ? parseReading(allMorphemes[idx + 1].readings.find(r => cleanReading(r).length > 0) || '').base
+          : null;
+        let read = resolveReading(parsed, nextBase);
         if (idx === 0) read = fixWordInitialGeminate(read);
         return { read, char: m.char, meaning: m.meaning, cat: m.cat };
       }).filter(Boolean);
