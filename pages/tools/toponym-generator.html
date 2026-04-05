@@ -281,6 +281,16 @@
       font-size:.82rem; color:var(--tp-text-sec); margin-bottom:1rem;
     }
     mark.hl { background:var(--tp-highlight); color:var(--tp-highlight-fg); border-radius:2px; }
+
+    /* ── Weight badge on reference table ── */
+    .weight-badge {
+      display:inline-block; font-size:.65rem; font-weight:700;
+      padding:.05rem .35rem; border-radius:3px; letter-spacing:.03em;
+      vertical-align:middle;
+    }
+    .weight-3 { background:#ffd700; color:#5a4000; }
+    .weight-2 { background:#c0c0c0; color:#333; }
+    .weight-1 { background:#cd7f32; color:#fff; }
   </style>
 </head>
 
@@ -439,11 +449,15 @@
         <summary>Byakuzhi reference table / 百字參考表</summary>
         <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
           All byakuzhi in the database, grouped by semantic category.
+          Frequency weights (based on Japanese toponym analogy):
+          <span class="weight-badge weight-3">●●● high</span>
+          <span class="weight-badge weight-2">●● medium</span>
+          <span class="weight-badge weight-1">● low</span>
         </p>
         <div style="margin-bottom:.75rem" id="catFilterButtons"></div>
         <div class="ref-table-wrap">
           <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
-            <thead><tr><th>Char</th><th>Meaning</th><th>Native readings</th><th>Sino readings</th><th>Category</th></tr></thead>
+            <thead><tr><th>Char</th><th>Meaning</th><th>Native readings</th><th>Sino readings</th><th>Category</th><th>Weight</th></tr></thead>
             <tbody id="refTableBody"></tbody>
           </table>
         </div>
@@ -676,12 +690,48 @@
       for (let i = 0; i < str.length; i++) { h = Math.imul(31, h) + str.charCodeAt(i) | 0; }
       return Math.abs(h);
     }
-    function pick(arr, rand) { return arr[Math.floor(rand() * arr.length)]; }
     function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
     function cleanReading(r) {
       return r.replace(/\(.*?\)/g, '').replace(/[\s\/]+.*$/, '').trim();
     }
     function uniqueReadings(arr) { return [...new Set(arr)]; }
+
+    // ── Frequency weights (based on Japanese toponym analogy) ─────
+    // Weight 3 = high (≥20 appearances), 2 = medium (10–19), 1 = low (5–9)
+    // Characters not in this map get weight 1 (equal chance, random pool).
+    const CHAR_WEIGHTS = {
+      "田":3,"山":3,"川":3,"野":3,"大":3,"原":3,"津":3,"島":3,
+      "岡":2,"高":2,"小":2,"東":2,"南":2,"日":2,"松":2,"崎":2,
+      "西":2,"八":2,"井":2,"城":2,"伊":2,"三":2,"新":2,"久":2,
+      "江":2,"石":2,"中":2,
+      "千":1,"宮":1,"見":1,"鹿":1,"上":1,"谷":1,"浜":1,"名":1,
+      "長":1,"北":1,"木":1,"浦":1,"沼":1,"水":1,"前":1,"村":1,
+      "府":1,"福":1,"下":1,"岩":1,"京":1,"古":1,"根":1,"須":1,
+      "生":1,"多":1,"平":1,"海":1,"館":1,"橋":1,"郡":1,"御":1,
+      "泉":1,"倉":1,"都":1,"土":1,"部":1
+    };
+
+    // Weight thresholds map to numeric multipliers
+    const WEIGHT_MULTIPLIER = { 3: 8, 2: 4, 1: 2 };
+    // Characters absent from CHAR_WEIGHTS get multiplier = 1 (base random)
+
+    /**
+     * weightedPick: selects a byakuzhi from arr using frequency weights.
+     * Characters with higher weight appear proportionally more often.
+     * rand: a seeded PRNG function.
+     */
+    function weightedPick(arr, rand) {
+      if (!arr.length) return null;
+      // Build cumulative weight array
+      const weights = arr.map(b => WEIGHT_MULTIPLIER[CHAR_WEIGHTS[b.char]] || 1);
+      const total = weights.reduce((a, w) => a + w, 0);
+      let r = rand() * total;
+      for (let i = 0; i < arr.length; i++) {
+        r -= weights[i];
+        if (r <= 0) return arr[i];
+      }
+      return arr[arr.length - 1];
+    }
 
     // ── Stratum-aware availability check ─────────────────────────
     function hasReadingForStratum(b, stratum) {
@@ -840,12 +890,17 @@
           tbody.innerHTML = rows.map(b => {
             const nat = uniqueReadings(b.readings_native || []).slice(0,4).join(' · ') || '<span style="opacity:.4">—</span>';
             const sino = uniqueReadings(b.readings_sino || []).slice(0,4).join(' · ') || '<span style="opacity:.4">—</span>';
+            const w = CHAR_WEIGHTS[b.char];
+            const wBadge = w
+              ? `<span class="weight-badge weight-${w}">${'●'.repeat(w)}</span>`
+              : `<span style="opacity:.35;font-size:.7rem">—</span>`;
             return `<tr>
               <td class="char-cell">${b.char}</td>
               <td>${b.meaning}</td>
               <td>${nat}</td>
               <td>${sino}</td>
               <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
+              <td style="text-align:center">${wBadge}</td>
             </tr>`;
           }).join('');
         } else {
@@ -872,7 +927,9 @@
       const parts = morphemes.map((m, idx) => {
         const { pool, stratum: chosenStratum } = getReadingPool(m, stratum, rand);
         if (!pool.length) return null;
-        let read = cleanReading(pick(pool, rand));
+        let read = cleanReading(weightedPick(pool.map(r => ({ char: r })), rand)?.char || pool[0]);
+        // Note: reading pool items are strings, not objects — use plain pick for readings
+        read = cleanReading(pool[Math.floor(rand() * pool.length)]);
         if (idx === 0) read = fixWordInitialGeminate(read);
         return { read, char: m.char, meaning: m.meaning, cat: m.cat, stratum: chosenStratum };
       }).filter(Boolean);
@@ -938,23 +995,23 @@
         hasReadingForStratum(b, stratum));
 
       const results = [];
-      const seenLatins = new Set();           // ── deduplication set
-      const maxAttempts = count * 3;          // ── max retries: 3× the requested count
+      const seenLatins = new Set();
+      const maxAttempts = count * 3;
       let attempts = 0;
 
       while (results.length < count && attempts < maxAttempts) {
         attempts++;
         const n = morphCount === 'random' ? (2 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
         const morphemes = [];
-        if (modType === 'direction') morphemes.push(pick(dirPool, rand));
-        else if (modType === 'modifier') morphemes.push(pick(modPool, rand));
+        if (modType === 'direction') morphemes.push(weightedPick(dirPool, rand));
+        else if (modType === 'modifier') morphemes.push(weightedPick(modPool, rand));
         else if (modType === 'random' && rand() > 0.5)
-          morphemes.push(pick(rand() > 0.5 ? dirPool : modPool, rand));
+          morphemes.push(weightedPick(rand() > 0.5 ? dirPool : modPool, rand));
         const descSlots = Math.max(0, n - morphemes.length - 1);
-        for (let j = 0; j < descSlots; j++) morphemes.push(pick(descPool, rand));
-        morphemes.push(pick(headPool, rand));
+        for (let j = 0; j < descSlots; j++) morphemes.push(weightedPick(descPool, rand));
+        morphemes.push(weightedPick(headPool, rand));
         const result = buildToponym(morphemes, rand, stratum);
-        if (result && !seenLatins.has(result.latin)) {   // ── skip duplicates
+        if (result && !seenLatins.has(result.latin)) {
           seenLatins.add(result.latin);
           results.push(result);
         }
@@ -983,7 +1040,7 @@
       const parts = allMorphemes.map((m, idx) => {
         const pool = m.readings.filter(r => cleanReading(r).length > 0);
         if (!pool.length) return null;
-        let read = cleanReading(pick(pool, rand));
+        let read = cleanReading(pool[Math.floor(rand() * pool.length)]);
         if (idx === 0) read = fixWordInitialGeminate(read);
         return { read, char: m.char, meaning: m.meaning, cat: m.cat };
       }).filter(Boolean);
@@ -1047,18 +1104,18 @@
       const usedSuffixPool = suffixFiltered.length ? suffixFiltered : suffixPool;
 
       const results = [];
-      const seenLatins = new Set();           // ── deduplication set
-      const maxAttempts = count * 3;          // ── max retries: 3× the requested count
+      const seenLatins = new Set();
+      const maxAttempts = count * 3;
       let attempts = 0;
 
       while (results.length < count && attempts < maxAttempts) {
         attempts++;
         const n = morphCount === 'random' ? (1 + Math.floor(rand() * 3)) : parseInt(morphCount, 10);
         const body = [];
-        for (let j = 0; j < n; j++) body.push(pick(bodyPool, rand));
-        const suffix = pick(usedSuffixPool, rand);
+        for (let j = 0; j < n; j++) body.push(weightedPick(bodyPool, rand));
+        const suffix = weightedPick(usedSuffixPool, rand);
         const r = buildTempleName(body, suffix, rand);
-        if (r && !seenLatins.has(r.latin)) {             // ── skip duplicates
+        if (r && !seenLatins.has(r.latin)) {
           seenLatins.add(r.latin);
           results.push(r);
         }
