@@ -48,6 +48,12 @@
       --cat-nature-bg:     #d4edda;  --cat-nature-fg:     #155724;
       --cat-cosmic-bg:     #cce5ff;  --cat-cosmic-fg:     #004085;
       --cat-suffix-bg:     #f8d7da;  --cat-suffix-fg:     #721c24;
+      --cat-military-bg:   #f5e6e6;  --cat-military-fg:   #7a1e1e;
+      --cat-admin-bg:      #e6eaf5;  --cat-admin-fg:      #1e2e7a;
+      --cat-craft-bg:      #fdebd0;  --cat-craft-fg:      #784212;
+      --cat-commerce-bg:   #d5f5e3;  --cat-commerce-fg:   #1e5a2e;
+      --cat-resource-bg:   #fef9e7;  --cat-resource-fg:   #7d6608;
+      --cat-symbolic-bg:   #f0e6ff;  --cat-symbolic-fg:   #5a1a7a;
     }
     html[data-theme="dark"] {
       --tp-card-bg:        #2a2a32;
@@ -88,6 +94,12 @@
       --cat-nature-bg:     #1a2e1f;  --cat-nature-fg:     #6fcf8a;
       --cat-cosmic-bg:     #0f2340;  --cat-cosmic-fg:     #7ec8f5;
       --cat-suffix-bg:     #2e1a1a;  --cat-suffix-fg:     #f5a0a0;
+      --cat-military-bg:   #2e1010;  --cat-military-fg:   #f5a0a0;
+      --cat-admin-bg:      #10102e;  --cat-admin-fg:      #a0b0f5;
+      --cat-craft-bg:      #2e1a0a;  --cat-craft-fg:      #f5c07a;
+      --cat-commerce-bg:   #0a2e1a;  --cat-commerce-fg:   #7af5a0;
+      --cat-resource-bg:   #2e2a0a;  --cat-resource-fg:   #f5e07a;
+      --cat-symbolic-bg:   #1a0a2e;  --cat-symbolic-fg:   #c0a0f5;
     }
 
     .hero.is-link.hero-map {
@@ -165,6 +177,12 @@
     .cat-nature     { background:var(--cat-nature-bg);     color:var(--cat-nature-fg); }
     .cat-cosmic     { background:var(--cat-cosmic-bg);     color:var(--cat-cosmic-fg); }
     .cat-suffix     { background:var(--cat-suffix-bg);     color:var(--cat-suffix-fg); }
+    .cat-military   { background:var(--cat-military-bg);   color:var(--cat-military-fg); }
+    .cat-admin      { background:var(--cat-admin-bg);      color:var(--cat-admin-fg); }
+    .cat-craft      { background:var(--cat-craft-bg);      color:var(--cat-craft-fg); }
+    .cat-commerce   { background:var(--cat-commerce-bg);   color:var(--cat-commerce-fg); }
+    .cat-resource   { background:var(--cat-resource-bg);   color:var(--cat-resource-fg); }
+    .cat-symbolic   { background:var(--cat-symbolic-bg);   color:var(--cat-symbolic-fg); }
 
     .morpheme-pill {
       display:inline-flex; align-items:center; gap:.35rem;
@@ -350,6 +368,8 @@
                   <option value="fauna">Fauna 猛系 (bird, deer, wolf…)</option>
                   <option value="weather">Weather 天候系 (snow, wind, fog…)</option>
                   <option value="season">Season / Time 季節/時間系 (moon, autumn…)</option>
+                  <option value="military">Military 軍事系 (fort, garrison, troops…)</option>
+                  <option value="admin">Administration 行政系 (office, district, ministry…)</option>
                 </select>
               </div></div>
             </div>
@@ -1119,9 +1139,10 @@
         const rawPicked = pool[Math.floor(rand() * pool.length)];
         const parsed = parseReading(rawPicked);
         // For temple names, resolve (CV) using the same monosyllable rule
-        const nextBase = idx < allMorphemes.length - 1
-          ? parseReading(allMorphemes[idx + 1].readings.find(r => cleanReading(r).length > 0) || '').base
+        const nextRaw = idx < allMorphemes.length - 1
+          ? (allMorphemes[idx + 1].readings.find(r => cleanReading(r).length > 0) || '')
           : null;
+        const nextBase = nextRaw !== null ? parseReading(nextRaw).base : null;
         let read = resolveReading(parsed, nextBase);
         if (idx === 0) read = fixWordInitialGeminate(read);
         return { read, char: m.char, meaning: m.meaning, cat: m.cat };
