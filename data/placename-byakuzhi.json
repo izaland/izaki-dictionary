@@ -1,7 +1,7 @@
 {
   "meta": {
     "description": "Byakuzhi used in Izaki placenames, with readings and semantic category",
-    "version": "1.4",
+    "version": "1.5",
     "source": "Izaland Terramorphing Committee – placenames.pdf + extended list",
     "notes": "readings_native = native Izaki stratum; readings_sino = sino-Izaki (adapted on-readings). Both fields are optional; generator falls back to readings[] if absent."
   },
@@ -192,6 +192,19 @@
     {"char":"福","meaning":"fortune","readings":["fuku"],"readings_native":["fuku"],"readings_sino":[],"cat":"sacred"},
     {"char":"宗","meaning":"sect","readings":["same","sama"],"readings_native":["same","sama"],"readings_sino":[],"cat":"sacred"},
     {"char":"天","meaning":"heaven","readings":["omino","tyen"],"readings_native":["omino"],"readings_sino":["tyen"],"cat":"sacred"},
+    {"char":"靈","meaning":"spirit/soul","readings":["māra","rei"],"readings_native":["māra"],"readings_sino":["rei"],"cat":"sacred"},
+    {"char":"社","meaning":"local deity","readings":["sumatai","sha"],"readings_native":["sumatai"],"readings_sino":["sha"],"cat":"sacred"},
+    {"char":"祠","meaning":"minor shrine","readings":["tigei","shi"],"readings_native":["tigei"],"readings_sino":["shi"],"cat":"sacred"},
+    {"char":"御","meaning":"venerable (prefix)","readings":["hi","go"],"readings_native":["hi"],"readings_sino":["go"],"cat":"sacred"},
+    {"char":"禁","meaning":"taboo/forbidden","readings":["kyel","kyele","kyeli","kyeri","kin"],"readings_native":["kyel","kyele","kyeli","kyeri"],"readings_sino":["kin"],"cat":"sacred"},
+    {"char":"兆","meaning":"omen/presage","readings":["nenuke","chō"],"readings_native":["nenuke"],"readings_sino":["chō"],"cat":"sacred"},
+    {"char":"魂","meaning":"individual soul","readings":["habori","ko"],"readings_native":["habori"],"readings_sino":["ko"],"cat":"sacred"},
+    {"char":"壇","meaning":"altar","readings":["esove","dan"],"readings_native":["esove"],"readings_sino":["dan"],"cat":"sacred"},
+    {"char":"塔","meaning":"pagoda/stupa","readings":["rihka","tais"],"readings_native":["rihka"],"readings_sino":["tais"],"cat":"sacred"},
+    {"char":"廟","meaning":"ancestral temple","readings":["patu","chō"],"readings_native":["patu"],"readings_sino":["chō"],"cat":"sacred"},
+    {"char":"冥","meaning":"underworld","readings":["alama","myōn"],"readings_native":["alama"],"readings_sino":["myōn"],"cat":"sacred"},
+    {"char":"龕","meaning":"votive niche","readings":["ottero","gan"],"readings_native":["ottero"],"readings_sino":["gan"],"cat":"sacred"},
+    {"char":"禱","meaning":"prayer","readings":["matseri","tu"],"readings_native":["matseri"],"readings_sino":["tu"],"cat":"sacred"},
     {"char":"白","meaning":"white","readings":["chara","walku"],"readings_native":["chara","walku"],"readings_sino":[],"cat":"color"},
     {"char":"青","meaning":"blue","readings":["satso"],"readings_native":["satso"],"readings_sino":[],"cat":"color"},
     {"char":"黑","meaning":"black","readings":["tsuna","heku"],"readings_native":["tsuna","heku"],"readings_sino":[],"cat":"color"},
