@@ -1,7 +1,7 @@
 {
   "meta": {
     "description": "Byakuzhi used in Izaki placenames, with readings and semantic category",
-    "version": "1.5",
+    "version": "1.6",
     "source": "Izaland Terramorphing Committee – placenames.pdf + extended list",
     "notes": "readings_native = native Izaki stratum; readings_sino = sino-Izaki (adapted on-readings). Both fields are optional; generator falls back to readings[] if absent."
   },
@@ -296,6 +296,25 @@
     {"char":"盛","meaning":"(phonetic)","readings":["eni","en"],"readings_native":["eni","en"],"readings_sino":[],"cat":"modifier","phonetic":true,"position":"any"},
     {"char":"形","meaning":"(phonetic)","readings":["sau","zau"],"readings_native":["sau","zau"],"readings_sino":[],"cat":"modifier","phonetic":true,"position":"any"},
     {"char":"飯","meaning":"(phonetic)","readings":["han"],"readings_native":["han"],"readings_sino":[],"cat":"modifier","phonetic":true,"position":"any"},
-    {"char":"須","meaning":"(phonetic)","readings":["su"],"readings_native":["su"],"readings_sino":[],"cat":"modifier","phonetic":true,"position":"any"}
+    {"char":"須","meaning":"(phonetic)","readings":["su"],"readings_native":["su"],"readings_sino":[],"cat":"modifier","phonetic":true,"position":"any"},
+    {"char":"鍛","meaning":"smithy, metal tempering","readings":["sepa","kutan"],"readings_native":["sepa","kutan"],"readings_sino":[],"cat":"craft"},
+    {"char":"冶","meaning":"smelting, foundry","readings":["ya","yaku"],"readings_native":["yaku"],"readings_sino":["ya"],"cat":"craft"},
+    {"char":"工","meaning":"craftsman, manual work","readings":["tato","ko","kun"],"readings_native":["tato","kun"],"readings_sino":["ko"],"cat":"craft"},
+    {"char":"匠","meaning":"master craftsman","readings":["shou","soku"],"readings_native":["soku"],"readings_sino":["shou"],"cat":"craft"},
+    {"char":"紺","meaning":"dyer, indigo colour","readings":["anges","kon"],"readings_native":["anges"],"readings_sino":["kon"],"cat":"craft"},
+    {"char":"陶","meaning":"ceramics, potter","readings":["male","to"],"readings_native":["male"],"readings_sino":["to"],"cat":"craft"},
+    {"char":"市","meaning":"market, market square","readings":["tori","ishi","shi"],"readings_native":["tori","ishi"],"readings_sino":["shi"],"cat":"commerce"},
+    {"char":"店","meaning":"shop, boutique","readings":["inta","ten"],"readings_native":["inta"],"readings_sino":["ten"],"cat":"commerce"},
+    {"char":"屋","meaning":"shop-house, boutique","readings":["ya"],"readings_native":["ya"],"readings_sino":[],"cat":"commerce"},
+    {"char":"商","meaning":"commerce, merchant","readings":["kappu","aki","shō"],"readings_native":["kappu","aki"],"readings_sino":["shō"],"cat":"commerce"},
+    {"char":"蔵","meaning":"warehouse, treasury","readings":["parai","zō","tsou"],"readings_native":["parai"],"readings_sino":["zō","tsou"],"cat":"commerce"},
+    {"char":"米","meaning":"rice (grain), rice harvest","readings":["konu","bei","mi"],"readings_native":["konu"],"readings_sino":["bei","mi"],"cat":"resource"},
+    {"char":"魚","meaning":"fish, fishing","readings":["miwee","yo","kala"],"readings_native":["miwee","kala"],"readings_sino":["yo"],"cat":"resource"},
+    {"char":"塩","meaning":"salt, salt flats","readings":["kohari","gohari","en"],"readings_native":["kohari","gohari"],"readings_sino":["en"],"cat":"resource"},
+    {"char":"茶","meaning":"tea, tea plantation","readings":["cha","ja"],"readings_native":["ja"],"readings_sino":["cha"],"cat":"resource"},
+    {"char":"栄","meaning":"prosperity, flourishing","readings":["saka","ei","yōn"],"readings_native":["saka"],"readings_sino":["ei","yōn"],"cat":"symbolic"},
+    {"char":"昌","meaning":"thriving, prosperous","readings":["nane","chān"],"readings_native":["nane"],"readings_sino":["chān"],"cat":"symbolic"},
+    {"char":"安","meaning":"peace, security","readings":["rauku","an"],"readings_native":["rauku"],"readings_sino":["an"],"cat":"symbolic"},
+    {"char":"永","meaning":"eternal, perpetual","readings":["iku","ei","yōn"],"readings_native":["iku"],"readings_sino":["ei","yōn"],"cat":"symbolic"}
   ]
 }
