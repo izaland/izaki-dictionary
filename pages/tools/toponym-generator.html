@@ -778,6 +778,8 @@
     const V_PAT  = '[aeiouy\u0101\u0113\u012b\u014d\u016b]';
     const CVCVCV_FULL_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
     const CVCV_RE = new RegExp('^' + C_PAT + V_PAT + C_PAT + V_PAT + '$', 'i');
+    // Monosyllabic pattern: single CV or CVC (optionally with digraph onset)
+    const MONO_RE = new RegExp('^' + C_PAT + V_PAT + '[kgpbsztdfvhnmlrj]?$', 'i');
 
     function getOnset(s) {
       if (['cch','ssh','tts'].some(d => s.startsWith(d))) return s.slice(0,3);
@@ -827,6 +829,19 @@
         if (r.toLowerCase().startsWith(gem)) return single + r.slice(gem.length);
       }
       return r;
+    }
+
+    // ── -ru suffix with vowel harmony ─────────────────────────────
+    // Harmonises with the last vowel of the preceding compound form.
+    // front (i, e) → -ri / -re ; back (a, o, u) → -ra / -ro / -ru
+    const RU_HARMONY = { 'a':'ra','e':'re','i':'ri','o':'ro','u':'ru',
+                         '\u0101':'ra','\u0113':'re','\u012b':'ri','\u014d':'ro','\u016b':'ru',
+                         'y':'ru' };
+    function ruSuffix(word) {
+      for (const ch of [...word.toLowerCase()].reverse()) {
+        if (RU_HARMONY[ch]) return RU_HARMONY[ch];
+      }
+      return 'ru';
     }
 
     // ── Shared render (generator results) ───────────────────────
@@ -927,18 +942,25 @@
       const parts = morphemes.map((m, idx) => {
         const { pool, stratum: chosenStratum } = getReadingPool(m, stratum, rand);
         if (!pool.length) return null;
-        let read = cleanReading(weightedPick(pool.map(r => ({ char: r })), rand)?.char || pool[0]);
-        // Note: reading pool items are strings, not objects — use plain pick for readings
-        read = cleanReading(pool[Math.floor(rand() * pool.length)]);
+        let read = cleanReading(pool[Math.floor(rand() * pool.length)]);
         if (idx === 0) read = fixWordInitialGeminate(read);
         return { read, char: m.char, meaning: m.meaning, cat: m.cat, stratum: chosenStratum };
       }).filter(Boolean);
       if (!parts.length) return null;
 
+      // ── Syllable elision (dropLastSyllable) ─────────────────────
+      // Rule 1 (deterministic): CVCVCV morpheme immediately before a monosyllabic
+      //   morpheme loses its last syllable unconditionally → 4-syllable output.
+      // Rule 2 (probabilistic 40%): CVCVCV in any other non-final position.
       for (let i = 0; i < parts.length - 1; i++) {
-        if (CVCVCV_FULL_RE.test(parts[i].read) && rand() < 0.40)
-          parts[i].read = dropLastSyllable(parts[i].read);
+        if (CVCVCV_FULL_RE.test(parts[i].read)) {
+          const nextIsMono = MONO_RE.test(parts[i + 1].read);
+          if (nextIsMono || rand() < 0.40) {
+            parts[i].read = dropLastSyllable(parts[i].read);
+          }
+        }
       }
+
       if (parts.length === 2)
         parts[1].read = applyCompoundVoicing(parts[0].read, parts[1].read);
       for (let i = 0; i < parts.length - 1; i++) {
@@ -954,6 +976,15 @@
           r = r.slice(0,-1) + 'ke';
         latinRaw += r;
       }
+
+      // ── Optional -ru suffix (with vowel harmony) ─────────────────
+      // Applied after all other phonological rules, with 25% probability.
+      // Harmonises with the last vowel of the assembled compound:
+      //   back (a/o/u) → -ra/-ro/-ru ; front (e/i) → -re/-ri
+      if (rand() < 0.25) {
+        latinRaw += ruSuffix(latinRaw);
+      }
+
       const latin = cap(latinRaw);
       const chars = parts.map(p => p.char).join('');
       const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
