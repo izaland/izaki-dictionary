@@ -340,6 +340,9 @@
           <li id="tab-temple">
             <a><span class="icon">🏯</span><span>Temple names 寺院名</span></a>
           </li>
+                 <li id="tab-ainu">
+            <a><span class="icon">🌲</span><span>Ainu toponyms ૮૩પે地名</span></a>
+          </li>
           <li id="tab-lookup">
             <a><span class="icon">🔍</span><span>Reading lookup 照合</span></a>
           </li>
@@ -589,7 +592,108 @@
       </details>
     </div><!-- /panel-temple -->
 
+    <!-- TAB AINU -->
+    <div class="tab-panel" id="panel-ainu">
+      <div class="controls-box">
+        <p style="font-size:.92rem;color:var(--tp-text-sec);margin-bottom:1rem">
+          Genera toponimi in stile <strong>Ainu / Hokkaido</strong>: morfemi originali Ainu traslitterati,
+          scritti con kanji ateji tradizionali come nei documenti cartografici Meiji.
+          <br><em>Es: <strong>Kimunnupuri</strong> 熊岳 — montagna dell'orso.</em>
+        </p>
+        <div class="columns is-multiline">
 
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Tipo geografico 地理的種類</label>
+              <div class="control"><div class="select is-fullwidth">
+                <select id="ai-geoType">
+                  <option value="any">Qualsiasi</option>
+                  <option value="water">Acqua 水系 (pet, nai, to…)</option>
+                  <option value="relief">Rilievo 山系 (nupuri, pira…)</option>
+                  <option value="settlement">Insediamento 村系 (kotan…)</option>
+                  <option value="vegetation">Vegetazione 植系 (nay, sar…)</option>
+                  <option value="fauna">Fauna 猛系 (kimun, yuk…)</option>
+                  <option value="sacred">Sacro 聖系 (kamuy, kotan kor…)</option>
+                </select>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Numero di morfemi 形態素数</label>
+              <div class="control"><div class="select is-fullwidth">
+                <select id="ai-morphCount">
+                  <option value="2">2 morfemi</option>
+                  <option value="3" selected>3 morfemi</option>
+                  <option value="random">Casuale (2–3)</option>
+                </select>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Prefisso modificatore 前修飾</label>
+              <div class="control"><div class="select is-fullwidth">
+                <select id="ai-modifierType">
+                  <option value="none">Nessuno</option>
+                  <option value="modifier">Aggettivo (poro, pon, pirka…)</option>
+                  <option value="direction">Direzione (rep, somo…)</option>
+                  <option value="random">Casuale</option>
+                </select>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label">Risultati 結果件数</label>
+              <div class="control"><div class="select is-fullwidth">
+                <select id="ai-resultCount">
+                  <option value="5">5</option>
+                  <option value="10" selected>10</option>
+                  <option value="20">20</option>
+                </select>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="column is-full">
+            <div class="field">
+              <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(lascia vuoto per casuale)</span></label>
+              <div class="control">
+                <input class="input" type="text" id="ai-seedInput" placeholder="es. 31415">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:.5rem">
+          <div class="control">
+            <button class="button is-success is-medium" id="ai-generateBtn">Generate アイヌ地名生成</button>
+          </div>
+        </div>
+        <p class="seed-display" id="ai-seedDisplay"></p>
+      </div>
+
+      <div class="results-box" id="ai-resultsBox"></div>
+
+      <details class="reference-section">
+        <summary>Morfemi Ainu / アイヌ語形態素表</summary>
+        <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
+          Tutti i morfemi nel database Ainu, con kanji ateji tradizionali e categoria semantica.
+        </p>
+        <div style="margin-bottom:.75rem" id="ai-catFilterButtons"></div>
+        <div class="ref-table-wrap">
+          <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
+            <thead><tr><th>字</th><th>Significato</th><th>Lettura Ainu</th><th>Categoria</th></tr></thead>
+            <tbody id="ai-refTableBody"></tbody>
+          </table>
+        </div>
+      </details>
+    </div><!-- /panel-ainu -->
+    
     <!-- TAB 3: LOOKUP -->
     <div class="tab-panel" id="panel-lookup">
       <div class="lookup-box">
@@ -1391,7 +1495,139 @@
 
     document.getElementById('lk-searchBtn').addEventListener('click', runLookup);
     document.getElementById('lk-input').addEventListener('keydown', e => { if (e.key === 'Enter') runLookup(); });
+    // ══════════════════════════════════════════════════════════════
+    // AINU TOPONYM LOGIC
+    // ══════════════════════════════════════════════════════════════
 
+    // Aggiunge 'ainu' alla lista dei tab
+    TABS.splice(2, 0, 'ainu');
+
+    function buildAinuToponym(morphemes, rand) {
+      const parts = morphemes.map((m, idx) => {
+        const pool = m.readings;
+        if (!pool || !pool.length) return null;
+        const read = pool[Math.floor(rand() * pool.length)];
+        return { read, char: m.char, meaning: m.meaning, cat: m.cat };
+      }).filter(Boolean);
+      if (!parts.length) return null;
+
+      // Fusione fonetica semplice: se morfema precedente finisce in vocale
+      // e il successivo inizia per vocale, inserisce glide -w-
+      for (let i = 0; i < parts.length - 1; i++) {
+        const r1 = parts[i].read, r2 = parts[i+1].read;
+        if (/[aeiou]$/.test(r1) && /^[aeiou]/i.test(r2)) {
+          parts[i+1].read = 'w' + r2;
+        }
+      }
+
+      const latinRaw = parts.map(p => p.read).join('');
+      const latin = cap(latinRaw);
+      const chars = parts.map(p => p.char).join('');
+      const gloss = parts.map(p => '\u300c' + p.meaning + '\u300d').join(' + ');
+      return { latin, chars, ask: '', gloss, parts };
+    }
+
+    let DB_AINU = null;
+
+    function generateAinu() {
+      if (!DB_AINU) return;
+      const geoType    = document.getElementById('ai-geoType').value;
+      const morphCount = document.getElementById('ai-morphCount').value;
+      const modType    = document.getElementById('ai-modifierType').value;
+      const count      = parseInt(document.getElementById('ai-resultCount').value, 10);
+      const seedRaw    = document.getElementById('ai-seedInput').value.trim();
+      const seed       = seedRaw ? hashSeed(seedRaw) : (Math.random() * 0xFFFFFFFF | 0);
+      const rand       = mulberry32(seed);
+
+      document.getElementById('ai-seedDisplay').textContent = '\uD83C\uDFB2 Seed: ' + seed;
+
+      const all = DB_AINU.byakuzhi;
+      const headPool = geoType === 'any'
+        ? all.filter(b => b.readings && b.readings.length)
+        : all.filter(b => b.cat === geoType && b.readings && b.readings.length);
+
+      if (!headPool.length) {
+        document.getElementById('ai-resultsBox').innerHTML =
+          '<p class="notification is-warning">Nessun morfema trovato per questa combinazione.</p>';
+        return;
+      }
+      const modPool = all.filter(b => b.cat === 'modifier' && b.readings && b.readings.length);
+      const dirPool = all.filter(b => b.cat === 'direction' && b.readings && b.readings.length);
+      const descPool = all.filter(b =>
+        ['color','weather','season','fauna','vegetation'].includes(b.cat) &&
+        b.readings && b.readings.length);
+
+      const results = [];
+      const seenLatins = new Set();
+      let attempts = 0;
+
+      while (results.length < count && attempts < count * 4) {
+        attempts++;
+        const n = morphCount === 'random' ? (2 + Math.floor(rand() * 2)) : parseInt(morphCount, 10);
+        const morphemes = [];
+        if (modType === 'modifier' && modPool.length)
+          morphemes.push(modPool[Math.floor(rand() * modPool.length)]);
+        else if (modType === 'direction' && dirPool.length)
+          morphemes.push(dirPool[Math.floor(rand() * dirPool.length)]);
+        else if (modType === 'random' && rand() > 0.5)
+          morphemes.push((rand() > 0.5 ? modPool : dirPool)[Math.floor(rand() * modPool.length)] || modPool[0]);
+
+        const descSlots = Math.max(0, n - morphemes.length - 1);
+        for (let j = 0; j < descSlots && descPool.length; j++)
+          morphemes.push(descPool[Math.floor(rand() * descPool.length)]);
+
+        morphemes.push(headPool[Math.floor(rand() * headPool.length)]);
+
+        const r = buildAinuToponym(morphemes, rand);
+        if (r && !seenLatins.has(r.latin)) {
+          seenLatins.add(r.latin);
+          results.push(r);
+        }
+      }
+      renderResults(results, 'ai-resultsBox');
+    }
+
+    fetch('/izaki-dictionary/data/ainu-byakuzhi.json')
+      .then(r => r.json())
+      .then(data => {
+        DB_AINU = data;
+        // Tabella di riferimento
+        const tbody = document.getElementById('ai-refTableBody');
+        const btnWrap = document.getElementById('ai-catFilterButtons');
+        const cats = [...new Set(data.byakuzhi.map(b => b.cat))].sort();
+        btnWrap.innerHTML =
+          '<button class="button is-small is-light" data-aicat="all" style="margin:.2rem">All</button>' +
+          cats.map(c =>
+            `<button class="button is-small" data-aicat="${c}" style="margin:.2rem;background:none;border:none;padding:.1rem">
+               <span class="tag-cat cat-${c}">${c}</span>
+             </button>`
+          ).join('');
+        function renderAiRefTable(f) {
+          const rows = f === 'all' ? data.byakuzhi : data.byakuzhi.filter(b => b.cat === f);
+          tbody.innerHTML = rows.map(b =>
+            `<tr>
+              <td class="char-cell">${b.char}</td>
+              <td>${b.meaning}</td>
+              <td>${b.readings.join(' · ')}</td>
+              <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
+            </tr>`
+          ).join('');
+        }
+        btnWrap.querySelectorAll('[data-aicat]').forEach(btn => {
+          btn.addEventListener('click', () => renderAiRefTable(btn.dataset.aicat));
+        });
+        renderAiRefTable('all');
+      })
+      .catch(() => {
+        document.getElementById('ai-resultsBox').innerHTML =
+          '<p class="notification is-danger">Impossibile caricare <code>data/ainu-byakuzhi.json</code>.</p>';
+      });
+
+    document.getElementById('ai-generateBtn').addEventListener('click', generateAinu);
+    document.getElementById('ai-seedInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') generateAinu();
+    });
+    
   })();
   </script>
 </body>
