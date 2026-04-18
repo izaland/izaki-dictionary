@@ -779,7 +779,7 @@
   <script>
   (function () {
 
-    const TABS = ['toponym','temple','lookup'];
+    const TABS = ['toponym','temple','ainu','lookup'];
 
     // ── Tab switching ─────────────────────────────────────────────
     TABS.forEach(id => {
@@ -1499,8 +1499,6 @@
     // AINU TOPONYM LOGIC
     // ══════════════════════════════════════════════════════════════
 
-    // Aggiunge 'ainu' alla lista dei tab
-    TABS.splice(2, 0, 'ainu');
 
     function buildAinuToponym(morphemes, rand) {
       const parts = morphemes.map((m, idx) => {
