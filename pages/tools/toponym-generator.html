@@ -596,24 +596,24 @@
     <div class="tab-panel" id="panel-ainu">
       <div class="controls-box">
         <p style="font-size:.92rem;color:var(--tp-text-sec);margin-bottom:1rem">
-          Genera toponimi in stile <strong>Ainu / Hokkaido</strong>: morfemi originali Ainu traslitterati,
-          scritti con kanji ateji tradizionali come nei documenti cartografici Meiji.
-          <br><em>Es: <strong>Kimunnupuri</strong> 熊岳 — montagna dell'orso.</em>
+         Generates <strong>Ainu / Hokkaido</strong>-style toponyms: original Ainu morphemes transliterated,
+written with traditional ateji kanji as in Meiji cartographic documents.
+<br><em>Ex: <strong>Kimunnupuri</strong> 熊岳 — bear mountain.</em>
         </p>
         <div class="columns is-multiline">
 
           <div class="column is-half">
             <div class="field">
-              <label class="label">Tipo geografico 地理的種類</label>
+              <label class="label">Geographic type 地理的種類</label>
               <div class="control"><div class="select is-fullwidth">
                 <select id="ai-geoType">
-                  <option value="any">Qualsiasi</option>
-                  <option value="water">Acqua 水系 (pet, nai, to…)</option>
-                  <option value="relief">Rilievo 山系 (nupuri, pira…)</option>
-                  <option value="settlement">Insediamento 村系 (kotan…)</option>
-                  <option value="vegetation">Vegetazione 植系 (nay, sar…)</option>
+                  <option value="any">Any</option>
+                  <option value="water">Water 水系 (pet, nai, to…)</option>
+                  <option value="relief">Relief 山系 (nupuri, pira…)</option>
+                  <option value="settlement">Dwelling 村系 (kotan…)</option>
+                  <option value="vegetation">Vegetation 植系 (nay, sar…)</option>
                   <option value="fauna">Fauna 猛系 (kimun, yuk…)</option>
-                  <option value="sacred">Sacro 聖系 (kamuy, kotan kor…)</option>
+                  <option value="sacred">Sacred 聖系 (kamuy, kotan kor…)</option>
                 </select>
               </div></div>
             </div>
@@ -621,12 +621,12 @@
 
           <div class="column is-half">
             <div class="field">
-              <label class="label">Numero di morfemi 形態素数</label>
+              <label class="label">Number of morphemes 形態素数</label>
               <div class="control"><div class="select is-fullwidth">
                 <select id="ai-morphCount">
-                  <option value="2">2 morfemi</option>
-                  <option value="3" selected>3 morfemi</option>
-                  <option value="random">Casuale (2–3)</option>
+                  <option value="2">2 morphemes</option>
+                  <option value="3" selected>3 morphemes</option>
+                  <option value="random">Casual (2–3)</option>
                 </select>
               </div></div>
             </div>
@@ -634,13 +634,13 @@
 
           <div class="column is-half">
             <div class="field">
-              <label class="label">Prefisso modificatore 前修飾</label>
+              <label class="label">Editing prefix 前修飾</label>
               <div class="control"><div class="select is-fullwidth">
                 <select id="ai-modifierType">
-                  <option value="none">Nessuno</option>
-                  <option value="modifier">Aggettivo (poro, pon, pirka…)</option>
-                  <option value="direction">Direzione (rep, somo…)</option>
-                  <option value="random">Casuale</option>
+                  <option value="none">Nonw</option>
+                  <option value="modifier">Adjective (poro, pon, pirka…)</option>
+                  <option value="direction">Direction (rep, somo…)</option>
+                  <option value="random">Casual</option>
                 </select>
               </div></div>
             </div>
@@ -648,7 +648,7 @@
 
           <div class="column is-half">
             <div class="field">
-              <label class="label">Risultati 結果件数</label>
+              <label class="label">Results 結果件数</label>
               <div class="control"><div class="select is-fullwidth">
                 <select id="ai-resultCount">
                   <option value="5">5</option>
@@ -661,7 +661,7 @@
 
           <div class="column is-full">
             <div class="field">
-              <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(lascia vuoto per casuale)</span></label>
+              <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave empty for casual)</span></label>
               <div class="control">
                 <input class="input" type="text" id="ai-seedInput" placeholder="es. 31415">
               </div>
@@ -680,14 +680,14 @@
       <div class="results-box" id="ai-resultsBox"></div>
 
       <details class="reference-section">
-        <summary>Morfemi Ainu / アイヌ語形態素表</summary>
+        <summary>Ainu morphemes / アイヌ語形態素表</summary>
         <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
-          Tutti i morfemi nel database Ainu, con kanji ateji tradizionali e categoria semantica.
+          All morphemes in the Ainu database, with traditional ateji kanji and semantic category.
         </p>
         <div style="margin-bottom:.75rem" id="ai-catFilterButtons"></div>
         <div class="ref-table-wrap">
           <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
-            <thead><tr><th>字</th><th>Significato</th><th>Lettura Ainu</th><th>Categoria</th></tr></thead>
+            <thead><tr><th>字</th><th>Meaning</th><th>Ainu reading</th><th>Category</th></tr></thead>
             <tbody id="ai-refTableBody"></tbody>
           </table>
         </div>
