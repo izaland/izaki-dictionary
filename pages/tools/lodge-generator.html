@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lodge & Inn Name Generator - Izaki Dictionary</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
+
+  <style>
+    html[data-theme="light"] {
+      --tp-card-bg:        #ffffff;
+      --tp-card-border:    #dee2e6;
+      --tp-controls-bg:    #ffffff;
+      --tp-ref-bg:         #f8f9fa;
+      --tp-text:           #1a1a1a;
+      --tp-text-sec:       #6c757d;
+      --tp-text-char:      #2a2a2a;
+      --tp-pill-bg:        #f0f0f0;
+      --tp-pill-border:    #d8d8d8;
+      --tp-copy-border:    #ccc;
+      --tp-copy-color:     #555;
+      --tp-copy-hover:     #e8e8e8;
+      --tp-seed-color:     #888;
+      --tp-highlight:      #fff176;
+      --tp-highlight-fg:   #333;
+      --tp-stratum-native-bg:  #e8f4fd;
+      --tp-stratum-native-fg:  #1a5276;
+      --tp-stratum-sino-bg:    #fde8f4;
+      --tp-stratum-sino-fg:    #5a1a4a;
+      --cat-onsen-bg:      #fde8d8; --cat-onsen-fg:      #784212;
+      --cat-water-bg:      #cce5ff; --cat-water-fg:      #004085;
+      --cat-weather-bg:    #d6eaf8; --cat-weather-fg:    #1a5276;
+      --cat-season-bg:     #fde8d8; --cat-season-fg:     #784212;
+      --cat-cosmic-bg:     #cce5ff; --cat-cosmic-fg:     #004085;
+      --cat-color-bg:      #fff3cd; --cat-color-fg:      #856404;
+      --cat-vegetation-bg: #d4edda; --cat-vegetation-fg: #155724;
+      --cat-relief-bg:     #d4edda; --cat-relief-fg:     #155724;
+      --cat-virtue-bg:     #e2d9f3; --cat-virtue-fg:     #4a235a;
+      --cat-suffix-bg:     #f8d7da; --cat-suffix-fg:     #721c24;
+      --cat-symbolic-bg:   #f0e6ff; --cat-symbolic-fg:   #5a1a7a;
+    }
+    html[data-theme="dark"] {
+      --tp-card-bg:        #2a2a32;
+      --tp-card-border:    #3e3e4a;
+      --tp-controls-bg:    #2a2a32;
+      --tp-ref-bg:         #232328;
+      --tp-text:           #e5e7eb;
+      --tp-text-sec:       #9ca3af;
+      --tp-text-char:      #d1d5db;
+      --tp-pill-bg:        #383845;
+      --tp-pill-border:    #4a4a5a;
+      --tp-copy-border:    #4a4a5a;
+      --tp-copy-color:     #bbb;
+      --tp-copy-hover:     #3a3a48;
+      --tp-seed-color:     #9ca3af;
+      --tp-highlight:      #5c4d00;
+      --tp-highlight-fg:   #ffe57a;
+      --tp-stratum-native-bg:  #0f2a40;
+      --tp-stratum-native-fg:  #7ec8f5;
+      --tp-stratum-sino-bg:    #2e0f2a;
+      --tp-stratum-sino-fg:    #e8a8d5;
+      --cat-onsen-bg:      #3a2010; --cat-onsen-fg:      #f5b97a;
+      --cat-water-bg:      #0f2340; --cat-water-fg:      #7ec8f5;
+      --cat-weather-bg:    #112233; --cat-weather-fg:    #90caf9;
+      --cat-season-bg:     #3a2010; --cat-season-fg:     #f5b97a;
+      --cat-cosmic-bg:     #0f2340; --cat-cosmic-fg:     #7ec8f5;
+      --cat-color-bg:      #3d3318; --cat-color-fg:      #f5d97a;
+      --cat-vegetation-bg: #1a2e1f; --cat-vegetation-fg: #6fcf8a;
+      --cat-relief-bg:     #1a2e1f; --cat-relief-fg:     #6fcf8a;
+      --cat-virtue-bg:     #26173a; --cat-virtue-fg:     #c8a8f0;
+      --cat-suffix-bg:     #2e1a1a; --cat-suffix-fg:     #f5a0a0;
+      --cat-symbolic-bg:   #1a0a2e; --cat-symbolic-fg:   #c0a0f5;
+    }
+
+    .hero.is-warning.hero-lodge {
+      background-image:
+        linear-gradient(rgba(120,60,10,0.72), rgba(60,30,5,0.82)),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Gassho-zukuri_Shirakawa-go_2010.jpg/1280px-Gassho-zukuri_Shirakawa-go_2010.jpg');
+      background-size: cover;
+      background-position: center 45%;
+      background-repeat: no-repeat;
+    }
+    .hero.is-warning.hero-lodge .title,
+    .hero.is-warning.hero-lodge .subtitle { color:#fff3dc !important; text-shadow:0 1px 6px rgba(0,0,0,.55); }
+    .hero.is-warning.hero-lodge { position:relative; }
+    .map-credit {
+      position:absolute; bottom:0.4rem; right:0.75rem;
+      font-size:0.62rem; color:rgba(255,255,255,.55);
+      font-style:italic; letter-spacing:0.02em;
+    }
+    .hero .title { line-height:1.2; margin-bottom:0 !important; padding-bottom:1.6rem; }
+    .hero .title .subtitle-ja { display:block; margin-top:0.65rem; font-size:0.68em; opacity:0.96; }
+    .hero .title + .subtitle  { margin-top:0 !important; line-height:1.45; }
+    .hero .subtitle .subtitle-ja { display:block; margin-top:0.35rem; }
+
+    .result-card {
+      border:1px solid var(--tp-card-border); border-radius:12px;
+      padding:1.25rem 1.5rem; margin-bottom:.85rem;
+      background:var(--tp-card-bg); box-shadow:0 2px 6px rgba(0,0,0,.08);
+      display:flex; flex-direction:column; gap:.3rem; position:relative;
+    }
+    .result-card .toponym-latin { font-size:1.45rem; font-weight:700; color:var(--tp-text); }
+    .toponym-scripts { display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap; }
+    .result-card .toponym-char { font-size:1.3rem; color:var(--tp-text-char); letter-spacing:.12em; opacity:.9; }
+    .result-card .toponym-gloss { font-size:.88rem; color:var(--tp-text-sec); margin-top:.2rem; }
+    .result-card .toponym-type-badge {
+      display:inline-block; font-size:.72rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.06em; padding:.15rem .55rem; border-radius:20px;
+      background:#f0e6ff; color:#5a1a7a; margin-bottom:.2rem;
+    }
+    html[data-theme="dark"] .result-card .toponym-type-badge {
+      background:#2a103e; color:#c0a0f5;
+    }
+
+    .copy-btn {
+      position:absolute; top:.75rem; right:.75rem; background:none;
+      border:1px solid var(--tp-copy-border); border-radius:6px;
+      cursor:pointer; padding:.2rem .55rem; font-size:.78rem;
+      color:var(--tp-copy-color); transition:background .15s;
+    }
+    .copy-btn:hover { background:var(--tp-copy-hover); }
+
+    .controls-box {
+      max-width:760px; margin:0 auto 2rem; padding:1.5rem;
+      border:1px solid var(--tp-card-border); border-radius:12px;
+      background:var(--tp-controls-bg); box-shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+    .results-box  { max-width:760px; margin:0 auto; }
+    .seed-display { font-family:monospace; font-size:.82rem; color:var(--tp-seed-color); margin-top:.5rem; }
+
+    .tag-cat {
+      display:inline-block; font-size:.68rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:.05em;
+      padding:.1rem .45rem; border-radius:4px;
+    }
+    .cat-onsen     { background:var(--cat-onsen-bg);     color:var(--cat-onsen-fg); }
+    .cat-water     { background:var(--cat-water-bg);     color:var(--cat-water-fg); }
+    .cat-weather   { background:var(--cat-weather-bg);   color:var(--cat-weather-fg); }
+    .cat-season    { background:var(--cat-season-bg);    color:var(--cat-season-fg); }
+    .cat-cosmic    { background:var(--cat-cosmic-bg);    color:var(--cat-cosmic-fg); }
+    .cat-color     { background:var(--cat-color-bg);     color:var(--cat-color-fg); }
+    .cat-vegetation{ background:var(--cat-vegetation-bg);color:var(--cat-vegetation-fg); }
+    .cat-relief    { background:var(--cat-relief-bg);    color:var(--cat-relief-fg); }
+    .cat-virtue    { background:var(--cat-virtue-bg);    color:var(--cat-virtue-fg); }
+    .cat-suffix    { background:var(--cat-suffix-bg);    color:var(--cat-suffix-fg); }
+    .cat-symbolic  { background:var(--cat-symbolic-bg);  color:var(--cat-symbolic-fg); }
+
+    .morpheme-pill {
+      display:inline-flex; align-items:center; gap:.35rem;
+      background:var(--tp-pill-bg); border:1px solid var(--tp-pill-border);
+      border-radius:7px; padding:.25rem .65rem;
+      margin-right:.3rem; margin-bottom:.2rem; font-size:.9rem;
+    }
+    .morpheme-pill .pill-char    { font-size:1.15rem; color:var(--tp-text); }
+    .morpheme-pill .pill-read    { font-weight:600; color:var(--tp-text); }
+    .morpheme-pill .pill-meaning { color:var(--tp-text-sec); font-size:.78rem; }
+    .pill-stratum {
+      font-size:.62rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.06em; padding:.1rem .35rem; border-radius:3px;
+    }
+    .pill-stratum.s-native { background:var(--tp-stratum-native-bg); color:var(--tp-stratum-native-fg); }
+    .pill-stratum.s-sino   { background:var(--tp-stratum-sino-bg);   color:var(--tp-stratum-sino-fg); }
+
+    .stratum-selector {
+      display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.25rem;
+    }
+    .stratum-selector label {
+      display:flex; align-items:center; gap:.4rem;
+      padding:.45rem .9rem; border-radius:8px; cursor:pointer;
+      border:2px solid transparent; font-size:.9rem; font-weight:500;
+      transition: border-color .15s, background .15s;
+      user-select:none;
+    }
+    .stratum-selector input[type="radio"] { display:none; }
+    .stratum-selector label.s-native { background:var(--tp-stratum-native-bg); color:var(--tp-stratum-native-fg); }
+    .stratum-selector label.s-sino   { background:var(--tp-stratum-sino-bg);   color:var(--tp-stratum-sino-fg); }
+    .stratum-selector input[type="radio"]:checked + span { font-weight:700; }
+    .stratum-selector label:has(input:checked) { border-color: currentColor; box-shadow: 0 0 0 1px currentColor; }
+
+    details.reference-section {
+      border:1px solid var(--tp-card-border); border-radius:8px;
+      padding:.75rem 1rem; margin-top:1.5rem; background:var(--tp-ref-bg);
+      max-width:960px; margin-left:auto; margin-right:auto;
+    }
+    details.reference-section summary { cursor:pointer; font-weight:600; color:var(--tp-text); }
+    .ref-table-wrap { overflow-x:auto; margin-top:1rem; }
+    table.ref-table { font-size:.88rem; }
+    table.ref-table td, table.ref-table th { vertical-align:middle; color:var(--tp-text); }
+    table.ref-table .char-cell { font-size:1.3rem; }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero is-medium is-warning hero-lodge">
+    <div class="hero-body has-text-centered">
+      <p class="title">
+        Lodge &amp; Inn Name Generator
+        <span class="subtitle-ja">旅館・宿泊施設名生成 ઠેઃધ્</span>
+      </p>
+      <p class="subtitle">
+        Generate Izaki names for high-end lodgings, thermal inns, mountain retreats and lakeside villas
+        <span class="subtitle-ja">旅館・山荘・温泉宿・湖畔邸ઠ 名称ઠ 生成ઠૅડૅદ.</span>
+      </p>
+    </div>
+    <span class="map-credit">Photo: Shirakawa-gō gassho-zukuri farmhouses — Wikimedia Commons (public domain)</span>
+  </section>
+
+  <section class="section">
+
+    <div class="controls-box">
+      <div class="columns is-multiline">
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">
+              Venue type 施設種類
+              <span style="font-weight:400;color:var(--tp-text-sec)"> — drives suffix selection</span>
+            </label>
+            <div class="control"><div class="select is-fullwidth">
+              <select id="venueType">
+                <option value="any">Any (random) 何でも</option>
+                <option value="onsen">Onsen · thermal inn 温泉宿 — 館 宿 庵</option>
+                <option value="mountain">Mountain lodge 山荘 — 荘 庵 軒</option>
+                <option value="lake">Lakeside villa 湖畔邸 — 亭 邸 庵</option>
+                <option value="luxury">Luxury resort 高級邸 — 邸 閣 楼</option>
+                <option value="court">Court / hanok-style 院式 — 庭 軒 閣 庵</option>
+                <option value="gourmet">Gourmet retreat 美食宿 — 館 亭 楼</option>
+              </select>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Body morpheme theme 本体主題</label>
+            <div class="control"><div class="select is-fullwidth">
+              <select id="bodyTheme">
+                <option value="any">Any mix 任意</option>
+                <option value="onsen">Water &amp; onsen 水・湯</option>
+                <option value="landscape">Mountain &amp; forest 山・森</option>
+                <option value="sky">Sky, moon &amp; stars 天・月・星</option>
+                <option value="atmosphere">Mood &amp; elegance 情緒・雅</option>
+                <option value="prestige">Prestige &amp; feast 格・宴</option>
+              </select>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Body morphemes 本体字数
+              <span style="font-weight:400;color:var(--tp-text-sec)">(suffix not counted)</span>
+            </label>
+            <div class="control"><div class="select is-fullwidth">
+              <select id="morphCount">
+                <option value="1">1 byakuzhi 1字</option>
+                <option value="2" selected>2 byakuzhi 2字</option>
+                <option value="3">3 byakuzhi 3字</option>
+                <option value="random">Random (1–3)</option>
+              </select>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">How many results 結果件数</label>
+            <div class="control"><div class="select is-fullwidth">
+              <select id="resultCount">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="column is-full">
+          <div class="field">
+            <label class="label">
+              Lexical stratum 語層
+              <span style="font-weight:400;color:var(--tp-text-sec)"> — which reading pool to draw from</span>
+            </label>
+            <div class="stratum-selector">
+              <label class="s-native">
+                <input type="radio" name="stratum" value="native" checked>
+                <span>🏔️ Native Izaki 固有語</span>
+              </label>
+              <label class="s-sino">
+                <input type="radio" name="stratum" value="sino">
+                <span>🏯 Sino-Izaki 漢語系</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-full">
+          <div class="field">
+            <label class="label">Seed <span style="font-weight:400;color:var(--tp-text-sec)">(leave blank for random; paste to reproduce)</span></label>
+            <div class="control">
+              <input class="input" type="text" id="seedInput" placeholder="e.g. 48291">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:0.5rem">
+        <div class="control">
+          <button class="button is-warning is-medium" id="generateBtn">Generate names 宿名生成</button>
+        </div>
+      </div>
+      <p class="seed-display" id="seedDisplay"></p>
+    </div>
+
+    <div class="results-box" id="resultsBox"></div>
+
+    <details class="reference-section">
+      <summary>Byakuzhi reference table / 百字參考表</summary>
+      <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
+        All byakuzhi in the lodge database, grouped by semantic category.
+      </p>
+      <div style="margin-bottom:.75rem" id="catFilterButtons"></div>
+      <div class="ref-table-wrap">
+        <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
+          <thead>
+            <tr><th>Char</th><th>Meaning</th><th>Native readings</th><th>Sino readings</th><th>Category</th><th>Role</th></tr>
+          </thead>
+          <tbody id="refTableBody"></tbody>
+        </table>
+      </div>
+    </details>
+
+  </section>
+
+  <script src="/izaki-dictionary/scripts/script.js"></script>
+
+  <script>
+  (function () {
+
+    const LANDSCAPE = [
+      {char:"湯",meaning:"hot spring, thermal water",readings_native:["yu"],readings_sino:["yo"],cat:"onsen"},
+      {char:"泉",meaning:"spring, source",readings_native:["izumi"],readings_sino:["sen"],cat:"onsen"},
+      {char:"湧",meaning:"to well up, gush",readings_native:["waki"],readings_sino:["yuu"],cat:"onsen"},
+      {char:"渓",meaning:"mountain stream, gorge",readings_native:["tani","kei"],readings_sino:["kei"],cat:"water"},
+      {char:"潭",meaning:"deep pool, dark lake",readings_native:["fuchi"],readings_sino:["tan"],cat:"water"},
+      {char:"汀",meaning:"water's edge, shore",readings_native:["nagisa"],readings_sino:["tei"],cat:"water"},
+      {char:"浜",meaning:"beach, gentle shore",readings_native:["hama"],readings_sino:["hin"],cat:"water"},
+      {char:"湖",meaning:"lake",readings_native:["mizu"],readings_sino:["ko"],cat:"water"},
+      {char:"川",meaning:"river",readings_native:["kawa"],readings_sino:["sen"],cat:"water"},
+      {char:"霧",meaning:"mist, fog",readings_native:["kiri"],readings_sino:["mu"],cat:"weather"},
+      {char:"露",meaning:"dew",readings_native:["tsuyu"],readings_sino:["ro"],cat:"weather"},
+      {char:"雫",meaning:"droplet",readings_native:["shizu"],readings_sino:["teki"],cat:"weather"},
+      {char:"雪",meaning:"snow",readings_native:["yuki"],readings_sino:["setsu"],cat:"season"},
+      {char:"氷",meaning:"ice",readings_native:["koori"],readings_sino:["hyoo"],cat:"season"},
+      {char:"月",meaning:"moon",readings_native:["tsuki"],readings_sino:["getsu"],cat:"cosmic"},
+      {char:"星",meaning:"star",readings_native:["hoshi"],readings_sino:["sei"],cat:"cosmic"},
+      {char:"霞",meaning:"luminous haze",readings_native:["kasumi"],readings_sino:["ka"],cat:"weather"},
+      {char:"森",meaning:"forest",readings_native:["mori"],readings_sino:["shin"],cat:"vegetation"},
+      {char:"林",meaning:"grove, woodland",readings_native:["hayashi"],readings_sino:["rin"],cat:"vegetation"},
+      {char:"松",meaning:"pine tree",readings_native:["matsu"],readings_sino:["shoo"],cat:"vegetation"},
+      {char:"杉",meaning:"cedar",readings_native:["sugi"],readings_sino:["san"],cat:"vegetation"},
+      {char:"柏",meaning:"cypress, noble oak",readings_native:["kashiwa"],readings_sino:["haku"],cat:"vegetation"},
+      {char:"翠",meaning:"deep green, jade-green",readings_native:["midori"],readings_sino:["sui"],cat:"color"},
+      {char:"蒼",meaning:"blue-green, cold hue",readings_native:["ao"],readings_sino:["soo"],cat:"color"},
+      {char:"峰",meaning:"mountain peak",readings_native:["mine"],readings_sino:["hoo"],cat:"relief"},
+      {char:"岳",meaning:"tall mountain",readings_native:["take"],readings_sino:["gaku"],cat:"relief"},
+      {char:"谷",meaning:"valley",readings_native:["tani"],readings_sino:["koku"],cat:"relief"},
+      {char:"岩",meaning:"rock",readings_native:["iwa"],readings_sino:["gan"],cat:"relief"},
+      {char:"原",meaning:"plain, highland meadow",readings_native:["hara"],readings_sino:["gen"],cat:"relief"},
+      {char:"朝",meaning:"morning",readings_native:["asa"],readings_sino:["choo"],cat:"season"},
+      {char:"夕",meaning:"evening",readings_native:["yuu"],readings_sino:["seki"],cat:"season"},
+      {char:"暁",meaning:"dawn",readings_native:["akatsuki"],readings_sino:["gyoo"],cat:"season"},
+      {char:"宵",meaning:"early night, dusk",readings_native:["yoi"],readings_sino:["shoo"],cat:"season"},
+      {char:"光",meaning:"light, radiance",readings_native:["hikari"],readings_sino:["koo"],cat:"cosmic"},
+      {char:"陽",meaning:"sun, solar warmth",readings_native:["hi"],readings_sino:["yoo"],cat:"cosmic"},
+    ];
+
+    const ATMOSPHERE = [
+      {char:"悠",meaning:"serene, unhurried, vast",readings_native:["haru"],readings_sino:["yuu"],cat:"virtue"},
+      {char:"静",meaning:"silence, stillness",readings_native:["shizu"],readings_sino:["sei"],cat:"virtue"},
+      {char:"寧",meaning:"peace, orderly calm",readings_native:["yasu"],readings_sino:["nei"],cat:"virtue"},
+      {char:"幽",meaning:"secluded, shadowy, mysterious",readings_native:["kage"],readings_sino:["yuu"],cat:"virtue"},
+      {char:"澄",meaning:"limpid, crystal clear",readings_native:["sumi"],readings_sino:["choo"],cat:"virtue"},
+      {char:"清",meaning:"pure, fresh",readings_native:["kiyo"],readings_sino:["sei"],cat:"virtue"},
+      {char:"玄",meaning:"deep, austere, refined",readings_native:["kuro"],readings_sino:["gen"],cat:"virtue"},
+      {char:"雅",meaning:"elegant, cultivated",readings_native:["miyabi"],readings_sino:["ga"],cat:"virtue"},
+      {char:"麗",meaning:"beautiful, splendid",readings_native:["urawa"],readings_sino:["rei"],cat:"virtue"},
+      {char:"優",meaning:"gentle, noble, graceful",readings_native:["yasa"],readings_sino:["yuu"],cat:"virtue"},
+      {char:"和",meaning:"harmony, gentleness",readings_native:["yawa"],readings_sino:["wa"],cat:"virtue"},
+      {char:"凛",meaning:"crisp cold dignity",readings_native:["kiyo"],readings_sino:["rin"],cat:"virtue"},
+      {char:"遥",meaning:"distant, far-off",readings_native:["haruka"],readings_sino:["yoo"],cat:"virtue"},
+      {char:"祥",meaning:"auspicious omen",readings_native:["sachi"],readings_sino:["shoo"],cat:"virtue"},
+      {char:"瑞",meaning:"propitious, precious",readings_native:["mizu"],readings_sino:["zui"],cat:"virtue"},
+    ];
+
+    const PRESTIGE = [
+      {char:"旅",meaning:"journey, travel",readings_native:["tabi"],readings_sino:["ryo"],cat:"symbolic"},
+      {char:"宴",meaning:"banquet, feast",readings_native:["utage"],readings_sino:["en"],cat:"symbolic"},
+      {char:"饗",meaning:"to offer a feast",readings_native:["omo"],readings_sino:["kyoo"],cat:"symbolic"},
+      {char:"膳",meaning:"tray, fine cuisine",readings_native:["kashi"],readings_sino:["zen"],cat:"symbolic"},
+      {char:"匠",meaning:"artisan mastery",readings_native:["takumi"],readings_sino:["shoo"],cat:"symbolic"},
+      {char:"香",meaning:"fragrance, incense",readings_native:["ka"],readings_sino:["koo"],cat:"symbolic"},
+      {char:"華",meaning:"splendour, luxury",readings_native:["hana"],readings_sino:["ka"],cat:"symbolic"},
+      {char:"珍",meaning:"rare, precious",readings_native:["tama"],readings_sino:["chin"],cat:"symbolic"},
+      {char:"錦",meaning:"brocade, luxury fabric",readings_native:["nishiki"],readings_sino:["kin"],cat:"symbolic"},
+      {char:"玉",meaning:"jade, gem",readings_native:["tama"],readings_sino:["gyoku"],cat:"symbolic"},
+      {char:"嘉",meaning:"excellence, praise",readings_native:["yoshi"],readings_sino:["ka"],cat:"symbolic"},
+      {char:"真",meaning:"authenticity, truth",readings_native:["ma"],readings_sino:["shin"],cat:"symbolic"},
+      {char:"福",meaning:"fortune, prosperity",readings_native:["sachi"],readings_sino:["fuku"],cat:"symbolic"},
+    ];
+
+    const SUFFIXES = {
+      "館":{char:"館",meaning:"grand hall, inn",readings_native:["yaka"],readings_sino:["kan"],cat:"suffix",role:"suffix"},
+      "宿":{char:"宿",meaning:"lodging, inn",readings_native:["yado"],readings_sino:["shuku"],cat:"suffix",role:"suffix"},
+      "亭":{char:"亭",meaning:"elegant pavilion",readings_native:["chaya"],readings_sino:["tei"],cat:"suffix",role:"suffix"},
+      "庵":{char:"庵",meaning:"hermitage, retreat",readings_native:["iori"],readings_sino:["an"],cat:"suffix",role:"suffix"},
+      "楼":{char:"楼",meaning:"tower pavilion",readings_native:["takadono"],readings_sino:["roo"],cat:"suffix",role:"suffix"},
+      "邸":{char:"邸",meaning:"noble residence",readings_native:["yashiki"],readings_sino:["tei"],cat:"suffix",role:"suffix"},
+      "荘":{char:"荘",meaning:"villa, rural estate",readings_native:["mura"],readings_sino:["soo"],cat:"suffix",role:"suffix"},
+      "閣":{char:"閣",meaning:"stately pavilion",readings_native:["taka"],readings_sino:["kaku"],cat:"suffix",role:"suffix"},
+      "庭":{char:"庭",meaning:"courtyard, garden",readings_native:["niwa"],readings_sino:["tei"],cat:"suffix",role:"suffix"},
+      "軒":{char:"軒",meaning:"eaves, traditional roof",readings_native:["noki"],readings_sino:["ken"],cat:"suffix",role:"suffix"},
+    };
+
+    const VENUE_SUFFIXES = {
+      onsen:    ["館","宿","庵"],
+      mountain: ["荘","庵","軒"],
+      lake:     ["亭","邸","庵"],
+      luxury:   ["邸","閣","楼"],
+      court:    ["庭","軒","閣","庵"],
+      gourmet:  ["館","亭","楼"],
+      any:      Object.keys(SUFFIXES),
+    };
+
+    const THEME_POOL = {
+      onsen:      LANDSCAPE.filter(b => ["onsen","water","weather"].includes(b.cat)),
+      landscape:  LANDSCAPE.filter(b => ["relief","vegetation","season"].includes(b.cat)),
+      sky:        LANDSCAPE.filter(b => ["cosmic","weather","season"].includes(b.cat)),
+      atmosphere: ATMOSPHERE,
+      prestige:   PRESTIGE,
+      any:        [...LANDSCAPE, ...ATMOSPHERE],
+    };
+
+    const ALL_BYAKUZHI = [...LANDSCAPE, ...ATMOSPHERE, ...PRESTIGE, ...Object.values(SUFFIXES)];
+
+    function mulberry32(seed) {
+      return function () {
+        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+        var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+    function hashSeed(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) h = Math.imul(31, h) + str.charCodeAt(i) | 0;
+      return Math.abs(h);
+    }
+    function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+    function getPool(morpheme, stratum) {
+      const nat  = (morpheme.readings_native || []).filter(r => r.length > 0);
+      const sino = (morpheme.readings_sino   || []).filter(r => r.length > 0);
+      if (stratum === 'sino') return { pool: sino.length ? sino : nat, stratum: 'sino' };
+      return { pool: nat.length ? nat : sino, stratum: 'native' };
+    }
+
+    function joinReadings(parts) {
+      if (!parts.length) return '';
+      return cap(parts.map(p => p.read).join(''));
+    }
+
+    function buildName(bodyPool, suffixChars, nBody, stratum, rand) {
+      if (!bodyPool.length || !suffixChars.length) return null;
+      const available = [...bodyPool];
+      const picked = [];
+      for (let i = 0; i < nBody && available.length; i++) {
+        const idx = Math.floor(rand() * available.length);
+        picked.push(available.splice(idx, 1)[0]);
+      }
+      const sufChar = suffixChars[Math.floor(rand() * suffixChars.length)];
+      const suffix  = SUFFIXES[sufChar];
+      const allMorphemes = [...picked, suffix];
+      const parts = allMorphemes.map(m => {
+        const { pool, stratum: st } = getPool(m, stratum);
+        const read = pool.length ? pool[Math.floor(rand() * pool.length)] : m.char;
+        return { char: m.char, read, meaning: m.meaning, cat: m.cat, stratum: st };
+      });
+      const latin = joinReadings(parts);
+      const chars = parts.map(p => p.char).join('');
+      const gloss = parts.map(p => p.meaning).join(' · ');
+      return { latin, chars, parts, gloss };
+    }
+
+    function generate() {
+      const venueType  = document.getElementById('venueType').value;
+      const bodyTheme  = document.getElementById('bodyTheme').value;
+      const morphRaw   = document.getElementById('morphCount').value;
+      const count      = parseInt(document.getElementById('resultCount').value);
+      const stratum    = document.querySelector('input[name="stratum"]:checked').value;
+      const seedRaw    = document.getElementById('seedInput').value.trim();
+      const seed = seedRaw ? hashSeed(seedRaw) : Math.floor(Math.random() * 1e9);
+      document.getElementById('seedDisplay').textContent = 'Seed: ' + seed;
+      const rand = mulberry32(seed);
+      const suffixChars = VENUE_SUFFIXES[venueType] || VENUE_SUFFIXES.any;
+      const bodyPool    = THEME_POOL[bodyTheme] || THEME_POOL.any;
+      const results = [];
+      let attempts = 0;
+      while (results.length < count && attempts < count * 20) {
+        attempts++;
+        let nBody;
+        if (morphRaw === 'random') nBody = 1 + Math.floor(rand() * 3);
+        else nBody = parseInt(morphRaw);
+        const name = buildName(bodyPool, suffixChars, nBody, stratum, rand);
+        if (!name) continue;
+        if (results.some(r => r.latin === name.latin)) continue;
+        results.push(name);
+      }
+      renderResults(results, 'resultsBox', venueType);
+    }
+
+    const VENUE_LABELS = {
+      onsen:'Onsen 温泉宿', mountain:'Mountain lodge 山荘', lake:'Lakeside villa 湖畔邸',
+      luxury:'Luxury resort 高級邸', court:'Court-style 院式', gourmet:'Gourmet retreat 美食宿', any:'',
+    };
+
+    function renderResults(results, boxId, venueType) {
+      const box = document.getElementById(boxId);
+      if (!results.length) {
+        box.innerHTML = '<p class="notification is-warning">No results generated. Try different settings.</p>';
+        return;
+      }
+      const typeLabel = VENUE_LABELS[venueType] || '';
+      box.innerHTML = results.map(r => `
+        <div class="result-card">
+          <button class="copy-btn" data-copy="${r.latin}" title="Copy">📋 Copy</button>
+          ${typeLabel ? `<div class="toponym-type-badge">${typeLabel}</div>` : ''}
+          <div class="toponym-latin">${r.latin}</div>
+          <div class="toponym-scripts">
+            <span class="toponym-char">${r.chars}</span>
+          </div>
+          <div class="morpheme-breakdown" style="margin-top:.3rem;flex-wrap:wrap;display:flex;gap:.1rem">
+            ${r.parts.map(p => `
+              <span class="morpheme-pill">
+                <span class="pill-char">${p.char}</span>
+                <span class="pill-read">${p.read}</span>
+                <span class="pill-meaning">${p.meaning}</span>
+                <span class="tag-cat cat-${p.cat}">${p.cat}</span>
+                <span class="pill-stratum s-${p.stratum}">${p.stratum === 'native' ? '固' : '漢'}</span>
+              </span>`).join('')}
+          </div>
+          <div class="toponym-gloss">${r.gloss}</div>
+        </div>
+      `).join('');
+      box.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+            const orig = btn.textContent;
+            btn.textContent = '✅ Copied!';
+            setTimeout(() => { btn.textContent = orig; }, 1800);
+          });
+        });
+      });
+    }
+
+    function buildRefTable() {
+      const tbody   = document.getElementById('refTableBody');
+      const btnWrap = document.getElementById('catFilterButtons');
+      const cats    = [...new Set(ALL_BYAKUZHI.map(b => b.cat))].sort();
+      btnWrap.innerHTML =
+        '<button class="button is-small is-light" data-cat="all" style="margin:.2rem">All</button>' +
+        cats.map(c =>
+          `<button class="button is-small" data-cat="${c}" style="margin:.2rem;background:none;border:none;padding:.1rem">
+             <span class="tag-cat cat-${c}">${c}</span>
+           </button>`
+        ).join('');
+      function render(filter) {
+        const rows = filter === 'all' ? ALL_BYAKUZHI : ALL_BYAKUZHI.filter(b => b.cat === filter);
+        tbody.innerHTML = rows.map(b => {
+          const nat  = (b.readings_native || []).join(' · ') || '<span style="opacity:.4">—</span>';
+          const sino = (b.readings_sino   || []).join(' · ') || '<span style="opacity:.4">—</span>';
+          const role = b.role ? `<span class="tag is-small is-warning is-light">${b.role}</span>` : '';
+          return `<tr>
+            <td class="char-cell">${b.char}</td>
+            <td>${b.meaning}</td>
+            <td>${nat}</td>
+            <td>${sino}</td>
+            <td><span class="tag-cat cat-${b.cat}">${b.cat}</span></td>
+            <td>${role}</td>
+          </tr>`;
+        }).join('');
+      }
+      btnWrap.querySelectorAll('[data-cat]').forEach(btn =>
+        btn.addEventListener('click', () => render(btn.dataset.cat))
+      );
+      render('all');
+    }
+
+    document.getElementById('generateBtn').addEventListener('click', generate);
+    buildRefTable();
+    generate();
+
+  })();
+  </script>
+</body>
+</html>
