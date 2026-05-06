@@ -55,6 +55,9 @@ document.getElementById("navbar").innerHTML = `
         <a class="navbar-item" href="/izaki-dictionary/pages/tools/toponym-generator.html">
           Toponym Generator 地名生成ઠેઃધ્
         </a>
+        <a class="navbar-item" href="/izaki-dictionary/pages/tools/lodge-generator.html">
+          Lodge &amp; Inn Generator 旅館名生成ઠેઃધ્
+        </a>
       </div>
     </div>
 
