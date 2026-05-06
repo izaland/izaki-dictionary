@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lodge & Inn Name Generator - Izaki Dictionary</title>
+  <title>Lodge &amp; Inn Name Generator - Izaki Dictionary</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="/izaki-dictionary/styles/main.css">
@@ -23,8 +23,6 @@
       --tp-copy-color:     #555;
       --tp-copy-hover:     #e8e8e8;
       --tp-seed-color:     #888;
-      --tp-highlight:      #fff176;
-      --tp-highlight-fg:   #333;
       --tp-stratum-native-bg:  #e8f4fd;
       --tp-stratum-native-fg:  #1a5276;
       --tp-stratum-sino-bg:    #fde8f4;
@@ -55,8 +53,6 @@
       --tp-copy-color:     #bbb;
       --tp-copy-hover:     #3a3a48;
       --tp-seed-color:     #9ca3af;
-      --tp-highlight:      #5c4d00;
-      --tp-highlight-fg:   #ffe57a;
       --tp-stratum-native-bg:  #0f2a40;
       --tp-stratum-native-fg:  #7ec8f5;
       --tp-stratum-sino-bg:    #2e0f2a;
@@ -189,6 +185,13 @@
     table.ref-table { font-size:.88rem; }
     table.ref-table td, table.ref-table th { vertical-align:middle; color:var(--tp-text); }
     table.ref-table .char-cell { font-size:1.3rem; }
+
+    #loadingBanner {
+      max-width:760px; margin:0 auto 1rem;
+      padding:.6rem 1rem; border-radius:8px;
+      background:var(--tp-stratum-sino-bg); color:var(--tp-stratum-sino-fg);
+      font-size:.9rem; display:none;
+    }
   </style>
 </head>
 
@@ -210,6 +213,8 @@
   </section>
 
   <section class="section">
+
+    <div id="loadingBanner">⏳ Loading Sino-Izaki readings from byakuzhi.json…</div>
 
     <div class="controls-box">
       <div class="columns is-multiline">
@@ -293,7 +298,7 @@
               </label>
               <label class="s-sino">
                 <input type="radio" name="stratum" value="sino">
-                <span>🏯 Sino-Izaki 漢語系</span>
+                <span>🏯 Sino-Izaki 漢語系 (onnufu)</span>
               </label>
             </div>
           </div>
@@ -322,13 +327,13 @@
     <details class="reference-section">
       <summary>Byakuzhi reference table / 百字參考表</summary>
       <p style="margin-top:.75rem;font-size:.9rem;color:var(--tp-text-sec)">
-        All byakuzhi in the lodge database, grouped by semantic category.
+        All byakuzhi in the lodge database. Sino-Izaki readings (onnufu) loaded from byakuzhi.json.
       </p>
       <div style="margin-bottom:.75rem" id="catFilterButtons"></div>
       <div class="ref-table-wrap">
         <table class="table is-bordered is-striped is-narrow is-hoverable ref-table">
           <thead>
-            <tr><th>Char</th><th>Meaning</th><th>Native readings</th><th>Sino readings</th><th>Category</th><th>Role</th></tr>
+            <tr><th>Char</th><th>Meaning</th><th>Native readings</th><th>Sino-Izaki (onnufu)</th><th>Category</th><th>Role</th></tr>
           </thead>
           <tbody id="refTableBody"></tbody>
         </table>
@@ -342,91 +347,137 @@
   <script>
   (function () {
 
+    // ── raw byakuzhi data (native readings only; sino filled from JSON) ──────
     const LANDSCAPE = [
-      {char:"湯",meaning:"hot spring, thermal water",readings_native:["yu"],readings_sino:["yo"],cat:"onsen"},
-      {char:"泉",meaning:"spring, source",readings_native:["izumi"],readings_sino:["sen"],cat:"onsen"},
-      {char:"湧",meaning:"to well up, gush",readings_native:["waki"],readings_sino:["yuu"],cat:"onsen"},
-      {char:"渓",meaning:"mountain stream, gorge",readings_native:["tani","kei"],readings_sino:["kei"],cat:"water"},
-      {char:"潭",meaning:"deep pool, dark lake",readings_native:["fuchi"],readings_sino:["tan"],cat:"water"},
-      {char:"汀",meaning:"water's edge, shore",readings_native:["nagisa"],readings_sino:["tei"],cat:"water"},
-      {char:"浜",meaning:"beach, gentle shore",readings_native:["hama"],readings_sino:["hin"],cat:"water"},
-      {char:"湖",meaning:"lake",readings_native:["mizu"],readings_sino:["ko"],cat:"water"},
-      {char:"川",meaning:"river",readings_native:["kawa"],readings_sino:["sen"],cat:"water"},
-      {char:"霧",meaning:"mist, fog",readings_native:["kiri"],readings_sino:["mu"],cat:"weather"},
-      {char:"露",meaning:"dew",readings_native:["tsuyu"],readings_sino:["ro"],cat:"weather"},
-      {char:"雫",meaning:"droplet",readings_native:["shizu"],readings_sino:["teki"],cat:"weather"},
-      {char:"雪",meaning:"snow",readings_native:["yuki"],readings_sino:["setsu"],cat:"season"},
-      {char:"氷",meaning:"ice",readings_native:["koori"],readings_sino:["hyoo"],cat:"season"},
-      {char:"月",meaning:"moon",readings_native:["tsuki"],readings_sino:["getsu"],cat:"cosmic"},
-      {char:"星",meaning:"star",readings_native:["hoshi"],readings_sino:["sei"],cat:"cosmic"},
-      {char:"霞",meaning:"luminous haze",readings_native:["kasumi"],readings_sino:["ka"],cat:"weather"},
-      {char:"森",meaning:"forest",readings_native:["mori"],readings_sino:["shin"],cat:"vegetation"},
-      {char:"林",meaning:"grove, woodland",readings_native:["hayashi"],readings_sino:["rin"],cat:"vegetation"},
-      {char:"松",meaning:"pine tree",readings_native:["matsu"],readings_sino:["shoo"],cat:"vegetation"},
-      {char:"杉",meaning:"cedar",readings_native:["sugi"],readings_sino:["san"],cat:"vegetation"},
-      {char:"柏",meaning:"cypress, noble oak",readings_native:["kashiwa"],readings_sino:["haku"],cat:"vegetation"},
-      {char:"翠",meaning:"deep green, jade-green",readings_native:["midori"],readings_sino:["sui"],cat:"color"},
-      {char:"蒼",meaning:"blue-green, cold hue",readings_native:["ao"],readings_sino:["soo"],cat:"color"},
-      {char:"峰",meaning:"mountain peak",readings_native:["mine"],readings_sino:["hoo"],cat:"relief"},
-      {char:"岳",meaning:"tall mountain",readings_native:["take"],readings_sino:["gaku"],cat:"relief"},
-      {char:"谷",meaning:"valley",readings_native:["tani"],readings_sino:["koku"],cat:"relief"},
-      {char:"岩",meaning:"rock",readings_native:["iwa"],readings_sino:["gan"],cat:"relief"},
-      {char:"原",meaning:"plain, highland meadow",readings_native:["hara"],readings_sino:["gen"],cat:"relief"},
-      {char:"朝",meaning:"morning",readings_native:["asa"],readings_sino:["choo"],cat:"season"},
-      {char:"夕",meaning:"evening",readings_native:["yuu"],readings_sino:["seki"],cat:"season"},
-      {char:"暁",meaning:"dawn",readings_native:["akatsuki"],readings_sino:["gyoo"],cat:"season"},
-      {char:"宵",meaning:"early night, dusk",readings_native:["yoi"],readings_sino:["shoo"],cat:"season"},
-      {char:"光",meaning:"light, radiance",readings_native:["hikari"],readings_sino:["koo"],cat:"cosmic"},
-      {char:"陽",meaning:"sun, solar warmth",readings_native:["hi"],readings_sino:["yoo"],cat:"cosmic"},
+      {char:"湯",meaning:"hot spring, thermal water",readings_native:["yu"],cat:"onsen"},
+      {char:"泉",meaning:"spring, source",readings_native:["izumi"],cat:"onsen"},
+      {char:"湧",meaning:"to well up, gush",readings_native:["waki"],cat:"onsen"},
+      {char:"渓",meaning:"mountain stream, gorge",readings_native:["tani","kei"],cat:"water"},
+      {char:"潭",meaning:"deep pool, dark lake",readings_native:["fuchi"],cat:"water"},
+      {char:"汀",meaning:"water's edge, shore",readings_native:["nagisa"],cat:"water"},
+      {char:"浜",meaning:"beach, gentle shore",readings_native:["hama"],cat:"water"},
+      {char:"湖",meaning:"lake",readings_native:["mizu"],cat:"water"},
+      {char:"川",meaning:"river",readings_native:["kawa"],cat:"water"},
+      {char:"霧",meaning:"mist, fog",readings_native:["kiri"],cat:"weather"},
+      {char:"露",meaning:"dew",readings_native:["tsuyu"],cat:"weather"},
+      {char:"雫",meaning:"droplet",readings_native:["shizu"],cat:"weather"},
+      {char:"雪",meaning:"snow",readings_native:["yuki"],cat:"season"},
+      {char:"氷",meaning:"ice",readings_native:["koori"],cat:"season"},
+      {char:"月",meaning:"moon",readings_native:["tsuki"],cat:"cosmic"},
+      {char:"星",meaning:"star",readings_native:["hoshi"],cat:"cosmic"},
+      {char:"霞",meaning:"luminous haze",readings_native:["kasumi"],cat:"weather"},
+      {char:"森",meaning:"forest",readings_native:["mori"],cat:"vegetation"},
+      {char:"林",meaning:"grove, woodland",readings_native:["hayashi"],cat:"vegetation"},
+      {char:"松",meaning:"pine tree",readings_native:["matsu"],cat:"vegetation"},
+      {char:"杉",meaning:"cedar",readings_native:["sugi"],cat:"vegetation"},
+      {char:"柏",meaning:"cypress, noble oak",readings_native:["kashiwa"],cat:"vegetation"},
+      {char:"翠",meaning:"deep green, jade-green",readings_native:["midori"],cat:"color"},
+      {char:"蒼",meaning:"blue-green, cold hue",readings_native:["ao"],cat:"color"},
+      {char:"峰",meaning:"mountain peak",readings_native:["mine"],cat:"relief"},
+      {char:"岳",meaning:"tall mountain",readings_native:["take"],cat:"relief"},
+      {char:"谷",meaning:"valley",readings_native:["tani"],cat:"relief"},
+      {char:"岩",meaning:"rock",readings_native:["iwa"],cat:"relief"},
+      {char:"原",meaning:"plain, highland meadow",readings_native:["hara"],cat:"relief"},
+      {char:"朝",meaning:"morning",readings_native:["asa"],cat:"season"},
+      {char:"夕",meaning:"evening",readings_native:["yuu"],cat:"season"},
+      {char:"暁",meaning:"dawn",readings_native:["akatsuki"],cat:"season"},
+      {char:"宵",meaning:"early night, dusk",readings_native:["yoi"],cat:"season"},
+      {char:"光",meaning:"light, radiance",readings_native:["hikari"],cat:"cosmic"},
+      {char:"陽",meaning:"sun, solar warmth",readings_native:["hi"],cat:"cosmic"},
     ];
 
     const ATMOSPHERE = [
-      {char:"悠",meaning:"serene, unhurried, vast",readings_native:["haru"],readings_sino:["yuu"],cat:"virtue"},
-      {char:"静",meaning:"silence, stillness",readings_native:["shizu"],readings_sino:["sei"],cat:"virtue"},
-      {char:"寧",meaning:"peace, orderly calm",readings_native:["yasu"],readings_sino:["nei"],cat:"virtue"},
-      {char:"幽",meaning:"secluded, shadowy, mysterious",readings_native:["kage"],readings_sino:["yuu"],cat:"virtue"},
-      {char:"澄",meaning:"limpid, crystal clear",readings_native:["sumi"],readings_sino:["choo"],cat:"virtue"},
-      {char:"清",meaning:"pure, fresh",readings_native:["kiyo"],readings_sino:["sei"],cat:"virtue"},
-      {char:"玄",meaning:"deep, austere, refined",readings_native:["kuro"],readings_sino:["gen"],cat:"virtue"},
-      {char:"雅",meaning:"elegant, cultivated",readings_native:["miyabi"],readings_sino:["ga"],cat:"virtue"},
-      {char:"麗",meaning:"beautiful, splendid",readings_native:["urawa"],readings_sino:["rei"],cat:"virtue"},
-      {char:"優",meaning:"gentle, noble, graceful",readings_native:["yasa"],readings_sino:["yuu"],cat:"virtue"},
-      {char:"和",meaning:"harmony, gentleness",readings_native:["yawa"],readings_sino:["wa"],cat:"virtue"},
-      {char:"凛",meaning:"crisp cold dignity",readings_native:["kiyo"],readings_sino:["rin"],cat:"virtue"},
-      {char:"遥",meaning:"distant, far-off",readings_native:["haruka"],readings_sino:["yoo"],cat:"virtue"},
-      {char:"祥",meaning:"auspicious omen",readings_native:["sachi"],readings_sino:["shoo"],cat:"virtue"},
-      {char:"瑞",meaning:"propitious, precious",readings_native:["mizu"],readings_sino:["zui"],cat:"virtue"},
+      {char:"悠",meaning:"serene, unhurried, vast",readings_native:["haru"],cat:"virtue"},
+      {char:"静",meaning:"silence, stillness",readings_native:["shizu"],cat:"virtue"},
+      {char:"寧",meaning:"peace, orderly calm",readings_native:["yasu"],cat:"virtue"},
+      {char:"幽",meaning:"secluded, shadowy, mysterious",readings_native:["kage"],cat:"virtue"},
+      {char:"澄",meaning:"limpid, crystal clear",readings_native:["sumi"],cat:"virtue"},
+      {char:"清",meaning:"pure, fresh",readings_native:["kiyo"],cat:"virtue"},
+      {char:"玄",meaning:"deep, austere, refined",readings_native:["kuro"],cat:"virtue"},
+      {char:"雅",meaning:"elegant, cultivated",readings_native:["miyabi"],cat:"virtue"},
+      {char:"麗",meaning:"beautiful, splendid",readings_native:["urawa"],cat:"virtue"},
+      {char:"優",meaning:"gentle, noble, graceful",readings_native:["yasa"],cat:"virtue"},
+      {char:"和",meaning:"harmony, gentleness",readings_native:["yawa"],cat:"virtue"},
+      {char:"凛",meaning:"crisp cold dignity",readings_native:["kiyo"],cat:"virtue"},
+      {char:"遥",meaning:"distant, far-off",readings_native:["haruka"],cat:"virtue"},
+      {char:"祥",meaning:"auspicious omen",readings_native:["sachi"],cat:"virtue"},
+      {char:"瑞",meaning:"propitious, precious",readings_native:["mizu"],cat:"virtue"},
     ];
 
     const PRESTIGE = [
-      {char:"旅",meaning:"journey, travel",readings_native:["tabi"],readings_sino:["ryo"],cat:"symbolic"},
-      {char:"宴",meaning:"banquet, feast",readings_native:["utage"],readings_sino:["en"],cat:"symbolic"},
-      {char:"饗",meaning:"to offer a feast",readings_native:["omo"],readings_sino:["kyoo"],cat:"symbolic"},
-      {char:"膳",meaning:"tray, fine cuisine",readings_native:["kashi"],readings_sino:["zen"],cat:"symbolic"},
-      {char:"匠",meaning:"artisan mastery",readings_native:["takumi"],readings_sino:["shoo"],cat:"symbolic"},
-      {char:"香",meaning:"fragrance, incense",readings_native:["ka"],readings_sino:["koo"],cat:"symbolic"},
-      {char:"華",meaning:"splendour, luxury",readings_native:["hana"],readings_sino:["ka"],cat:"symbolic"},
-      {char:"珍",meaning:"rare, precious",readings_native:["tama"],readings_sino:["chin"],cat:"symbolic"},
-      {char:"錦",meaning:"brocade, luxury fabric",readings_native:["nishiki"],readings_sino:["kin"],cat:"symbolic"},
-      {char:"玉",meaning:"jade, gem",readings_native:["tama"],readings_sino:["gyoku"],cat:"symbolic"},
-      {char:"嘉",meaning:"excellence, praise",readings_native:["yoshi"],readings_sino:["ka"],cat:"symbolic"},
-      {char:"真",meaning:"authenticity, truth",readings_native:["ma"],readings_sino:["shin"],cat:"symbolic"},
-      {char:"福",meaning:"fortune, prosperity",readings_native:["sachi"],readings_sino:["fuku"],cat:"symbolic"},
+      {char:"旅",meaning:"journey, travel",readings_native:["tabi"],cat:"symbolic"},
+      {char:"宴",meaning:"banquet, feast",readings_native:["utage"],cat:"symbolic"},
+      {char:"饗",meaning:"to offer a feast",readings_native:["omo"],cat:"symbolic"},
+      {char:"膳",meaning:"tray, fine cuisine",readings_native:["kashi"],cat:"symbolic"},
+      {char:"匠",meaning:"artisan mastery",readings_native:["takumi"],cat:"symbolic"},
+      {char:"香",meaning:"fragrance, incense",readings_native:["ka"],cat:"symbolic"},
+      {char:"華",meaning:"splendour, luxury",readings_native:["hana"],cat:"symbolic"},
+      {char:"珍",meaning:"rare, precious",readings_native:["tama"],cat:"symbolic"},
+      {char:"錦",meaning:"brocade, luxury fabric",readings_native:["nishiki"],cat:"symbolic"},
+      {char:"玉",meaning:"jade, gem",readings_native:["tama"],cat:"symbolic"},
+      {char:"嘉",meaning:"excellence, praise",readings_native:["yoshi"],cat:"symbolic"},
+      {char:"真",meaning:"authenticity, truth",readings_native:["ma"],cat:"symbolic"},
+      {char:"福",meaning:"fortune, prosperity",readings_native:["sachi"],cat:"symbolic"},
     ];
 
-    const SUFFIXES = {
-      "館":{char:"館",meaning:"grand hall, inn",readings_native:["yaka"],readings_sino:["kan"],cat:"suffix",role:"suffix"},
-      "宿":{char:"宿",meaning:"lodging, inn",readings_native:["yado"],readings_sino:["shuku"],cat:"suffix",role:"suffix"},
-      "亭":{char:"亭",meaning:"elegant pavilion",readings_native:["chaya"],readings_sino:["tei"],cat:"suffix",role:"suffix"},
-      "庵":{char:"庵",meaning:"hermitage, retreat",readings_native:["iori"],readings_sino:["an"],cat:"suffix",role:"suffix"},
-      "楼":{char:"楼",meaning:"tower pavilion",readings_native:["takadono"],readings_sino:["roo"],cat:"suffix",role:"suffix"},
-      "邸":{char:"邸",meaning:"noble residence",readings_native:["yashiki"],readings_sino:["tei"],cat:"suffix",role:"suffix"},
-      "荘":{char:"荘",meaning:"villa, rural estate",readings_native:["mura"],readings_sino:["soo"],cat:"suffix",role:"suffix"},
-      "閣":{char:"閣",meaning:"stately pavilion",readings_native:["taka"],readings_sino:["kaku"],cat:"suffix",role:"suffix"},
-      "庭":{char:"庭",meaning:"courtyard, garden",readings_native:["niwa"],readings_sino:["tei"],cat:"suffix",role:"suffix"},
-      "軒":{char:"軒",meaning:"eaves, traditional roof",readings_native:["noki"],readings_sino:["ken"],cat:"suffix",role:"suffix"},
-    };
+    const SUFFIXES_RAW = [
+      {char:"館",meaning:"grand hall, inn",readings_native:["yaka"],cat:"suffix",role:"suffix"},
+      {char:"宿",meaning:"lodging, inn",readings_native:["yado"],cat:"suffix",role:"suffix"},
+      {char:"亭",meaning:"elegant pavilion",readings_native:["chaya"],cat:"suffix",role:"suffix"},
+      {char:"庵",meaning:"hermitage, retreat",readings_native:["iori"],cat:"suffix",role:"suffix"},
+      {char:"楼",meaning:"tower pavilion",readings_native:["takadono"],cat:"suffix",role:"suffix"},
+      {char:"邸",meaning:"noble residence",readings_native:["yashiki"],cat:"suffix",role:"suffix"},
+      {char:"荘",meaning:"villa, rural estate",readings_native:["mura"],cat:"suffix",role:"suffix"},
+      {char:"閣",meaning:"stately pavilion",readings_native:["taka"],cat:"suffix",role:"suffix"},
+      {char:"庭",meaning:"courtyard, garden",readings_native:["niwa"],cat:"suffix",role:"suffix"},
+      {char:"軒",meaning:"eaves, traditional roof",readings_native:["noki"],cat:"suffix",role:"suffix"},
+    ];
 
+    // Will be populated after JSON load
+    let SUFFIXES = {};
+    let ALL_BYAKUZHI = [];
+
+    // ── apply onnufu readings from byakuzhi.json ─────────────────────────────
+    function applyOnnufu(db) {
+      const all = [...LANDSCAPE, ...ATMOSPHERE, ...PRESTIGE, ...SUFFIXES_RAW];
+      all.forEach(entry => {
+        const row = db[entry.char];
+        // onnufu may be a string like "kan" or "kan/kin" — take first variant
+        if (row && row.onnufu && row.onnufu.trim()) {
+          const primary = row.onnufu.split('/')[0].trim();
+          entry.readings_sino = primary ? [primary] : [];
+        } else {
+          entry.readings_sino = [];   // not in dict → no sino reading
+        }
+      });
+      // rebuild SUFFIXES map
+      SUFFIXES = {};
+      SUFFIXES_RAW.forEach(s => { SUFFIXES[s.char] = s; });
+      ALL_BYAKUZHI = [...LANDSCAPE, ...ATMOSPHERE, ...PRESTIGE, ...SUFFIXES_RAW];
+    }
+
+    // ── fetch JSON, then boot ─────────────────────────────────────────────────
+    const BYAKUZHI_URL = '/izaki-dictionary/data/byakuzhi.json';
+    const banner = document.getElementById('loadingBanner');
+
+    banner.style.display = 'block';
+    fetch(BYAKUZHI_URL)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(db => {
+        applyOnnufu(db);
+        banner.style.display = 'none';
+        buildRefTable();
+        generate();
+      })
+      .catch(err => {
+        console.warn('byakuzhi.json load failed, using native readings only.', err);
+        applyOnnufu({});   // empty dict → all sino pools will be empty, falls back to native
+        banner.innerHTML = '⚠️ Could not load byakuzhi.json — Sino-Izaki readings unavailable; using native readings.';
+        buildRefTable();
+        generate();
+      });
+
+    // ── venue / theme config ──────────────────────────────────────────────────
     const VENUE_SUFFIXES = {
       onsen:    ["館","宿","庵"],
       mountain: ["荘","庵","軒"],
@@ -434,20 +485,21 @@
       luxury:   ["邸","閣","楼"],
       court:    ["庭","軒","閣","庵"],
       gourmet:  ["館","亭","楼"],
-      any:      Object.keys(SUFFIXES),
+      get any() { return Object.keys(SUFFIXES); },
     };
 
-    const THEME_POOL = {
-      onsen:      LANDSCAPE.filter(b => ["onsen","water","weather"].includes(b.cat)),
-      landscape:  LANDSCAPE.filter(b => ["relief","vegetation","season"].includes(b.cat)),
-      sky:        LANDSCAPE.filter(b => ["cosmic","weather","season"].includes(b.cat)),
-      atmosphere: ATMOSPHERE,
-      prestige:   PRESTIGE,
-      any:        [...LANDSCAPE, ...ATMOSPHERE],
-    };
+    function themePool(key) {
+      switch(key) {
+        case 'onsen':      return LANDSCAPE.filter(b => ["onsen","water","weather"].includes(b.cat));
+        case 'landscape':  return LANDSCAPE.filter(b => ["relief","vegetation","season"].includes(b.cat));
+        case 'sky':        return LANDSCAPE.filter(b => ["cosmic","weather","season"].includes(b.cat));
+        case 'atmosphere': return ATMOSPHERE;
+        case 'prestige':   return PRESTIGE;
+        default:           return [...LANDSCAPE, ...ATMOSPHERE];
+      }
+    }
 
-    const ALL_BYAKUZHI = [...LANDSCAPE, ...ATMOSPHERE, ...PRESTIGE, ...Object.values(SUFFIXES)];
-
+    // ── PRNG ──────────────────────────────────────────────────────────────────
     function mulberry32(seed) {
       return function () {
         seed |= 0; seed = seed + 0x6D2B79F5 | 0;
@@ -463,18 +515,18 @@
     }
     function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
+    // ── reading selection ─────────────────────────────────────────────────────
     function getPool(morpheme, stratum) {
       const nat  = (morpheme.readings_native || []).filter(r => r.length > 0);
       const sino = (morpheme.readings_sino   || []).filter(r => r.length > 0);
-      if (stratum === 'sino') return { pool: sino.length ? sino : nat, stratum: 'sino' };
+      if (stratum === 'sino') {
+        if (sino.length) return { pool: sino, stratum: 'sino' };
+        return { pool: nat, stratum: 'native' };   // graceful fallback
+      }
       return { pool: nat.length ? nat : sino, stratum: 'native' };
     }
 
-    function joinReadings(parts) {
-      if (!parts.length) return '';
-      return cap(parts.map(p => p.read).join(''));
-    }
-
+    // ── name builder ──────────────────────────────────────────────────────────
     function buildName(bodyPool, suffixChars, nBody, stratum, rand) {
       if (!bodyPool.length || !suffixChars.length) return null;
       const available = [...bodyPool];
@@ -485,19 +537,22 @@
       }
       const sufChar = suffixChars[Math.floor(rand() * suffixChars.length)];
       const suffix  = SUFFIXES[sufChar];
+      if (!suffix) return null;
       const allMorphemes = [...picked, suffix];
       const parts = allMorphemes.map(m => {
         const { pool, stratum: st } = getPool(m, stratum);
         const read = pool.length ? pool[Math.floor(rand() * pool.length)] : m.char;
         return { char: m.char, read, meaning: m.meaning, cat: m.cat, stratum: st };
       });
-      const latin = joinReadings(parts);
+      const latin = cap(parts.map(p => p.read).join(''));
       const chars = parts.map(p => p.char).join('');
       const gloss = parts.map(p => p.meaning).join(' · ');
       return { latin, chars, parts, gloss };
     }
 
+    // ── generate ──────────────────────────────────────────────────────────────
     function generate() {
+      if (!Object.keys(SUFFIXES).length) return;  // not ready yet
       const venueType  = document.getElementById('venueType').value;
       const bodyTheme  = document.getElementById('bodyTheme').value;
       const morphRaw   = document.getElementById('morphCount').value;
@@ -508,7 +563,7 @@
       document.getElementById('seedDisplay').textContent = 'Seed: ' + seed;
       const rand = mulberry32(seed);
       const suffixChars = VENUE_SUFFIXES[venueType] || VENUE_SUFFIXES.any;
-      const bodyPool    = THEME_POOL[bodyTheme] || THEME_POOL.any;
+      const bodyPool    = themePool(bodyTheme);
       const results = [];
       let attempts = 0;
       while (results.length < count && attempts < count * 20) {
@@ -524,6 +579,7 @@
       renderResults(results, 'resultsBox', venueType);
     }
 
+    // ── render ────────────────────────────────────────────────────────────────
     const VENUE_LABELS = {
       onsen:'Onsen 温泉宿', mountain:'Mountain lodge 山荘', lake:'Lakeside villa 湖畔邸',
       luxury:'Luxury resort 高級邸', court:'Court-style 院式', gourmet:'Gourmet retreat 美食宿', any:'',
@@ -568,6 +624,7 @@
       });
     }
 
+    // ── reference table ───────────────────────────────────────────────────────
     function buildRefTable() {
       const tbody   = document.getElementById('refTableBody');
       const btnWrap = document.getElementById('catFilterButtons');
@@ -602,8 +659,6 @@
     }
 
     document.getElementById('generateBtn').addEventListener('click', generate);
-    buildRefTable();
-    generate();
 
   })();
   </script>
