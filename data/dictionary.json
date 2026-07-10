@@ -32,6 +32,70 @@
     "example": ""
   },
   {
+    "lemma": "-chira",
+    "ipa": "tɕiɾa",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "fried (suffix)"
+    ],
+    "italian": [
+      "suffisso \"fritto\""
+    ],
+    "byakuzhi": "〜揚દ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-dana",
+    "ipa": "dana",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "simmered (suffix)"
+    ],
+    "italian": [
+      "suffisso \"stufato\""
+    ],
+    "byakuzhi": "〜煮પ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-etu",
+    "ipa": "etu",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "stir-fried (suffix)"
+    ],
+    "italian": [
+      "suffisso \"saltato in padella\""
+    ],
+    "byakuzhi": "〜炒め",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-fuki",
+    "ipa": "fuki",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "dressed (suffix)"
+    ],
+    "italian": [
+      "suffisso \"condito\""
+    ],
+    "byakuzhi": "〜和ડા",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "-gushi",
     "ipa": "-gushi",
     "pos": "conj",
@@ -48,6 +112,22 @@
     "example": ""
   },
   {
+    "lemma": "-jira",
+    "ipa": "dʒiɾa",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "fried (rendaku suffix)"
+    ],
+    "italian": [
+      "suffisso \"fritto\" (rendaku)"
+    ],
+    "byakuzhi": "〜揚દ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "-ka be naka",
     "ipa": "-ka be naka",
     "pos": "adv",
@@ -59,6 +139,150 @@
       "si o no"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-ken",
+    "ipa": "-ken",
+    "pos": "conj",
+    "origin": "native",
+    "english": [
+      "rethorical question particle expressing doubt"
+    ],
+    "italian": [
+      "suffisso per domanda retorica esprimente dubbio"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-nae",
+    "ipa": "-nae",
+    "pos": "conj",
+    "origin": "native",
+    "english": [
+      "suffix to show regret"
+    ],
+    "italian": [
+      "suffisso per indicare rammarico"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-poeke",
+    "ipa": "poeke",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "boiled (suffix)"
+    ],
+    "italian": [
+      "suffisso \"bollito\""
+    ],
+    "byakuzhi": "〜茹ડૅ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-sumi",
+    "ipa": "sumi",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "smoked (suffix)"
+    ],
+    "italian": [
+      "suffisso \"affumicato\""
+    ],
+    "byakuzhi": "〜燻ઇા",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-takani",
+    "ipa": "takani",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "grilled (suffix)"
+    ],
+    "italian": [
+      "suffisso \"alla griglia\""
+    ],
+    "byakuzhi": "〜焼પા",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-uhili",
+    "ipa": "uhili",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "pickled (suffix)"
+    ],
+    "italian": [
+      "suffisso \"in salamoia\""
+    ],
+    "byakuzhi": "〜漬તાધા",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-vuki",
+    "ipa": "vuki",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "dressed (rendaku suffix)"
+    ],
+    "italian": [
+      "suffisso \"condito\" (rendaku)"
+    ],
+    "byakuzhi": "〜和ડા",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-yushi",
+    "ipa": "juʃi",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "steamed (suffix)"
+    ],
+    "italian": [
+      "suffisso \"al vapore\""
+    ],
+    "byakuzhi": "〜蒸યા",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "-zumi",
+    "ipa": "zumi",
+    "pos": "suf",
+    "origin": "native",
+    "english": [
+      "smoked (rendaku suffix)"
+    ],
+    "italian": [
+      "suffisso \"affumicato\" (rendaku)"
+    ],
+    "byakuzhi": "〜燻ઇા",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -224,6 +448,22 @@
     "example": ""
   },
   {
+    "lemma": "ahinku",
+    "ipa": "ahinku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "spinach"
+    ],
+    "italian": [
+      "spinaci"
+    ],
+    "byakuzhi": "ほうれん草",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ahiro",
     "ipa": "ahiro",
     "pos": "n",
@@ -267,6 +507,38 @@
       "delicatamente"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "aigo",
+    "ipa": "aiɡo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mustard"
+    ],
+    "italian": [
+      "senape"
+    ],
+    "byakuzhi": "芥子",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "aigofun",
+    "ipa": "aiɡofun",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mustard powder"
+    ],
+    "italian": [
+      "senape in polvere"
+    ],
+    "byakuzhi": "芥子粉",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -379,6 +651,38 @@
       "a breve"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "akonjo",
+    "ipa": "akondʒo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "banana"
+    ],
+    "italian": [
+      "banana"
+    ],
+    "byakuzhi": "バナナ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "alkakiiga",
+    "ipa": "alkakiːɡa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "paprika"
+    ],
+    "italian": [
+      "paprika"
+    ],
+    "byakuzhi": "パプリカ",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -560,6 +864,22 @@
     "example": ""
   },
   {
+    "lemma": "arye",
+    "ipa": "arje",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "platform"
+    ],
+    "italian": [
+      "marciapiede"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "asahasu",
     "ipa": "asahasu",
     "pos": "v",
@@ -624,6 +944,22 @@
     "example": ""
   },
   {
+    "lemma": "askor",
+    "ipa": "askoɾ",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "rice wine"
+    ],
+    "italian": [
+      "sakè"
+    ],
+    "byakuzhi": "酒",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "asoara",
     "ipa": "asoara",
     "pos": "n",
@@ -651,6 +987,22 @@
       "asparago"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "astaki",
+    "ipa": "astaki",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "soba"
+    ],
+    "italian": [
+      "soba"
+    ],
+    "byakuzhi": "蕎麦",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -697,6 +1049,22 @@
     ],
     "italian": [
       "azzurro"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "atabise",
+    "ipa": "atabise",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bangs"
+    ],
+    "italian": [
+      "frangia (capelli)"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -800,6 +1168,22 @@
     "example": ""
   },
   {
+    "lemma": "augatuhi",
+    "ipa": "auɡatuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "porcini"
+    ],
+    "italian": [
+      "porcino"
+    ],
+    "byakuzhi": "ポルチーニ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "aukasna",
     "ipa": "aukasna",
     "pos": "adj",
@@ -809,6 +1193,22 @@
     ],
     "italian": [
       "intelligente"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "aukastyenhwa",
+    "ipa": "aukastyenhwa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "smartphone"
+    ],
+    "italian": [
+      "smartphone"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -891,6 +1291,22 @@
       "diverso"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "bazhil",
+    "ipa": "baʒil",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "basil"
+    ],
+    "italian": [
+      "basilico"
+    ],
+    "byakuzhi": "羅勒",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -1120,6 +1536,54 @@
     "example": ""
   },
   {
+    "lemma": "charakonu",
+    "ipa": "tɕaɾakonu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "white rice"
+    ],
+    "italian": [
+      "riso bianco"
+    ],
+    "byakuzhi": "白米",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "charaopotuhi",
+    "ipa": "tɕaɾaopotuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "white jelly fungus"
+    ],
+    "italian": [
+      "tremella"
+    ],
+    "byakuzhi": "白木耳",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "charatahhan",
+    "ipa": "tɕaɾatahhan",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "garlic"
+    ],
+    "italian": [
+      "aglio"
+    ],
+    "byakuzhi": "大蒜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "chare",
     "ipa": "ʧare",
     "pos": "conj",
@@ -1145,6 +1609,70 @@
     ],
     "italian": [
       "grattare via"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "chinegya",
+    "ipa": "tɕinegja",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "komatsuna"
+    ],
+    "italian": [
+      "komatsuna"
+    ],
+    "byakuzhi": "小松菜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "chira-su",
+    "ipa": "tɕiɾa su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to deep-fry"
+    ],
+    "italian": [
+      "friggere"
+    ],
+    "byakuzhi": "揚દટે",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "chismitānshintsi",
+    "ipa": "tɕiʃmitaːnʃintsi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "shichimi pepper"
+    ],
+    "italian": [
+      "shichimi tōgarashi"
+    ],
+    "byakuzhi": "七味唐辛子",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "chisuna",
+    "ipa": "chisuna",
+    "pos": "adj",
+    "origin": "native",
+    "english": [
+      "humid"
+    ],
+    "italian": [
+      "umido"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -1296,6 +1824,22 @@
     "example": ""
   },
   {
+    "lemma": "dachi",
+    "ipa": "datɕi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "green shiso"
+    ],
+    "italian": [
+      "shiso verde"
+    ],
+    "byakuzhi": "大葉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "dagasu",
     "ipa": "dagasu",
     "pos": "v",
@@ -1344,6 +1888,22 @@
     "example": ""
   },
   {
+    "lemma": "dana-su",
+    "ipa": "dana su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to simmer"
+    ],
+    "italian": [
+      "sobbollire / stufare"
+    ],
+    "byakuzhi": "煮પટે",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "danshe",
     "ipa": "danʃe",
     "pos": "n",
@@ -1387,6 +1947,22 @@
       "terra"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "dedastuhi",
+    "ipa": "dedastuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "truffle"
+    ],
+    "italian": [
+      "tartufo"
+    ],
+    "byakuzhi": "トリュフ",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -1664,6 +2240,38 @@
     "example": ""
   },
   {
+    "lemma": "echuri",
+    "ipa": "etɕuri",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "hake"
+    ],
+    "italian": [
+      "merluzzo nasello"
+    ],
+    "byakuzhi": "メルルーサ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "edu-su",
+    "ipa": "edu su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to stir-fry"
+    ],
+    "italian": [
+      "saltare in padella"
+    ],
+    "byakuzhi": "炒める",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "egaha",
     "ipa": "egaha",
     "pos": "n",
@@ -1723,6 +2331,22 @@
       "farfalla"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "eironukki",
+    "ipa": "eiɾonukki",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "lobster"
+    ],
+    "italian": [
+      "astice"
+    ],
+    "byakuzhi": "オマール海老",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -1897,6 +2521,22 @@
     ],
     "italian": [
       "non più"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "enjaku",
+    "ipa": "enʤaku",
+    "pos": "adv",
+    "origin": "native",
+    "english": [
+      "at this point"
+    ],
+    "italian": [
+      "ormai"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -2192,6 +2832,22 @@
     "example": ""
   },
   {
+    "lemma": "etsikku",
+    "ipa": "etsikku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "ginger"
+    ],
+    "italian": [
+      "zenzero"
+    ],
+    "byakuzhi": "生姜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ettana",
     "ipa": "ettana",
     "pos": "adj",
@@ -2299,6 +2955,38 @@
       "maiale"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "fuhasteryo",
+    "ipa": "fuhasterjo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "pork"
+    ],
+    "italian": [
+      "maiale (carne)"
+    ],
+    "byakuzhi": "豚",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "fui-su",
+    "ipa": "fui su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to dress / to mix"
+    ],
+    "italian": [
+      "condire / amalgamare"
+    ],
+    "byakuzhi": "和૮ાટે",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -2432,6 +3120,22 @@
     "example": ""
   },
   {
+    "lemma": "fut(ma)+-lkaan",
+    "ipa": "fut(ma)+-lkaan",
+    "pos": "conj",
+    "origin": "native",
+    "english": [
+      "let's"
+    ],
+    "italian": [
+      "forma volitiva di desiderio"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "futaka",
     "ipa": "futaka",
     "pos": "n",
@@ -2475,6 +3179,22 @@
       "uccello"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "fīnel",
+    "ipa": "fiːnel",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fennel"
+    ],
+    "italian": [
+      "finocchietto"
+    ],
+    "byakuzhi": "フェンネル",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -2585,6 +3305,22 @@
     ],
     "italian": [
       "faticoso"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "gehkisu",
+    "ipa": "gehkisu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to digit, enter"
+    ],
+    "italian": [
+      "digitare"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -2736,6 +3472,22 @@
     "example": ""
   },
   {
+    "lemma": "gukya",
+    "ipa": "ɡukja",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "zucchini"
+    ],
+    "italian": [
+      "zucchina"
+    ],
+    "byakuzhi": "ズッキーニ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "gunyun",
     "ipa": "gunjun",
     "pos": "n",
@@ -2747,6 +3499,22 @@
       "latte"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "gunyūn",
+    "ipa": "gunjuːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "milk"
+    ],
+    "italian": [
+      "latte"
+    ],
+    "byakuzhi": "乳",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -2811,6 +3579,22 @@
       "burro"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hadasu",
+    "ipa": "hadasu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "cod"
+    ],
+    "italian": [
+      "merluzzo"
+    ],
+    "byakuzhi": "鱈",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -3120,6 +3904,22 @@
     "example": ""
   },
   {
+    "lemma": "hanbel",
+    "ipa": "hanbel",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "salmon roe"
+    ],
+    "italian": [
+      "ikura"
+    ],
+    "byakuzhi": "イクラ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "hanka",
     "ipa": "hanka",
     "pos": "n",
@@ -3280,6 +4080,22 @@
     "example": ""
   },
   {
+    "lemma": "hapai",
+    "ipa": "hapai",
+    "pos": "adv",
+    "origin": "native",
+    "english": [
+      "perhaps"
+    ],
+    "italian": [
+      "magari"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "hapen",
     "ipa": "hapen",
     "pos": "n",
@@ -3337,6 +4153,22 @@
     ],
     "italian": [
       "canfora"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "haruna",
+    "ipa": "haruna",
+    "pos": "adj",
+    "origin": "native",
+    "english": [
+      "first"
+    ],
+    "italian": [
+      "primo"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -3456,6 +4288,86 @@
     "example": ""
   },
   {
+    "lemma": "hekkuma",
+    "ipa": "hekkuma",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "black sesame"
+    ],
+    "italian": [
+      "sesamo nero"
+    ],
+    "byakuzhi": "黒胡麻",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hekohpu",
+    "ipa": "hekohpu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "scallop"
+    ],
+    "italian": [
+      "capasanta"
+    ],
+    "byakuzhi": "帆立貝",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hekuchin-shān",
+    "ipa": "hekutɕin ʃaːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "gochujang"
+    ],
+    "italian": [
+      "gochujang"
+    ],
+    "byakuzhi": "コチュジャン",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hekuchundzo",
+    "ipa": "hekutɕundzo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "black pepper"
+    ],
+    "italian": [
+      "pepe nero"
+    ],
+    "byakuzhi": "黒胡椒",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "heneo",
+    "ipa": "heneo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mirin"
+    ],
+    "italian": [
+      "mirin"
+    ],
+    "byakuzhi": "味醂",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "hengosu",
     "ipa": "hengosu",
     "pos": "v",
@@ -3483,6 +4395,38 @@
       "individuo"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "heru",
+    "ipa": "heɾu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "apricot"
+    ],
+    "italian": [
+      "albicocca"
+    ],
+    "byakuzhi": "杏",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "heston",
+    "ipa": "heston",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "octopus"
+    ],
+    "italian": [
+      "polpo"
+    ],
+    "byakuzhi": "蛸",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -3771,6 +4715,22 @@
       "far galleggiare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "hokaku",
+    "ipa": "hokaku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sardine"
+    ],
+    "italian": [
+      "sardina"
+    ],
+    "byakuzhi": "鰯",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -4688,6 +5648,22 @@
     "example": ""
   },
   {
+    "lemma": "ipocharatahhan",
+    "ipa": "ipotɕaɾatahhan",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "garlic chives"
+    ],
+    "italian": [
+      "foglie d'aglio"
+    ],
+    "byakuzhi": "大蒜葉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ira",
     "ipa": "ira",
     "pos": "adv",
@@ -5232,6 +6208,22 @@
     "example": ""
   },
   {
+    "lemma": "jinka",
+    "ipa": "dʒinka",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "eel"
+    ],
+    "italian": [
+      "anguilla"
+    ],
+    "byakuzhi": "鰻",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "jinwa",
     "ipa": "ʤinwa",
     "pos": "n",
@@ -5472,6 +6464,22 @@
     "example": ""
   },
   {
+    "lemma": "kado",
+    "ipa": "kado",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "crab"
+    ],
+    "italian": [
+      "granchio"
+    ],
+    "byakuzhi": "蟹",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kaguesu",
     "ipa": "kaguesu",
     "pos": "v",
@@ -5483,6 +6491,22 @@
       "occupare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kahi",
+    "ipa": "kahi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "yuba"
+    ],
+    "italian": [
+      "yuba"
+    ],
+    "byakuzhi": "湯葉",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -5552,6 +6576,22 @@
     "example": ""
   },
   {
+    "lemma": "kaisanmus",
+    "ipa": "kaisanmus",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "seafood"
+    ],
+    "italian": [
+      "frutti di mare"
+    ],
+    "byakuzhi": "海産物",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kaisu",
     "ipa": "kaisu",
     "pos": "v",
@@ -5563,6 +6603,22 @@
       "cancellare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kaitso",
+    "ipa": "kaitso",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "seaweed"
+    ],
+    "italian": [
+      "alga"
+    ],
+    "byakuzhi": "海藻",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -5600,6 +6656,38 @@
     "example": ""
   },
   {
+    "lemma": "kakkeku",
+    "ipa": "kakkeku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "wheat"
+    ],
+    "italian": [
+      "grano"
+    ],
+    "byakuzhi": "小麦",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kakkeku hatte",
+    "ipa": "kakkeku hatte",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "wheat flour"
+    ],
+    "italian": [
+      "farina di frumento"
+    ],
+    "byakuzhi": "小麦粉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kakkyo",
     "ipa": "kakkjo",
     "pos": "n",
@@ -5611,6 +6699,22 @@
       "scuola"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kakono",
+    "ipa": "kakono",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "hijiki"
+    ],
+    "italian": [
+      "hijiki"
+    ],
+    "byakuzhi": "鹿尾菜",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -5728,6 +6832,22 @@
     "example": ""
   },
   {
+    "lemma": "kamus",
+    "ipa": "kamus",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fruit"
+    ],
+    "italian": [
+      "frutta"
+    ],
+    "byakuzhi": "果物",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kana",
     "ipa": "kana",
     "pos": "num",
@@ -5744,6 +6864,38 @@
     "example": ""
   },
   {
+    "lemma": "kanate",
+    "ipa": "kanate",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "adzuki bean"
+    ],
+    "italian": [
+      "azuki"
+    ],
+    "byakuzhi": "小豆",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kanawa",
+    "ipa": "kanawa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "eggplant"
+    ],
+    "italian": [
+      "melanzana"
+    ],
+    "byakuzhi": "茄子",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kandannyasu",
     "ipa": "kandannjasu",
     "pos": "adj",
@@ -5755,6 +6907,22 @@
       "facile"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kankis",
+    "ipa": "kankis",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "citrus"
+    ],
+    "italian": [
+      "agrumi"
+    ],
+    "byakuzhi": "柑橘",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -5819,6 +6987,22 @@
       "sentire, percepire"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kanzhu",
+    "ipa": "kandʒu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "amazake"
+    ],
+    "italian": [
+      "amazake"
+    ],
+    "byakuzhi": "甘酒",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -5920,6 +7104,22 @@
     "example": ""
   },
   {
+    "lemma": "kartuhi",
+    "ipa": "kaɾtuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "matsutake"
+    ],
+    "italian": [
+      "matsutake"
+    ],
+    "byakuzhi": "松茸",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "karu",
     "ipa": "karu",
     "pos": "n",
@@ -5931,6 +7131,38 @@
       "pino"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "karusugua",
+    "ipa": "kaɾusuɡua",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "pineapple"
+    ],
+    "italian": [
+      "ananas"
+    ],
+    "byakuzhi": "パイナップル",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "karēnu",
+    "ipa": "kaɾeːnu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sweet potato"
+    ],
+    "italian": [
+      "patata dolce"
+    ],
+    "byakuzhi": "甘藷",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -6000,6 +7232,38 @@
     "example": ""
   },
   {
+    "lemma": "katahko",
+    "ipa": "katahko",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "scallion"
+    ],
+    "italian": [
+      "cipollotto"
+    ],
+    "byakuzhi": "葱",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "katahkosal",
+    "ipa": "katahkosal",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "scallion greens"
+    ],
+    "italian": [
+      "foglie di cipollotto"
+    ],
+    "byakuzhi": "葱葉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "katara",
     "ipa": "katara",
     "pos": "n",
@@ -6032,6 +7296,22 @@
     "example": ""
   },
   {
+    "lemma": "katonki",
+    "ipa": "katonki",
+    "pos": "adv",
+    "origin": "native",
+    "english": [
+      "someday"
+    ],
+    "italian": [
+      "un giorno"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "katsepo",
     "ipa": "kaʦepo",
     "pos": "n",
@@ -6048,6 +7328,22 @@
     "example": ""
   },
   {
+    "lemma": "kauchira",
+    "ipa": "kautɕiɾa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fried tofu"
+    ],
+    "italian": [
+      "atsuage"
+    ],
+    "byakuzhi": "厚揚げ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kausu",
     "ipa": "kausu",
     "pos": "v",
@@ -6057,6 +7353,22 @@
     ],
     "italian": [
       "cancellarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kayekkasu",
+    "ipa": "kayekkasu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "permeate"
+    ],
+    "italian": [
+      "permeare"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -6123,6 +7435,22 @@
       "avvolgere"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "keku",
+    "ipa": "keku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "barley"
+    ],
+    "italian": [
+      "orzo"
+    ],
+    "byakuzhi": "麦",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -6208,6 +7536,22 @@
     "example": ""
   },
   {
+    "lemma": "kerimaketanbo",
+    "ipa": "keɾimaketanbo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sole"
+    ],
+    "italian": [
+      "sogliola"
+    ],
+    "byakuzhi": "舌平目",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "keskon",
     "ipa": "keskon",
     "pos": "n",
@@ -6235,6 +7579,22 @@
       "risultato"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kezu",
+    "ipa": "kezu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "hard cheese"
+    ],
+    "italian": [
+      "formaggio stagionato"
+    ],
+    "byakuzhi": "硬酪",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -6331,6 +7691,22 @@
       "partire"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kigesoituhi",
+    "ipa": "kiɡesoituhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "beech mushroom"
+    ],
+    "italian": [
+      "pioppino"
+    ],
+    "byakuzhi": "柳松茸",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -6464,6 +7840,38 @@
     "example": ""
   },
   {
+    "lemma": "kinguma",
+    "ipa": "kiŋɡuma",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "golden sesame"
+    ],
+    "italian": [
+      "sesamo dorato"
+    ],
+    "byakuzhi": "金胡麻",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kinkan",
+    "ipa": "kinkan",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "kumquat"
+    ],
+    "italian": [
+      "kumquat"
+    ],
+    "byakuzhi": "金柑",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kinna",
     "ipa": "kinna",
     "pos": "n",
@@ -6592,6 +8000,22 @@
     "example": ""
   },
   {
+    "lemma": "kirigu",
+    "ipa": "kiɾiɡu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fig"
+    ],
+    "italian": [
+      "fico"
+    ],
+    "byakuzhi": "無花果",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kirikana",
     "ipa": "kirikana",
     "pos": "adj",
@@ -6603,6 +8027,22 @@
       "luminoso"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kirisshon",
+    "ipa": "kiɾiʃʃon",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "watercress"
+    ],
+    "italian": [
+      "crescione"
+    ],
+    "byakuzhi": "クレソン",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -6651,6 +8091,22 @@
       "fresco"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kiwi",
+    "ipa": "kiwi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "kiwifruit"
+    ],
+    "italian": [
+      "kiwi"
+    ],
+    "byakuzhi": "キウイ",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -6736,6 +8192,22 @@
     "example": ""
   },
   {
+    "lemma": "koebo",
+    "ipa": "koebo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "trout"
+    ],
+    "italian": [
+      "trota"
+    ],
+    "byakuzhi": "鱒",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kohi",
     "ipa": "kohi",
     "pos": "adv",
@@ -6747,6 +8219,54 @@
       "verso"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kohikezu",
+    "ipa": "kohikezu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "aged musk ox cheese"
+    ],
+    "italian": [
+      "formaggio stagionato di kohi"
+    ],
+    "byakuzhi": "麝牛硬酪",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kohinyūn",
+    "ipa": "kohinjuːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "musk ox milk"
+    ],
+    "italian": [
+      "latte di kohi"
+    ],
+    "byakuzhi": "麝牛乳",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kohiyūse",
+    "ipa": "kohijuːse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "musk ox cheese"
+    ],
+    "italian": [
+      "formaggio di kohi"
+    ],
+    "byakuzhi": "麝牛酪",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -6816,6 +8336,38 @@
     "example": ""
   },
   {
+    "lemma": "konbatte",
+    "ipa": "konbatte",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "rice flour"
+    ],
+    "italian": [
+      "farina di riso"
+    ],
+    "byakuzhi": "米粉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "konbu",
+    "ipa": "konbu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "kelp"
+    ],
+    "italian": [
+      "kombu"
+    ],
+    "byakuzhi": "昆布",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "koni",
     "ipa": "koni",
     "pos": "adv",
@@ -6827,6 +8379,22 @@
       "proprio"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kontsai",
+    "ipa": "kontsai",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "root vegetable"
+    ],
+    "italian": [
+      "ortaggio da radice"
+    ],
+    "byakuzhi": "根菜",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7072,6 +8640,54 @@
     "example": ""
   },
   {
+    "lemma": "kukwa",
+    "ipa": "kukwa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "cucumber"
+    ],
+    "italian": [
+      "cetriolo"
+    ],
+    "byakuzhi": "胡瓜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kuma",
+    "ipa": "kuma",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sesame"
+    ],
+    "italian": [
+      "sesamo"
+    ],
+    "byakuzhi": "胡麻",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kumayu",
+    "ipa": "kumaju",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sesame oil"
+    ],
+    "italian": [
+      "olio di sesamo"
+    ],
+    "byakuzhi": "胡麻油",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kuminona",
     "ipa": "kuminona",
     "pos": "adj",
@@ -7083,6 +8699,38 @@
       "nostalgico"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kunikaskado",
+    "ipa": "kunikaskado",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "king crab"
+    ],
+    "italian": [
+      "granchio reale"
+    ],
+    "byakuzhi": "王蟹",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kunikasnukki",
+    "ipa": "kunikasnukki",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "Japanese spiny lobster"
+    ],
+    "italian": [
+      "aragosta giapponese"
+    ],
+    "byakuzhi": "伊勢海老",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7115,6 +8763,22 @@
       "coppetta"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kupōn",
+    "ipa": "kupoːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "burdock"
+    ],
+    "italian": [
+      "bardana"
+    ],
+    "byakuzhi": "牛蒡",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7280,6 +8944,22 @@
     "example": ""
   },
   {
+    "lemma": "kwikyān",
+    "ipa": "kwikjaːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fennel seed"
+    ],
+    "italian": [
+      "semi di finocchio"
+    ],
+    "byakuzhi": "茴香",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kwohe",
     "ipa": "kwohe",
     "pos": "n",
@@ -7344,6 +9024,38 @@
     "example": ""
   },
   {
+    "lemma": "kyāntsai",
+    "ipa": "kjaːntsai",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "coriander"
+    ],
+    "italian": [
+      "coriandolo"
+    ],
+    "byakuzhi": "香菜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kyāntsō",
+    "ipa": "kjaːntsoː",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "herb"
+    ],
+    "italian": [
+      "erba aromatica"
+    ],
+    "byakuzhi": "香草",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "kāfi",
     "ipa": "ka:fi",
     "pos": "n",
@@ -7356,6 +9068,22 @@
     ],
     "byakuzhi": "",
     "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "kālu",
+    "ipa": "kaːlu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "cabbage"
+    ],
+    "italian": [
+      "cavolo cappuccio"
+    ],
+    "byakuzhi": "",
+    "askaoza": "ડઃધે",
     "notes": "",
     "example": ""
   },
@@ -7392,6 +9120,22 @@
     "example": ""
   },
   {
+    "lemma": "laichi",
+    "ipa": "laitɕi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "lychee"
+    ],
+    "italian": [
+      "litchi"
+    ],
+    "byakuzhi": "ライチ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "lais",
     "ipa": "lais",
     "pos": "n",
@@ -7403,6 +9147,22 @@
       "vetro"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "laja",
+    "ipa": "ladʒa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mizuna"
+    ],
+    "italian": [
+      "mizuna"
+    ],
+    "byakuzhi": "水菜",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7440,6 +9200,22 @@
     "example": ""
   },
   {
+    "lemma": "lanken",
+    "ipa": "lanken",
+    "pos": "adv",
+    "origin": "native",
+    "english": [
+      "in the while"
+    ],
+    "italian": [
+      "intanto"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "lattasuwa",
     "ipa": "lattasuwa",
     "pos": "n",
@@ -7456,6 +9232,22 @@
     "example": ""
   },
   {
+    "lemma": "lenberi",
+    "ipa": "lenbeɾi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sudachi"
+    ],
+    "italian": [
+      "sudachi"
+    ],
+    "byakuzhi": "酢橘",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "lendonsu",
     "ipa": "lendonsu",
     "pos": "v",
@@ -7467,6 +9259,22 @@
       "saltare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "linko",
+    "ipa": "linko",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "herring"
+    ],
+    "italian": [
+      "aringa"
+    ],
+    "byakuzhi": "鰊",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7680,6 +9488,22 @@
     "example": ""
   },
   {
+    "lemma": "mahani-yu",
+    "ipa": "mahani ju",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mahani oil"
+    ],
+    "italian": [
+      "olio di mahani"
+    ],
+    "byakuzhi": "—",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "mahsu",
     "ipa": "mahsu",
     "pos": "v",
@@ -7707,6 +9531,38 @@
       "tornare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "maitse",
+    "ipa": "maitse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "rice vinegar"
+    ],
+    "italian": [
+      "aceto di riso"
+    ],
+    "byakuzhi": "米酢",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "makketuhi",
+    "ipa": "makketuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "oyster mushroom"
+    ],
+    "italian": [
+      "pleurotus"
+    ],
+    "byakuzhi": "平茸",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7744,6 +9600,22 @@
     "example": ""
   },
   {
+    "lemma": "manana",
+    "ipa": "manana",
+    "pos": "adj",
+    "origin": "native",
+    "english": [
+      "true"
+    ],
+    "italian": [
+      "vero"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "manasu",
     "ipa": "manasu",
     "pos": "v",
@@ -7755,6 +9627,22 @@
       "mangiare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "manka",
+    "ipa": "maŋka",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mango"
+    ],
+    "italian": [
+      "mango"
+    ],
+    "byakuzhi": "マンゴー",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7787,6 +9675,38 @@
       "mangrovia"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "mansa",
+    "ipa": "mansa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fruit"
+    ],
+    "italian": [
+      "frutta"
+    ],
+    "byakuzhi": "果物",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "maokal",
+    "ipa": "maokal",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "yogurt herb sauce"
+    ],
+    "italian": [
+      "salsa allo yogurt"
+    ],
+    "byakuzhi": "—",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7835,6 +9755,38 @@
       "testa"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "matuhi",
+    "ipa": "matuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "shiitake"
+    ],
+    "italian": [
+      "shiitake"
+    ],
+    "byakuzhi": "椎茸",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "mazhi",
+    "ipa": "maʒi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sage"
+    ],
+    "italian": [
+      "salvia"
+    ],
+    "byakuzhi": "セージ",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -7920,6 +9872,38 @@
     "example": ""
   },
   {
+    "lemma": "mettennyūn",
+    "ipa": "mettennjuːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "goat's milk"
+    ],
+    "italian": [
+      "latte caprino"
+    ],
+    "byakuzhi": "山羊乳",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "metteryo",
+    "ipa": "metterjo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "goat meat"
+    ],
+    "italian": [
+      "carne di capra"
+    ],
+    "byakuzhi": "山羊",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "mezukasu",
     "ipa": "mezukasu",
     "pos": "v",
@@ -7984,6 +9968,22 @@
     "example": ""
   },
   {
+    "lemma": "mikkan",
+    "ipa": "mikkan",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mandarin"
+    ],
+    "italian": [
+      "mandarino"
+    ],
+    "byakuzhi": "蜜柑",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "minbaesu",
     "ipa": "minbaesu",
     "pos": "v",
@@ -8016,6 +10016,22 @@
     "example": ""
   },
   {
+    "lemma": "minbawasu",
+    "ipa": "minbawasu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to rotate"
+    ],
+    "italian": [
+      "far ruotare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "minse",
     "ipa": "minse",
     "pos": "adv",
@@ -8027,6 +10043,22 @@
       "costantemente"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "minti",
+    "ipa": "minti",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mint"
+    ],
+    "italian": [
+      "menta"
+    ],
+    "byakuzhi": "ミント",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -8064,6 +10096,22 @@
     "example": ""
   },
   {
+    "lemma": "mirakikiiga",
+    "ipa": "miɾakikiːɡa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bell pepper"
+    ],
+    "italian": [
+      "peperone dolce"
+    ],
+    "byakuzhi": "ピーマン",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "mitoko",
     "ipa": "mitoko",
     "pos": "n",
@@ -8096,6 +10144,22 @@
     "example": ""
   },
   {
+    "lemma": "miweyūse",
+    "ipa": "miwejuːse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "cow cheese"
+    ],
+    "italian": [
+      "formaggio vaccino"
+    ],
+    "byakuzhi": "牛酪",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "miweː",
     "ipa": "miweː",
     "pos": "n",
@@ -8107,6 +10171,22 @@
       "pesce"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "miwē",
+    "ipa": "miweː",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fish"
+    ],
+    "italian": [
+      "pesce"
+    ],
+    "byakuzhi": "魚",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -8160,6 +10240,22 @@
     "example": ""
   },
   {
+    "lemma": "moi",
+    "ipa": "moi",
+    "pos": "adv",
+    "origin": "native",
+    "english": [
+      "a bit, without reason"
+    ],
+    "italian": [
+      "un po', senza motivo"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "moigon",
     "ipa": "moigon",
     "pos": "n",
@@ -8187,6 +10283,38 @@
       "buco"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "monko",
+    "ipa": "monko",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "green shiso"
+    ],
+    "italian": [
+      "shiso verde"
+    ],
+    "byakuzhi": "大葉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "more",
+    "ipa": "moɾe",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "plum"
+    ],
+    "italian": [
+      "susina"
+    ],
+    "byakuzhi": "李",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -8480,6 +10608,22 @@
     "example": ""
   },
   {
+    "lemma": "myen",
+    "ipa": "mjen",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "noodles"
+    ],
+    "italian": [
+      "noodles"
+    ],
+    "byakuzhi": "麺",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "myūha",
     "ipa": "mjuːha",
     "pos": "n",
@@ -8523,6 +10667,22 @@
       "pure, anche"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "mūsal",
+    "ipa": "muːsal",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "orange"
+    ],
+    "italian": [
+      "arancia"
+    ],
+    "byakuzhi": "橙",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -8731,6 +10891,22 @@
       "nainuk (animale simile a un lupo)"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "naipalo-shān",
+    "ipa": "naipalo ʃaːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "doubanjiang"
+    ],
+    "italian": [
+      "doubanjiang"
+    ],
+    "byakuzhi": "豆板醤",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -8955,6 +11131,22 @@
       "vento"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nankwa",
+    "ipa": "nankwa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "pumpkin"
+    ],
+    "italian": [
+      "zucca"
+    ],
+    "byakuzhi": "南瓜",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -9232,6 +11424,22 @@
     "example": ""
   },
   {
+    "lemma": "nasti",
+    "ipa": "nasti",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "natto"
+    ],
+    "italian": [
+      "natto"
+    ],
+    "byakuzhi": "納豆",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "nate",
     "ipa": "nate",
     "pos": "n",
@@ -9408,6 +11616,38 @@
     "example": ""
   },
   {
+    "lemma": "nepousu",
+    "ipa": "nepousu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to make flow"
+    ],
+    "italian": [
+      "far scorrere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "neroi",
+    "ipa": "neɾoi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "buckwheat"
+    ],
+    "italian": [
+      "grano saraceno"
+    ],
+    "byakuzhi": "蕎麦",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "neso",
     "ipa": "neso",
     "pos": "n",
@@ -9520,6 +11760,22 @@
     "example": ""
   },
   {
+    "lemma": "nintes",
+    "ipa": "nintes",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sea urchin"
+    ],
+    "italian": [
+      "riccio di mare"
+    ],
+    "byakuzhi": "雲丹",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "niroena",
     "ipa": "niroena",
     "pos": "adj",
@@ -9611,6 +11867,22 @@
       "serpente"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nogitaba",
+    "ipa": "noɡitaba",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "taro"
+    ],
+    "italian": [
+      "taro"
+    ],
+    "byakuzhi": "里芋",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -9712,6 +11984,22 @@
     "example": ""
   },
   {
+    "lemma": "nokobero",
+    "ipa": "nokobeɾo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "rosemary"
+    ],
+    "italian": [
+      "rosmarino"
+    ],
+    "byakuzhi": "ローズマリー",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "nokotottuttu",
     "ipa": "nokotottuttu",
     "pos": "adj",
@@ -9755,6 +12043,22 @@
       "lentamente, pigramente"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "noletaba",
+    "ipa": "noletaba",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "Jerusalem artichoke"
+    ],
+    "italian": [
+      "topinambur"
+    ],
+    "byakuzhi": "菊芋",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -10012,6 +12316,22 @@
     ],
     "byakuzhi": "",
     "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "nukumi",
+    "ipa": "nukumi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "six-spice blend"
+    ],
+    "italian": [
+      "miscela \"sei spezie\""
+    ],
+    "byakuzhi": "六味",
+    "askaoza": "પેડેઇા",
     "notes": "",
     "example": ""
   },
@@ -10352,6 +12672,22 @@
     "example": ""
   },
   {
+    "lemma": "ohe",
+    "ipa": "ohe",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mussel"
+    ],
+    "italian": [
+      "cozza"
+    ],
+    "byakuzhi": "貽貝",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ohkedos",
     "ipa": "ohkedos",
     "pos": "n",
@@ -10363,6 +12699,22 @@
       "temporale"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "oilo",
+    "ipa": "oilo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "persimmon"
+    ],
+    "italian": [
+      "cachi"
+    ],
+    "byakuzhi": "柿",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -10425,6 +12777,22 @@
     ],
     "italian": [
       "when (relative)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "okeyue",
+    "ipa": "okejue",
+    "pos": "conj",
+    "origin": "native",
+    "english": [
+      "each time that"
+    ],
+    "italian": [
+      "ogni volta che"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -10512,6 +12880,22 @@
     "example": ""
   },
   {
+    "lemma": "olīviyu",
+    "ipa": "oliːviju",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "olive oil"
+    ],
+    "italian": [
+      "olio d'oliva"
+    ],
+    "byakuzhi": "橄欖油",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "onkeski",
     "ipa": "onkeski",
     "pos": "adv",
@@ -10521,6 +12905,22 @@
     ],
     "italian": [
       "alla fine"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "onome",
+    "ipa": "onome",
+    "pos": "conj",
+    "origin": "native",
+    "english": [
+      "at the extent that"
+    ],
+    "italian": [
+      "al punto che"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -10555,6 +12955,22 @@
       "cercare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "oppero",
+    "ipa": "oppeɾo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "melon"
+    ],
+    "italian": [
+      "melone"
+    ],
+    "byakuzhi": "メロン",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -10768,6 +13184,38 @@
     "example": ""
   },
   {
+    "lemma": "pagesu",
+    "ipa": "pagesu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to dry"
+    ],
+    "italian": [
+      "asciugare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pageusu",
+    "ipa": "pageusu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to get dried"
+    ],
+    "italian": [
+      "asciugarsi"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "paikussu",
     "ipa": "paikussu",
     "pos": "v",
@@ -10816,6 +13264,54 @@
     "example": ""
   },
   {
+    "lemma": "pakandasu",
+    "ipa": "pakandasu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "overflow"
+    ],
+    "italian": [
+      "straripare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pakari",
+    "ipa": "pakari",
+    "pos": "adv",
+    "origin": "native",
+    "english": [
+      "nothing but"
+    ],
+    "italian": [
+      "nient'altro che"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pakkitalkya",
+    "ipa": "pakkitalkja",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "red leaf lettuce"
+    ],
+    "italian": [
+      "lattuga rossa"
+    ],
+    "byakuzhi": "サニーレタス",
+    "askaoza": "રેધૅળૃો ઠધ્‌ડો",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "pakku",
     "ipa": "pakku",
     "pos": "n",
@@ -10827,6 +13323,38 @@
       "rosso"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pakkudachi",
+    "ipa": "pakkudatɕi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "red shiso"
+    ],
+    "italian": [
+      "shiso rosso"
+    ],
+    "byakuzhi": "赤紫蘇",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pakkuma",
+    "ipa": "pakkuma",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "white sesame"
+    ],
+    "italian": [
+      "sesamo bianco"
+    ],
+    "byakuzhi": "白胡麻",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -10848,6 +13376,22 @@
     "example": ""
   },
   {
+    "lemma": "pakkālu",
+    "ipa": "pakkaːlu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "red cabbage"
+    ],
+    "italian": [
+      "cavolo rosso"
+    ],
+    "byakuzhi": "紫ડઃધે",
+    "askaoza": "રડ્ડઃધે",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "pakohante",
     "ipa": "pakohante",
     "pos": "adv",
@@ -10859,6 +13403,54 @@
       "accidentalmente"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pakuchundzo",
+    "ipa": "pakutɕundzo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "white pepper"
+    ],
+    "italian": [
+      "pepe bianco"
+    ],
+    "byakuzhi": "白胡椒",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pakunukki",
+    "ipa": "pakunukki",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "spiny lobster"
+    ],
+    "italian": [
+      "scampo"
+    ],
+    "byakuzhi": "赤座海老",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pakutsai",
+    "ipa": "pakutsai",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "napa cabbage"
+    ],
+    "italian": [
+      "cavolo cinese"
+    ],
+    "byakuzhi": "白菜",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -10971,6 +13563,22 @@
       "sicuramente"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pasali",
+    "ipa": "pasali",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "parsley"
+    ],
+    "italian": [
+      "prezzemolo"
+    ],
+    "byakuzhi": "パセリ",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -11104,6 +13712,38 @@
     "example": ""
   },
   {
+    "lemma": "pesel",
+    "ipa": "pesel",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "parsley"
+    ],
+    "italian": [
+      "prezzemolo"
+    ],
+    "byakuzhi": "パセリ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pidankal",
+    "ipa": "pidankal",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mozuku sauce"
+    ],
+    "italian": [
+      "salsa di mozuku, soia e olio d'oliva"
+    ],
+    "byakuzhi": "—",
+    "askaoza": "રાઠૃપ્‌ડધ્",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "pigosu",
     "ipa": "pigosu",
     "pos": "v",
@@ -11200,6 +13840,86 @@
     "example": ""
   },
   {
+    "lemma": "pirou",
+    "ipa": "piɾou",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "daikon"
+    ],
+    "italian": [
+      "daikon"
+    ],
+    "byakuzhi": "大根",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "poakki",
+    "ipa": "poakki",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "alley"
+    ],
+    "italian": [
+      "stradina, traversa"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "poege-su",
+    "ipa": "poeɡe su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to boil"
+    ],
+    "italian": [
+      "bollire"
+    ],
+    "byakuzhi": "茹ડૃૅટે",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pohekina",
+    "ipa": "pohekina",
+    "pos": "adj",
+    "origin": "native",
+    "english": [
+      "pale"
+    ],
+    "italian": [
+      "sbiadito"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "pohtu",
+    "ipa": "pohtu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "rice porridge"
+    ],
+    "italian": [
+      "porridge di riso"
+    ],
+    "byakuzhi": "粥",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "pones",
     "ipa": "pones",
     "pos": "n",
@@ -11264,6 +13984,22 @@
     "example": ""
   },
   {
+    "lemma": "ponodālta",
+    "ipa": "ponodaːlta",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "flying squid"
+    ],
+    "italian": [
+      "totano"
+    ],
+    "byakuzhi": "鯣烏賊",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ponsoto",
     "ipa": "ponsoto",
     "pos": "n",
@@ -11275,6 +14011,38 @@
       "stomaco"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "porikal",
+    "ipa": "poɾikal",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "octopus-yuzu paste"
+    ],
+    "italian": [
+      "pasta di polipetti, miso e yuzu"
+    ],
+    "byakuzhi": "—",
+    "askaoza": "ર૾દાડધ્",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "posna",
+    "ipa": "posna",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "conger eel"
+    ],
+    "italian": [
+      "grongo"
+    ],
+    "byakuzhi": "穴子",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -11360,6 +14128,22 @@
     "example": ""
   },
   {
+    "lemma": "pulevya talkya",
+    "ipa": "pulevja talkja",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "romaine lettuce"
+    ],
+    "italian": [
+      "lattuga romana"
+    ],
+    "byakuzhi": "ロメインレタス",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "Puraha",
     "ipa": "Puraha",
     "pos": "n",
@@ -11408,6 +14192,22 @@
     "example": ""
   },
   {
+    "lemma": "putou",
+    "ipa": "putou",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "grape"
+    ],
+    "italian": [
+      "uva"
+    ],
+    "byakuzhi": "葡萄",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "pwikausu",
     "ipa": "pwikausu",
     "pos": "v",
@@ -11451,6 +14251,22 @@
       "risaia"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rahe",
+    "ipa": "rahe",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "salmon"
+    ],
+    "italian": [
+      "salmone"
+    ],
+    "byakuzhi": "鮭",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -11520,6 +14336,38 @@
     "example": ""
   },
   {
+    "lemma": "ramahkasu",
+    "ipa": "ramahkasu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "avvenire"
+    ],
+    "italian": [
+      "succedere"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ramyen",
+    "ipa": "ɾamjen",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "ramen"
+    ],
+    "italian": [
+      "ramen"
+    ],
+    "byakuzhi": "拉麺",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "rangansu",
     "ipa": "rangansu",
     "pos": "v",
@@ -11531,6 +14379,22 @@
       "impigliarsi"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rasechira",
+    "ipa": "ɾasetɕiɾa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fried tofu pouch"
+    ],
+    "italian": [
+      "aburaage"
+    ],
+    "byakuzhi": "油揚げ",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -11664,6 +14528,22 @@
     "example": ""
   },
   {
+    "lemma": "reketaba",
+    "ipa": "ɾeketaba",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "Japanese yam"
+    ],
+    "italian": [
+      "nagaimo"
+    ],
+    "byakuzhi": "長芋",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "rekki",
     "ipa": "rekki",
     "pos": "n",
@@ -11675,6 +14555,22 @@
       "penna"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "renkon",
+    "ipa": "ɾenkon",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "lotus root"
+    ],
+    "italian": [
+      "radice di loto"
+    ],
+    "byakuzhi": "蓮根",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -11739,6 +14635,22 @@
       "ricordare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rezai",
+    "ipa": "ɾezai",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "wakame"
+    ],
+    "italian": [
+      "wakame"
+    ],
+    "byakuzhi": "和布",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -11904,6 +14816,22 @@
     "example": ""
   },
   {
+    "lemma": "rika",
+    "ipa": "ɾika",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "Asian pear"
+    ],
+    "italian": [
+      "pera asiatica"
+    ],
+    "byakuzhi": "梨",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "rikkihan",
     "ipa": "rikkihan",
     "pos": "n",
@@ -12048,6 +14976,22 @@
     "example": ""
   },
   {
+    "lemma": "risko",
+    "ipa": "ɾisko",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "miso"
+    ],
+    "italian": [
+      "miso"
+    ],
+    "byakuzhi": "味噌",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ritakusu",
     "ipa": "ritakusu",
     "pos": "v",
@@ -12176,6 +15120,38 @@
     "example": ""
   },
   {
+    "lemma": "rokonate",
+    "ipa": "ɾokonate",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "black bean"
+    ],
+    "italian": [
+      "fagiolo nero"
+    ],
+    "byakuzhi": "黒豆",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rokotse",
+    "ipa": "ɾokotse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "black vinegar"
+    ],
+    "italian": [
+      "aceto nero"
+    ],
+    "byakuzhi": "黒酢",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "romo",
     "ipa": "romo",
     "pos": "n",
@@ -12187,6 +15163,22 @@
       "naso"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ronae",
+    "ipa": "ɾonae",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "clam"
+    ],
+    "italian": [
+      "vongola"
+    ],
+    "byakuzhi": "蛤",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -12352,6 +15344,22 @@
     "example": ""
   },
   {
+    "lemma": "ryogin",
+    "ipa": "ɾjoɡin",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bitter melon"
+    ],
+    "italian": [
+      "melone amaro"
+    ],
+    "byakuzhi": "苦瓜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ryuchitta",
     "ipa": "rjuʧitta",
     "pos": "n",
@@ -12363,6 +15371,22 @@
       "lontra"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "rākkonu",
+    "ipa": "raːkkonu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "brown rice"
+    ],
+    "italian": [
+      "riso integrale"
+    ],
+    "byakuzhi": "玄米",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -12395,6 +15419,22 @@
       "sovrapporsi"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "sagae",
+    "ipa": "saɡae",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "maize"
+    ],
+    "italian": [
+      "mais"
+    ],
+    "byakuzhi": "玉蜀黍",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -12459,6 +15499,22 @@
       "voi"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "saikwa",
+    "ipa": "saikwa",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "watermelon"
+    ],
+    "italian": [
+      "anguria"
+    ],
+    "byakuzhi": "西瓜",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -12571,6 +15627,22 @@
       "amare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "saitappi",
+    "ipa": "saitappi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "wood ear"
+    ],
+    "italian": [
+      "orecchio di Giuda"
+    ],
+    "byakuzhi": "木耳",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -12800,6 +15872,22 @@
     "example": ""
   },
   {
+    "lemma": "sanshān",
+    "ipa": "sanʃaːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "Japanese pepper"
+    ],
+    "italian": [
+      "pepe giapponese"
+    ],
+    "byakuzhi": "山椒",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "sanso",
     "ipa": "sanso",
     "pos": "n",
@@ -12811,6 +15899,22 @@
       "ossigeno"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "santaba",
+    "ipa": "santaba",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mountain yam"
+    ],
+    "italian": [
+      "igname di montagna"
+    ],
+    "byakuzhi": "山芋",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -12880,6 +15984,38 @@
     "example": ""
   },
   {
+    "lemma": "satsomari",
+    "ipa": "satsomaɾi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "blueberry"
+    ],
+    "italian": [
+      "mirtillo"
+    ],
+    "byakuzhi": "ブルーベリー",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "satsuppi",
+    "ipa": "satsuppi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "aonori"
+    ],
+    "italian": [
+      "aonori"
+    ],
+    "byakuzhi": "青海苔",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "satā",
     "ipa": "sataː",
     "pos": "n",
@@ -12944,6 +16080,22 @@
     "example": ""
   },
   {
+    "lemma": "sayomari",
+    "ipa": "sajomaɾi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "raspberry"
+    ],
+    "italian": [
+      "lampone"
+    ],
+    "byakuzhi": "木苺",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "sazoisu",
     "ipa": "sazoisu",
     "pos": "v",
@@ -13001,6 +16153,22 @@
     ],
     "italian": [
       "cena"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "seina",
+    "ipa": "seina",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "wall (internal)"
+    ],
+    "italian": [
+      "parete (interna)"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -13152,6 +16320,22 @@
     "example": ""
   },
   {
+    "lemma": "seretuhi",
+    "ipa": "seɾetuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "enoki"
+    ],
+    "italian": [
+      "enoki"
+    ],
+    "byakuzhi": "榎茸",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "seri odennenasu",
     "ipa": "seri odennenasu",
     "pos": "v",
@@ -13163,6 +16347,22 @@
       "forse, mi sa..."
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "serudālta",
+    "ipa": "seɾudaːlta",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "cuttlefish"
+    ],
+    "italian": [
+      "seppia"
+    ],
+    "byakuzhi": "甲烏賊",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -13360,6 +16560,22 @@
     "example": ""
   },
   {
+    "lemma": "sharutolo",
+    "ipa": "sharutolo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "stop (transport)"
+    ],
+    "italian": [
+      "fermata"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "sharwosu",
     "ipa": "ʃaruswosu",
     "pos": "v",
@@ -13424,6 +16640,38 @@
     "example": ""
   },
   {
+    "lemma": "shehuran",
+    "ipa": "ʃehuɾan",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "king oyster mushroom"
+    ],
+    "italian": [
+      "cardoncello (eringi)"
+    ],
+    "byakuzhi": "杏鮑菇",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "shekuryu",
+    "ipa": "ʃekuɾju",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "pomegranate"
+    ],
+    "italian": [
+      "melograno"
+    ],
+    "byakuzhi": "石榴",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "shelkya",
     "ipa": "ʃelkja",
     "pos": "n",
@@ -13456,6 +16704,22 @@
     "example": ""
   },
   {
+    "lemma": "shigen",
+    "ipa": "ʃiɡen",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "nameko"
+    ],
+    "italian": [
+      "nameko"
+    ],
+    "byakuzhi": "なめこ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "shigosu",
     "ipa": "ʃigosu",
     "pos": "v",
@@ -13483,6 +16747,22 @@
       "balena"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "shiitaba",
+    "ipa": "ʃiːtaba",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "potato"
+    ],
+    "italian": [
+      "patata"
+    ],
+    "byakuzhi": "馬鈴薯",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -13584,6 +16864,22 @@
     "example": ""
   },
   {
+    "lemma": "shinkos",
+    "ipa": "ʃinkos",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "jellyfish"
+    ],
+    "italian": [
+      "medusa"
+    ],
+    "byakuzhi": "海月",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "shinna",
     "ipa": "ʃinna",
     "pos": "n",
@@ -13680,6 +16976,22 @@
     "example": ""
   },
   {
+    "lemma": "shitu",
+    "ipa": "ʃitu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "edamame"
+    ],
+    "italian": [
+      "edamame"
+    ],
+    "byakuzhi": "枝豆",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "shobe",
     "ipa": "ʃobe",
     "pos": "num",
@@ -13691,6 +17003,22 @@
       "tre"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "shogi",
+    "ipa": "ʃoɡi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "grape"
+    ],
+    "italian": [
+      "uva"
+    ],
+    "byakuzhi": "葡萄",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -13744,6 +17072,22 @@
     "example": ""
   },
   {
+    "lemma": "shoina",
+    "ipa": "ʃoina",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mitsuba"
+    ],
+    "italian": [
+      "mitsuba"
+    ],
+    "byakuzhi": "三つ葉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "shumuna",
     "ipa": "ʃumuna",
     "pos": "adj",
@@ -13760,6 +17104,22 @@
     "example": ""
   },
   {
+    "lemma": "shungiku",
+    "ipa": "ʃunɡiku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "garland chrysanthemum"
+    ],
+    "italian": [
+      "crisantemo commestibile"
+    ],
+    "byakuzhi": "春菊",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "shuspan",
     "ipa": "ʃuspan",
     "pos": "n",
@@ -13771,6 +17131,38 @@
       "pubblicazione"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "shānnyu",
+    "ipa": "ʃaːnnyu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "soy sauce"
+    ],
+    "italian": [
+      "salsa di soia"
+    ],
+    "byakuzhi": "醤油",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "shīhton",
+    "ipa": "ʃiːhton",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "lemon"
+    ],
+    "italian": [
+      "limone"
+    ],
+    "byakuzhi": "檸檬",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -13835,6 +17227,22 @@
       "in quel modo"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "sochuku",
+    "ipa": "sotɕuku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bamboo shoot"
+    ],
+    "italian": [
+      "germoglio di bambù"
+    ],
+    "byakuzhi": "筍",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -13947,6 +17355,22 @@
       "in qualche modo"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "soitsi",
+    "ipa": "soitsi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "asari clam"
+    ],
+    "italian": [
+      "vongola asari"
+    ],
+    "byakuzhi": "浅蜊",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -14160,6 +17584,22 @@
     "example": ""
   },
   {
+    "lemma": "soshu",
+    "ipa": "soʃu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "millet"
+    ],
+    "italian": [
+      "miglio"
+    ],
+    "byakuzhi": "黍",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "Soul",
     "ipa": "Soul",
     "pos": "n",
@@ -14304,6 +17744,22 @@
     "example": ""
   },
   {
+    "lemma": "sugujes",
+    "ipa": "suɡudʒes",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "apple vinegar"
+    ],
+    "italian": [
+      "aceto di mele del nord"
+    ],
+    "byakuzhi": "—",
+    "askaoza": "ટેડૃેમૃૅટ્",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "suhkasu",
     "ipa": "suhkasu",
     "pos": "v",
@@ -14379,6 +17835,22 @@
       "nascondere"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "sumi-su",
+    "ipa": "sumi su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to smoke"
+    ],
+    "italian": [
+      "affumicare"
+    ],
+    "byakuzhi": "燻ઇાટે",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -14608,6 +18080,22 @@
     "example": ""
   },
   {
+    "lemma": "T-mansu",
+    "ipa": "tiimansu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "t-shirt"
+    ],
+    "italian": [
+      "maglietta, t-shirt"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ta",
     "ipa": "ta",
     "pos": "conj",
@@ -14619,6 +18107,22 @@
       "e"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tabana",
+    "ipa": "tabana",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "arugula"
+    ],
+    "italian": [
+      "rucola"
+    ],
+    "byakuzhi": "ルッコラ",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -14736,6 +18240,22 @@
     "example": ""
   },
   {
+    "lemma": "taimu",
+    "ipa": "taimu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "thyme"
+    ],
+    "italian": [
+      "timo"
+    ],
+    "byakuzhi": "タイム",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "taina",
     "ipa": "taina",
     "pos": "n",
@@ -14747,6 +18267,22 @@
       "stanza"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "taitu",
+    "ipa": "taitu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "soybean"
+    ],
+    "italian": [
+      "soia"
+    ],
+    "byakuzhi": "大豆",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -14816,6 +18352,22 @@
     "example": ""
   },
   {
+    "lemma": "takkan-su",
+    "ipa": "takkan su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to grill"
+    ],
+    "italian": [
+      "grigliare / arrostire"
+    ],
+    "byakuzhi": "焼પ્‌ટે",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "takoraisu",
     "ipa": "takoraisu",
     "pos": "v",
@@ -14864,6 +18416,22 @@
     "example": ""
   },
   {
+    "lemma": "talkya",
+    "ipa": "talkja",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "lettuce"
+    ],
+    "italian": [
+      "lattuga"
+    ],
+    "byakuzhi": "レタス",
+    "askaoza": "રડ્ડાઠધ્‌ડો",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "talpi",
     "ipa": "talpi",
     "pos": "n",
@@ -14892,6 +18460,22 @@
     ],
     "byakuzhi": "",
     "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tamoki",
+    "ipa": "tamoki",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "tamoki"
+    ],
+    "italian": [
+      "tamoki"
+    ],
+    "byakuzhi": "蔡",
+    "askaoza": "ઠઇ૾ડા",
     "notes": "",
     "example": ""
   },
@@ -15440,6 +19024,22 @@
     "example": ""
   },
   {
+    "lemma": "tayo",
+    "ipa": "tajo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mackerel"
+    ],
+    "italian": [
+      "sgombro"
+    ],
+    "byakuzhi": "鯖",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "taːs",
     "ipa": "taːs",
     "pos": "num",
@@ -15531,6 +19131,38 @@
       "sapere"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tegenmari",
+    "ipa": "teɡenmaɾi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mulberry"
+    ],
+    "italian": [
+      "mora di gelso"
+    ],
+    "byakuzhi": "桑の実",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tehpu",
+    "ipa": "tehpu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "razor clam"
+    ],
+    "italian": [
+      "cannolicchio"
+    ],
+    "byakuzhi": "馬刀貝",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -15648,6 +19280,22 @@
     "example": ""
   },
   {
+    "lemma": "tekimikasu",
+    "ipa": "tekimikasu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to leave apart"
+    ],
+    "italian": [
+      "avanzare"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tekkayase",
     "ipa": "tekkajase",
     "pos": "conj",
@@ -15723,6 +19371,22 @@
       "cane"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tentse",
+    "ipa": "tentse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "vinegar"
+    ],
+    "italian": [
+      "aceto"
+    ],
+    "byakuzhi": "酢",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -15824,6 +19488,54 @@
     "example": ""
   },
   {
+    "lemma": "tiil",
+    "ipa": "tiːl",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "dill"
+    ],
+    "italian": [
+      "aneto"
+    ],
+    "byakuzhi": "ディル",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "timu",
+    "ipa": "timu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "Chinese chives"
+    ],
+    "italian": [
+      "erba cipollina cinese"
+    ],
+    "byakuzhi": "韮",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "timuhan",
+    "ipa": "timuhan",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "leek"
+    ],
+    "italian": [
+      "porro"
+    ],
+    "byakuzhi": "韮葱",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tobe",
     "ipa": "tobe",
     "pos": "n",
@@ -15867,6 +19579,22 @@
       "in realtà"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "todori",
+    "ipa": "todoɾi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "kale"
+    ],
+    "italian": [
+      "cavolo riccio"
+    ],
+    "byakuzhi": "ケール",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -16048,6 +19776,22 @@
     "example": ""
   },
   {
+    "lemma": "tomate",
+    "ipa": "tomate",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "tomato"
+    ],
+    "italian": [
+      "pomodoro"
+    ],
+    "byakuzhi": "蕃茄",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tome",
     "ipa": "tome",
     "pos": "n",
@@ -16123,6 +19867,54 @@
       "questo"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "topahki",
+    "ipa": "topahki",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "peanut"
+    ],
+    "italian": [
+      "arachide"
+    ],
+    "byakuzhi": "落花生",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "topumiwe",
+    "ipa": "topumiwe",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bonito"
+    ],
+    "italian": [
+      "palamita / bonito"
+    ],
+    "byakuzhi": "鰹",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tore",
+    "ipa": "toɾe",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "Japanese parsley"
+    ],
+    "italian": [
+      "sedano d'acqua (seri)"
+    ],
+    "byakuzhi": "芹",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -16208,6 +20000,22 @@
     "example": ""
   },
   {
+    "lemma": "tottanteryo",
+    "ipa": "tottanterjo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "venison"
+    ],
+    "italian": [
+      "carne di cervo"
+    ],
+    "byakuzhi": "鹿肉",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tottusu",
     "ipa": "tottusu",
     "pos": "v",
@@ -16288,6 +20096,22 @@
     "example": ""
   },
   {
+    "lemma": "tsaitauyu",
+    "ipa": "tsaitauju",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "rapeseed oil"
+    ],
+    "italian": [
+      "olio di colza"
+    ],
+    "byakuzhi": "菜種油",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tsakko",
     "ipa": "ʦakko",
     "pos": "n",
@@ -16347,6 +20171,22 @@
       "sussurrare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tseikintsai",
+    "ipa": "tseikintsai",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bok choy"
+    ],
+    "italian": [
+      "bok choy"
+    ],
+    "byakuzhi": "青梗菜",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -16608,6 +20448,22 @@
     "example": ""
   },
   {
+    "lemma": "tsunu",
+    "ipa": "tsunu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "barnyard millet"
+    ],
+    "italian": [
+      "panìco (falso miglio)"
+    ],
+    "byakuzhi": "稗",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tsuruasu",
     "ipa": "ʦuruasu",
     "pos": "v",
@@ -16699,6 +20555,22 @@
       "via"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tufu",
+    "ipa": "tufu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "tofu"
+    ],
+    "italian": [
+      "tofu"
+    ],
+    "byakuzhi": "豆腐",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -16832,6 +20704,38 @@
     "example": ""
   },
   {
+    "lemma": "tuleona",
+    "ipa": "tuleona",
+    "pos": "adj",
+    "origin": "native",
+    "english": [
+      "fleeting"
+    ],
+    "italian": [
+      "fugace"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tunyun",
+    "ipa": "tunjun",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "soy milk"
+    ],
+    "italian": [
+      "latte di soia"
+    ],
+    "byakuzhi": "豆乳",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tuse",
     "ipa": "tuse",
     "pos": "conj",
@@ -16841,6 +20745,22 @@
     ],
     "italian": [
       "tanto quanto"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tuugusu",
+    "ipa": "tuugusu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to blow"
+    ],
+    "italian": [
+      "soffiare"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -16896,6 +20816,38 @@
     "example": ""
   },
   {
+    "lemma": "tālta",
+    "ipa": "taːlta",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "squid"
+    ],
+    "italian": [
+      "calamaro"
+    ],
+    "byakuzhi": "烏賊",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "tānshintsi",
+    "ipa": "taːnʃintsi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "chili pepper"
+    ],
+    "italian": [
+      "peperoncino"
+    ],
+    "byakuzhi": "唐辛子",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "tās",
     "ipa": "ta:s",
     "pos": "num",
@@ -16944,6 +20896,22 @@
     "example": ""
   },
   {
+    "lemma": "udzaka",
+    "ipa": "udzaka",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "celery"
+    ],
+    "italian": [
+      "sedano"
+    ],
+    "byakuzhi": "セロリ",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "ufuosu",
     "ipa": "ufuosu",
     "pos": "v",
@@ -16971,6 +20939,22 @@
       "realizzare/creare/fare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "uhil-su",
+    "ipa": "uhil su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to pickle"
+    ],
+    "italian": [
+      "mettere in salamoia / marinare"
+    ],
+    "byakuzhi": "漬તાધ્‌ટે",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -17072,6 +21056,22 @@
     "example": ""
   },
   {
+    "lemma": "unduhi",
+    "ipa": "unduhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "shimeji"
+    ],
+    "italian": [
+      "shimeji"
+    ],
+    "byakuzhi": "占地",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "unedasu",
     "ipa": "unedasu",
     "pos": "v",
@@ -17136,6 +21136,22 @@
     "example": ""
   },
   {
+    "lemma": "untun",
+    "ipa": "untun",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "udon"
+    ],
+    "italian": [
+      "udon"
+    ],
+    "byakuzhi": "饂飩",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "upe",
     "ipa": "upe",
     "pos": "n",
@@ -17147,6 +21163,22 @@
       "paura"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "uppi",
+    "ipa": "uppi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "nori"
+    ],
+    "italian": [
+      "nori"
+    ],
+    "byakuzhi": "海苔",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -17179,6 +21211,22 @@
       "orso"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "usumuteryo",
+    "ipa": "usumuterjo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bear meat"
+    ],
+    "italian": [
+      "carne d'orso"
+    ],
+    "byakuzhi": "熊肉",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -17225,6 +21273,22 @@
     ],
     "italian": [
       "separarsi (intr.)"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "utsunena",
+    "ipa": "utsunena",
+    "pos": "adj",
+    "origin": "native",
+    "english": [
+      "last"
+    ],
+    "italian": [
+      "ultimo"
     ],
     "byakuzhi": "",
     "askaoza": "",
@@ -17307,6 +21371,22 @@
       "ghiro"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "wanhageku",
+    "ipa": "wanhaɡeku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "oats"
+    ],
+    "italian": [
+      "avena"
+    ],
+    "byakuzhi": "燕麦",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -17424,6 +21504,22 @@
     "example": ""
   },
   {
+    "lemma": "wasabi",
+    "ipa": "wasabi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "wasabi"
+    ],
+    "italian": [
+      "wasabi"
+    ],
+    "byakuzhi": "山葵",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "washika",
     "ipa": "waʃika",
     "pos": "n",
@@ -17488,6 +21584,22 @@
     "example": ""
   },
   {
+    "lemma": "weskeizhu",
+    "ipa": "weskeidʒu",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "bay leaf"
+    ],
+    "italian": [
+      "alloro"
+    ],
+    "byakuzhi": "月桂樹",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "wiikena",
     "ipa": "wi:kena",
     "pos": "adj",
@@ -17499,6 +21611,22 @@
       "corretto, giusto"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "winnan",
+    "ipa": "winnan",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "ginkgo nut"
+    ],
+    "italian": [
+      "seme di ginkgo"
+    ],
+    "byakuzhi": "銀杏",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -17632,6 +21760,22 @@
     "example": ""
   },
   {
+    "lemma": "yadagindasu",
+    "ipa": "jadagindasu",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to leave back"
+    ],
+    "italian": [
+      "lasciarsi indietro"
+    ],
+    "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "yadasu",
     "ipa": "jadasu",
     "pos": "v",
@@ -17643,6 +21787,38 @@
       "lasciare"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yagiyūse",
+    "ipa": "jaɡijuːse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "goat cheese"
+    ],
+    "italian": [
+      "formaggio caprino"
+    ],
+    "byakuzhi": "山羊酪",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yahori",
+    "ipa": "jahoɾi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sea cucumber"
+    ],
+    "italian": [
+      "cetriolo di mare"
+    ],
+    "byakuzhi": "海鼠",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -17696,6 +21872,22 @@
     "example": ""
   },
   {
+    "lemma": "yatsai",
+    "ipa": "jatsai",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "vegetable"
+    ],
+    "italian": [
+      "verdura"
+    ],
+    "byakuzhi": "野菜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "yeison",
     "ipa": "jeison",
     "pos": "num",
@@ -17707,6 +21899,22 @@
       "otto"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yekatuhi",
+    "ipa": "jekatuhi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "maitake"
+    ],
+    "italian": [
+      "maitake"
+    ],
+    "byakuzhi": "舞茸",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -17840,6 +22048,22 @@
     "example": ""
   },
   {
+    "lemma": "yozhān",
+    "ipa": "joʒaːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "fish sauce"
+    ],
+    "italian": [
+      "colatura di pesce"
+    ],
+    "byakuzhi": "魚醤",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "yue",
     "ipa": "jue",
     "pos": "adv",
@@ -17968,6 +22192,38 @@
     "example": ""
   },
   {
+    "lemma": "yurte",
+    "ipa": "juɾte",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "turnip"
+    ],
+    "italian": [
+      "rapa"
+    ],
+    "byakuzhi": "蕪",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yushi-su",
+    "ipa": "juʃi su",
+    "pos": "v",
+    "origin": "native",
+    "english": [
+      "to steam"
+    ],
+    "italian": [
+      "cuocere al vapore"
+    ],
+    "byakuzhi": "蒸યાટે",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "yuteno",
     "ipa": "yuteno",
     "pos": "n",
@@ -17984,6 +22240,22 @@
     "example": ""
   },
   {
+    "lemma": "yutsi",
+    "ipa": "jutsi",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "yuzu"
+    ],
+    "italian": [
+      "yuzu"
+    ],
+    "byakuzhi": "柚子",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
     "lemma": "yutso",
     "ipa": "juʦo",
     "pos": "n",
@@ -17995,6 +22267,86 @@
       "ghiaccio"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yān",
+    "ipa": "jaːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "mutton"
+    ],
+    "italian": [
+      "montone / pecora"
+    ],
+    "byakuzhi": "羊",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yānlika",
+    "ipa": "jaːnlika",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "European pear"
+    ],
+    "italian": [
+      "pera europea"
+    ],
+    "byakuzhi": "洋梨",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yānnyūse",
+    "ipa": "jaːnnjuːse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sheep cheese"
+    ],
+    "italian": [
+      "formaggio pecorino"
+    ],
+    "byakuzhi": "羊酪",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yānyūn",
+    "ipa": "jaːnnjuːn",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "sheep's milk"
+    ],
+    "italian": [
+      "latte ovino"
+    ],
+    "byakuzhi": "羊乳",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "yūse",
+    "ipa": "juːse",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "soft cheese"
+    ],
+    "italian": [
+      "formaggio fresco"
+    ],
+    "byakuzhi": "酪",
     "askaoza": "",
     "notes": "",
     "example": ""
@@ -18267,6 +22619,54 @@
       "cascata"
     ],
     "byakuzhi": "",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "īsmus yatsai",
+    "ipa": "iːsmus jatsai",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "leafy vegetable"
+    ],
+    "italian": [
+      "verdura a foglia"
+    ],
+    "byakuzhi": "葉物野菜",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ōdakeku",
+    "ipa": "oːdakeku",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "pearl barley"
+    ],
+    "italian": [
+      "orzo perlato"
+    ],
+    "byakuzhi": "大麦",
+    "askaoza": "",
+    "notes": "",
+    "example": ""
+  },
+  {
+    "lemma": "ōdamaketanbo",
+    "ipa": "oːdamaketanbo",
+    "pos": "n",
+    "origin": "native",
+    "english": [
+      "halibut"
+    ],
+    "italian": [
+      "halibut"
+    ],
+    "byakuzhi": "大平目魚",
     "askaoza": "",
     "notes": "",
     "example": ""
