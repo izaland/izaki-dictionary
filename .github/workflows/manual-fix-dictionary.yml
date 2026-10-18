@@ -144,24 +144,26 @@ jobs:
         with open('data/dictionary.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         
-        # Create report
-        report = f"""# Dictionary Fix Report
-
-## Summary
-- Initial entries: {len(entries) + duplicates_removed}
-- Final entries: {len(entries)}
-- Native words: {final_native}
-- Compounds: {final_compound}
-
-## Changes
-- IPA generated for compounds: {ipa_generated}
-- Duplicates removed: {duplicates_removed}
-
-## Verification
-✅ Native words preserved
-✅ Compounds have IPA
-✅ No duplicate (lemma, byakuzhi) pairs
-"""
+        # Create report (lines joined, so no text sits at column 0 inside the YAML block)
+        report = "\n".join([
+            "# Dictionary Fix Report",
+            "",
+            "## Summary",
+            f"- Initial entries: {len(entries) + duplicates_removed}",
+            f"- Final entries: {len(entries)}",
+            f"- Native words: {final_native}",
+            f"- Compounds: {final_compound}",
+            "",
+            "## Changes",
+            f"- IPA generated for compounds: {ipa_generated}",
+            f"- Duplicates removed: {duplicates_removed}",
+            "",
+            "## Verification",
+            "✅ Native words preserved",
+            "✅ Compounds have IPA",
+            "✅ No duplicate (lemma, byakuzhi) pairs",
+            "",
+        ])
         
         with open('fix_report.txt', 'w', encoding='utf-8') as f:
             f.write(report)
