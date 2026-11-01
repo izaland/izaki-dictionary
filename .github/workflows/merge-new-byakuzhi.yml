@@ -1,0 +1,34 @@
+name: Merge New Byakuzhi
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Merge new byakuzhi
+        run: python3 scripts/merge_new_byakuzhi.py
+
+      - name: Commit updated database
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/placename-byakuzhi.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "merge: integrate new byakuzhi candidates into placename database"
+            git push
+          fi
